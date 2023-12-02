@@ -1,6 +1,6 @@
 import { addDays, isAfter, isEqual } from 'date-fns';
 import type { Nominal } from '../../util/nominal';
-import { Builder, Transformer, Invariants } from '../../util/nominal';
+import { Builder, SafeBuilder, Invariants } from '../../util/nominal';
 import type { Period } from './period';
 
 const name = 'EntryPeriod';
@@ -15,5 +15,5 @@ const invariants = Invariants.buildSingle<EntryPeriod>(
 );
 export const EntryPeriod = {
   ...Builder<EntryPeriod>(name),
-  ...Transformer<EntryPeriod>(name, invariants),
+  ...SafeBuilder<EntryPeriod>(name, invariants),
 } as const;

@@ -2,7 +2,7 @@ import { isAfter, isBefore, isEqual, addDays } from 'date-fns';
 import { assertNever } from '../../util/assertNever';
 import type { AtLeastOne } from '../../util/atLeastOnce';
 import type { InvariantsError, Nominal } from '../../util/nominal';
-import { Transformer, Invariants, InvariantUnit } from '../../util/nominal';
+import { SafeBuilder, Invariants, InvariantUnit } from '../../util/nominal';
 import type { WithAggregateId } from '../../util/resolver';
 import type { Result } from '../../util/result';
 import { Failure, Success } from '../../util/result';
@@ -173,7 +173,7 @@ const create = (timeline: Timeline): TimelineCreated =>
   TimelineCreated.build(timeline.value.aggregateId, timeline);
 
 export const Timeline = {
-  ...Transformer<Timeline>(name, invariants),
+  ...SafeBuilder<Timeline>(name, invariants),
   enableCancel,
   enableChangeRestriction,
   enableCallOff,

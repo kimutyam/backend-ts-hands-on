@@ -1,6 +1,6 @@
 import { monotonicFactory, isValid } from 'ulidx';
 import type { Nominal } from '../../util/nominal';
-import { Generator, Transformer, Invariants } from '../../util/nominal';
+import { Generator, SafeBuilder, Invariants } from '../../util/nominal';
 
 const name = 'UserAccountId';
 export type UserAccountId = Nominal<typeof name, string>;
@@ -11,6 +11,6 @@ const invariants = Invariants.buildSingle<UserAccountId>(
 );
 
 export const UserAccountId = {
-  ...Transformer<UserAccountId>(name, invariants),
+  ...SafeBuilder<UserAccountId>(name, invariants),
   ...Generator<UserAccountId>(name, invariants)(monotonicFactory()),
 } as const;

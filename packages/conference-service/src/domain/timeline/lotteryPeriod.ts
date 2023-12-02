@@ -1,6 +1,6 @@
 import { addDays, isAfter, isEqual } from 'date-fns';
 import type { Nominal } from '../../util/nominal';
-import { Transformer, Invariants } from '../../util/nominal';
+import { SafeBuilder, Invariants } from '../../util/nominal';
 import type { Period } from './period';
 
 const name = 'LotteryPeriod';
@@ -16,5 +16,5 @@ const invariants = Invariants.buildSingle<LotteryPeriod>(
 );
 
 export const LotteryPeriod = {
-  ...Transformer<LotteryPeriod>(name, invariants),
+  ...SafeBuilder<LotteryPeriod>(name, invariants),
 } as const;

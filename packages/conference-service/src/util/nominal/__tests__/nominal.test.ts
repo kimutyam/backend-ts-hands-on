@@ -4,7 +4,7 @@ import { Builder } from '../builder';
 import { Generator } from '../generator';
 import { InvariantUnit, Invariants } from '../invariants';
 import { Nominal } from '../nominal';
-import { Transformer } from '../transformer';
+import { SafeBuilder } from '../safeBuilder';
 
 describe('公証型', () => {
   const name = 'DummyNominal';
@@ -16,28 +16,28 @@ describe('公証型', () => {
     buildInvariantUnit((value) => value.slice(0, 1) === 'b', 'Dummy should start with b.'),
   );
 
-  const transformer = Transformer<DummyNominal>(name, invariants);
+  const saleBuilder = SafeBuilder<DummyNominal>(name, invariants);
   const builder = Builder<DummyNominal>(name, invariants);
   const generator = Generator<DummyNominal>(name, invariants)(() => 'bonbonbon');
 
-  it('new', () => {
+  it('build', () => {
     const value = 'bar';
     const dummy = builder.build(value);
     expect(dummy.name).toBe(name);
     expect(dummy.value).toBe(value);
   });
 
-  it('transform', () => {
+  it('saleBuild', () => {
     const value = 'bar';
-    const dummyResult = transformer.transform(value);
+    const dummyResult = saleBuilder.safeBuild(value);
     assert(dummyResult.success);
     expect(dummyResult.data.name).toBe(name);
     expect(dummyResult.data.value).toBe(value);
   });
 
-  it('transform error', () => {
+  it('saleBuild error', () => {
     const value = 'b';
-    const dummyResult = transformer.transform(value);
+    const dummyResult = saleBuilder.safeBuild(value);
     assert(!dummyResult.success);
     expect(dummyResult.error.issues).toHaveLength(1);
     expect(dummyResult.error.name).toBe('InvariantsError');

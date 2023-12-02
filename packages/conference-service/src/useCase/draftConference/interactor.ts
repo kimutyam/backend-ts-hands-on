@@ -32,11 +32,11 @@ const createTimeline = (
   timelineDto?: TimelineDto,
 ): Result<UseCaseError, TimelineCreated> | undefined => {
   if (timelineDto) {
-    const transformedTimeline = Timeline.transform({ aggregateId: conferenceId, ...timelineDto });
-    if (transformedTimeline.success) {
-      return Success(Timeline.create(transformedTimeline.data));
+    const result = Timeline.safeBuild({ aggregateId: conferenceId, ...timelineDto });
+    if (result.success) {
+      return Success(Timeline.create(result.data));
     }
-    return transformedTimeline;
+    return result;
   }
   return undefined;
 };
