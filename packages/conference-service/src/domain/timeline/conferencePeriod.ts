@@ -1,6 +1,6 @@
 import { isEqual, addHours, isAfter } from 'date-fns';
 import type { Nominal } from '../../util/nominal';
-import { Transformer, Invariants } from '../../util/nominal';
+import { SafeBuilder, Invariants } from '../../util/nominal';
 import type { Period } from './period';
 
 const name = 'ConferencePeriod';
@@ -14,5 +14,5 @@ const invariants = Invariants.buildSingle<ConferencePeriod>(
   '期間を2日以上設けてください',
 );
 export const ConferencePeriod = {
-  ...Transformer<ConferencePeriod>(name, invariants),
+  ...SafeBuilder<ConferencePeriod>(name, invariants),
 } as const;

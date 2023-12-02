@@ -1,4 +1,4 @@
-import { type Nominal, Transformer, Invariants } from '../../util/nominal';
+import { type Nominal, SafeBuilder, Invariants } from '../../util/nominal';
 import { InvariantUnit } from '../../util/nominal';
 
 const name = 'maxNumberOfParticipants';
@@ -10,5 +10,5 @@ const invariants = Invariants.build<MaxNumberOfParticipants>(
   buildInvariantUnit((value) => Number.isInteger(value), '整数で指定ください'),
 );
 export const MaxNumberOfParticipants = {
-  ...Transformer<MaxNumberOfParticipants>(name, invariants),
+  ...SafeBuilder<MaxNumberOfParticipants>(name, invariants),
 } as const;
