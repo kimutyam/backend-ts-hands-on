@@ -1,9 +1,6 @@
-import type { ApplicationError } from '../../util/applicationError';
-
-const kind = 'UserAccountNotFoundError';
-export type UserAccountNotFoundError = ApplicationError<typeof kind, Readonly<{ email: string }>>;
-export const UserAccountNotFoundError = (email: string): UserAccountNotFoundError => ({
-  kind,
-  message: 'ユーザーアカウントを認証できません',
-  detail: { email },
-});
+export class UserAccountNotFoundError extends Error {
+  constructor(public readonly email: string) {
+    super('ユーザーアカウントを認証できません');
+    this.name = 'UserAccountNotFoundError';
+  }
+}

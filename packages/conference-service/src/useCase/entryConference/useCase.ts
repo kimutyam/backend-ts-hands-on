@@ -1,7 +1,5 @@
 import type { ConferenceId } from '../../domain/conference';
-import type { AlreadyEnteredError } from '../../domain/entry/aleadyEntriedError';
-import type { EntryApplied } from '../../domain/entry/entered';
-import type { EntryError } from '../../domain/entry/entryService';
+import type { EntryError, AlreadyEnteredError, EntryApplied } from '../../domain/entry';
 import type { TimelineNotFoundError } from '../../domain/timeline';
 import type { UserAccountId } from '../../domain/userAccount/userAccountId';
 import type { Result } from '../../util/result';

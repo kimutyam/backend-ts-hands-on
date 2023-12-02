@@ -9,7 +9,7 @@ export class Interactor implements AuthUserAccountUseCase {
   async run({ email, password }: Input): Promise<Output> {
     const userAccount = await this.userAccountResolver.resolveByEmail(email);
     if (!userAccount) {
-      return Failure(UserAccountNotFoundError(email));
+      return Failure(new UserAccountNotFoundError(email));
     }
     return UserAccount.auth(password)(userAccount);
   }

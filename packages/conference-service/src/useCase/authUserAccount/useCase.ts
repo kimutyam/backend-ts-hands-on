@@ -1,6 +1,6 @@
 import type { UserAccountNotFoundError } from '../../domain/userAccount';
 import type { Authed } from '../../domain/userAccount/authed';
-import type { AuthError } from '../../domain/userAccount/userAccount';
+import type { AuthError } from '../../domain/userAccount/authError';
 import type { Result } from '../../util/result';
 import type { UseCase } from '../useCase';
 

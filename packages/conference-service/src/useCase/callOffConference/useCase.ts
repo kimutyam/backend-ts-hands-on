@@ -1,6 +1,5 @@
-import type { ConferenceId, ConferenceNotFoundError } from '../../domain/conference';
+import type { ConferenceId, ConferenceNotFoundError, CallOffError } from '../../domain/conference';
 import type { CalledOff } from '../../domain/conference/calledOff';
-import type { CallOffError } from '../../domain/conference/callOffService';
 import type { TimelineNotFoundError } from '../../domain/timeline';
 import type { Result } from '../../util/result';
 import type { UseCase } from '../useCase';

@@ -1,5 +1,4 @@
-import type { ConferenceId, ConferenceNotFoundError } from '../../domain/conference';
-import type { PublishError } from '../../domain/conference/conference';
+import type { ConferenceId, ConferenceNotFoundError, PublishError } from '../../domain/conference';
 import type { Published } from '../../domain/conference/published';
 import type { Result } from '../../util/result';
 import type { UseCase } from '../useCase';

@@ -1,5 +1,4 @@
-import { AlreadyEnteredError } from '../../domain/entry/aleadyEntriedError';
-import { EntryService } from '../../domain/entry/entryService';
+import { AlreadyEnteredError, EntryService } from '../../domain/entry';
 import type { EntryAppliedStore, EntryResolver } from '../../domain/entry/repository';
 import { TimelineNotFoundError } from '../../domain/timeline';
 import type { TimelineResolver } from '../../domain/timeline';
@@ -16,11 +15,11 @@ export class Interactor implements EntryUseCase {
   async run({ userAccountId, conferenceId, now }: Input): Promise<Output> {
     const entry = await this.entryResolver.resolveById({ userAccountId, conferenceId });
     if (entry !== undefined) {
-      return Failure(AlreadyEnteredError(entry));
+      return Failure(new AlreadyEnteredError(entry));
     }
     const timeline = await this.timelineResolver.resolveById(conferenceId);
     if (timeline === undefined) {
-      return Failure(TimelineNotFoundError(conferenceId));
+      return Failure(new TimelineNotFoundError(conferenceId));
     }
     const applyResult = EntryService(timeline, userAccountId, conferenceId, now);
     if (applyResult.success) {
