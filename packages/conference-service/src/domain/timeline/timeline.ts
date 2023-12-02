@@ -31,7 +31,7 @@ const aggregateType = 'Timeline';
 
 const buildInvariantUnit = InvariantUnit<Timeline>;
 
-const invariants = Invariants.buildMulti<Timeline>(
+const invariants = Invariants.build<Timeline>(
   name,
   buildInvariantUnit(
     ({ entryPeriod, lotteryPeriod }) =>

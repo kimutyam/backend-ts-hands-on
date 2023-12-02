@@ -4,7 +4,7 @@ import { InvariantUnit } from '../../util/nominal';
 const name = 'maxNumberOfParticipants';
 export type MaxNumberOfParticipants = Nominal<typeof name, number>;
 const buildInvariantUnit = InvariantUnit<MaxNumberOfParticipants>;
-const invariants = Invariants.buildMulti<MaxNumberOfParticipants>(
+const invariants = Invariants.build<MaxNumberOfParticipants>(
   name,
   buildInvariantUnit((value) => value > 0, '0より大きい数値をしてください'),
   buildInvariantUnit((value) => Number.isInteger(value), '整数で指定ください'),

@@ -1,5 +1,7 @@
+import assert from 'node:assert';
 import { Failure, Success } from '../result';
 import { Invariants } from './invariants';
+import type { InvariantsError } from './invariantsError';
 import type { NominalResult } from './nominalResult';
 
 export type Nominal<Name extends string, T> = Readonly<{
@@ -26,7 +28,8 @@ const modify =
   <N extends AnyNominal>(f: ModifyFn<N>, invariants: Invariants<N>) =>
   (n: N): N => {
     const value = f(n.value);
-    Invariants.assert(value)(invariants);
+    let error: InvariantsError<N> | undefined;
+    assert((error = Invariants.validate(value)(invariants)) === undefined, error?.message);
     return { ...n, value };
   };
 export const Nominal = {

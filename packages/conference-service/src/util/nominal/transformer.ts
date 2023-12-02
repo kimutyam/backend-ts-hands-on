@@ -1,6 +1,5 @@
 import { pipe } from 'remeda';
 import { Failure, Success } from '../result';
-import { Builder } from './builder';
 import { Invariants } from './invariants';
 import type { AnyNominal, NominalName, NominalValue } from './nominal';
 import type { NominalResult } from './nominalResult';
@@ -15,8 +14,6 @@ export const Transformer = <N extends AnyNominal>(
 ): Transformer<N> => ({
   transform: (value: NominalValue<N>): NominalResult<N> =>
     pipe(invariants, Invariants.validate(value), (invariantsError) =>
-      invariantsError
-        ? Failure(invariantsError)
-        : Success(Builder<N>(name, invariants).build(value)),
+      invariantsError === undefined ? Success({ name, value }) : Failure(invariantsError),
     ),
 });

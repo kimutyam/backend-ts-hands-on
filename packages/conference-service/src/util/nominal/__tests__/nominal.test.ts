@@ -10,7 +10,7 @@ describe('公証型', () => {
   const name = 'DummyNominal';
   type DummyNominal = Nominal<typeof name, string>;
   const buildInvariantUnit = InvariantUnit<DummyNominal>;
-  const invariants = Invariants.buildMulti<DummyNominal>(
+  const invariants = Invariants.build<DummyNominal>(
     name,
     buildInvariantUnit((value) => value.length >= 3, 'Dummy should be at least 3 characters.'),
     buildInvariantUnit((value) => value.slice(0, 1) === 'b', 'Dummy should start with b.'),
@@ -39,9 +39,9 @@ describe('公証型', () => {
     const value = 'b';
     const dummyResult = transformer.transform(value);
     assert(!dummyResult.success);
-    expect(dummyResult.error.descriptions).toHaveLength(1);
-    expect(dummyResult.error.name).toBe('DummyNominal');
-    expect(dummyResult.error.descriptions[0]).toBe('Dummy should be at least 3 characters.');
+    expect(dummyResult.error.issues).toHaveLength(1);
+    expect(dummyResult.error.name).toBe('InvariantsError');
+    expect(dummyResult.error.issues[0]).toBe('Dummy should be at least 3 characters.');
   });
 
   it('generate', () => {
@@ -66,9 +66,9 @@ describe('公証型', () => {
       Nominal.safeModify((v) => v.slice(0, 1), invariants),
     );
     assert(!modified.success);
-    expect(modified.error.name).toBe('DummyNominal');
-    expect(modified.error.descriptions).toHaveLength(1);
-    expect(modified.error.descriptions).toEqual(
+    expect(modified.error.name).toBe('InvariantsError');
+    expect(modified.error.issues).toHaveLength(1);
+    expect(modified.error.issues).toEqual(
       expect.arrayContaining(['Dummy should be at least 3 characters.']),
     );
   });

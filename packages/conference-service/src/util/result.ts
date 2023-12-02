@@ -8,7 +8,7 @@ export type Failure<E> = Readonly<{
   success: false;
   error: E;
 }>;
-export const Failure = <E extends { kind: string }>(error: E): Failure<E> => ({
+export const Failure = <E>(error: E): Failure<E> => ({
   success: false,
   error,
 });
