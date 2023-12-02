@@ -1,3 +1,4 @@
+import assert from 'node:assert';
 import { pipe } from 'remeda';
 import * as R from 'remeda';
 import { NonEmptyReadonlyArray } from '../nonEmptyReadonlyArray';
@@ -56,7 +57,15 @@ const validate =
           : undefined,
     );
 
+const assertInvariants =
+  <N extends AnyNominal>(value: NominalValue<N>) =>
+  (invariants: Invariants<N>): void => {
+    let error: InvariantsError<N> | undefined;
+    assert((error = Invariants.validate(value)(invariants)) === undefined, error?.message);
+  };
+
 export const Invariants = {
+  assert: assertInvariants,
   buildSingle,
   build,
   validate,
