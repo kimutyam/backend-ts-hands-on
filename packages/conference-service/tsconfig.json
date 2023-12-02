@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist"
+  },
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+  "references": [
+    {
+      "path": "../libs/example-hello"
+    }
+  ]
+}

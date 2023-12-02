@@ -1,0 +1,10 @@
+---
+# Reference: https://yamllint.readthedocs.io/en/stable/configuration.html
+extends: default
+rules:
+  line-length:
+    max: 140
+    level: warning
+  truthy:
+    allowed-values: ['true', 'false']
+    check-keys: false

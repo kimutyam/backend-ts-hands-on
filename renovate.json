@@ -1,0 +1,77 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "addLabels": [
+    "dependencies"
+  ],
+  "automergeSchedule": [
+    "every weekend",
+    "before 5am on Monday"
+  ],
+  "extends": [
+    "config:base",
+    ":timezone(Asia/Tokyo)",
+    ":enablePreCommit",
+    ":prHourlyLimitNone"
+  ],
+  "packageRules": [
+    {
+      "groupName": "eslint packages",
+      "matchPackagePatterns": [
+        "^eslint",
+        "^@typescript-eslint",
+        "^pre-commit/mirrors-eslint$"
+      ]
+    },
+    {
+      "automerge": true,
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "automerge": false,
+      "matchPackageNames": [
+        "typescript",
+        "node",
+        "prisma",
+        "jest"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ]
+    },
+    {
+      "automerge": false,
+      "matchPackagePatterns": [
+        "^@nestjs",
+        "^@prisma"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ]
+    },
+    {
+      "groupName": "pino packages",
+      "matchPackagePatterns": [
+        "^pino"
+      ]
+    }
+  ],
+  "prConcurrentLimit": 10,
+  "regexManagers": [
+    {
+      "datasourceTemplate": "npm",
+      "fileMatch": [
+        "(^|/).pre-commit-config.yaml$"
+      ],
+      "matchStrings": [
+        "- '(?<depName>.+)@(?<currentValue>.+)'"
+      ]
+    }
+  ],
+  "schedule": [
+    "every weekend"
+  ],
+  "stabilityDays": 3
+}

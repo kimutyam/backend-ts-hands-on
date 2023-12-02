@@ -1,0 +1,62 @@
+{
+  "name": "backend-ts-hands-on",
+  "version": "1.0.0",
+  "description": "バックエンドTypeScriptのハンズオン",
+  "license": "UNLICENSED",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/libs/*",
+      "packages/book",
+      "packages/fp",
+      "packages/fp-zod",
+      "packages/pure",
+      "packages/pure-zod",
+      "packages/conference-service"
+    ],
+    "nohoist": [
+      "**/prisma",
+      "**/@prisma/client",
+      "**/@nestjs/common"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "18.18.13",
+    "@typescript-eslint/eslint-plugin": "6.13.1",
+    "@typescript-eslint/parser": "6.13.1",
+    "better-typescript-lib": "2.5.0",
+    "eslint": "8.54.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-import": "2.29.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "3.1.0",
+    "typescript": "5.2.2"
+  },
+  "scripts": {
+    "build": "run-p -c build:*",
+    "build:example": "yarn workspace book build",
+    "build:fp": "yarn workspace fp build",
+    "build:fp-zod": "yarn workspace fp-zod build",
+    "build:pure": "yarn workspace pure build",
+    "build:pure-zod": "yarn workspace pure-zod build",
+    "build:libs": "run-p -c build:libs:*",
+    "build:libs:example-hello": "yarn workspace @libs/example-hello build",
+    "lint": "run-p -c lint:*",
+    "lint:example": "yarn workspace example lint",
+    "lint:fp": "yarn workspace fp lint",
+    "lint:fp-zod": "yarn workspace fp-zod lint",
+    "lint:pure": "yarn workspace pure lint",
+    "lint:pure-zod": "yarn workspace pure-zod lint",
+    "lint:conference-service": "yarn workspace conference-service lint",
+    "format": "run-p -c format:*",
+    "format:example": "yarn workspace example format",
+    "format:fp": "yarn workspace fp format",
+    "format:fp-zod": "yarn workspace fp-zod format",
+    "format:pure": "yarn workspace pure format",
+    "format:pure-zod": "yarn workspace pure-zod format",
+    "format:conference-service": "yarn workspace conference-service format",
+    "test": "run-p -c test:*",
+    "test:example": "yarn workspace example test"
+  }
+}

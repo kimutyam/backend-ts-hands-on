@@ -1,0 +1,34 @@
+---
+name: build
+on:
+  workflow_call:
+    inputs:
+      workspace-name:
+        type: string
+        required: true
+      node-version-file:
+        type: string
+        required: true
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ${{ inputs.node-version-file }}
+          cache: yarn
+      - name: yarn install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: workspace ${{ inputs.workspace-name }} install --production=false --frozen-lockfile
+      - name: yarn build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: workspace ${{ inputs.workspace-name }} build
+      - name: yarn test
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: workspace ${{ inputs.workspace-name }} test

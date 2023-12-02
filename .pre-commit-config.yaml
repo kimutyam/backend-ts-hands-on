@@ -1,0 +1,59 @@
+---
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=512']
+      - id: check-json
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: detect-private-key
+      - id: pretty-format-json
+        args: [--autofix]
+        # keyのソートをさせないため
+        exclude: package.json$
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.33.0
+    hooks:
+      - id: yamllint
+        types: [file, yaml]
+        entry: yamllint -c .yamllint.yml --strict
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.54.0
+    hooks:
+      - id: eslint
+        args: [--cache, --max-warnings, '0', --fix]
+        files: \.[jt]sx?$
+        types: [file]
+        exclude: .prettierrc.js$|.eslintrc.js$
+        additional_dependencies:
+          - 'typescript@5.2.2'
+          - 'eslint@8.54.0'
+          - 'eslint-config-airbnb-base@15.0.0'
+          - 'eslint-config-prettier@9.0.0'
+          - 'eslint-plugin-import@2.29.0'
+          - '@typescript-eslint/eslint-plugin@6.13.1'
+          - '@typescript-eslint/parser@6.13.1'
+          - 'eslint-plugin-jest@27.6.0'
+          - 'jest@29.4.3'
+
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.7.3
+    hooks:
+      - id: editorconfig-checker
+
+  - repo: local  # SEE: https://pre-commit.com/#repository-local-hooks
+    hooks:
+      # https://github.com/pre-commit/mirrors-prettier は更新が停止しているため自前構築する
+      - id: prettier
+        name: prettier
+        language: node
+        entry: prettier --write --list-different --ignore-unknown
+        files: \.([jt]sx?)$
+        types: [file]
+        additional_dependencies:
+          - 'prettier@3.1.0'
