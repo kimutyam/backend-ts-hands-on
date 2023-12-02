@@ -1,7 +1,7 @@
 import type { WithAggregateId } from '../../util/resolver';
 import type { ConferenceId } from '../conference';
 import type { UserAccountId } from '../userAccount/userAccountId';
-import { EntryApplied } from './entered';
+import { EntryApplied } from './entryApplied';
 
 export type Entry = WithAggregateId<{ userAccountId: UserAccountId; conferenceId: ConferenceId }>;
 const aggregateType = 'Entry';

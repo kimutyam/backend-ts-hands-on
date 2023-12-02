@@ -15,11 +15,11 @@ export class Interactor implements CallOffConference {
   async run({ conferenceId, reason, now }: Input): Promise<Output> {
     const conference = await this.conferenceResolver.resolveById(conferenceId);
     if (conference === undefined) {
-      return Failure(ConferenceNotFoundError(conferenceId));
+      return Failure(new ConferenceNotFoundError(conferenceId));
     }
     const timeline = await this.timelineResolver.resolveById(conferenceId);
     if (timeline === undefined) {
-      return Failure(TimelineNotFoundError(conferenceId));
+      return Failure(new TimelineNotFoundError(conferenceId));
     }
     const result = CallOffService(conference, timeline, reason, now);
     if (result.success) {

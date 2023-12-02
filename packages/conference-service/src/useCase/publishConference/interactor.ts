@@ -12,7 +12,7 @@ export class Interactor implements PublishConferenceUseCase {
   async run({ conferenceId }: Input): Promise<Output> {
     const conference = await this.conferenceResolver.resolveById(conferenceId);
     if (conference === undefined) {
-      return Failure(ConferenceNotFoundError(conferenceId));
+      return Failure(new ConferenceNotFoundError(conferenceId));
     }
     const publishResult = Conference.publish(conference);
     if (publishResult.success) {

@@ -1,8 +1,7 @@
 import type { ConferenceId } from '../../domain/conference';
-import type { RestrictionNotFoundError } from '../../domain/participants';
+import type { RestrictionNotFoundError, RestrictionChangeError } from '../../domain/participants';
 import type { MaxNumberOfParticipants } from '../../domain/participants/maxNumberOfParticipants';
 import type { RestrictionChanged } from '../../domain/participants/restrictionChanged';
-import type { RestrictionChangeError } from '../../domain/participants/restrictionChangeService';
 import type { TimelineNotFoundError } from '../../domain/timeline';
 import type { Result } from '../../util/result';
 import type { UseCase } from '../useCase';

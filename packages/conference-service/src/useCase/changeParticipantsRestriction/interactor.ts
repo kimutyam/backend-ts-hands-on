@@ -1,5 +1,5 @@
 import type { RestrictionChangedStore, RestrictionResolver } from '../../domain/participants';
-import { RestrictionNotFoundError, RestrictionChangeService } from '../../domain/participants';
+import { RestrictionChangeService, RestrictionNotFoundError } from '../../domain/participants';
 import { TimelineNotFoundError } from '../../domain/timeline';
 import type { TimelineResolver } from '../../domain/timeline';
 import { Failure } from '../../util/result';
@@ -15,11 +15,11 @@ export class Interactor implements ChangeParticipantsRestriction {
   async run({ conferenceId, maxLimit, now }: Input): Promise<Output> {
     const restriction = await this.restrictionResolver.resolveById(conferenceId);
     if (restriction === undefined) {
-      return Failure(RestrictionNotFoundError(conferenceId));
+      return Failure(new RestrictionNotFoundError(conferenceId));
     }
     const timeline = await this.timelineResolver.resolveById(conferenceId);
     if (timeline === undefined) {
-      return Failure(TimelineNotFoundError(conferenceId));
+      return Failure(new TimelineNotFoundError(conferenceId));
     }
     const changeResult = RestrictionChangeService(timeline, restriction, maxLimit, now);
     if (changeResult.success) {
