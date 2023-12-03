@@ -1,7 +1,7 @@
-import { Stock } from '../150_nominal_sample/stock';
+import { StockReservationError } from '../140_domain_service/stockReservationError';
+import { Stock } from '../150_domain_service_nominal_invariants/stock';
 import type { Result } from '../60_nominal_builder_assert/result';
 import { Failure, Success } from '../60_nominal_builder_assert/result';
-import { StockReservationError } from './stockReservationError';
 
 type Product = {
   id: string;
