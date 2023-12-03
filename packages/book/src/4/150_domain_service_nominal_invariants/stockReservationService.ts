@@ -1,5 +1,5 @@
-import { separate } from '../140_sample/result';
-import { StockReservationError } from '../140_sample/stockReservationError';
+import { separate } from '../140_domain_service/result';
+import { StockReservationError } from '../140_domain_service/stockReservationError';
 import type { Result } from '../60_nominal_builder_assert/result';
 import { Failure, Success } from '../60_nominal_builder_assert/result';
 import { Stock } from './stock';
@@ -43,7 +43,12 @@ export const StockReservationService = (
 
   const [lefts, rights] = separate(results);
   if (lefts.length > 0) {
-    return Failure(new StockReservationError(order.orderId, lefts));
+    return Failure(
+      new StockReservationError(
+        order.orderId,
+        lefts.map(({ productId, stock }) => ({ productId, stockDiff: stock })),
+      ),
+    );
   }
   return Success(rights);
 };

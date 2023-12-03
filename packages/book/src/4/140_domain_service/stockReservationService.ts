@@ -35,14 +35,19 @@ export const StockReservationService = (
     const { productId } = orderItem.product;
     const productStock = productStocks.find((p) => p.productId === productId);
     const stock = productStock?.stock || 0;
-    return { productId, stock: stock - orderItem.quantity };
+    return { productId, stockDiff: stock - orderItem.quantity };
   });
   const minusStockPlans = reservePlans.filter(
-    (updatedProductStock) => updatedProductStock.stock < 0,
+    (updatedProductStock) => updatedProductStock.stockDiff < 0,
   );
 
   if (minusStockPlans.length === 0) {
-    return Success(reservePlans);
+    return Success(
+      reservePlans.map(({ productId, stockDiff }) => ({
+        productId,
+        stock: stockDiff,
+      })),
+    );
   }
   return Failure(new StockReservationError(order.orderId, minusStockPlans));
 };
