@@ -3731,9 +3731,9 @@ regexp.prototype.flags@^1.5.1:
     set-function-name "^2.0.0"
 
 remeda@^1.26.0:
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-1.30.0.tgz#25484f22eb7ea2dbc915f9817aa2807442552fd6"
-  integrity sha512-KzdPP0PCxSdafrJlaaNOvxGCout+qNBb9lefLLbWBC6YOpskVXbOA4hmSGnKHe5/MRHjIa8qhsZjvbE2eU/l2w==
+  version "1.33.0"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-1.33.0.tgz#3d894340f4bb02b95456c28b0394383ff4cf7435"
+  integrity sha512-GExMiOhTB0eg1Rc7hvBMBNxwlVRYIulGfIj5pkuuAfy9HB3ms4PmLvbhMMjQ2btoCit0iN7eQmHgwTaGZTVWwg==
 
 require-directory@^2.1.1:
   version "2.1.1"
