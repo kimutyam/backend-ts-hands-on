@@ -1,30 +1,7 @@
 import type { Result } from '../60_nominal_builder_assert/result';
 import { Failure, Success } from '../60_nominal_builder_assert/result';
 import { StockReservationError } from './stockReservationError';
-
-/** 商品在庫 */
-type ProductStock = {
-  productId: string;
-  stock: number;
-};
-
-/** 商品 */
-type Product = {
-  productId: string;
-  price: number;
-};
-
-/** 注文項目 */
-type OrderItem = {
-  product: Product;
-  quantity: number;
-};
-
-/** 注文 */
-type Order = {
-  orderId: string;
-  orderItems: ReadonlyArray<OrderItem>;
-};
+import type { Order, ProductStock } from './types';
 
 /** 在庫引当サービス */
 export const StockReservationService = (
