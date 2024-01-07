@@ -21,7 +21,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "18.18.13",
+    "@types/node": "18.19.4",
     "@typescript-eslint/eslint-plugin": "6.17.0",
     "@typescript-eslint/parser": "6.17.0",
     "better-typescript-lib": "2.6.0",
