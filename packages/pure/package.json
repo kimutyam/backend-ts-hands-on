@@ -16,9 +16,6 @@
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch"
   },
-  "dependencies": {
-    "@libs/example-hello": "*"
-  },
   "devDependencies": {
     "@types/jest": "29.5.3",
     "@types/node": "18.18.13",
