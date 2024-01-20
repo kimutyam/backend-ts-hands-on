@@ -8,6 +8,7 @@ export type Success<T> = ResultBase<true> &
   }>;
 
 export const Success = <T>(data: T): Success<T> => ({ success: true, data });
+
 export type Failure<E> = ResultBase<false> &
   Readonly<{
     error: E;
@@ -17,4 +18,4 @@ export const Failure = <E>(error: E): Failure<E> => ({
   error,
 });
 
-export type Result<E, T> = Failure<E> | Success<T>;
+export type Result<T, E> = Success<T> | Failure<E>;

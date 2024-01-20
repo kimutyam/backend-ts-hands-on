@@ -11,7 +11,7 @@ class Bill {
   }
 }
 
-export function splitBill(bill: Bill, members: number): Result<SplitBillError, number> {
+export function splitBill(bill: Bill, members: number): Result<number, SplitBillError> {
   assert(members >= 2, '2人以上を指定してください');
   const calculated = bill.value / members;
   if (!Number.isInteger(calculated)) {

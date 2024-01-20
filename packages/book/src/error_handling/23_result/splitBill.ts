@@ -4,7 +4,7 @@ import type { Result } from './result';
 import { Failure, Success } from './result';
 import type { SplitBillError } from './splitBillError';
 
-export function splitBill(bill: number, members: number): Result<SplitBillError, number> {
+export function splitBill(bill: number, members: number): Result<number, SplitBillError> {
   if (members < 2) {
     return Failure(new NumberOfMembersError('2人以上を指定してください', members));
   }
