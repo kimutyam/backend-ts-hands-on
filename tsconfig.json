@@ -13,7 +13,7 @@
     "extendedDiagnostics": false,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "module": "commonjs",
+    "module": "ESNext",
     "moduleResolution": "node",
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
