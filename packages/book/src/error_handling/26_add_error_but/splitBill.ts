@@ -5,7 +5,7 @@ import { Failure, Success } from '../23_result/result';
 import { BillError } from './billError';
 import type { SplitBillError } from './splitBillError';
 
-export function splitBill(bill: number, members: number): Result<SplitBillError, number> {
+export function splitBill(bill: number, members: number): Result<number, SplitBillError> {
   if (bill <= 0) {
     return Failure(new BillError('勘定は0より大きくしてください', bill));
   }

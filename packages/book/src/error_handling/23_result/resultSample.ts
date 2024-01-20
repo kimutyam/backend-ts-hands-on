@@ -1,7 +1,7 @@
 import type { Result } from './result';
 import { Success } from './result';
 
-function foo(): Result<Error, number> {
+function foo(): Result<number, Error> {
   return Success(42);
 }
 

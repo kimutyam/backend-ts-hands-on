@@ -13,7 +13,7 @@ export class BinaryNumber {
     throw new Error(`未実装。value:${n}`);
   }
 
-  static create(value: string): Result<FormatError, BinaryNumber> {
+  static create(value: string): Result<BinaryNumber, FormatError> {
     return isBinaryNumber(value)
       ? Success(new BinaryNumber(value))
       : Failure(new FormatError('2進数のフォーマットではありません'));
