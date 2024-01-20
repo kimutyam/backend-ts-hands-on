@@ -6,7 +6,6 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/libs/*",
       "packages/book",
       "packages/fp",
       "packages/fp-zod",
@@ -40,8 +39,6 @@
     "build:fp-zod": "yarn workspace fp-zod build",
     "build:pure": "yarn workspace pure build",
     "build:pure-zod": "yarn workspace pure-zod build",
-    "build:libs": "run-p -c build:libs:*",
-    "build:libs:example-hello": "yarn workspace @libs/example-hello build",
     "lint": "run-p -c lint:*",
     "lint:example": "yarn workspace example lint",
     "lint:fp": "yarn workspace fp lint",

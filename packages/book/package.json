@@ -17,7 +17,6 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@libs/example-hello": "*",
     "neverthrow": "^6.1.0",
     "remeda": "^1.26.0",
     "ulidx": "^2.1.0",

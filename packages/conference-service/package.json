@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist && yarn --cwd=../.. build:libs",
+    "prebuild": "rimraf dist",
     "build": "tsc --build tsconfig.json",
     "format": "prettier --check \"{src,test}/**/*.ts\"",
     "format:fix": "prettier --write \"{src,test}/**/*.ts\"",
