@@ -14,7 +14,6 @@ on:
       - 'package.json'
       - 'tsconfig.json'
       - 'packages/book/**'
-      - 'packages/libs/**'
   pull_request:
     paths:
       - '.github/workflows/build.yml'
