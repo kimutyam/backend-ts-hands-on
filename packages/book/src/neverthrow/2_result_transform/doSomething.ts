@@ -1,7 +1,7 @@
 import type { Result } from '../0_result/result';
 import { Failure, Success } from '../0_result/result';
 
-type MyError = { error: string };
+type MyError = { message: string };
 type SomeError = { error: string; detail: string };
 
 declare function wrap1(): Result<number, SomeError>;
