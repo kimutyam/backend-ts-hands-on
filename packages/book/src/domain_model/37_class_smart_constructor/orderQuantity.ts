@@ -1,7 +1,7 @@
 import assert from 'node:assert';
+import type { Result } from 'neverthrow';
+import { err, ok } from 'neverthrow';
 import { OrderQuantityError } from '../31_fp_smart_constructor/orderQuantityError';
-import type { Result } from '../31_fp_smart_constructor/result';
-import { Failure, Success } from '../31_fp_smart_constructor/result';
 
 const validate = (value: number): Array<string> => {
   const issues: Array<string> = [];
@@ -20,11 +20,9 @@ const validate = (value: number): Array<string> => {
 export class OrderQuantity {
   private constructor(public value: number) {}
 
-  static safeBuild(value: number): Result<OrderQuantityError, OrderQuantity> {
+  static safeBuild(value: number): Result<OrderQuantity, OrderQuantityError> {
     const issues = validate(value);
-    return issues.length
-      ? Failure(OrderQuantityError.build(issues))
-      : Success(new OrderQuantity(value));
+    return issues.length ? err(OrderQuantityError.build(issues)) : ok(new OrderQuantity(value));
   }
 
   static build(value: number): OrderQuantity {

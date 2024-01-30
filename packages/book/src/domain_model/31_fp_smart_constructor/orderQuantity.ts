@@ -1,7 +1,7 @@
 import assert from 'node:assert';
+import type { Result } from 'neverthrow';
+import { err, ok } from 'neverthrow';
 import { OrderQuantityError } from './orderQuantityError';
-import type { Result } from './result';
-import { Failure, Success } from './result';
 
 export type OrderQuantity = number;
 
@@ -25,9 +25,9 @@ const build = (value: number): OrderQuantity => {
   return value;
 };
 
-const safeBuild = (value: number): Result<OrderQuantityError, OrderQuantity> => {
+const safeBuild = (value: number): Result<OrderQuantity, OrderQuantityError> => {
   const issues = validate(value);
-  return issues.length ? Failure(OrderQuantityError.build(issues)) : Success(value);
+  return issues.length ? err(OrderQuantityError.build(issues)) : ok(value);
 };
 
 export const OrderQuantity = {

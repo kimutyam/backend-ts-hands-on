@@ -1,5 +1,5 @@
-import type { Result } from '../60_nominal_builder_assert/result';
-import { Failure, Success } from '../60_nominal_builder_assert/result';
+import type { Result } from 'neverthrow';
+import { err, ok } from 'neverthrow';
 import { StockReservationError } from './stockReservationError';
 import type { Order, ProductStock } from './types';
 
@@ -7,7 +7,7 @@ import type { Order, ProductStock } from './types';
 export const StockReservationService = (
   order: Order,
   productStocks: ReadonlyArray<ProductStock>,
-): Result<StockReservationError, ReadonlyArray<ProductStock>> => {
+): Result<ReadonlyArray<ProductStock>, StockReservationError> => {
   const reservePlans = order.orderItems.map((orderItem) => {
     const { productId } = orderItem.product;
     const productStock = productStocks.find((p) => p.productId === productId);
@@ -19,12 +19,12 @@ export const StockReservationService = (
   );
 
   if (minusStockPlans.length === 0) {
-    return Success(
+    return ok(
       reservePlans.map(({ productId, stockDiff }) => ({
         productId,
         stock: stockDiff,
       })),
     );
   }
-  return Failure(new StockReservationError(order.orderId, minusStockPlans));
+  return err(new StockReservationError(order.orderId, minusStockPlans));
 };
