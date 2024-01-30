@@ -1,8 +1,7 @@
 import { OrderItem } from '../orderItem';
-import { OrderQuantity } from '../orderQuantity';
 
 describe('等価性のテスト', () => {
-  const x = OrderItem.build({ name: 'apple', price: 100 }, OrderQuantity.build(10));
+  const x = { product: { name: 'apple', price: 100 }, quantity: 10 };
 
   it('全てのプロパティが等価であれば、値オブジェクトは等価である', () => {
     expect(OrderItem.equals(x, x)).toBeTruthy();
@@ -10,10 +9,10 @@ describe('等価性のテスト', () => {
 
   it('1つでも等価でないプロパティがあれば、値オブジェクトは等価ではない', () => {
     expect(
-      OrderItem.equals(x, OrderItem.build({ name: 'apple', price: 100 }, OrderQuantity.build(1))),
+      OrderItem.equals(x, { product: { name: 'apple', price: 100 }, quantity: 1 }),
     ).toBeFalsy();
     expect(
-      OrderItem.equals(x, OrderItem.build({ name: 'orange', price: 100 }, OrderQuantity.build(10))),
+      OrderItem.equals(x, { product: { name: 'orenge', price: 100 }, quantity: 10 }),
     ).toBeFalsy();
   });
 });

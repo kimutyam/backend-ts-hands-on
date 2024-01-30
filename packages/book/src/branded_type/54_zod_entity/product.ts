@@ -1,4 +1,4 @@
-import type { Eq } from '../80_entity/eq';
+import type { Eq } from './eq';
 import type { ProductId } from './productId';
 
 export type Product = Readonly<{

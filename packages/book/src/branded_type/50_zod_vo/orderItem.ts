@@ -1,5 +1,6 @@
+import type { Eq } from './eq';
 import { OrderQuantity } from './orderQuantity';
-import type { Product } from './product';
+import { Product } from './product';
 
 export type OrderItem = Readonly<{
   product: Product;
@@ -20,8 +21,12 @@ const buildSingle = (product: Product): OrderItem => ({
   quantity: OrderQuantity.build(1),
 });
 
+const equals: Eq<OrderItem> = (x: OrderItem, y: OrderItem): boolean =>
+  Product.equals(x.product, y.product) && OrderQuantity.equals(x.quantity, y.quantity);
+
 export const OrderItem = {
   buildSingle,
   add,
   total: calculateTotal,
+  equals,
 } as const;
