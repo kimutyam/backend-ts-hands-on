@@ -9,10 +9,10 @@ const schema = z.number().int().min(1).max(10).brand(OrderQuantityBrand);
 
 export type OrderQuantity = z.infer<typeof schema>;
 
-type Input = z.input<typeof schema>;
+export type OrderQuantityInput = z.input<typeof schema>;
 
-const build = (a: Input): OrderQuantity => schema.parse(a);
-const safeBuild = (a: Input): Result<OrderQuantity, z.ZodError<Input>> =>
+const build = (a: OrderQuantityInput): OrderQuantity => schema.parse(a);
+const safeBuild = (a: OrderQuantityInput): Result<OrderQuantity, z.ZodError<OrderQuantityInput>> =>
   fromZodReturnTypeDefault(schema.safeParse(a));
 
 const equals: Eq<OrderQuantity> = (x: OrderQuantity, y: OrderQuantity): boolean => x === y;
