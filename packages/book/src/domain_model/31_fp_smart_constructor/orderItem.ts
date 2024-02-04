@@ -23,6 +23,12 @@ const build = (product: Product, quantity: OrderQuantity): OrderItem => ({
   quantity: OrderQuantity.build(quantity),
 });
 
+const safeBuild = (
+  product: Product,
+  quantity: OrderQuantity,
+): Result<OrderItem, OrderQuantityError> =>
+  OrderQuantity.safeBuild(quantity).map((orderQuantity) => OrderItem.build(product, orderQuantity));
+
 const buildSingle = (product: Product): OrderItem => ({
   product,
   quantity: OrderQuantity.build(1),
@@ -31,6 +37,7 @@ const buildSingle = (product: Product): OrderItem => ({
 export const OrderItem = {
   build,
   buildSingle,
+  safeBuild,
   add,
   total: calculateTotal,
 } as const;

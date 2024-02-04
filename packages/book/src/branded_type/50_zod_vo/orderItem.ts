@@ -1,4 +1,7 @@
+import type { Result } from 'neverthrow';
+import type { z } from 'zod';
 import type { Eq } from './eq';
+import type { OrderQuantityInput } from './orderQuantity';
 import { OrderQuantity } from './orderQuantity';
 import { Product } from './product';
 
@@ -9,10 +12,11 @@ export type OrderItem = Readonly<{
 
 const add =
   (quantity: OrderQuantity) =>
-  (orderItem: OrderItem): OrderItem => ({
-    ...orderItem,
-    quantity: OrderQuantity.build(orderItem.quantity + quantity),
-  });
+  (orderItem: OrderItem): Result<OrderItem, z.ZodError<OrderQuantityInput>> =>
+    OrderQuantity.safeBuild(orderItem.quantity + quantity).map((t) => ({
+      ...orderItem,
+      quantity: t,
+    }));
 
 const calculateTotal = ({ product, quantity }: OrderItem): number => product.price * quantity;
 
