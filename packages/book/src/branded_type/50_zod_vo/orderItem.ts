@@ -3,7 +3,7 @@ import type { z } from 'zod';
 import type { Eq } from './eq';
 import type { OrderQuantityInput } from './orderQuantity';
 import { OrderQuantity } from './orderQuantity';
-import { Product } from './product';
+import { Product } from './product/product';
 
 export type OrderItem = Readonly<{
   product: Product;
