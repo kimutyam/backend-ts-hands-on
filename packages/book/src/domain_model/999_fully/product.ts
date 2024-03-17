@@ -1,16 +1,18 @@
 import type { Eq } from './eq';
+import type { Price } from './price';
+import { ProductId } from './productId';
 
 export type Product = Readonly<{
-  productId: string;
+  productId: ProductId;
   name: string;
-  price: number;
+  price: Price;
 }>;
 
 const isSameIdentity: Eq<Product> = (x: Product, y: Product): boolean =>
-  x.productId === y.productId;
+  ProductId.equals(x.productId, y.productId);
 
 const changePrice =
-  (price: number) =>
+  (price: Price) =>
   (product: Product): Product => ({ ...product, price });
 
 export const Product = {

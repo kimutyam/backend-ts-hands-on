@@ -1,7 +1,8 @@
 import type { Result } from 'neverthrow';
-import type { Product } from '../20_fp/product';
+import type { OrderQuantityError } from '../31_fp_smart_constructor/orderQuantityError';
+import type { Eq } from './eq';
 import { OrderQuantity } from './orderQuantity';
-import type { OrderQuantityError } from './orderQuantityError';
+import { Product } from './product';
 
 export type OrderItem = Readonly<{
   product: Product;
@@ -34,10 +35,14 @@ const buildSingle = (product: Product): OrderItem => ({
   quantity: OrderQuantity.build(1),
 });
 
+const equals: Eq<OrderItem> = (x: OrderItem, y: OrderItem): boolean =>
+  Product.isSameIdentity(x.product, y.product) && OrderQuantity.equals(x.quantity, y.quantity);
+
 export const OrderItem = {
+  equals,
   build,
-  buildSingle,
   safeBuild,
+  buildSingle,
   add,
   total: calculateTotal,
 } as const;
