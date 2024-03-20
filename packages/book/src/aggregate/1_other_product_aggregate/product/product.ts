@@ -1,5 +1,5 @@
 import type { Eq } from '../eq';
-import type { Price } from './price';
+import type { Price } from '../price/price';
 import { ProductId } from './productId';
 
 export type Product = Readonly<{

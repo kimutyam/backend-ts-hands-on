@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { err, ok, Result } from 'neverthrow';
 import * as R from 'remeda';
-import { Product } from '../product/product';
+import { ProductId } from '../product/productId';
 import { OrderError } from './orderError';
 import type { OrderId } from './orderId';
 import { OrderItem } from './orderItem';
@@ -31,7 +31,7 @@ const withinTotalPrice = (orderItems: ReadonlyArray<OrderItem>): boolean =>
 export const uniqueByProduct = (orderItems: ReadonlyArray<OrderItem>): ReadonlyArray<OrderItem> =>
   R.pipe(
     orderItems,
-    R.uniqBy((oi) => oi.product.productId),
+    R.uniqBy((oi) => oi.productId),
   );
 
 const isUniqueOrderItems = (orderItems: ReadonlyArray<OrderItem>): boolean =>
@@ -72,12 +72,12 @@ const safeBuild = (
 // ルートから実行することで、不変条件を満たすための某。
 // NOTE: 品目の追加に失敗と、注文の制約に失敗は切り分けることとする
 const addOrderItem =
-  ({ product, quantity }: OrderItem) =>
+  ({ productId, quantity }: OrderItem) =>
   ({ orderId, orderItems }: Order): Result<Order, OrderQuantityError | OrderError> =>
     Result.combine(
       // 重複させない仕組み & 品目10個制限
       orderItems.map((orderItem) =>
-        Product.isSameIdentity(orderItem.product, product)
+        ProductId.equals(orderItem.productId, productId)
           ? OrderItem.add(quantity)(orderItem)
           : ok(orderItem),
       ),

@@ -1,11 +1,14 @@
 import type { Result } from 'neverthrow';
 import type { Eq } from '../eq';
+import type { Price } from '../price/price';
 import type { Product } from '../product/product';
+import type { ProductId } from '../product/productId';
 import { OrderQuantity } from './orderQuantity';
 import type { OrderQuantityError } from './orderQuantityError';
 
 export type OrderItem = Readonly<{
-  product: Product;
+  productId: ProductId;
+  price: Price;
   quantity: OrderQuantity;
 }>;
 
@@ -17,10 +20,11 @@ const add =
       quantity: newQuantity,
     }));
 
-const calculateTotal = ({ product, quantity }: OrderItem): number => product.price * quantity;
+const calculateTotal = ({ price, quantity }: OrderItem): number => price * quantity;
 
 const build = (product: Product, quantity: OrderQuantity): OrderItem => ({
-  product,
+  productId: product.productId,
+  price: product.price,
   quantity: OrderQuantity.build(quantity),
 });
 
@@ -31,13 +35,14 @@ const safeBuild = (
   OrderQuantity.safeBuild(quantity).map((orderQuantity) => OrderItem.build(product, orderQuantity));
 
 const buildSingle = (product: Product): OrderItem => ({
-  product,
+  productId: product.productId,
+  price: product.price,
   quantity: OrderQuantity.build(1),
 });
 
 // NOTE: エンティティとみなす
 const isSameIdentity: Eq<OrderItem> = (x: OrderItem, y: OrderItem): boolean =>
-  x.product.productId === y.product.productId;
+  x.productId === y.productId;
 
 export const OrderItem = {
   isSameIdentity,
