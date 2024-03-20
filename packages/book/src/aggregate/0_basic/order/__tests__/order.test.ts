@@ -1,6 +1,6 @@
 import { Price } from '../../product/price';
 import { ProductId } from '../../product/productId';
-import { uniqueByProduct } from '../order';
+import { uniqueByProduct } from '../cart';
 import { OrderItem } from '../orderItem';
 import { OrderQuantity } from '../orderQuantity';
 
@@ -21,6 +21,6 @@ it('uniqueByProduct', () => {
     OrderQuantity.build(1),
   );
   const orderItem3 = OrderItem.build(product1, OrderQuantity.build(1));
-  const uniqueOrderItems = uniqueByProduct([orderItem1, orderItem2, orderItem3]);
+  const uniqueOrderItems = uniqueByProduct({ orderItems: [orderItem1, orderItem2, orderItem3] });
   expect(uniqueOrderItems).toHaveLength(2);
 });
