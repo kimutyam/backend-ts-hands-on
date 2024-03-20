@@ -1,4 +1,4 @@
-import { Price } from '../../product/price';
+import { Price } from '../../price/price';
 import { ProductId } from '../../product/productId';
 import { uniqueByProduct } from '../order';
 import { OrderItem } from '../orderItem';
