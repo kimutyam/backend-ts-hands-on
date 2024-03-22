@@ -1,20 +1,24 @@
-import assert from 'assert';
-import { err, ok, Result } from 'neverthrow';
+import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
+import * as z from 'zod';
+import { fromZodReturnTypeDefault } from '../../../../branded_type/50_zod_vo/resultBuilder';
+import { CustomerId } from '../customer/customerId';
 import { ProductId } from '../product/productId';
-import type { CartError } from './cartError';
-import { CartLimitError } from './cartLimitError';
 import type { Order } from './order';
 import type { OrderId } from './orderId';
 import { OrderItem } from './orderItem';
-import type { OrderQuantity } from './orderQuantity';
-import { TotalPriceLimitError } from './totalPriceLimitError';
-import { TotalQuantityLimitError } from './totalQuantityLimitError';
+import type { OrderQuantityError } from './orderQuantity';
+import { OrderQuantity } from './orderQuantity';
 
-export type Cart = {
-  customerId: CustomerId;
-  orderItems: ReadonlyArray<OrderItem>;
-};
+const schemaWithoutRefinements = z
+  .object({
+    customerId: CustomerId.schema,
+    orderItems: z.array(OrderItem.schema).readonly(),
+  })
+  .readonly();
+
+export type Cart = z.infer<typeof schemaWithoutRefinements>;
+export type CartInput = z.input<typeof schemaWithoutRefinements>;
 
 const CartLimit = 10;
 
@@ -45,76 +49,59 @@ export const uniqueByProduct = ({ customerId, orderItems }: Cart): Cart => {
   return { customerId, orderItems: uniqueOrderItems };
 };
 
-// const isUniqueOrderItems = (cart: Cart): boolean =>
-//   uniqueByProduct(cart).length === cart.orderItems.length;
+const schema = schemaWithoutRefinements
+  .refine(
+    (cart) => withinCartLimit(cart),
+    () => ({ message: `カート上限 ${CartLimit} を上回っています` }),
+  )
+  .refine(
+    (cart) => withinTotalQuantity(cart),
+    () => ({ message: `注文数上限 ${TotalQuantityLimit} を上回っています` }),
+  )
+  .refine(
+    (cart) => withinTotalPrice(cart),
+    () => ({ message: `購入金額上限 ${TotalPriceLimit} を上回っています` }),
+  );
 
-const validate = (cart: Cart): ReadonlyArray<CartError> => {
-  const issues: Array<CartError> = [];
-  if (!withinCartLimit(cart)) {
-    issues.push(new CartLimitError(`カート上限 ${CartLimit} を上回っています`));
-  }
+export type CartError = z.ZodError<CartInput>;
 
-  if (!withinTotalQuantity(cart)) {
-    issues.push(new TotalQuantityLimitError(`注文数上限 ${TotalQuantityLimit} を上回っています`));
-  }
-
-  if (!withinTotalPrice(cart)) {
-    issues.push(new TotalPriceLimitError(`購入金額上限 ${TotalPriceLimit} を上回っています`));
-  }
-  return issues;
-};
+const build = (a: CartInput): Cart => schema.parse(a);
+const safeBuild = (a: CartInput): Result<Cart, CartError> =>
+  fromZodReturnTypeDefault(schema.safeParse(a));
 
 const init = (customerId: CustomerId): Cart => ({
   customerId,
   orderItems: [],
 });
 
-const build = (customerId: CustomerId, orderItems: ReadonlyArray<OrderItem>): Cart => {
-  const cart = uniqueByProduct({ customerId, orderItems });
-  let issues: ReadonlyArray<CartError>;
-  assert((issues = validate(cart)).length === 0, issues.join('\n'));
-  return cart;
-};
-
-const safeBuild = (
-  customerId: CustomerId,
-  orderItems: ReadonlyArray<OrderItem>,
-): Result<Cart, ReadonlyArray<CartError>> => {
-  const cart = uniqueByProduct({ customerId, orderItems });
-  const issues = validate(cart);
-  return issues.length ? err(issues) : ok(cart);
-};
-
 // ルートから実行することで、不変条件を満たすための某。
 const addProduct =
   (productId: ProductId) =>
-  (cart: Cart): Result<Cart, ReadonlyArray<CartError>> =>
+  (cart: Cart): Result<Cart, CartError | OrderQuantityError> =>
     Result.combine(
       cart.orderItems.map((orderItem) =>
         ProductId.equals(orderItem.productId, productId)
-          ? OrderItem.add(1)(orderItem)
+          ? OrderItem.add(OrderQuantity.build(1))(orderItem)
           : ok(orderItem),
       ),
-    )
-      .mapErr((a) => [a])
-      .andThen((orderItems) => safeBuild(cart.customerId, orderItems));
+    ).andThen((orderItems) => safeBuild({ customerId: cart.customerId, orderItems }));
 
 const removeProduct =
   (productId: ProductId) =>
   (cart: Cart): Cart => {
     const orderItems = cart.orderItems.filter((orderItem) => orderItem.productId !== productId);
-    return build(cart.customerId, orderItems);
+    return build({ customerId: cart.customerId, orderItems });
   };
 
 const updateQuantity =
   (productId: ProductId, quantity: OrderQuantity) =>
-  (cart: Cart): Result<Cart, ReadonlyArray<CartError>> => {
+  (cart: Cart): Result<Cart, CartError> => {
     const orderItems = cart.orderItems.map((orderItem) =>
       ProductId.equals(orderItem.productId, productId)
         ? { productId, price: orderItem.price, quantity }
         : orderItem,
     );
-    return safeBuild(cart.customerId, orderItems);
+    return safeBuild({ customerId: cart.customerId, orderItems });
   };
 
 const submitOrder =
@@ -130,6 +117,7 @@ const submitOrder =
   };
 
 export const Cart = {
+  schema,
   countOrderItems,
   addProduct,
   removeProduct,

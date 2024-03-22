@@ -3,8 +3,8 @@ import { err, ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { Product } from '../product/product';
 import type { ProductId } from '../product/productId';
+import { CartError } from './cartError';
 import type { Order } from './order';
-import { OrderError } from './orderError';
 import type { OrderId } from './orderId';
 import { OrderItem } from './orderItem';
 import type { OrderQuantity } from './orderQuantity';
@@ -74,17 +74,17 @@ const build = (orderItems: ReadonlyArray<OrderItem>): Cart => {
   return cart;
 };
 
-const safeBuild = (orderItems: ReadonlyArray<OrderItem>): Result<Cart, OrderError> => {
+const safeBuild = (orderItems: ReadonlyArray<OrderItem>): Result<Cart, CartError> => {
   const cart = { orderItems };
   const issues = validate(cart);
-  return issues.length ? err(OrderError.build(issues)) : ok(cart);
+  return issues.length ? err(CartError.build(issues)) : ok(cart);
 };
 
 // ルートから実行することで、不変条件を満たすための某。
 // NOTE: 品目の追加に失敗と、注文の制約に失敗は切り分けることとする
 const addProduct =
   (product: Product) =>
-  (cart: Cart): Result<Cart, OrderError | OrderQuantity> => {
+  (cart: Cart): Result<Cart, CartError | OrderQuantity> => {
     const targetOrderItem = OrderItem.buildSingle(product);
     return Result.combine(
       cart.orderItems.map((orderItem) =>
@@ -106,27 +106,28 @@ const removeProduct =
 
 const updateQuantity =
   (product: Product, quantity: OrderQuantity) =>
-  (cart: Cart): Result<Cart, OrderError> => {
+  (cart: Cart): Result<Cart, CartError> => {
     const orderItems = cart.orderItems.map((orderItem) =>
-      Product.isSameIdentity(orderItem.product, product)
-        ? OrderItem.build(product, quantity)
-        : orderItem,
+      Product.isSameIdentity(orderItem.product, product) ? { product, quantity } : orderItem,
     );
     return safeBuild(orderItems);
   };
 
-const submitOrder = ({ orderItems }: Cart, generateOrderId: () => OrderId): [Order, Cart] => {
-  const order = {
-    orderId: generateOrderId(),
-    orderItems,
+const submitOrder =
+  (generateOrderId: () => OrderId) =>
+  ({ orderItems }: Cart): [Order, Cart] => {
+    const order = {
+      orderId: generateOrderId(),
+      orderItems,
+    };
+    const cart = init();
+    return [order, cart];
   };
-  const cart = init();
-  return [order, cart];
-};
 
 export const Cart = {
   init,
   addProduct,
+  countOrderItems,
   removeProduct,
   updateQuantity,
   submitOrder,
