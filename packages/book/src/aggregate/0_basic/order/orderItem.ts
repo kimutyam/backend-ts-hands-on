@@ -19,17 +19,6 @@ const add =
 
 const calculateTotal = ({ product, quantity }: OrderItem): number => product.price * quantity;
 
-const build = (product: Product, quantity: OrderQuantity): OrderItem => ({
-  product,
-  quantity: OrderQuantity.build(quantity),
-});
-
-const safeBuild = (
-  product: Product,
-  quantity: OrderQuantity,
-): Result<OrderItem, OrderQuantityError> =>
-  OrderQuantity.safeBuild(quantity).map((orderQuantity) => OrderItem.build(product, orderQuantity));
-
 const buildSingle = (product: Product): OrderItem => ({
   product,
   quantity: OrderQuantity.build(1),
@@ -41,8 +30,6 @@ const isSameIdentity: Eq<OrderItem> = (x: OrderItem, y: OrderItem): boolean =>
 
 export const OrderItem = {
   isSameIdentity,
-  build,
-  safeBuild,
   buildSingle,
   add,
   calculateTotal,
