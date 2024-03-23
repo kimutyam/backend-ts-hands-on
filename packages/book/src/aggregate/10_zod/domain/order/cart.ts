@@ -57,11 +57,9 @@ const schema = schemaWithoutRefinements
     () => ({ message: `購入金額上限 ${TotalPriceLimit} を上回っています` }),
   );
 
-const build = (a: CartInput): Cart => schema.parse(a);
-const safeBuild = (a: CartInput): Result<Cart, CartError> =>
-  buildFromZodDefault(schema.safeParse(a));
-
-const init = (customerId: CustomerId): Cart => build({ customerId, orderItems: [] });
+const build = (input: CartInput): Cart => schema.parse(input);
+const safeBuild = (input: CartInput): Result<Cart, CartError> =>
+  buildFromZodDefault(schema.safeParse(input));
 
 // ルートから実行することで、不変条件を満たすための某。
 const addOrderItem =
@@ -101,7 +99,7 @@ const submitOrder =
       customerId,
       orderItems,
     };
-    const cart = init(customerId);
+    const cart = build({ customerId, orderItems: [] });
     return [order, cart];
   };
 
