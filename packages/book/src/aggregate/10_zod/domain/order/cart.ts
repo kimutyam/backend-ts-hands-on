@@ -22,39 +22,39 @@ export type Cart = z.infer<typeof schemaWithoutRefinements>;
 export type CartInput = z.input<typeof schemaWithoutRefinements>;
 export type CartError = z.ZodError<CartInput>;
 
-const CartLimit = 10;
+const OrderItemsLimit = 10;
 
 const countOrderItems = ({ orderItems }: Cart): number => orderItems.length;
 
-const withinCartLimit = (cart: Cart): boolean => countOrderItems(cart) <= CartLimit;
+const withinOrderItemsLimit = (cart: Cart): boolean => countOrderItems(cart) <= OrderItemsLimit;
 
 const TotalQuantityLimit = 30;
 
 const calculateTotalQuantity = ({ orderItems }: Cart): number =>
-  orderItems.reduce((acc, oi) => acc + oi.orderQuantity, 0);
+  orderItems.reduce((acc, orderItem) => acc + orderItem.orderQuantity, 0);
 
-const withinTotalQuantity = (cart: Cart): boolean =>
+const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
 
 const TotalPriceLimit = 100_000;
 
 const calculateTotalPrice = ({ orderItems }: Cart): number =>
-  orderItems.reduce((acc, oi) => acc + OrderItem.calculateTotal(oi), 0);
+  orderItems.reduce((acc, orderItem) => acc + OrderItem.calculateTotal(orderItem), 0);
 
-const withinTotalPrice = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
+const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const schema = schemaWithoutRefinements
   .refine(
-    (cart) => withinCartLimit(cart),
-    () => ({ message: `カート上限 ${CartLimit} を上回っています` }),
+    (cart) => withinOrderItemsLimit(cart),
+    () => ({ message: `注文品目数上限 ${OrderItemsLimit} を上回っています` }),
   )
   .refine(
-    (cart) => withinTotalQuantity(cart),
-    () => ({ message: `注文数上限 ${TotalQuantityLimit} を上回っています` }),
+    (cart) => withinTotalQuantityLimit(cart),
+    () => ({ message: `合計数量上限 ${TotalQuantityLimit} を上回っています` }),
   )
   .refine(
-    (cart) => withinTotalPrice(cart),
-    () => ({ message: `購入金額上限 ${TotalPriceLimit} を上回っています` }),
+    (cart) => withinTotalPriceLimit(cart),
+    () => ({ message: `合計金額上限 ${TotalPriceLimit} を上回っています` }),
   );
 
 const build = (input: CartInput): Cart => schema.parse(input);
