@@ -7,8 +7,7 @@ import { ProductId } from '../product/productId';
 import type { Order } from './order';
 import type { OrderId } from './orderId';
 import { OrderItem } from './orderItem';
-import type { OrderQuantityError } from './orderQuantity';
-import { OrderQuantity } from './orderQuantity';
+import type { OrderQuantityError, OrderQuantity } from './orderQuantity';
 
 const schemaWithoutRefinements = z
   .object({
@@ -75,25 +74,25 @@ const init = (customerId: CustomerId): Cart => ({
 });
 
 // ルートから実行することで、不変条件を満たすための某。
-const addProduct =
-  (productId: ProductId) =>
+const addOrderItem =
+  (targetOrderItem: OrderItem) =>
   (cart: Cart): Result<Cart, CartError | OrderQuantityError> =>
     Result.combine(
       cart.orderItems.map((orderItem) =>
-        ProductId.equals(orderItem.productId, productId)
-          ? OrderItem.add(OrderQuantity.build(1))(orderItem)
+        ProductId.equals(orderItem.productId, targetOrderItem.productId)
+          ? OrderItem.add(targetOrderItem.quantity)(orderItem)
           : ok(orderItem),
       ),
     ).andThen((orderItems) => safeBuild({ customerId: cart.customerId, orderItems }));
 
-const removeProduct =
+const removeOrderItem =
   (productId: ProductId) =>
   (cart: Cart): Cart => {
     const orderItems = cart.orderItems.filter((orderItem) => orderItem.productId !== productId);
     return build({ customerId: cart.customerId, orderItems });
   };
 
-const updateQuantity =
+const updateOrderQuantity =
   (productId: ProductId, quantity: OrderQuantity) =>
   (cart: Cart): Result<Cart, CartError> => {
     const orderItems = cart.orderItems.map((orderItem) =>
@@ -119,8 +118,8 @@ const submitOrder =
 export const Cart = {
   schema,
   countOrderItems,
-  addProduct,
-  removeProduct,
-  updateQuantity,
+  addOrderItem,
+  removeOrderItem,
+  updateOrderQuantity,
   submitOrder,
 } as const;

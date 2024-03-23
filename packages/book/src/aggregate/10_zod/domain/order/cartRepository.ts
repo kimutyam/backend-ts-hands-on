@@ -1,10 +1,9 @@
 import type { ResultAsync } from 'neverthrow';
-import type * as z from 'zod';
 import type { CustomerId } from '../customer/customerId';
-import type { Cart, CartInput } from './cart';
+import type { Cart, CartError } from './cart';
 
 export interface CartResolver {
-  resolveBy(customerId: CustomerId): ResultAsync<Cart, z.ZodError<CartInput>>;
+  resolveBy(customerId: CustomerId): ResultAsync<Cart, CartError>;
 }
 
 export interface CartStorer {
