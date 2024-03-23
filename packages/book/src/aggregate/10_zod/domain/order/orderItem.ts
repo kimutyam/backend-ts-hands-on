@@ -3,7 +3,7 @@ import * as z from 'zod';
 import type { Eq } from '../../util/eq';
 import { Price } from '../price/price';
 import { ProductId } from '../product/productId';
-import type { OrderQuantityInput } from './orderQuantity';
+import type { OrderQuantityError } from './orderQuantity';
 import { OrderQuantity } from './orderQuantity';
 
 const schema = z
@@ -17,9 +17,9 @@ const schema = z
 export type OrderItem = z.infer<typeof schema>;
 
 const add =
-  (quantity: OrderQuantity) =>
-  (orderItem: OrderItem): Result<OrderItem, z.ZodError<OrderQuantityInput>> =>
-    OrderQuantity.safeBuild(orderItem.orderQuantity + quantity).map((newQuantity) => ({
+  (orderQuantity: OrderQuantity) =>
+  (orderItem: OrderItem): Result<OrderItem, OrderQuantityError> =>
+    OrderQuantity.safeBuild(orderItem.orderQuantity + orderQuantity).map((newQuantity) => ({
       ...orderItem,
       quantity: newQuantity,
     }));
