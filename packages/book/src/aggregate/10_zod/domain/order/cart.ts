@@ -20,6 +20,7 @@ const schemaWithoutRefinements = z
 
 export type Cart = z.infer<typeof schemaWithoutRefinements>;
 export type CartInput = z.input<typeof schemaWithoutRefinements>;
+export type CartError = z.ZodError<CartInput>;
 
 const CartLimit = 10;
 
@@ -55,8 +56,6 @@ const schema = schemaWithoutRefinements
     (cart) => withinTotalPrice(cart),
     () => ({ message: `購入金額上限 ${TotalPriceLimit} を上回っています` }),
   );
-
-export type CartError = z.ZodError<CartInput>;
 
 const build = (a: CartInput): Cart => schema.parse(a);
 const safeBuild = (a: CartInput): Result<Cart, CartError> =>
