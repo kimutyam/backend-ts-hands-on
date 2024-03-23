@@ -2,8 +2,6 @@ import { ok, Result } from 'neverthrow';
 import * as z from 'zod';
 import { buildFromZodDefault } from '../../util/result';
 import { CustomerId } from '../customer/customerId';
-import type { Order } from '../order/order';
-import type { OrderId } from '../order/orderId';
 import { ProductId } from '../product/productId';
 import { OrderItem } from './orderItem';
 import type { OrderQuantityError, OrderQuantity } from './orderQuantity';
@@ -61,6 +59,8 @@ const build = (input: CartInput): Cart => schema.parse(input);
 const safeBuild = (input: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(input));
 
+const init = (customerId: CustomerId) => build({ customerId, orderItems: [] });
+
 // ルートから実行することで、不変条件を満たすための某。
 const addOrderItem =
   (targetOrderItem: OrderItem) =>
@@ -91,23 +91,11 @@ const updateOrderQuantity =
     return safeBuild({ customerId: cart.customerId, orderItems });
   };
 
-const submitOrder =
-  (generateOrderId: () => OrderId) =>
-  ({ customerId, orderItems }: Cart): [Order, Cart] => {
-    const order = {
-      orderId: generateOrderId(),
-      customerId,
-      orderItems,
-    };
-    const cart = build({ customerId, orderItems: [] });
-    return [order, cart];
-  };
-
 export const Cart = {
   schema,
+  init,
   countOrderItems,
   addOrderItem,
   removeOrderItem,
   updateOrderQuantity,
-  submitOrder,
 } as const;
