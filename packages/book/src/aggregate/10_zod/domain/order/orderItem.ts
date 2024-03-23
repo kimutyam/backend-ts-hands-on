@@ -1,6 +1,6 @@
 import type { Result } from 'neverthrow';
 import * as z from 'zod';
-import type { Eq } from '../eq';
+import type { Eq } from '../../util/eq';
 import { Price } from '../price/price';
 import { ProductId } from '../product/productId';
 import type { OrderQuantityInput } from './orderQuantity';

@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { fromZodReturnTypeDefault } from '../../../../branded_type/50_zod_vo/resultBuilder';
-import type { Eq } from '../eq';
+import type { Eq } from '../../util/eq';
+import { buildFromZodDefault } from '../../util/result';
 
 export declare const PriceBrand: unique symbol;
 
@@ -11,9 +11,11 @@ export type Price = z.infer<typeof schema>;
 
 export type PriceInput = z.input<typeof schema>;
 
+export type PriceError = z.ZodError<PriceInput>;
+
 const build = (a: PriceInput): Price => schema.parse(a);
-const safeBuild = (a: PriceInput): Result<Price, z.ZodError<PriceInput>> =>
-  fromZodReturnTypeDefault(schema.safeParse(a));
+const safeBuild = (a: PriceInput): Result<Price, PriceError> =>
+  buildFromZodDefault(schema.safeParse(a));
 
 const equals: Eq<Price> = (x: Price, y: Price): boolean => x === y;
 

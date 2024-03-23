@@ -1,7 +1,7 @@
 import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import * as z from 'zod';
-import { fromZodReturnTypeDefault } from '../../../../branded_type/50_zod_vo/resultBuilder';
+import { buildFromZodDefault } from '../../util/result';
 import { CustomerId } from '../customer/customerId';
 import { ProductId } from '../product/productId';
 import type { Order } from './order';
@@ -66,7 +66,7 @@ export type CartError = z.ZodError<CartInput>;
 
 const build = (a: CartInput): Cart => schema.parse(a);
 const safeBuild = (a: CartInput): Result<Cart, CartError> =>
-  fromZodReturnTypeDefault(schema.safeParse(a));
+  buildFromZodDefault(schema.safeParse(a));
 
 const init = (customerId: CustomerId): Cart => ({
   customerId,

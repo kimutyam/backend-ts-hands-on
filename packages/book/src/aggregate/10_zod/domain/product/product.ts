@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import type { Eq } from '../eq';
+import type { Eq } from '../../util/eq';
 import { Price } from '../price/price';
 import { ProductId } from './productId';
 
