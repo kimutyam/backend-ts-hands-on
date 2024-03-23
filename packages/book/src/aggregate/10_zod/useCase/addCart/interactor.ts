@@ -1,18 +1,27 @@
 import type { ResultAsync } from 'neverthrow';
 import { Cart } from '../../domain/order/cart';
 import type { CartResolver, CartStorer } from '../../domain/order/cartRepository';
+import type { ProductResolver } from '../../domain/product/productRepository';
 import type { AddCartUseCase, Input, Output, UseCaseError } from './useCase';
 
 export class AddCartInteractor implements AddCartUseCase {
   constructor(
-    private resolver: CartResolver,
-    private storer: CartStorer,
+    private cartResolver: CartResolver,
+    private cartStorer: CartStorer,
+    private productResolver: ProductResolver,
   ) {}
 
-  run({ customerId, productId }: Input): ResultAsync<Output, UseCaseError> {
-    return this.resolver
-      .resolveBy(customerId)
-      .andThen(Cart.addProduct(productId))
-      .map((cart) => this.storer.store(cart));
+  run({ customerId, productId, orderQuantity }: Input): ResultAsync<Output, UseCaseError> {
+    return this.productResolver
+      .resolveBy(productId)
+      .map((product) => ({
+        productId: product.productId,
+        quantity: orderQuantity,
+        price: product.price,
+      }))
+      .andThen((orderItem) =>
+        this.cartResolver.resolveBy(customerId).andThen(Cart.addOrderItem(orderItem)),
+      )
+      .map(this.cartStorer.store);
   }
 }
