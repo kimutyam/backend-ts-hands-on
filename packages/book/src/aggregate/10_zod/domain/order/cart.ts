@@ -1,5 +1,4 @@
 import { ok, Result } from 'neverthrow';
-import * as R from 'remeda';
 import * as z from 'zod';
 import { buildFromZodDefault } from '../../util/result';
 import { CustomerId } from '../customer/customerId';
@@ -9,12 +8,15 @@ import type { OrderId } from './orderId';
 import { OrderItem } from './orderItem';
 import type { OrderQuantityError, OrderQuantity } from './orderQuantity';
 
+export declare const CartBrand: unique symbol;
+
 const schemaWithoutRefinements = z
   .object({
     customerId: CustomerId.schema,
     orderItems: z.array(OrderItem.schema).readonly(),
   })
-  .readonly();
+  .readonly()
+  .brand(CartBrand);
 
 export type Cart = z.infer<typeof schemaWithoutRefinements>;
 export type CartInput = z.input<typeof schemaWithoutRefinements>;
@@ -40,14 +42,6 @@ const calculateTotalPrice = ({ orderItems }: Cart): number =>
 
 const withinTotalPrice = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
-export const uniqueByProduct = ({ customerId, orderItems }: Cart): Cart => {
-  const uniqueOrderItems = R.pipe(
-    orderItems,
-    R.uniqBy((oi) => oi.productId),
-  );
-  return { customerId, orderItems: uniqueOrderItems };
-};
-
 const schema = schemaWithoutRefinements
   .refine(
     (cart) => withinCartLimit(cart),
@@ -68,10 +62,7 @@ const build = (a: CartInput): Cart => schema.parse(a);
 const safeBuild = (a: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(a));
 
-const init = (customerId: CustomerId): Cart => ({
-  customerId,
-  orderItems: [],
-});
+const init = (customerId: CustomerId): Cart => build({ customerId, orderItems: [] });
 
 // ルートから実行することで、不変条件を満たすための某。
 const addOrderItem =
