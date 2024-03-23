@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
 import { fromZodReturnTypeDefault } from '../../../../branded_type/50_zod_vo/resultBuilder';
-import type { Eq } from '../eq';
+import type { Eq } from '../../util/eq';
 
 export declare const OrderQuantityBrand: unique symbol;
 
