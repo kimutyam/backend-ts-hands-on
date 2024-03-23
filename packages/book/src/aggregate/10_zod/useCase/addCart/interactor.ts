@@ -16,7 +16,7 @@ export class AddCartInteractor implements AddCartUseCase {
       .resolveBy(productId)
       .map((product) => ({
         productId: product.productId,
-        quantity: orderQuantity,
+        orderQuantity,
         price: product.price,
       }))
       .andThen((orderItem) =>

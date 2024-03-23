@@ -28,7 +28,7 @@ const withinCartLimit = (cart: Cart): boolean => countOrderItems(cart) <= CartLi
 const TotalQuantityLimit = 30;
 
 const calculateTotalQuantity = ({ orderItems }: Cart): number =>
-  orderItems.reduce((acc, oi) => acc + oi.quantity, 0);
+  orderItems.reduce((acc, oi) => acc + oi.orderQuantity, 0);
 
 const withinTotalQuantity = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
@@ -80,7 +80,7 @@ const addOrderItem =
     Result.combine(
       cart.orderItems.map((orderItem) =>
         ProductId.equals(orderItem.productId, targetOrderItem.productId)
-          ? OrderItem.add(targetOrderItem.quantity)(orderItem)
+          ? OrderItem.add(targetOrderItem.orderQuantity)(orderItem)
           : ok(orderItem),
       ),
     ).andThen((orderItems) => safeBuild({ customerId: cart.customerId, orderItems }));
@@ -93,11 +93,11 @@ const removeOrderItem =
   };
 
 const updateOrderQuantity =
-  (productId: ProductId, quantity: OrderQuantity) =>
+  (productId: ProductId, orderQuantity: OrderQuantity) =>
   (cart: Cart): Result<Cart, CartError> => {
     const orderItems = cart.orderItems.map((orderItem) =>
       ProductId.equals(orderItem.productId, productId)
-        ? { productId, price: orderItem.price, quantity }
+        ? { productId, price: orderItem.price, orderQuantity }
         : orderItem,
     );
     return safeBuild({ customerId: cart.customerId, orderItems });
