@@ -1,6 +1,6 @@
 import type { ResultAsync } from 'neverthrow';
-import { Cart } from '../../domain/order/cart';
-import type { CartResolver, CartStorer } from '../../domain/order/cartRepository';
+import { Cart } from '../../domain/cart/cart';
+import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
 import type { Order } from '../../domain/order/order';
 import { OrderId } from '../../domain/order/orderId';
 import type { OrderStorer } from '../../domain/order/orderRepository';

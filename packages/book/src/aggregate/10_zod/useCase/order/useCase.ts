@@ -1,6 +1,6 @@
 import * as z from 'zod';
+import type { Cart, CartError } from '../../domain/cart/cart';
 import { CustomerId } from '../../domain/customer/customerId';
-import type { Cart, CartError } from '../../domain/order/cart';
 import type { Order } from '../../domain/order/order';
 import type { UseCase } from '../useCase';
 

@@ -2,9 +2,9 @@ import { ok, Result } from 'neverthrow';
 import * as z from 'zod';
 import { buildFromZodDefault } from '../../util/result';
 import { CustomerId } from '../customer/customerId';
+import type { Order } from '../order/order';
+import type { OrderId } from '../order/orderId';
 import { ProductId } from '../product/productId';
-import type { Order } from './order';
-import type { OrderId } from './orderId';
 import { OrderItem } from './orderItem';
 import type { OrderQuantityError, OrderQuantity } from './orderQuantity';
 

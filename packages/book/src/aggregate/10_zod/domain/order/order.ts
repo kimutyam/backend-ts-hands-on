@@ -1,7 +1,7 @@
 import * as z from 'zod';
+import { OrderItem } from '../cart/orderItem';
 import { CustomerId } from '../customer/customerId';
 import { OrderId } from './orderId';
-import { OrderItem } from './orderItem';
 
 const schema = z
   .object({
