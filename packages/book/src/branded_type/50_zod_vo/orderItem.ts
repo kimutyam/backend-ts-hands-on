@@ -13,9 +13,9 @@ export type OrderItem = Readonly<{
 const add =
   (quantity: OrderQuantity) =>
   (orderItem: OrderItem): Result<OrderItem, z.ZodError<OrderQuantityInput>> =>
-    OrderQuantity.safeBuild(orderItem.quantity + quantity).map((t) => ({
+    OrderQuantity.safeBuild(orderItem.quantity + quantity).map((newQuantity) => ({
       ...orderItem,
-      quantity: t,
+      quantity: newQuantity,
     }));
 
 const calculateTotal = ({ product, quantity }: OrderItem): number => product.price * quantity;

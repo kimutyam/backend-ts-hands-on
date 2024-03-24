@@ -1,8 +1,8 @@
 import * as z from 'zod';
+import type { Cart, CartError } from '../../domain/cart/cart';
+import type { OrderQuantityError } from '../../domain/cart/orderQuantity';
+import { OrderQuantity } from '../../domain/cart/orderQuantity';
 import { CustomerId } from '../../domain/customer/customerId';
-import type { Cart, CartError } from '../../domain/order/cart';
-import type { OrderQuantityError } from '../../domain/order/orderQuantity';
-import { OrderQuantity } from '../../domain/order/orderQuantity';
 import { ProductId } from '../../domain/product/productId';
 import type { ProductNotFoundError } from '../../domain/product/productNotFoundError';
 import type { UseCase } from '../useCase';

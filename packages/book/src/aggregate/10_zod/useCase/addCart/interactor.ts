@@ -1,6 +1,6 @@
 import type { ResultAsync } from 'neverthrow';
-import { Cart } from '../../domain/order/cart';
-import type { CartResolver, CartStorer } from '../../domain/order/cartRepository';
+import { Cart } from '../../domain/cart/cart';
+import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
 import type { ProductResolver } from '../../domain/product/productRepository';
 import type { AddCartUseCase, Input, Output, UseCaseError } from './useCase';
 
@@ -16,7 +16,7 @@ export class AddCartInteractor implements AddCartUseCase {
       .resolveBy(productId)
       .map((product) => ({
         productId: product.productId,
-        quantity: orderQuantity,
+        orderQuantity,
         price: product.price,
       }))
       .andThen((orderItem) =>
