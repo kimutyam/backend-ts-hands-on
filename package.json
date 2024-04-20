@@ -10,7 +10,6 @@
       "packages/fp",
       "packages/fp-zod",
       "packages/pure",
-      "packages/pure-zod",
       "packages/conference-service"
     ],
     "nohoist": [
@@ -38,20 +37,17 @@
     "build:fp": "yarn workspace fp build",
     "build:fp-zod": "yarn workspace fp-zod build",
     "build:pure": "yarn workspace pure build",
-    "build:pure-zod": "yarn workspace pure-zod build",
     "lint": "run-p -c lint:*",
     "lint:example": "yarn workspace example lint",
     "lint:fp": "yarn workspace fp lint",
     "lint:fp-zod": "yarn workspace fp-zod lint",
     "lint:pure": "yarn workspace pure lint",
-    "lint:pure-zod": "yarn workspace pure-zod lint",
     "lint:conference-service": "yarn workspace conference-service lint",
     "format": "run-p -c format:*",
     "format:example": "yarn workspace example format",
     "format:fp": "yarn workspace fp format",
     "format:fp-zod": "yarn workspace fp-zod format",
     "format:pure": "yarn workspace pure format",
-    "format:pure-zod": "yarn workspace pure-zod format",
     "format:conference-service": "yarn workspace conference-service format",
     "test": "run-p -c test:*",
     "test:example": "yarn workspace example test"
