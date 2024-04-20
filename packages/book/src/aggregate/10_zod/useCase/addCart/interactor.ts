@@ -1,4 +1,4 @@
-import type { ResultAsync } from 'neverthrow';
+import { ResultAsync } from 'neverthrow';
 import { Cart } from '../../domain/cart/cart';
 import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
 import type { ProductResolver } from '../../domain/product/productRepository';
@@ -20,7 +20,9 @@ export class AddCartInteractor implements AddCartUseCase {
         price: product.price,
       }))
       .andThen((orderItem) =>
-        this.cartResolver.resolveBy(customerId).andThen(Cart.addOrderItem(orderItem)),
+        ResultAsync.fromSafePromise(this.cartResolver.resolveBy(customerId)).andThen(
+          Cart.addOrderItem(orderItem),
+        ),
       )
       .map(this.cartStorer.store);
   }

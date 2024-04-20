@@ -1,4 +1,4 @@
-import type { ResultAsync } from 'neverthrow';
+import { ResultAsync } from 'neverthrow';
 import type { Cart } from '../../domain/cart/cart';
 import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
 import type { Order } from '../../domain/order/order';
@@ -39,8 +39,7 @@ export class OrderInteractor implements OrderUseCase {
   }
 
   run({ customerId }: Input): ResultAsync<Output, UseCaseError> {
-    return this.cartResolver
-      .resolveBy(customerId)
+    return ResultAsync.fromSafePromise(this.cartResolver.resolveBy(customerId))
       .andThen(this.submitOrder)
       .map(this.transactionOrder);
   }

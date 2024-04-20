@@ -1,9 +1,8 @@
-import type { ResultAsync } from 'neverthrow';
 import type { CustomerId } from '../customer/customerId';
-import type { Cart, CartError } from './cart';
+import type { Cart } from './cart';
 
 export interface CartResolver {
-  resolveBy(customerId: CustomerId): ResultAsync<Cart, CartError>;
+  resolveBy(customerId: CustomerId): Promise<Cart>;
 }
 
 export interface CartStorer {

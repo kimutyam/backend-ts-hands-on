@@ -14,11 +14,8 @@ export class RemoveFromCartInteractor implements RemoveFromCartUseCase {
   run({ customerId, productId, quantity }: Input): ResultAsync<Output, UseCaseError> {
     return this.productResolver
       .resolveBy(productId)
-      .andThen(() =>
-        this.cartResolver
-          .resolveBy(customerId)
-          .andThen(Cart.updateOrderQuantity(productId, quantity))
-          .map(this.cartStorer.store),
-      );
+      .map(() => this.cartResolver.resolveBy(customerId))
+      .andThen(Cart.updateOrderQuantity(productId, quantity))
+      .map(this.cartStorer.store);
   }
 }

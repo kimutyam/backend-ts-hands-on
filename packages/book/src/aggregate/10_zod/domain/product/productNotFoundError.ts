@@ -1,11 +1,8 @@
 import type { ProductId } from './productId';
 
 export class ProductNotFoundError extends Error {
-  constructor(
-    message: string,
-    public productId: ProductId,
-  ) {
-    super(message);
+  constructor(public productId: ProductId) {
+    super(`商品ID: ${productId} の商品が見つかりませんでした`);
     this.name = 'ProductNotFoundError';
   }
 }
