@@ -21,7 +21,7 @@
     "date-fns": "^2.30.0",
     "remeda": "^1.26.0",
     "ulidx": "^2.1.0",
-    "zod": "3.22.4"
+    "zod": "3.23.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
