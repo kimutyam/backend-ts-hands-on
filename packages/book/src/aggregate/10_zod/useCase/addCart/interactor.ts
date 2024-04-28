@@ -11,17 +11,17 @@ export class AddCartInteractor implements AddCartUseCase {
     private productResolver: ProductResolver,
   ) {}
 
-  run({ customerId, productId, orderQuantity }: Input): ResultAsync<Output, UseCaseError> {
+  run({ customerId, productId, quantity }: Input): ResultAsync<Output, UseCaseError> {
     return this.productResolver
       .resolveBy(productId)
       .map((product) => ({
         productId: product.productId,
-        orderQuantity,
+        quantity,
         price: product.price,
       }))
-      .andThen((orderItem) =>
+      .andThen((item) =>
         ResultAsync.fromSafePromise(this.cartResolver.resolveBy(customerId)).andThen(
-          Cart.addOrderItem(orderItem),
+          Cart.addItem(item),
         ),
       )
       .map(this.cartStorer.store);

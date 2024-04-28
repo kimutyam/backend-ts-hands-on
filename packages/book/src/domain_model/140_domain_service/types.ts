@@ -10,8 +10,8 @@ export type Product = {
   price: number;
 };
 
-/** 注文項目 */
-export type OrderItem = {
+/** 品目 */
+export type Item = {
   product: Product;
   quantity: number;
 };
@@ -19,5 +19,5 @@ export type OrderItem = {
 /** 注文 */
 export type Order = {
   orderId: string;
-  orderItems: ReadonlyArray<OrderItem>;
+  orderItems: ReadonlyArray<Item>;
 };

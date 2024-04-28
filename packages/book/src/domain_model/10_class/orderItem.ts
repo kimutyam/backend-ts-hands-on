@@ -1,13 +1,13 @@
 import type { Product } from './product';
 
-export class OrderItem {
+export class Item {
   constructor(
     private readonly product: Product,
     public readonly quantity: number,
   ) {}
 
-  add(quantity: number): OrderItem {
-    return new OrderItem(this.product, this.quantity + quantity);
+  add(quantity: number): Item {
+    return new Item(this.product, this.quantity + quantity);
   }
 
   get total(): number {

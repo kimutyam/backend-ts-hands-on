@@ -1,6 +1,6 @@
 import type { Product } from './product';
 
-export class OrderItem {
+export class Item {
   constructor(
     private product: Product,
     public quantity: number,

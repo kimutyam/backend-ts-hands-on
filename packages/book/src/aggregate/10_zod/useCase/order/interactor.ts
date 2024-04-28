@@ -28,7 +28,7 @@ export class OrderInteractor implements OrderUseCase {
   private resolveCartProduct(
     cart: Cart,
   ): ResultAsync<ReadonlyArray<Product>, ProductsNotFoundError> {
-    const productIds = cart.orderItems.map(({ productId }) => productId);
+    const productIds = cart.items.map(({ productId }) => productId);
     return this.productsResolver.resolveIn(productIds);
   }
 

@@ -1,13 +1,13 @@
-import { OrderItem } from './orderItem';
+import { Item } from './item';
 
 /** 注文 */
 export type Order = Readonly<{
   orderId: string;
-  orderItems: ReadonlyArray<OrderItem>;
+  items: ReadonlyArray<Item>;
 }>;
 
-export const calculatePrice = ({ orderItems }: Order): number =>
-  orderItems.reduce((acc, item) => acc + OrderItem.calculateTotalPrice(item), 0);
+export const calculatePrice = ({ items }: Order): number =>
+  items.reduce((acc, item) => acc + Item.calculateTotalPrice(item), 0);
 
 export const Order = {
   calculatePrice,
