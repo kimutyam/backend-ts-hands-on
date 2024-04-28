@@ -47,5 +47,8 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "errorOnDeprecated": true
+  },
+  "dependencies": {
+    "@eventstore/db-client": "^6.1.0"
   }
 }
