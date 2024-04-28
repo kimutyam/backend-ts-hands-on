@@ -4,7 +4,7 @@ export class QuantityError extends Error {
     public descriptions: Array<string>,
   ) {
     super(message);
-    this.name = 'OrderQuantityError';
+    this.name = 'QuantityError';
   }
 
   static build(descriptions: Array<string>): QuantityError {

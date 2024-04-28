@@ -6,7 +6,7 @@ export type Order = Readonly<{
   items: ReadonlyArray<Item>;
 }>;
 
-export const calculatePrice = ({ items }: Order): number =>
+const calculatePrice = ({ items }: Order): number =>
   items.reduce((acc, item) => acc + Item.calculateTotalPrice(item), 0);
 
 export const Order = {

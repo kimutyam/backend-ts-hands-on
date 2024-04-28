@@ -19,5 +19,5 @@ export type Item = {
 /** 注文 */
 export type Order = {
   orderId: string;
-  orderItems: ReadonlyArray<Item>;
+  items: ReadonlyArray<Item>;
 };
