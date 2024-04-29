@@ -1,7 +1,7 @@
 import { ResultAsync } from 'neverthrow';
 import type { CartError } from '../../10_zod/domain/cart/cart';
 import { Cart } from '../../10_zod/domain/cart/cart';
-import type { OrderQuantity, OrderQuantityError } from '../../10_zod/domain/cart/orderQuantity';
+import type { Quantity, QuantityError } from '../../10_zod/domain/cart/quantity';
 import type { CustomerId } from '../../10_zod/domain/customer/customerId';
 import type { ProductId } from '../../10_zod/domain/product/productId';
 import type { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError';
@@ -13,18 +13,18 @@ export const addToCart =
   (
     customerId: CustomerId,
     productId: ProductId,
-    orderQuantity: OrderQuantity,
-  ): ResultAsync<Cart, ProductNotFoundError | CartError | OrderQuantityError> =>
+    quantity: Quantity,
+  ): ResultAsync<Cart, ProductNotFoundError | CartError | QuantityError> =>
     productRepository
       .findById(productId)
       .map((product) => ({
         productId: product.productId,
-        orderQuantity,
+        quantity,
         price: product.price,
       }))
-      .andThen((orderItem) =>
+      .andThen((item) =>
         ResultAsync.fromSafePromise(cartRepository.findById(customerId)).andThen(
-          Cart.addOrderItem(orderItem),
+          Cart.addItem(item),
         ),
       )
       .map(async (cart) => {

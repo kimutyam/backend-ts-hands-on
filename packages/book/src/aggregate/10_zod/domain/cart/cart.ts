@@ -3,15 +3,15 @@ import * as z from 'zod';
 import { buildFromZodDefault } from '../../util/result';
 import { CustomerId } from '../customer/customerId';
 import { ProductId } from '../product/productId';
-import { OrderItem } from './orderItem';
-import type { OrderQuantityError, OrderQuantity } from './orderQuantity';
+import { Item } from './item';
+import type { QuantityError, Quantity } from './quantity';
 
 export declare const CartBrand: unique symbol;
 
 const schemaWithoutRefinements = z
   .object({
     customerId: CustomerId.schema,
-    orderItems: z.array(OrderItem.schema).readonly(),
+    items: z.array(Item.schema).readonly(),
   })
   .readonly()
   .brand(CartBrand);
@@ -20,31 +20,31 @@ export type Cart = z.infer<typeof schemaWithoutRefinements>;
 export type CartInput = z.input<typeof schemaWithoutRefinements>;
 export type CartError = z.ZodError<CartInput>;
 
-const OrderItemsLimit = 10;
+const ItemsLimit = 10;
 
-const countOrderItems = ({ orderItems }: Cart): number => orderItems.length;
+const countItems = ({ items }: Cart): number => items.length;
 
-const withinOrderItemsLimit = (cart: Cart): boolean => countOrderItems(cart) <= OrderItemsLimit;
+const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
 
 const TotalQuantityLimit = 30;
 
-const calculateTotalQuantity = ({ orderItems }: Cart): number =>
-  orderItems.reduce((acc, orderItem) => acc + orderItem.orderQuantity, 0);
+const calculateTotalQuantity = ({ items }: Cart): number =>
+  items.reduce((acc, item) => acc + item.quantity, 0);
 
 const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
 
 const TotalPriceLimit = 100_000;
 
-const calculateTotalPrice = ({ orderItems }: Cart): number =>
-  orderItems.reduce((acc, orderItem) => acc + OrderItem.calculateTotal(orderItem), 0);
+const calculateTotalPrice = ({ items }: Cart): number =>
+  items.reduce((acc, item) => acc + Item.calculateTotal(item), 0);
 
 const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const schema = schemaWithoutRefinements
   .refine(
-    (cart) => withinOrderItemsLimit(cart),
-    () => ({ message: `注文品目数上限 ${OrderItemsLimit} を上回っています` }),
+    (cart) => withinItemsLimit(cart),
+    () => ({ message: `品目数上限 ${ItemsLimit} を上回っています` }),
   )
   .refine(
     (cart) => withinTotalQuantityLimit(cart),
@@ -59,43 +59,43 @@ const build = (input: CartInput): Cart => schema.parse(input);
 const safeBuild = (input: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(input));
 
-const init = (customerId: CustomerId) => build({ customerId, orderItems: [] });
+const init = (customerId: CustomerId) => build({ customerId, items: [] });
 
 // ルートから実行することで、不変条件を満たすための某。
-const addOrderItem =
-  (targetOrderItem: OrderItem) =>
-  (cart: Cart): Result<Cart, CartError | OrderQuantityError> =>
+const addItem =
+  (targetItem: Item) =>
+  (cart: Cart): Result<Cart, CartError | QuantityError> =>
     Result.combine(
-      cart.orderItems.map((orderItem) =>
-        ProductId.equals(orderItem.productId, targetOrderItem.productId)
-          ? OrderItem.add(targetOrderItem.orderQuantity)(orderItem)
-          : ok(orderItem),
+      cart.items.map((item) =>
+        ProductId.equals(item.productId, targetItem.productId)
+          ? Item.add(targetItem.quantity)(item)
+          : ok(item),
       ),
-    ).andThen((orderItems) => safeBuild({ customerId: cart.customerId, orderItems }));
+    ).andThen((items) => safeBuild({ customerId: cart.customerId, items }));
 
-const removeOrderItem =
+const removeItem =
   (productId: ProductId) =>
   (cart: Cart): Cart => {
-    const orderItems = cart.orderItems.filter((orderItem) => orderItem.productId !== productId);
-    return build({ customerId: cart.customerId, orderItems });
+    const items = cart.items.filter((item) => item.productId !== productId);
+    return build({ customerId: cart.customerId, items });
   };
 
-const updateOrderQuantity =
-  (productId: ProductId, orderQuantity: OrderQuantity) =>
+const updateQuantity =
+  (productId: ProductId, quantity: Quantity) =>
   (cart: Cart): Result<Cart, CartError> => {
-    const orderItems = cart.orderItems.map((orderItem) =>
-      ProductId.equals(orderItem.productId, productId)
-        ? { productId, price: orderItem.price, orderQuantity }
-        : orderItem,
+    const items = cart.items.map((item) =>
+      ProductId.equals(item.productId, productId)
+        ? { productId, price: item.price, quantity }
+        : item,
     );
-    return safeBuild({ customerId: cart.customerId, orderItems });
+    return safeBuild({ customerId: cart.customerId, items });
   };
 
 export const Cart = {
   schema,
   init,
-  countOrderItems,
-  addOrderItem,
-  removeOrderItem,
-  updateOrderQuantity,
+  countItems,
+  addItem,
+  removeItem,
+  updateQuantity,
 } as const;

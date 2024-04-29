@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { OrderItem } from '../cart/orderItem';
+import { Item } from '../cart/item';
 import { CustomerId } from '../customer/customerId';
 import { OrderId } from './orderId';
 
@@ -7,7 +7,7 @@ const schema = z
   .object({
     orderId: OrderId.schema,
     customerId: CustomerId.schema,
-    orderItems: z.array(OrderItem.schema).readonly(),
+    items: z.array(Item.schema).readonly(),
   })
   .readonly();
 

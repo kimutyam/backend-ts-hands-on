@@ -1,1 +1,0 @@
-// コラムとして、DOPのrecordとindexとcollectionを用いてもいいかも

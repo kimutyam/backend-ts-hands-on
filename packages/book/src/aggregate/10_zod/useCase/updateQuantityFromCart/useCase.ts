@@ -1,6 +1,6 @@
 import * as z from 'zod';
 import type { Cart, CartError } from '../../domain/cart/cart';
-import { OrderQuantity } from '../../domain/cart/orderQuantity';
+import { Quantity } from '../../domain/cart/quantity';
 import { CustomerId } from '../../domain/customer/customerId';
 import { ProductId } from '../../domain/product/productId';
 import type { ProductNotFoundError } from '../../domain/product/productNotFoundError';
@@ -10,7 +10,7 @@ const schema = z
   .object({
     customerId: CustomerId.schema,
     productId: ProductId.schema,
-    quantity: OrderQuantity.schema,
+    quantity: Quantity.schema,
   })
   .readonly();
 
