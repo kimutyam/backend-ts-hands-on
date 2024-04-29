@@ -19,8 +19,8 @@ const validate = (value: RawType): QuantityError | undefined => {
   if (value < 1) {
     issues.push('1個以上にしてください');
   }
-  if (value < 100) {
-    issues.push('100以上を指定ください');
+  if (value > 10) {
+    issues.push('10個までしか含められません');
   }
   return issues.length === 0 ? new InvariantsError(issues, value) : undefined;
 };

@@ -8,11 +8,11 @@ const validate = (value: number): Array<string> => {
   if (Number.isInteger(value)) {
     issues.push('整数で指定ください');
   }
-  if (value >= 1) {
+  if (value < 1) {
     issues.push('1個以上にしてください');
   }
-  if (value <= 10) {
-    issues.push('1つの注文に含められるのは10個までです');
+  if (value > 10) {
+    issues.push('10個までしか含められません');
   }
   return issues;
 };

@@ -13,7 +13,7 @@ const validate = (value: number): Array<string> => {
   if (value < 1) {
     issues.push('1個以上にしてください');
   }
-  if (value >= 10) {
+  if (value > 10) {
     issues.push('10個までしか含められません');
   }
   return issues;
