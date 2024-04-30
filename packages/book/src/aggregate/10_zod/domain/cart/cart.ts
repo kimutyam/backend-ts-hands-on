@@ -59,7 +59,9 @@ const build = (input: CartInput): Cart => schema.parse(input);
 const safeBuild = (input: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(input));
 
-const init = (customerId: CustomerId) => build({ customerId, items: [] });
+const initBuild = (customerId: CustomerId): Cart => build({ customerId, items: [] });
+
+const clear = (customerId: CustomerId): Cart => build({ customerId, items: [] });
 
 // ルートから実行することで、不変条件を満たすための某。
 const addItem =
@@ -93,8 +95,8 @@ const updateQuantity =
 
 export const Cart = {
   schema,
-  init,
-  countItems,
+  initBuild,
+  clear,
   addItem,
   removeItem,
   updateQuantity,
