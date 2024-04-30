@@ -34,6 +34,6 @@ export const OrderService = (
     customerId: cart.customerId,
     items: detectItems(cart, products),
   };
-  const initedCart = Cart.init(cart.customerId);
+  const initedCart = Cart.clear(cart.customerId);
   return [order, initedCart];
 };
