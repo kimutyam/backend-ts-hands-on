@@ -34,14 +34,6 @@ export const initBuild =
   (cart: Cart): Cart =>
     build({ ...cart, customerId, items: [] });
 
-export const clear =
-  (customerId: CustomerId) =>
-  (cart: Cart): [Cart, CartCleared] => {
-    const newCart = build({ ...cart, customerId, items: [] });
-    const event = pipe(newCart, DomainEvent.build(CartCleared.name, aggregateName, {}));
-    return [newCart, event];
-  };
-
 export const addItem =
   (targetItem: Item) =>
   (cart: Cart): Result<[Cart, CartItemAdded], CartError | QuantityError> =>
@@ -88,6 +80,14 @@ export const updateItemQuantity =
       );
       return [newCart, event];
     });
+  };
+
+export const clear =
+  (customerId: CustomerId) =>
+  (cart: Cart): [Cart, CartCleared] => {
+    const newCart = build({ ...cart, customerId, items: [] });
+    const event = pipe(newCart, DomainEvent.build(CartCleared.name, aggregateName, {}));
+    return [newCart, event];
   };
 
 export const Cart = {

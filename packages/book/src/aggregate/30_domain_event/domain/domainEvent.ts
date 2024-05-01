@@ -1,8 +1,8 @@
-import { ulid } from 'ulidx';
 import type { Aggregate } from './aggregate';
+import { DomainEventId } from './domainEventId';
 
 export interface DomainEvent<AggregateId, EventName extends string> {
-  readonly eventId: string;
+  readonly eventId: DomainEventId;
   readonly occurredAt: Date;
   readonly sequenceNumber: number;
   readonly eventName: EventName;
@@ -15,18 +15,20 @@ const build =
     eventName: EventName,
     aggregateName: string,
     payload: Payload,
-    generateEventId: () => string = () => ulid(),
-    generateDate: () => Date = () => new Date(),
+    generateEventId: () => DomainEventId = DomainEventId.generate,
   ) =>
-  <A extends Aggregate<any>>(aggregate: A): DomainEvent<A['aggregateId'], EventName> & Payload => ({
-    eventId: generateEventId(),
-    occurredAt: generateDate(),
-    sequenceNumber: aggregate.sequenceNumber,
-    eventName,
-    aggregateId: aggregate.aggregateId,
-    aggregateName,
-    ...payload,
-  });
+  <A extends Aggregate<any>>(aggregate: A): DomainEvent<A['aggregateId'], EventName> & Payload => {
+    const eventId = generateEventId();
+    return {
+      eventId,
+      occurredAt: new Date(DomainEventId.getTimestamp(eventId)),
+      sequenceNumber: aggregate.sequenceNumber,
+      eventName,
+      aggregateId: aggregate.aggregateId,
+      aggregateName,
+      ...payload,
+    };
+  };
 
 export const DomainEvent = {
   build,
