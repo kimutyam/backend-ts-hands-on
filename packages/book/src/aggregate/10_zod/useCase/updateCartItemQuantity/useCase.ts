@@ -20,4 +20,4 @@ export type Output = Cart;
 
 export type UseCaseError = CartError | ProductNotFoundError;
 
-export type RemoveFromCartUseCase = UseCase<Input, Cart, UseCaseError>;
+export type UpdateCartItemQuantityUseCase = UseCase<Input, Cart, UseCaseError>;

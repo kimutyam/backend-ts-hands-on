@@ -2,9 +2,9 @@ import type { ResultAsync } from 'neverthrow';
 import { Cart } from '../../domain/cart/cart';
 import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
 import type { ProductResolver } from '../../domain/product/productRepository';
-import type { Input, Output, RemoveFromCartUseCase, UseCaseError } from './useCase';
+import type { Input, Output, RemoveCartItemUseCase, UseCaseError } from './useCase';
 
-export class RemoveFromCartInteractor implements RemoveFromCartUseCase {
+export class RemoveCartItemInteractor implements RemoveCartItemUseCase {
   constructor(
     private cartResolver: CartResolver,
     private cartStorer: CartStorer,

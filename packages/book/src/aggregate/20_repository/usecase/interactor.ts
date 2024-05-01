@@ -8,7 +8,7 @@ import type { ProductNotFoundError } from '../../10_zod/domain/product/productNo
 import type { ICartRepository } from '../domain/cartRepository';
 import type { IProductRespository } from '../domain/productRespository';
 
-export const addToCart =
+export const addCartItem =
   (productRepository: IProductRespository, cartRepository: ICartRepository) =>
   (
     customerId: CustomerId,

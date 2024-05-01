@@ -9,7 +9,7 @@ import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoun
 import type { ICartRepository } from '../domain/cartRepository';
 import type { IProductRespository } from '../domain/productRespository';
 
-export const addToCart =
+export const addCartItem =
   (productRepository: IProductRespository, cartRepository: ICartRepository) =>
   async (
     customerId: CustomerId,
