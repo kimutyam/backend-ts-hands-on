@@ -10,7 +10,7 @@ export interface DomainEvent<AggregateId, EventName extends string> {
   readonly aggregateName: string;
 }
 
-const build =
+const generate =
   <EventName extends string, Payload extends object>(
     eventName: EventName,
     aggregateName: string,
@@ -31,5 +31,5 @@ const build =
   };
 
 export const DomainEvent = {
-  build,
+  generate,
 } as const;

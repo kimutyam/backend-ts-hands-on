@@ -5,7 +5,7 @@ export interface Aggregate<AggregateID> {
   sequenceNumber: number;
 }
 
-const schema = <
+const makeSchema = <
   AggregateId,
   Appendix,
   AggregateIdSchema extends z.ZodSchema<AggregateId, any, any>,
@@ -14,14 +14,16 @@ const schema = <
   aggregateIdSchema: AggregateIdSchema,
   appendixSchema: AppendixSchema,
 ) =>
-  z.intersection(
-    z.object({
-      aggregateId: aggregateIdSchema,
-      sequenceNumber: z.number(),
-    }),
-    appendixSchema,
-  );
+  z
+    .intersection(
+      z.object({
+        aggregateId: aggregateIdSchema,
+        sequenceNumber: z.number(),
+      }),
+      appendixSchema,
+    )
+    .readonly();
 
 export const Aggregate = {
-  schema,
-};
+  makeSchema,
+} as const;

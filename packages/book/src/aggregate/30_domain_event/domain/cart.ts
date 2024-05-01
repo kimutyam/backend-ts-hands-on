@@ -13,13 +13,15 @@ import { DomainEvent } from './domainEvent';
 
 const aggregateName = 'Cart';
 
-const schema = Aggregate.schema(
+export declare const CartBrand: unique symbol;
+
+const schema = Aggregate.makeSchema(
   CustomerId.schema,
   z.object({
     customerId: CustomerId.schema,
     items: z.array(Item.schema).readonly(),
   }),
-).readonly();
+).brand(CartBrand);
 
 export type Cart = z.infer<typeof schema>;
 export type CartInput = z.input<typeof schema>;
@@ -48,7 +50,7 @@ export const addItem =
       .map((newCart) => {
         const event = pipe(
           newCart,
-          DomainEvent.build(CartItemAdded.name, aggregateName, { item: targetItem }),
+          DomainEvent.generate(CartItemAdded.name, aggregateName, { item: targetItem }),
         );
         return [newCart, event];
       });
@@ -60,7 +62,7 @@ export const removeItem =
     const newCart = build({ ...cart, customerId: cart.customerId, items });
     const event = pipe(
       newCart,
-      DomainEvent.build(CartItemRemoved.name, aggregateName, { productId }),
+      DomainEvent.generate(CartItemRemoved.name, aggregateName, { productId }),
     );
     return [newCart, event];
   };
@@ -76,7 +78,7 @@ export const updateItemQuantity =
     return safeBuild({ ...cart, customerId: cart.customerId, items }).map((newCart) => {
       const event = pipe(
         newCart,
-        DomainEvent.build(CartItemQuantityUpdated.name, aggregateName, { productId, quantity }),
+        DomainEvent.generate(CartItemQuantityUpdated.name, aggregateName, { productId, quantity }),
       );
       return [newCart, event];
     });
@@ -86,7 +88,7 @@ export const clear =
   (customerId: CustomerId) =>
   (cart: Cart): [Cart, CartCleared] => {
     const newCart = build({ ...cart, customerId, items: [] });
-    const event = pipe(newCart, DomainEvent.build(CartCleared.name, aggregateName, {}));
+    const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, {}));
     return [newCart, event];
   };
 
