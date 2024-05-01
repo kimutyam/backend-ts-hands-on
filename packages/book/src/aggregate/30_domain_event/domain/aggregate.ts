@@ -1,8 +1,9 @@
 import { z } from 'zod';
 
-export interface Aggregate<AggregateID> {
+export interface Aggregate<AggregateID, Props extends object> {
   aggregateId: AggregateID;
   sequenceNumber: number;
+  props: Props;
 }
 
 const makeSchema = <
