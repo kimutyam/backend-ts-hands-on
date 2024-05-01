@@ -82,7 +82,7 @@ const removeItem =
     return build({ customerId: cart.customerId, items });
   };
 
-const updateQuantity =
+const updateItemQuantity =
   (productId: ProductId, quantity: Quantity) =>
   (cart: Cart): Result<Cart, CartError> => {
     const items = cart.items.map((item) =>
@@ -99,5 +99,5 @@ export const Cart = {
   clear,
   addItem,
   removeItem,
-  updateQuantity,
+  updateItemQuantity,
 } as const;

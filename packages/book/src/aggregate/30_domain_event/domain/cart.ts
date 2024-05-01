@@ -8,7 +8,7 @@ import { CustomerId } from '../../10_zod/domain/customer/customerId';
 import { ProductId } from '../../10_zod/domain/product/productId';
 import { buildFromZodDefault } from '../../10_zod/util/result';
 import { Aggregate } from './aggregate';
-import { CartAdded, CartCleared, CartQuantityUpdated, CartRemoved } from './cartEvent';
+import { CartItemAdded, CartCleared, CartItemQuantityUpdated, CartItemRemoved } from './cartEvent';
 import { DomainEvent } from './domainEvent';
 
 const aggregateName = 'Cart';
@@ -44,7 +44,7 @@ export const clear =
 
 export const addItem =
   (targetItem: Item) =>
-  (cart: Cart): Result<[Cart, CartAdded], CartError | QuantityError> =>
+  (cart: Cart): Result<[Cart, CartItemAdded], CartError | QuantityError> =>
     Result.combine(
       cart.items.map((item) =>
         ProductId.equals(item.productId, targetItem.productId)
@@ -56,23 +56,26 @@ export const addItem =
       .map((newCart) => {
         const event = pipe(
           newCart,
-          DomainEvent.build(CartAdded.name, aggregateName, { item: targetItem }),
+          DomainEvent.build(CartItemAdded.name, aggregateName, { item: targetItem }),
         );
         return [newCart, event];
       });
 
 export const removeItem =
   (productId: ProductId) =>
-  (cart: Cart): [Cart, CartRemoved] => {
+  (cart: Cart): [Cart, CartItemRemoved] => {
     const items = cart.items.filter((item) => item.productId !== productId);
     const newCart = build({ ...cart, customerId: cart.customerId, items });
-    const event = pipe(newCart, DomainEvent.build(CartRemoved.name, aggregateName, { productId }));
+    const event = pipe(
+      newCart,
+      DomainEvent.build(CartItemRemoved.name, aggregateName, { productId }),
+    );
     return [newCart, event];
   };
 
-export const updateQuantity =
+export const updateItemQuantity =
   (productId: ProductId, quantity: Quantity) =>
-  (cart: Cart): Result<[Cart, CartQuantityUpdated], CartError> => {
+  (cart: Cart): Result<[Cart, CartItemQuantityUpdated], CartError> => {
     const items = cart.items.map((item) =>
       ProductId.equals(item.productId, productId)
         ? { productId, price: item.price, quantity }
@@ -81,7 +84,7 @@ export const updateQuantity =
     return safeBuild({ ...cart, customerId: cart.customerId, items }).map((newCart) => {
       const event = pipe(
         newCart,
-        DomainEvent.build(CartQuantityUpdated.name, aggregateName, { productId, quantity }),
+        DomainEvent.build(CartItemQuantityUpdated.name, aggregateName, { productId, quantity }),
       );
       return [newCart, event];
     });
@@ -93,5 +96,5 @@ export const Cart = {
   clear,
   addItem,
   removeItem,
-  updateQuantity,
+  updateItemQuantity,
 } as const;

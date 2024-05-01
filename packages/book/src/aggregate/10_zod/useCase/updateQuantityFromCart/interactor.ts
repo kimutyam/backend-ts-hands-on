@@ -15,7 +15,7 @@ export class RemoveFromCartInteractor implements RemoveFromCartUseCase {
     return this.productResolver
       .resolveBy(productId)
       .map(() => this.cartResolver.resolveBy(customerId))
-      .andThen(Cart.updateQuantity(productId, quantity))
+      .andThen(Cart.updateItemQuantity(productId, quantity))
       .map(this.cartStorer.store);
   }
 }
