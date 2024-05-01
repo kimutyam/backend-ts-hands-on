@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.0.0",
     "remeda": "^1.26.0",
     "ulidx": "^2.1.0",
     "zod": "3.23.4"
