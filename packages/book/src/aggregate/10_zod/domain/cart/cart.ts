@@ -61,9 +61,6 @@ const safeBuild = (input: CartInput): Result<Cart, CartError> =>
 
 const initBuild = (customerId: CustomerId): Cart => build({ customerId, items: [] });
 
-const clear = (customerId: CustomerId): Cart => build({ customerId, items: [] });
-
-// ルートから実行することで、不変条件を満たすための某。
 const addItem =
   (targetItem: Item) =>
   (cart: Cart): Result<Cart, CartError | QuantityError> =>
@@ -92,6 +89,8 @@ const updateItemQuantity =
     );
     return safeBuild({ customerId: cart.customerId, items });
   };
+
+const clear = (customerId: CustomerId): Cart => build({ customerId, items: [] });
 
 export const Cart = {
   schema,
