@@ -1,7 +1,6 @@
 import { ok, Result } from 'neverthrow';
 import { pipe } from 'remeda';
 import { z } from 'zod';
-import type { CartError } from '../../10_zod/domain/cart/cart';
 import { Item } from '../../10_zod/domain/cart/item';
 import type { Quantity, QuantityError } from '../../10_zod/domain/cart/quantity';
 import { CustomerId } from '../../10_zod/domain/customer/customerId';
@@ -17,14 +16,16 @@ export declare const CartBrand: unique symbol;
 
 const schema = Aggregate.makeSchema(
   CustomerId.schema,
-  z.object({
-    customerId: CustomerId.schema,
-    items: z.array(Item.schema).readonly(),
-  }),
+  z
+    .object({
+      items: z.array(Item.schema).readonly(),
+    })
+    .readonly(),
 ).brand(CartBrand);
 
 export type Cart = z.infer<typeof schema>;
 export type CartInput = z.input<typeof schema>;
+export type CartError = z.ZodError<CartInput>;
 
 const build = (input: CartInput): Cart => schema.parse(input);
 
@@ -32,21 +33,22 @@ const safeBuild = (input: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(input));
 
 export const initBuild =
-  (customerId: CustomerId) =>
+  (aggregateId: CustomerId) =>
   (cart: Cart): Cart =>
-    build({ ...cart, customerId, items: [] });
+    build({ ...cart, aggregateId, props: { items: [] } });
 
 export const addItem =
   (targetItem: Item) =>
-  (cart: Cart): Result<[Cart, CartItemAdded], CartError | QuantityError> =>
-    Result.combine(
-      cart.items.map((item) =>
+  (cart: Cart): Result<[Cart, CartItemAdded], CartError | QuantityError> => {
+    const { props } = cart;
+    return Result.combine(
+      props.items.map((item) =>
         ProductId.equals(item.productId, targetItem.productId)
           ? Item.add(targetItem.quantity)(item)
           : ok(item),
       ),
     )
-      .andThen((items) => safeBuild({ ...cart, customerId: cart.customerId, items }))
+      .andThen((items) => safeBuild({ ...cart, props: { items } }))
       .map((newCart) => {
         const event = pipe(
           newCart,
@@ -54,12 +56,14 @@ export const addItem =
         );
         return [newCart, event];
       });
+  };
 
 export const removeItem =
   (productId: ProductId) =>
   (cart: Cart): [Cart, CartItemRemoved] => {
-    const items = cart.items.filter((item) => item.productId !== productId);
-    const newCart = build({ ...cart, customerId: cart.customerId, items });
+    const { props } = cart;
+    const items = props.items.filter((item) => item.productId !== productId);
+    const newCart = build({ ...cart, props: { items } });
     const event = pipe(
       newCart,
       DomainEvent.generate(CartItemRemoved.name, aggregateName, { productId }),
@@ -70,24 +74,28 @@ export const removeItem =
 export const updateItemQuantity =
   (productId: ProductId, quantity: Quantity) =>
   (cart: Cart): Result<[Cart, CartItemQuantityUpdated], CartError> => {
-    const items = cart.items.map((item) =>
+    const { props } = cart;
+    const items = props.items.map((item) =>
       ProductId.equals(item.productId, productId)
         ? { productId, price: item.price, quantity }
         : item,
     );
-    return safeBuild({ ...cart, customerId: cart.customerId, items }).map((newCart) => {
+    return safeBuild({ ...cart, props: { items } }).map((newCart) => {
       const event = pipe(
         newCart,
-        DomainEvent.generate(CartItemQuantityUpdated.name, aggregateName, { productId, quantity }),
+        DomainEvent.generate(CartItemQuantityUpdated.name, aggregateName, {
+          productId,
+          quantity,
+        }),
       );
       return [newCart, event];
     });
   };
 
 export const clear =
-  (customerId: CustomerId) =>
+  (aggregateId: CustomerId) =>
   (cart: Cart): [Cart, CartCleared] => {
-    const newCart = build({ ...cart, customerId, items: [] });
+    const newCart = build({ ...cart, aggregateId, props: { items: [] } });
     const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, {}));
     return [newCart, event];
   };

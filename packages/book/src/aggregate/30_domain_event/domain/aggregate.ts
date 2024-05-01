@@ -7,21 +7,19 @@ export interface Aggregate<AggregateID> {
 
 const makeSchema = <
   AggregateId,
-  Appendix,
+  Props,
   AggregateIdSchema extends z.ZodSchema<AggregateId, any, any>,
-  AppendixSchema extends z.ZodSchema<Appendix, any, any>,
+  PropsSchema extends z.ZodSchema<Props, any, any>,
 >(
   aggregateIdSchema: AggregateIdSchema,
-  appendixSchema: AppendixSchema,
+  propsSchema: PropsSchema,
 ) =>
   z
-    .intersection(
-      z.object({
-        aggregateId: aggregateIdSchema,
-        sequenceNumber: z.number(),
-      }),
-      appendixSchema,
-    )
+    .object({
+      aggregateId: aggregateIdSchema,
+      sequenceNumber: z.number(),
+      props: propsSchema,
+    })
     .readonly();
 
 export const Aggregate = {
