@@ -1,27 +1,28 @@
 import { z } from 'zod';
 
-export interface Aggregate<AggregateID, Props extends object> {
-  aggregateId: AggregateID;
-  sequenceNumber: number;
-  props: Props;
+const sequenceNumberSchema = z.number();
+type SequenceNumber = z.infer<typeof sequenceNumberSchema>;
+
+export interface Aggregate<AggregateID, Props extends { [k: string]: any }> {
+  readonly aggregateId: AggregateID;
+  readonly sequenceNumber: SequenceNumber;
+  readonly props: Props;
 }
 
 const makeSchema = <
   AggregateId,
-  Props,
-  AggregateIdSchema extends z.ZodSchema<AggregateId, any, any>,
-  PropsSchema extends z.ZodSchema<Props, any, any>,
+  Props extends { [k: string]: any },
+  AggregateIdSchema extends z.ZodType<AggregateId, any, any>,
+  PropsSchema extends z.ZodType<Props, any, any>,
 >(
   aggregateIdSchema: AggregateIdSchema,
   propsSchema: PropsSchema,
 ) =>
-  z
-    .object({
-      aggregateId: aggregateIdSchema,
-      sequenceNumber: z.number(),
-      props: propsSchema,
-    })
-    .readonly();
+  z.object({
+    aggregateId: aggregateIdSchema,
+    sequenceNumber: sequenceNumberSchema,
+    props: propsSchema,
+  });
 
 export const Aggregate = {
   makeSchema,
