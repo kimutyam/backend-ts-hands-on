@@ -32,10 +32,8 @@ const build = (input: CartInput): Cart => schema.parse(input);
 const safeBuild = (input: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(input));
 
-export const initBuild =
-  (aggregateId: CustomerId) =>
-  (cart: Cart): Cart =>
-    build({ ...cart, aggregateId, props: { items: [] } });
+const initBuild = (aggregateId: CustomerId): Cart =>
+  build({ aggregateId, sequenceNumber: Aggregate.InitialSequenceNumber, props: { items: [] } });
 
 export const addItem =
   (targetItem: Item) =>
@@ -48,7 +46,9 @@ export const addItem =
           : ok(item),
       ),
     )
-      .andThen((items) => safeBuild({ ...cart, props: { items } }))
+      .andThen((items) =>
+        safeBuild({ ...cart, sequenceNumber: cart.sequenceNumber + 1, props: { items } }),
+      )
       .map((newCart) => {
         const event = pipe(
           newCart,
@@ -63,7 +63,7 @@ export const removeItem =
   (cart: Cart): [Cart, CartItemRemoved] => {
     const { props } = cart;
     const items = props.items.filter((item) => item.productId !== productId);
-    const newCart = build({ ...cart, props: { items } });
+    const newCart = build({ ...cart, sequenceNumber: cart.sequenceNumber + 1, props: { items } });
     const event = pipe(
       newCart,
       DomainEvent.generate(CartItemRemoved.name, aggregateName, { productId }),
@@ -80,22 +80,29 @@ export const updateItemQuantity =
         ? { productId, price: item.price, quantity }
         : item,
     );
-    return safeBuild({ ...cart, props: { items } }).map((newCart) => {
-      const event = pipe(
-        newCart,
-        DomainEvent.generate(CartItemQuantityUpdated.name, aggregateName, {
-          productId,
-          quantity,
-        }),
-      );
-      return [newCart, event];
-    });
+    return safeBuild({ ...cart, sequenceNumber: cart.sequenceNumber + 1, props: { items } }).map(
+      (newCart) => {
+        const event = pipe(
+          newCart,
+          DomainEvent.generate(CartItemQuantityUpdated.name, aggregateName, {
+            productId,
+            quantity,
+          }),
+        );
+        return [newCart, event];
+      },
+    );
   };
 
 export const clear =
   (aggregateId: CustomerId) =>
   (cart: Cart): [Cart, CartCleared] => {
-    const newCart = build({ ...cart, aggregateId, props: { items: [] } });
+    const newCart = build({
+      ...cart,
+      aggregateId,
+      sequenceNumber: cart.sequenceNumber + 1,
+      props: { items: [] },
+    });
     const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, {}));
     return [newCart, event];
   };
