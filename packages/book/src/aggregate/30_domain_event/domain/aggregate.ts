@@ -9,6 +9,8 @@ export interface Aggregate<AggregateID, Props extends { [k: string]: any }> {
   readonly props: Props;
 }
 
+const InitialSequenceNumber = 0;
+
 const makeSchema = <
   AggregateId,
   Props extends { [k: string]: any },
@@ -26,4 +28,5 @@ const makeSchema = <
 
 export const Aggregate = {
   makeSchema,
+  InitialSequenceNumber,
 } as const;
