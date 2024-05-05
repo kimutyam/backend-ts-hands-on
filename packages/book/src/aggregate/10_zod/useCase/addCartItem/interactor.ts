@@ -15,12 +15,12 @@ export class AddItemCartInteractor implements AddCartItemUseCase {
     return this.productResolver
       .resolveBy(productId)
       .map((product) => ({
-        productId: product.productId,
+        productId: product.aggregateId,
         quantity,
-        price: product.price,
+        price: product.props.price,
       }))
       .andThen((item) =>
-        ResultAsync.fromSafePromise(this.cartResolver.resolveBy(customerId)).andThen(
+        ResultAsync.fromSafePromise(this.cartResolver.resolveById(customerId)).andThen(
           Cart.addItem(item),
         ),
       )

@@ -14,7 +14,7 @@ export class UpdateCartItemQuantityInteractor implements UpdateCartItemQuantityU
   run({ customerId, productId, quantity }: Input): ResultAsync<Output, UseCaseError> {
     return this.productResolver
       .resolveBy(productId)
-      .map(() => this.cartResolver.resolveBy(customerId))
+      .map(() => this.cartResolver.resolveById(customerId))
       .andThen(Cart.updateItemQuantity(productId, quantity))
       .map(this.cartStorer.store);
   }

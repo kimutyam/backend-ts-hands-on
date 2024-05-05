@@ -1,8 +1,8 @@
 import type { Product } from '../../10_zod/domain/product/product';
 import type { ProductId } from '../../10_zod/domain/product/productId';
-import type { IProductRespository } from './productRespository';
+import type { IProductRepository } from './productRespository';
 
-export class InMemoryProductRepository implements IProductRespository {
+export class InMemoryProductRepository implements IProductRepository {
   private readonly aggregates: Record<ProductId, Product> = {};
 
   findById(aggregateId: ProductId): Promise<Product | undefined> {
@@ -14,7 +14,7 @@ export class InMemoryProductRepository implements IProductRespository {
   }
 
   save(aggregate: Product): Promise<void> {
-    this.aggregates[aggregate.productId] = aggregate;
+    this.aggregates[aggregate.aggregateId] = aggregate;
     return Promise.resolve();
   }
 

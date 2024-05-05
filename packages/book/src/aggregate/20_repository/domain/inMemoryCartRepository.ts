@@ -11,7 +11,7 @@ export class InMemoryCartRepository implements ICartRepository {
   }
 
   save(aggregate: Cart): Promise<void> {
-    this.aggregates[aggregate.customerId] = aggregate;
+    this.aggregates[aggregate.aggregateId] = aggregate;
     return Promise.resolve();
   }
 

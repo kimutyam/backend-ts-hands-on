@@ -1,7 +1,7 @@
 import type { Product } from '../../10_zod/domain/product/product';
 import type { ProductId } from '../../10_zod/domain/product/productId';
 
-export interface IProductRespository {
+export interface IProductRepository {
   findById(aggregateId: ProductId): Promise<Product | undefined>;
 
   findAll(): Promise<ReadonlyArray<Product>>;

@@ -7,10 +7,10 @@ import type { CustomerId } from '../../10_zod/domain/customer/customerId';
 import type { ProductId } from '../../10_zod/domain/product/productId';
 import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError';
 import type { ICartRepository } from '../domain/cartRepository';
-import type { IProductRespository } from '../domain/productRespository';
+import type { IProductRepository } from '../domain/productRespository';
 
 export const addCartItem =
-  (productRepository: IProductRespository, cartRepository: ICartRepository) =>
+  (productRepository: IProductRepository, cartRepository: ICartRepository) =>
   async (
     customerId: CustomerId,
     productId: ProductId,
@@ -21,9 +21,9 @@ export const addCartItem =
       return err(new ProductNotFoundError(productId));
     }
     const item = {
-      productId: product.productId,
+      productId: product.aggregateId,
       quantity,
-      price: product.price,
+      price: product.props.price,
     };
     return new ResultAsync(cartRepository.findById(customerId).then(Cart.addItem(item))).map(
       async (cart) => {
