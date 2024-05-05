@@ -12,7 +12,7 @@ export interface DomainEvent<
   readonly eventName: EventName;
   readonly aggregateId: AggregateId;
   readonly aggregateName: string;
-  readonly payload?: Payload;
+  readonly payload: Payload;
 }
 
 const generate =
