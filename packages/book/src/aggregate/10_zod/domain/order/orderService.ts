@@ -7,20 +7,21 @@ import type { Order } from './order';
 import type { OrderId } from './orderId';
 
 const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
-  const items = cart.items.reduce((acc, item) => {
+  const { props } = cart;
+  const items = props.items.reduce((acc, item) => {
     const maybeProduct = products.find((product) =>
-      ProductId.equals(product.productId, item.productId),
+      ProductId.equals(product.aggregateId, item.productId),
     );
     if (maybeProduct) {
       acc.push({
         productId: item.productId,
         quantity: item.quantity,
-        price: maybeProduct.price,
+        price: maybeProduct.props.price,
       });
     }
     return acc;
   }, [] as Array<Item>);
-  assert(cart.items.length === items.length);
+  assert(props.items.length === items.length);
   return items;
 };
 
@@ -30,10 +31,12 @@ export const OrderService = (
   generateOrderId: () => OrderId,
 ): [Order, Cart] => {
   const order = {
-    orderId: generateOrderId(),
-    customerId: cart.customerId,
-    items: detectItems(cart, products),
+    aggregateId: generateOrderId(),
+    props: {
+      customerId: cart.aggregateId,
+      items: detectItems(cart, products),
+    },
   };
-  const initedCart = Cart.clear(cart.customerId);
+  const initedCart = Cart.clear(cart);
   return [order, initedCart];
 };

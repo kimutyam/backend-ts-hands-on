@@ -25,10 +25,10 @@ export class OrderInteractor implements OrderUseCase {
     return [order, cart];
   }
 
-  private resolveCartProduct(
-    cart: Cart,
-  ): ResultAsync<ReadonlyArray<Product>, ProductsNotFoundError> {
-    const productIds = cart.items.map(({ productId }) => productId);
+  private resolveCartProduct({
+    props,
+  }: Cart): ResultAsync<ReadonlyArray<Product>, ProductsNotFoundError> {
+    const productIds = props.items.map(({ productId }) => productId);
     return this.productsResolver.resolveIn(productIds);
   }
 
@@ -39,7 +39,7 @@ export class OrderInteractor implements OrderUseCase {
   }
 
   run({ customerId }: Input): ResultAsync<Output, UseCaseError> {
-    return ResultAsync.fromSafePromise(this.cartResolver.resolveBy(customerId))
+    return ResultAsync.fromSafePromise(this.cartResolver.resolveById(customerId))
       .andThen(this.submitOrder)
       .map(this.transactionOrder);
   }
