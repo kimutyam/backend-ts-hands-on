@@ -94,18 +94,15 @@ export const updateItemQuantity =
     );
   };
 
-export const clear =
-  (aggregateId: CustomerId) =>
-  (cart: Cart): [Cart, CartCleared] => {
-    const newCart = build({
-      ...cart,
-      aggregateId,
-      sequenceNumber: cart.sequenceNumber + 1,
-      props: { items: [] },
-    });
-    const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, undefined));
-    return [newCart, event];
-  };
+export const clear = (cart: Cart): [Cart, CartCleared] => {
+  const newCart = build({
+    ...cart,
+    sequenceNumber: cart.sequenceNumber + 1,
+    props: { items: [] },
+  });
+  const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, undefined));
+  return [newCart, event];
+};
 
 export const Cart = {
   schema,
