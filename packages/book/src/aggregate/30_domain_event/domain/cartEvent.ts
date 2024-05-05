@@ -8,34 +8,34 @@ export const CartCleared = {
   name: 'CartCleared',
 };
 
-export type CartCleared = DomainEvent<CustomerId, typeof CartCleared.name>;
+export type CartCleared = DomainEvent<CustomerId, typeof CartCleared.name, undefined>;
 
 export const CartItemAdded = {
   name: 'CartItemAdded',
 };
 
-export type CartItemAdded = DomainEvent<CustomerId, typeof CartItemAdded.name> & {
-  item: Item;
-};
+export type CartItemAdded = DomainEvent<CustomerId, typeof CartItemAdded.name, { item: Item }>;
 
 export const CartItemRemoved = {
   name: 'CartItemRemoved',
 };
 
-export type CartItemRemoved = DomainEvent<CustomerId, typeof CartItemRemoved.name> & {
-  productId: ProductId;
-};
-
+export type CartItemRemoved = DomainEvent<
+  CustomerId,
+  typeof CartItemRemoved.name,
+  { productId: ProductId }
+>;
 export const CartItemQuantityUpdated = {
   name: 'CartItemQuantityUpdated',
 };
 
 export type CartItemQuantityUpdated = DomainEvent<
   CustomerId,
-  typeof CartItemQuantityUpdated.name
-> & {
-  productId: ProductId;
-  quantity: Quantity;
-};
+  typeof CartItemQuantityUpdated.name,
+  {
+    productId: ProductId;
+    quantity: Quantity;
+  }
+>;
 
 export type CartEvent = CartCleared | CartItemAdded | CartItemRemoved | CartItemQuantityUpdated;

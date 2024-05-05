@@ -1,17 +1,22 @@
 import type { Aggregate } from './aggregate';
 import { DomainEventId } from './domainEventId';
 
-export interface DomainEvent<AggregateId, EventName extends string> {
+export interface DomainEvent<
+  AggregateId,
+  EventName extends string,
+  Payload extends { [k: string]: unknown } | undefined,
+> {
   readonly eventId: DomainEventId;
   readonly occurredAt: Date;
   readonly sequenceNumber: number;
   readonly eventName: EventName;
   readonly aggregateId: AggregateId;
   readonly aggregateName: string;
+  readonly payload?: Payload;
 }
 
 const generate =
-  <EventName extends string, Payload extends object>(
+  <EventName extends string, Payload extends { [k: string]: unknown } | undefined>(
     eventName: EventName,
     aggregateName: string,
     payload: Payload,
@@ -19,7 +24,7 @@ const generate =
   ) =>
   <A extends Aggregate<any, any>>(
     aggregate: A,
-  ): DomainEvent<A['aggregateId'], EventName> & Payload => {
+  ): DomainEvent<A['aggregateId'], EventName, Payload> => {
     const eventId = generateEventId();
     return {
       eventId,
@@ -28,7 +33,7 @@ const generate =
       eventName,
       aggregateId: aggregate.aggregateId,
       aggregateName,
-      ...payload,
+      payload,
     };
   };
 

@@ -103,7 +103,7 @@ export const clear =
       sequenceNumber: cart.sequenceNumber + 1,
       props: { items: [] },
     });
-    const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, {}));
+    const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, undefined));
     return [newCart, event];
   };
 
