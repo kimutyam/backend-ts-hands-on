@@ -3,9 +3,9 @@ import * as z from 'zod';
 import { buildFromZodDefault } from '../../util/result';
 import { Aggregate } from '../aggregate';
 import { CustomerId } from '../customer/customerId';
+import { Item } from '../item/item';
+import type { QuantityError, Quantity } from '../item/quantity';
 import { ProductId } from '../product/productId';
-import { Item } from './item';
-import type { QuantityError, Quantity } from './quantity';
 
 export declare const CartBrand: unique symbol;
 

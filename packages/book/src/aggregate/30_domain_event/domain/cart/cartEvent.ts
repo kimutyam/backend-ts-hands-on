@@ -1,8 +1,8 @@
-import type { Item } from '../../10_zod/domain/cart/item';
-import type { Quantity } from '../../10_zod/domain/cart/quantity';
-import type { CustomerId } from '../../10_zod/domain/customer/customerId';
-import type { ProductId } from '../../10_zod/domain/product/productId';
-import type { DomainEvent } from './domainEvent';
+import type { CustomerId } from '../../../10_zod/domain/customer/customerId';
+import type { Item } from '../../../10_zod/domain/item/item';
+import type { Quantity } from '../../../10_zod/domain/item/quantity';
+import type { ProductId } from '../../../10_zod/domain/product/productId';
+import type { DomainEvent } from '../domainEvent';
 
 export const CartCleared = {
   name: 'CartCleared',

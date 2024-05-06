@@ -1,14 +1,14 @@
 import { ok, Result } from 'neverthrow';
 import { pipe } from 'remeda';
 import { z } from 'zod';
-import { Item } from '../../10_zod/domain/cart/item';
-import type { Quantity, QuantityError } from '../../10_zod/domain/cart/quantity';
-import { CustomerId } from '../../10_zod/domain/customer/customerId';
-import { ProductId } from '../../10_zod/domain/product/productId';
-import { buildFromZodDefault } from '../../10_zod/util/result';
-import { Aggregate } from './aggregate';
+import { CustomerId } from '../../../10_zod/domain/customer/customerId';
+import { Item } from '../../../10_zod/domain/item/item';
+import type { Quantity, QuantityError } from '../../../10_zod/domain/item/quantity';
+import { ProductId } from '../../../10_zod/domain/product/productId';
+import { buildFromZodDefault } from '../../../10_zod/util/result';
+import { Aggregate } from '../aggregate';
+import { DomainEvent } from '../domainEvent';
 import { CartItemAdded, CartCleared, CartItemQuantityUpdated, CartItemRemoved } from './cartEvent';
-import { DomainEvent } from './domainEvent';
 
 const aggregateName = 'Cart';
 

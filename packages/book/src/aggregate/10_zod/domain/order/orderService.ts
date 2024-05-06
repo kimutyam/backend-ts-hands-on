@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { Cart } from '../cart/cart';
-import type { Item } from '../cart/item';
+import type { Item } from '../item/item';
 import type { Product } from '../product/product';
 import { ProductId } from '../product/productId';
 import type { Order } from './order';

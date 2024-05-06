@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import type { Cart, CartError } from '../../domain/cart/cart';
-import { Quantity } from '../../domain/cart/quantity';
 import { CustomerId } from '../../domain/customer/customerId';
+import { Quantity } from '../../domain/item/quantity';
 import { ProductId } from '../../domain/product/productId';
 import type { ProductNotFoundError } from '../../domain/product/productNotFoundError';
 import type { UseCase } from '../useCase';
