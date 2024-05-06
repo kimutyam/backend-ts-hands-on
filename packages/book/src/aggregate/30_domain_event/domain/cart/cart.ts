@@ -8,7 +8,12 @@ import { ProductId } from '../../../10_zod/domain/product/productId';
 import { buildFromZodDefault } from '../../../10_zod/util/result';
 import { Aggregate } from '../aggregate';
 import { DomainEvent } from '../domainEvent';
-import { CartItemAdded, CartCleared, CartItemQuantityUpdated, CartItemRemoved } from './cartEvent';
+import {
+  CartItemAdded,
+  CartClearedOnOrder,
+  CartItemQuantityUpdated,
+  CartItemRemoved,
+} from './cartEvent';
 
 const aggregateName = 'Cart';
 
@@ -94,20 +99,23 @@ export const updateItemQuantity =
     );
   };
 
-export const clear = (cart: Cart): [Cart, CartCleared] => {
+export const clearOnOrder = (cart: Cart): [Cart, CartClearedOnOrder] => {
   const newCart = build({
     ...cart,
     sequenceNumber: cart.sequenceNumber + 1,
     props: { items: [] },
   });
-  const event = pipe(newCart, DomainEvent.generate(CartCleared.name, aggregateName, undefined));
+  const event = pipe(
+    newCart,
+    DomainEvent.generate(CartClearedOnOrder.name, aggregateName, undefined),
+  );
   return [newCart, event];
 };
 
 export const Cart = {
   schema,
   initBuild,
-  clear,
+  clearOnOrder,
   addItem,
   removeItem,
   updateItemQuantity,
