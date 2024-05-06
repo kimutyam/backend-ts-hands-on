@@ -4,11 +4,11 @@ import type { Quantity } from '../../../10_zod/domain/item/quantity';
 import type { ProductId } from '../../../10_zod/domain/product/productId';
 import type { DomainEvent } from '../domainEvent';
 
-export const CartCleared = {
-  name: 'CartCleared',
+export const CartClearedOnOrder = {
+  name: 'CartClearedOnOrder',
 };
 
-export type CartCleared = DomainEvent<CustomerId, typeof CartCleared.name, undefined>;
+export type CartClearedOnOrder = DomainEvent<CustomerId, typeof CartClearedOnOrder.name, undefined>;
 
 export const CartItemAdded = {
   name: 'CartItemAdded',
@@ -38,4 +38,8 @@ export type CartItemQuantityUpdated = DomainEvent<
   }
 >;
 
-export type CartEvent = CartCleared | CartItemAdded | CartItemRemoved | CartItemQuantityUpdated;
+export type CartEvent =
+  | CartClearedOnOrder
+  | CartItemAdded
+  | CartItemRemoved
+  | CartItemQuantityUpdated;

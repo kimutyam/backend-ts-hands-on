@@ -7,7 +7,7 @@ import type { Product } from '../../../10_zod/domain/product/product';
 import { ProductId } from '../../../10_zod/domain/product/productId';
 import { Aggregate } from '../aggregate';
 import { Cart } from '../cart/cart';
-import type { CartCleared } from '../cart/cartEvent';
+import type { CartClearedOnOrder } from '../cart/cartEvent';
 import { DomainEvent } from '../domainEvent';
 import { OrderRequested } from './orderEvent';
 
@@ -34,7 +34,7 @@ export const OrderService = (
   cart: Cart,
   products: ReadonlyArray<Product>,
   generateOrderId: () => OrderId,
-): [Order, OrderRequested, Cart, CartCleared] => {
+): [Order, OrderRequested, Cart, CartClearedOnOrder] => {
   const order = {
     aggregateId: generateOrderId(),
     sequenceNumber: Aggregate.InitialSequenceNumber,
@@ -51,6 +51,6 @@ export const OrderService = (
     }),
   );
 
-  const [newCart, cartCleared] = Cart.clear(cart);
-  return [order, orderRequested, newCart, cartCleared];
+  const [newCart, cartClearedOnOrder] = Cart.clearOnOrder(cart);
+  return [order, orderRequested, newCart, cartClearedOnOrder];
 };
