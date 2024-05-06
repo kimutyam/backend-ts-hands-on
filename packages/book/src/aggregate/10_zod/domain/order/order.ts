@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import { Aggregate } from '../aggregate';
-import { Item } from '../cart/item';
 import { CustomerId } from '../customer/customerId';
+import { Item } from '../item/item';
 import { OrderId } from './orderId';
 
 const schema = Aggregate.makeSchema(
@@ -15,3 +15,7 @@ const schema = Aggregate.makeSchema(
 );
 
 export type Order = z.infer<typeof schema>;
+
+export const Order = {
+  name: 'order',
+};
