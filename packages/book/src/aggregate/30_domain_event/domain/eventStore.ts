@@ -1,8 +1,11 @@
 import type { Aggregate } from './aggregate';
 import type { DomainEvent } from './domainEvent';
 
-export interface EventStore<A extends Aggregate<any, any>, E extends DomainEvent<any, any, any>> {
-  persist(event: E): Promise<void>;
+export interface EventStore<
+  KnownAggregate extends Aggregate<any, any>,
+  KnownDomainEvent extends DomainEvent<any, any, any>,
+> {
+  persist(event: KnownDomainEvent): Promise<void>;
 
-  persistEventAndSnapshot(event: E, aggregate: A): Promise<void>;
+  persistEventAndSnapshot(event: KnownDomainEvent, aggregate: KnownAggregate): Promise<void>;
 }
