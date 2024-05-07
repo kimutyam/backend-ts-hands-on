@@ -37,6 +37,6 @@ export const OrderService = (
       items: detectItems(cart, products),
     },
   };
-  const initedCart = Cart.clear(cart);
-  return [order, initedCart];
+  const newCart = Cart.clearOnOrder(cart);
+  return [order, newCart];
 };
