@@ -17,5 +17,5 @@ const schema = Aggregate.makeSchema(
 export type Order = z.infer<typeof schema>;
 
 export const Order = {
-  name: 'order',
-};
+  name: 'order' as const,
+} as const;

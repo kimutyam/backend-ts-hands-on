@@ -4,8 +4,8 @@ import type { OrderId } from '../../../10_zod/domain/order/orderId';
 import type { DomainEvent } from '../domainEvent';
 
 export const OrderRequested = {
-  name: 'OrderRequested',
-};
+  name: 'OrderRequested' as const,
+} as const;
 
 export type OrderRequested = DomainEvent<
   OrderId,
