@@ -1,27 +1,34 @@
-import { EventStoreDBClient, jsonEvent, FORWARDS, START } from '@eventstore/db-client';
+import type { JSONEventType } from '@eventstore/db-client';
+import { EventStoreDBClient, jsonEvent, FORWARDS, START, STREAM_NAME } from '@eventstore/db-client';
 
-const client = new EventStoreDBClient({
-  endpoint: 'localhost:2113',
-});
+const client = EventStoreDBClient.connectionString`esdb://127.0.0.1:2113?tls=false&keepAliveTimeout=10000&keepAliveInterval=10000`;
 
-export async function simpleTest() {
-  const streamName = 'es_supported_clients';
+type TestEvent = JSONEventType<
+  'TestEvent',
+  {
+    entityId: string;
+    importantData: string;
+  }
+>;
 
-  const jEvent = jsonEvent({
-    type: 'grpc-client',
+export const persistEvent = async () => {
+  const event = jsonEvent<TestEvent>({
+    type: 'TestEvent',
     data: {
-      languages: ['typescript', 'javascript'],
-      runtime: 'NodeJS',
+      entityId: 'aaaa',
+      importantData: 'I wrote my first event!',
     },
   });
 
-  const appendResult = await client.appendToStream(streamName, [jEvent]);
-  // eslint-disable-next-line
-  console.log(appendResult);
+  await client.appendToStream(STREAM_NAME, event);
+};
 
-  const events = client.readStream(streamName, {
-    fromRevision: START,
+// persistEvent();
+
+export const read = async () => {
+  const events = client.readStream<TestEvent>(STREAM_NAME, {
     direction: FORWARDS,
+    fromRevision: START,
     maxCount: 10,
   });
 
@@ -30,4 +37,4 @@ export async function simpleTest() {
     // eslint-disable-next-line
     console.log(event);
   }
-}
+};
