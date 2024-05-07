@@ -106,12 +106,12 @@ const updateItemQuantity =
     return safeBuild({ ...cart, props: { items } });
   };
 
-const clear = (cart: Cart): Cart => build({ ...cart, props: { items: [] } });
+const clearOnOrder = (cart: Cart): Cart => build({ ...cart, props: { items: [] } });
 
 export const Cart = {
   schema,
   initBuild,
-  clear,
+  clearOnOrder,
   addItem,
   removeItem,
   updateItemQuantity,
