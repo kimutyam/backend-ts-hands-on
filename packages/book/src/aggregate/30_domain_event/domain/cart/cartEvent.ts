@@ -5,20 +5,20 @@ import type { ProductId } from '../../../10_zod/domain/product/productId';
 import type { DomainEvent } from '../domainEvent';
 
 export const CartClearedOnOrder = {
-  name: 'CartClearedOnOrder',
-};
+  name: 'CartClearedOnOrder' as const,
+} as const;
 
 export type CartClearedOnOrder = DomainEvent<CustomerId, typeof CartClearedOnOrder.name, undefined>;
 
 export const CartItemAdded = {
-  name: 'CartItemAdded',
-};
+  name: 'CartItemAdded' as const,
+} as const;
 
 export type CartItemAdded = DomainEvent<CustomerId, typeof CartItemAdded.name, { item: Item }>;
 
 export const CartItemRemoved = {
-  name: 'CartItemRemoved',
-};
+  name: 'CartItemRemoved' as const,
+} as const;
 
 export type CartItemRemoved = DomainEvent<
   CustomerId,
@@ -26,8 +26,8 @@ export type CartItemRemoved = DomainEvent<
   { productId: ProductId }
 >;
 export const CartItemQuantityUpdated = {
-  name: 'CartItemQuantityUpdated',
-};
+  name: 'CartItemQuantityUpdated' as const,
+} as const;
 
 export type CartItemQuantityUpdated = DomainEvent<
   CustomerId,
