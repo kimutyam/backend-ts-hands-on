@@ -40,7 +40,7 @@ const safeBuild = (input: CartInput): Result<Cart, CartError> =>
 const initBuild = (aggregateId: CustomerId): Cart =>
   build({ aggregateId, sequenceNumber: Aggregate.InitialSequenceNumber, props: { items: [] } });
 
-export const addItem =
+const addItem =
   (targetItem: Item) =>
   (cart: Cart): Result<[Cart, CartItemAdded], CartError | QuantityError> => {
     const { props } = cart;
@@ -63,7 +63,7 @@ export const addItem =
       });
   };
 
-export const removeItem =
+const removeItem =
   (productId: ProductId) =>
   (cart: Cart): [Cart, CartItemRemoved] => {
     const { props } = cart;
@@ -76,7 +76,7 @@ export const removeItem =
     return [newCart, event];
   };
 
-export const updateItemQuantity =
+const updateItemQuantity =
   (productId: ProductId, quantity: Quantity) =>
   (cart: Cart): Result<[Cart, CartItemQuantityUpdated], CartError> => {
     const { props } = cart;
@@ -99,7 +99,7 @@ export const updateItemQuantity =
     );
   };
 
-export const clearOnOrder = (cart: Cart): [Cart, CartClearedOnOrder] => {
+const clearOnOrder = (cart: Cart): [Cart, CartClearedOnOrder] => {
   const newCart = build({
     ...cart,
     sequenceNumber: cart.sequenceNumber + 1,
