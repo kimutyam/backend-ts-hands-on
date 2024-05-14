@@ -4,6 +4,8 @@ import { Aggregate } from '../aggregate';
 import { Price } from '../price/price';
 import { ProductId } from './productId';
 
+const aggregateName = 'product' as const;
+
 const schema = Aggregate.makeSchema(
   ProductId.schema,
   z
@@ -24,6 +26,7 @@ const changePrice =
   (product: Product): Product => ({ ...product, props: { ...product.props, price } });
 
 export const Product = {
+  aggregateName,
   changePrice,
   isSameIdentity,
 } as const;
