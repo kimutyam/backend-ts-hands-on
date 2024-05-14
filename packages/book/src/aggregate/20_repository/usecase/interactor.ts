@@ -1,30 +1,30 @@
 import { ResultAsync } from 'neverthrow';
 import type { CartError } from '../../10_zod/domain/cart/cart';
 import { Cart } from '../../10_zod/domain/cart/cart';
-import type { OrderQuantity, OrderQuantityError } from '../../10_zod/domain/cart/orderQuantity';
 import type { CustomerId } from '../../10_zod/domain/customer/customerId';
+import type { Quantity, QuantityError } from '../../10_zod/domain/item/quantity';
 import type { ProductId } from '../../10_zod/domain/product/productId';
 import type { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError';
 import type { ICartRepository } from '../domain/cartRepository';
-import type { IProductRespository } from '../domain/productRespository';
+import type { IProductRepository } from '../domain/productRespository';
 
-export const addToCart =
-  (productRepository: IProductRespository, cartRepository: ICartRepository) =>
+export const addCartItem =
+  (productRepository: IProductRepository, cartRepository: ICartRepository) =>
   (
     customerId: CustomerId,
     productId: ProductId,
-    orderQuantity: OrderQuantity,
-  ): ResultAsync<Cart, ProductNotFoundError | CartError | OrderQuantityError> =>
+    quantity: Quantity,
+  ): ResultAsync<Cart, ProductNotFoundError | CartError | QuantityError> =>
     productRepository
       .findById(productId)
       .map((product) => ({
-        productId: product.productId,
-        orderQuantity,
-        price: product.price,
+        productId: product.aggregateId,
+        quantity,
+        price: product.props.price,
       }))
-      .andThen((orderItem) =>
+      .andThen((item) =>
         ResultAsync.fromSafePromise(cartRepository.findById(customerId)).andThen(
-          Cart.addOrderItem(orderItem),
+          Cart.addItem(item),
         ),
       )
       .map(async (cart) => {

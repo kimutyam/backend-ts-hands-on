@@ -19,7 +19,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "18.18.13",
+    "@types/node": "20.12.8",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
     "better-typescript-lib": "2.7.0",
@@ -29,7 +29,7 @@
     "eslint-plugin-import": "2.29.1",
     "npm-run-all2": "6.1.2",
     "prettier": "3.2.5",
-    "typescript": "5.3.3"
+    "typescript": "5.4.5"
   },
   "scripts": {
     "build": "run-p -c build:*",

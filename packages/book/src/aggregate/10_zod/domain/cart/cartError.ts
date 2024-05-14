@@ -1,5 +1,5 @@
 import type * as z from 'zod';
+import type { QuantityInput } from '../item/quantity';
 import type { CartInput } from './cart';
-import type { OrderQuantityInput } from './orderQuantity';
 
-export type AddProductError = z.ZodError<CartInput> | z.ZodError<OrderQuantityInput>;
+export type AddProductError = z.ZodError<CartInput> | z.ZodError<QuantityInput>;

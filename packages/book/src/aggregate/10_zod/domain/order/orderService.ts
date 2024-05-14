@@ -1,27 +1,28 @@
 import assert from 'node:assert';
 import { Cart } from '../cart/cart';
-import type { OrderItem } from '../cart/orderItem';
+import type { Item } from '../item/item';
 import type { Product } from '../product/product';
 import { ProductId } from '../product/productId';
 import type { Order } from './order';
 import type { OrderId } from './orderId';
 
-const detectOrderItems = (cart: Cart, products: ReadonlyArray<Product>) => {
-  const orderItems = cart.orderItems.reduce((acc, orderItem) => {
+const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
+  const { props } = cart;
+  const items = props.items.reduce((acc, item) => {
     const maybeProduct = products.find((product) =>
-      ProductId.equals(product.productId, orderItem.productId),
+      ProductId.equals(product.aggregateId, item.productId),
     );
     if (maybeProduct) {
       acc.push({
-        productId: orderItem.productId,
-        orderQuantity: orderItem.orderQuantity,
-        price: maybeProduct.price,
+        productId: item.productId,
+        quantity: item.quantity,
+        price: maybeProduct.props.price,
       });
     }
     return acc;
-  }, [] as Array<OrderItem>);
-  assert(cart.orderItems.length === orderItems.length);
-  return orderItems;
+  }, [] as Array<Item>);
+  assert(props.items.length === items.length);
+  return items;
 };
 
 export const OrderService = (
@@ -30,10 +31,12 @@ export const OrderService = (
   generateOrderId: () => OrderId,
 ): [Order, Cart] => {
   const order = {
-    orderId: generateOrderId(),
-    customerId: cart.customerId,
-    orderItems: detectOrderItems(cart, products),
+    aggregateId: generateOrderId(),
+    props: {
+      customerId: cart.aggregateId,
+      items: detectItems(cart, products),
+    },
   };
-  const initedCart = Cart.init(cart.customerId);
-  return [order, initedCart];
+  const newCart = Cart.clearOnOrder(cart);
+  return [order, newCart];
 };

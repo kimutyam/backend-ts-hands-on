@@ -1,14 +1,23 @@
 import * as z from 'zod';
-import { OrderItem } from '../cart/orderItem';
+import { Aggregate } from '../aggregate';
 import { CustomerId } from '../customer/customerId';
+import { Item } from '../item/item';
 import { OrderId } from './orderId';
 
-const schema = z
-  .object({
-    orderId: OrderId.schema,
-    customerId: CustomerId.schema,
-    orderItems: z.array(OrderItem.schema).readonly(),
-  })
-  .readonly();
+const aggregateName = 'order' as const;
+
+const schema = Aggregate.makeSchema(
+  OrderId.schema,
+  z
+    .object({
+      customerId: CustomerId.schema,
+      items: z.array(Item.schema).readonly(),
+    })
+    .readonly(),
+);
 
 export type Order = z.infer<typeof schema>;
+
+export const Order = {
+  aggregateName,
+} as const;
