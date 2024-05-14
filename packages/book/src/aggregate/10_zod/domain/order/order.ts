@@ -4,6 +4,8 @@ import { CustomerId } from '../customer/customerId';
 import { Item } from '../item/item';
 import { OrderId } from './orderId';
 
+const aggregateName = 'order' as const;
+
 const schema = Aggregate.makeSchema(
   OrderId.schema,
   z
@@ -17,5 +19,5 @@ const schema = Aggregate.makeSchema(
 export type Order = z.infer<typeof schema>;
 
 export const Order = {
-  name: 'order' as const,
+  aggregateName,
 } as const;
