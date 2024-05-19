@@ -8,5 +8,5 @@ export interface ICartRepository {
 }
 
 export const ICartRepository = {
-  token: 'ICartRepository',
+  token: 'ICartRepository' as const,
 } as const;

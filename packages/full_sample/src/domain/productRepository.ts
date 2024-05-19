@@ -7,5 +7,5 @@ export interface IProductRepository {
 }
 
 export const IProductRepository = {
-  token: 'IProductRepository',
+  token: 'IProductRepository' as const,
 } as const;
