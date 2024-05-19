@@ -4,5 +4,6 @@
   "compilerOptions": {
     "deleteOutDir": true
   },
+  "entryFile": "entryPoint/httpApi",
   "sourceRoot": "src"
 }
