@@ -14,10 +14,12 @@ const makeSchema = <
   aggregateIdSchema: AggregateIdSchema,
   propsSchema: PropsSchema,
 ) =>
-  z.object({
-    aggregateId: aggregateIdSchema,
-    props: propsSchema,
-  });
+  z
+    .object({
+      aggregateId: aggregateIdSchema,
+      props: propsSchema,
+    })
+    .readonly();
 
 export const Aggregate = {
   makeSchema,

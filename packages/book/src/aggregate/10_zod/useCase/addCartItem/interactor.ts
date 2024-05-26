@@ -6,9 +6,9 @@ import type { AddCartItemUseCase, Input, Output, UseCaseError } from './useCase'
 
 export class AddItemCartInteractor implements AddCartItemUseCase {
   constructor(
-    private cartResolver: CartResolver,
-    private cartStorer: CartStorer,
-    private productResolver: ProductResolver,
+    private readonly cartResolver: CartResolver,
+    private readonly cartStorer: CartStorer,
+    private readonly productResolver: ProductResolver,
   ) {}
 
   run({ customerId, productId, quantity }: Input): ResultAsync<Output, UseCaseError> {

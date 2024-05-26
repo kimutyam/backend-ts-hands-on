@@ -18,7 +18,7 @@ const schemaWithoutRefinements = Aggregate.makeSchema(
     .readonly(),
 ).brand(CartBrand);
 
-// type Cart = {
+// type Cart = Readonly<{
 //   aggregateId: string & z.BRAND<typeof CustomerIdBrand>;
 //   props: Readonly<{
 //     items: readonly Readonly<{
@@ -27,7 +27,7 @@ const schemaWithoutRefinements = Aggregate.makeSchema(
 //       quantity: number & z.BRAND<typeof QuantityBrand>;
 //     }>[];
 //   }>;
-// } & z.BRAND<typeof CartBrand>
+// }> & z.BRAND<typeof CartBrand>
 export type Cart = z.infer<typeof schemaWithoutRefinements>;
 export type CartInput = z.input<typeof schemaWithoutRefinements>;
 export type CartError = z.ZodError<CartInput>;
