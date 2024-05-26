@@ -17,7 +17,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "neverthrow": "^6.1.0",
+    "neverthrow": "6.2.1",
     "remeda": "^1.26.0",
     "tozod": "^3.0.0",
     "ulidx": "^2.1.0",
