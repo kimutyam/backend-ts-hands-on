@@ -10,7 +10,8 @@
       "packages/fp",
       "packages/fp-zod",
       "packages/pure",
-      "packages/conference-service"
+      "packages/conference-service",
+      "packages/full-sample"
     ],
     "nohoist": [
       "**/prisma",
