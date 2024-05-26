@@ -1,0 +1,33 @@
+---
+name: full-sample
+on:
+  # SEE: https://github.com/actions/checkout/issues/15
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build.yml'
+      - '.github/workflows/full-sample.yml'
+      - '.github/actions/**'
+      - '.*'
+      - 'Makefile'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'packages/full-sample/**'
+  pull_request:
+    paths:
+      - '.github/workflows/build.yml'
+      - '.github/workflows/example-book.yml'
+      - '.github/actions/**'
+      - '.*'
+      - 'Makefile'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'packages/full-sample/**'
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      workspace-name: 'full-sample'
+      node-version-file: '.node-version'
