@@ -24,7 +24,7 @@
     "@nestjs/common": "10.0.0",
     "@nestjs/core": "10.0.0",
     "@nestjs/platform-fastify": "10.3.8",
-    "neverthrow": "6.1.0",
+    "neverthrow": "6.2.1",
     "reflect-metadata": "0.1.12",
     "remeda": "1.26.0",
     "rxjs": "7.8.1",
