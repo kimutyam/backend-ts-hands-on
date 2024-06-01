@@ -29,7 +29,7 @@ repos:
         args: [--cache, --max-warnings, '0', --fix]
         files: \.[jt]sx?$
         types: [file]
-        exclude: .prettierrc.js
+        exclude: .prettierrc.js$|eslint.config.mjs$
         additional_dependencies:
           - 'typescript@5.4.5'
           - 'eslint@9.3.0'

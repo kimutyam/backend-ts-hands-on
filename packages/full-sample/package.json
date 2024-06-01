@@ -5,6 +5,7 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "build": "nest build --config nest-cli.json --path tsconfig.json",
     "start": "nest start",
