@@ -787,26 +787,26 @@
     webpack "5.87.0"
     webpack-node-externals "3.0.0"
 
-"@nestjs/common@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-10.0.0.tgz#368959074975326b893893b7c4378d52bf9c2671"
-  integrity sha512-Fa2GDQJrO5TTTcpISWfm0pdPS62V+8YbxeG5CA01zMUI+dCO3v3oFf+BSjqCGUUo7GDNzDsjAejwGXuqA54RPw==
+"@nestjs/common@10.3.8":
+  version "10.3.8"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-10.3.8.tgz#2dada4dc8b53aa1630d00bdea57db4453f066c4b"
+  integrity sha512-P+vPEIvqx2e+fonsYVlFXKvoChyJ8Tq+lfpqdVFqblovHbFr3kZ/nYX0cPs+XuW6bnRT8tz0SSR9XBGU43kJhw==
   dependencies:
     uid "2.0.2"
     iterare "1.2.1"
-    tslib "2.5.3"
+    tslib "2.6.2"
 
-"@nestjs/core@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-10.0.0.tgz#265147262c01ebec3f95cbaed7f9e5504e8a4faa"
-  integrity sha512-HFTdj4vsF+2qOaq97ZPRDle6Q/KyL5lmMah0/ZR0ie+e1/tnlvmlqw589xFACTemLJFFOjZMy763v+icO9u72w==
+"@nestjs/core@10.3.8":
+  version "10.3.8"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-10.3.8.tgz#0831fc44b51cfe736cf5ffacd17d479dc806eddb"
+  integrity sha512-AxF4tpYLDNn5Wfb3C4bNaaHJ4pREH5FJrSisR2A5zkYpQFORFs0Tc36lOFPMwBTy8Iv2wUwWLUVc5ftBnxEv4w==
   dependencies:
     uid "2.0.2"
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.1.1"
     iterare "1.2.1"
     path-to-regexp "3.2.0"
-    tslib "2.5.3"
+    tslib "2.6.2"
 
 "@nestjs/platform-fastify@10.3.8":
   version "10.3.8"
@@ -821,18 +821,7 @@
     path-to-regexp "3.2.0"
     tslib "2.6.2"
 
-"@nestjs/schematics@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/schematics/-/schematics-10.0.0.tgz#a9d16dfda1b5e64aa51b2737bde9745068b0bc8e"
-  integrity sha512-gfUy/N1m1paN33BXq4d7HoCM+zM4rFxYjqAb8jkrBfBHiwyEhHHozfX/aRy/kOnAcy/VP8v4Zs4HKKrbRRlHnw==
-  dependencies:
-    "@angular-devkit/core" "16.1.0"
-    "@angular-devkit/schematics" "16.1.0"
-    comment-json "4.2.3"
-    jsonc-parser "3.2.0"
-    pluralize "8.0.0"
-
-"@nestjs/schematics@^10.0.0":
+"@nestjs/schematics@10.1.1", "@nestjs/schematics@^10.0.0":
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/@nestjs/schematics/-/schematics-10.1.1.tgz#a67fb178a7ad6025ccc3314910b077ac454fcdf3"
   integrity sha512-o4lfCnEeIkfJhGBbLZxTuVWcGuqDCFwg5OrvpgRUBM7vI/vONvKKiB5riVNpO+JqXoH0I42NNeDb0m4V5RREig==
@@ -843,12 +832,12 @@
     jsonc-parser "3.2.1"
     pluralize "8.0.0"
 
-"@nestjs/testing@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.0.0.tgz#0dbb293d866c1d94edf48d2d9e7c4e4585ff4c0b"
-  integrity sha512-U5q3+svkddpdSk51ZFCEnFpQuWxAwE4ahsX77FrqqCAYidr7HUtL/BHYOVzI5H9vUH6BvJxMbfo3tiUXQl/2aA==
+"@nestjs/testing@10.3.8":
+  version "10.3.8"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.3.8.tgz#44df73ede43c47801400d59a8ebd6ab1fe7df34c"
+  integrity sha512-hpX9das2TdFTKQ4/2ojhjI6YgXtCfXRKui3A4Qaj54VVzc5+mtK502Jj18Vzji98o9MVS6skmYu+S/UvW3U6Fw==
   dependencies:
-    tslib "2.5.3"
+    tslib "2.6.2"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -5648,11 +5637,6 @@ tsconfig-paths@^3.15.0:
     json5 "^1.0.2"
     minimist "^1.2.6"
     strip-bom "^3.0.0"
-
-tslib@2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.5.3.tgz#24944ba2d990940e6e982c4bea147aba80209913"
-  integrity sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==
 
 tslib@2.6.2, tslib@^2.1.0:
   version "2.6.2"
