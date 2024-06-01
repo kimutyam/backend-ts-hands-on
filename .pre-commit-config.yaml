@@ -23,7 +23,7 @@ repos:
         entry: yamllint -c .yamllint.yml --strict
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.56.0
+    rev: v9.3.0
     hooks:
       - id: eslint
         args: [--cache, --max-warnings, '0', --fix]
@@ -32,13 +32,13 @@ repos:
         exclude: .prettierrc.js$|.eslintrc.js$
         additional_dependencies:
           - 'typescript@5.4.5'
-          - 'eslint@8.57.0'
+          - 'eslint@9.3.0'
           - 'eslint-config-airbnb-base@15.0.0'
           - 'eslint-config-prettier@9.1.0'
           - 'eslint-plugin-import@2.29.1'
-          - '@typescript-eslint/eslint-plugin@6.21.0'
-          - '@typescript-eslint/parser@6.21.0'
-          - 'eslint-plugin-jest@27.9.0'
+          - '@typescript-eslint/eslint-plugin@7.11.0'
+          - '@typescript-eslint/parser@7.11.0'
+          - 'eslint-plugin-jest@28.5.0'
           - 'jest@29.7.0'
 
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
