@@ -1,15 +1,12 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import baseConfig from "../../eslint.config.mjs"
-import JestESLint from "eslint-plugin-jest";
+import baseConfig from '../../eslint.config.mjs';
+import JestESLint from 'eslint-plugin-jest';
 
 const compat = new FlatCompat();
 
 export default [
   ...baseConfig,
-  ...compat.extends(
-    'plugin:jest/recommended',
-    'plugin:jest/style'
-  ),
+  ...compat.extends('plugin:jest/recommended', 'plugin:jest/style'),
   {
     plugins: {
       JestESLint,
@@ -19,5 +16,5 @@ export default [
       'jest/no-disabled-tests': 'off',
       'no-console': 'off',
     },
-  }
-]
+  },
+];

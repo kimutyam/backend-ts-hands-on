@@ -34,7 +34,6 @@
     "prettier": "3.2.5",
     "typescript": "5.4.5"
   },
-  "type": "module",
   "scripts": {
     "build": "run-p -c build:*",
     "build:example": "yarn workspace book build",

@@ -3,7 +3,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import { FlatCompat } from '@eslint/eslintrc';
 import typeScriptESLint from '@typescript-eslint/eslint-plugin';
 import typeScriptESLintParser from '@typescript-eslint/parser';
-import { fixupConfigRules } from "@eslint/compat";
+import { fixupConfigRules } from '@eslint/compat';
 
 const compat = new FlatCompat();
 
@@ -33,7 +33,8 @@ export default [
     languageOptions: {
       parser: typeScriptESLintParser,
       parserOptions: {
-        project: 'tsconfig.json',
+        // project: 'tsconfig.json',
+        project: true,
         sourceType: 'module',
       },
     },
