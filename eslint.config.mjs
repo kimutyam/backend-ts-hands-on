@@ -33,7 +33,6 @@ export default [
     languageOptions: {
       parser: typeScriptESLintParser,
       parserOptions: {
-        // project: 'tsconfig.json',
         project: true,
         sourceType: 'module',
       },
