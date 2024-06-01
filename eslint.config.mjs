@@ -24,7 +24,6 @@ export default [
   ),
   ...compat.env({
     node: true,
-    es2020: true,
     jest: true,
   }),
   {
