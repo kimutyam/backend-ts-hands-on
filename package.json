@@ -34,7 +34,6 @@
     "prettier": "3.2.5",
     "typescript": "5.4.5"
   },
-  "type": "module",
   "scripts": {
     "build": "run-p -c build:*",
     "build:example": "yarn workspace book build",
@@ -42,6 +41,7 @@
     "build:fp-zod": "yarn workspace fp-zod build",
     "build:pure": "yarn workspace pure build",
     "lint": "run-p -c lint:*",
+    "lint:book": "yarn workspace book lint",
     "lint:fp": "yarn workspace fp lint",
     "lint:fp-zod": "yarn workspace fp-zod lint",
     "lint:pure": "yarn workspace pure lint",
