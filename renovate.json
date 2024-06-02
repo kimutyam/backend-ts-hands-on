@@ -18,8 +18,8 @@
       "groupName": "eslint packages",
       "matchPackagePatterns": [
         "^eslint",
-        "^@typescript-eslint",
-        "^pre-commit/mirrors-eslint$"
+        "@eslint",
+        "^@typescript-eslint"
       ]
     },
     {
@@ -34,7 +34,6 @@
       "matchPackageNames": [
         "typescript",
         "node",
-        "prisma",
         "jest"
       ],
       "matchUpdateTypes": [
@@ -44,17 +43,10 @@
     {
       "automerge": false,
       "matchPackagePatterns": [
-        "^@nestjs",
-        "^@prisma"
+        "^@nestjs"
       ],
       "matchUpdateTypes": [
         "minor"
-      ]
-    },
-    {
-      "groupName": "pino packages",
-      "matchPackagePatterns": [
-        "^pino"
       ]
     }
   ],
