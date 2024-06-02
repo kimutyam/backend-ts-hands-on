@@ -6,7 +6,6 @@ import type { Quantity } from './quantity';
 const item = Item.build({ name: 'apple', price: 100 }, 10);
 const orderTotal = R.pipe(item, Item.add(-10), Item.total);
 // -1000になる。おかしい
-// eslint-disable-next-line no-console
 console.log(orderTotal);
 
 export const NegativeQuantity = (value: number): Quantity => {
