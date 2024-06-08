@@ -36,4 +36,4 @@ repos:
         files: \.([jt]sx?)$
         types: [file]
         additional_dependencies:
-          - 'prettier@3.3.0'
+          - 'prettier@3.3.1'
