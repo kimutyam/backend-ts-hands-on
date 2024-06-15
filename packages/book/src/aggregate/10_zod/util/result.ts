@@ -10,4 +10,4 @@ export const buildFromZod = <Input, Output, E = z.ZodError<Input>>(
 
 export const buildFromZodDefault = <Input, Output>(
   result: z.SafeParseReturnType<Input, Output>,
-): Result<Output, z.ZodError<Input>> => buildFromZod(result, identity);
+): Result<Output, z.ZodError<Input>> => buildFromZod(result, identity());

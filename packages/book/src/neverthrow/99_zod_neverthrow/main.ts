@@ -29,4 +29,4 @@ const fromZodReturnType = <Input, Output, E>(
 
 export const fromZodReturnTypeDefault = <Input, Output>(
   result: z.SafeParseReturnType<Input, Output>,
-): Result<Output, z.ZodError<Input>> => fromZodReturnType(result, identity);
+): Result<Output, z.ZodError<Input>> => fromZodReturnType(result, identity());
