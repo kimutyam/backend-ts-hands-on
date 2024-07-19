@@ -22,7 +22,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.7.0",
-    "@types/node": "20.14.10",
+    "@types/node": "20.14.11",
     "@typescript-eslint/eslint-plugin": "7.16.1",
     "@typescript-eslint/parser": "7.16.1",
     "better-typescript-lib": "2.7.0",
