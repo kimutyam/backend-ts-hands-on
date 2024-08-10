@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "neverthrow": "6.2.2",
-    "remeda": "2.10.0",
+    "remeda": "2.10.1",
     "tozod": "3.0.0",
     "ulidx": "2.4.0",
     "zod": "3.23.8"
