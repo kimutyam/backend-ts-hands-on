@@ -21,7 +21,7 @@
     "neverthrow": "6.2.2",
     "remeda": "2.11.0",
     "tozod": "3.0.0",
-    "ulidx": "2.4.0",
+    "ulidx": "2.4.1",
     "zod": "3.23.8"
   },
   "devDependencies": {
