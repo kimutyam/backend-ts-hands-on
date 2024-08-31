@@ -14,7 +14,7 @@
 
 {
   const pi = 3.14; // 型は3.14というリテラル型と推論されます
-  const greeting = 'hello'; // 型は"hello"というリテラル型と推論されます
+  const greeting = 'hello'; // 型は'hello'というリテラル型と推論されます
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   greeting = 'world'; // NG: 値の再代入
