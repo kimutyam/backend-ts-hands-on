@@ -14,9 +14,9 @@ const person = {
   age: 10,
 };
 
-console.log(person); // { "name": "Alice", "age": 10 }
+console.log(person); // { 'name': 'Alice', 'age': 10 }
 
 const updatedPerson = modifyName(person, 'Telles');
 
-console.log(person); // { "name": "Telles", "age": 10 }
-console.log(updatedPerson); // { "name": "Telles", "age": 10 }
+console.log(person); // { 'name': 'Telles', 'age': 10 }
+console.log(updatedPerson); // { 'name': 'Telles', 'age': 10 }
