@@ -5716,17 +5716,10 @@ uid@2.0.2:
   dependencies:
     "@lukeed/csprng" "^1.0.0"
 
-ulidx@2.4.1:
+ulidx@2.4.1, ulidx@^2.1.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/ulidx/-/ulidx-2.4.1.tgz#c0f60f0552f84d115d42fd52a306033f13404c55"
   integrity sha512-xY7c8LPyzvhvew0Fn+Ek3wBC9STZAuDI/Y5andCKi9AX6/jvfaX45PhsDX8oxgPL0YFp0Jhr8qWMbS/p9375Xg==
-  dependencies:
-    layerr "^3.0.0"
-
-ulidx@^2.1.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/ulidx/-/ulidx-2.4.0.tgz#9d56b16925b6403019005e63b3b5b3a61d94f3ee"
-  integrity sha512-iTZHiSCrIZeXvbJ34qCSBO4fmwf4GRzkv3hb7adB+00nyJKCwVFK0xw2gXGNfJsIFfET7Av+OP8/rsxxJHRSVQ==
   dependencies:
     layerr "^3.0.0"
 
