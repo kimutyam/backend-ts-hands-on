@@ -9,7 +9,7 @@ interface Person {
     name: 'Alice',
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    age: 'Secret', // NG: number型でない
+    age: 'Secret', // NG: number型ではありません
   };
   console.log(person);
 }
