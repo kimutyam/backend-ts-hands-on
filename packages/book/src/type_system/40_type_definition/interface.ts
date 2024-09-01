@@ -1,21 +1,21 @@
-interface Person {
+interface Employee {
   name: string;
   age: number;
 }
 
 {
   // eslint-disable-next-line prefer-const
-  let person: Person = {
+  let employee: Employee = {
     name: 'Alice',
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     age: 'Secret', // NG: number型ではありません
   };
-  console.log(person);
+  console.log(employee);
 }
 
-interface Student extends Person {
+interface Manager extends Employee {
   grade: number;
 }
 
-export type { Person, Student };
+export type { Employee, Manager };

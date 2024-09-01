@@ -1,22 +1,22 @@
-interface Person {
+interface Employee {
   readonly name: string;
   readonly age: number;
 }
 
-function modifyName(person: Person, name: string): Person {
+function modifyName(employee: Employee, name: string): Employee {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // eslint-disable-next-line no-param-reassign
-  person.name = name; // NG: readonlyなので変更できない
-  return person;
+  employee.name = name; // NG: readonlyなので変更できない
+  return employee;
 }
 
 {
-  const person = {
+  const employee = {
     name: 'Alice',
     age: 10,
   };
-  modifyName(person, 'Telles');
+  modifyName(employee, 'Telles');
 }
 
-export { type Person, modifyName };
+export { type Employee, modifyName };

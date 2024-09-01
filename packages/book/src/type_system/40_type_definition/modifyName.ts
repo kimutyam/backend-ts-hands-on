@@ -1,7 +1,7 @@
-import type { Person } from './interface';
+import type { Employee } from './interface';
 
-function modifyName(person: Person, name: string): Person {
-  return { ...person, name };
+function modifyName(employee: Employee, name: string): Employee {
+  return { ...employee, name };
 }
 
 export { modifyName };
