@@ -1,11 +1,11 @@
-type PersonName = string;
-interface Person {
-  name: PersonName;
+type EmployeeName = string;
+interface Employee {
+  name: EmployeeName;
   age: number;
 }
 
-function modifyName(person: Person, name: PersonName): Person {
-  return { ...person, name };
+function modifyName(employee: Employee, name: EmployeeName): Employee {
+  return { ...employee, name };
 }
 
-export { modifyName, type Person };
+export { modifyName, type Employee };

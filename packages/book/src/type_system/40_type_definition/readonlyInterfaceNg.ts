@@ -1,22 +1,24 @@
-interface Person {
+interface Employee {
   name: string;
   age: number;
 }
 
-function modifyName(person: Person, name: string): Person {
+function modifyName(employee: Employee, name: string): Employee {
   // eslint-disable-next-line no-param-reassign
-  person.name = name;
-  return person;
+  employee.name = name;
+  return employee;
 }
 
-const person = {
-  name: 'Alice',
-  age: 10,
-};
+{
+  const employee = {
+    name: 'Alice',
+    age: 10,
+  };
 
-console.log(person); // { 'name': 'Alice', 'age': 10 }
+  console.log(employee); // { 'name': 'Alice', 'age': 10 }
 
-const updatedPerson = modifyName(person, 'Telles');
+  const updatedPerson = modifyName(employee, 'Telles');
 
-console.log(person); // { 'name': 'Telles', 'age': 10 }
-console.log(updatedPerson); // { 'name': 'Telles', 'age': 10 }
+  console.log(employee); // { 'name': 'Telles', 'age': 10 }
+  console.log(updatedPerson); // { 'name': 'Telles', 'age': 10 }
+}

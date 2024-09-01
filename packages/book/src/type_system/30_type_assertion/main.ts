@@ -1,21 +1,21 @@
 {
   // eslint-disable-next-line prefer-const
-  let someValue: any = 'this is a string'; // any型と型注釈をいれている
+  let anything: any = 'this is a string'; // any型と型注釈をいれている
   // eslint-disable-next-line prefer-const
-  let strLength: number = (someValue as string).length; // someValueはstring型であるコンパイラに伝える
+  let strLength: number = (anything as string).length; // someValueはstring型であるコンパイラに伝える
 
-  console.log(someValue, strLength);
+  console.log(anything, strLength);
 }
 
 {
   // eslint-disable-next-line prefer-const
-  let greeting = 'hello' as const; // "hello" の文字列リテラル型として評価されます。
-  console.log(greeting);
+  let message = 'hello' as const; // "hello" の文字列リテラル型として評価されます。
+  console.log(message);
 }
 
 {
-  const person = { name: 'John', age: 30 } as const; // { readonly name: "John", readonly age: 30 }と推論される
-  const numbers = [1, 2, 3] as const; // readonly [1, 2, 3]
+  const employee = { name: 'John', age: 30 } as const; // { readonly name: "John", readonly age: 30 }と推論される
+  const grades = [1, 2, 3] as const; // readonly [1, 2, 3]
 
-  console.log(person, numbers);
+  console.log(employee, grades);
 }

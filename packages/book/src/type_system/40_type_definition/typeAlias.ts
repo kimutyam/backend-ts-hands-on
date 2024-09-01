@@ -1,8 +1,8 @@
-type Person = {
+type Employee = {
   name: string;
   age: number;
 };
 
-type Student = Person & { grade: number };
+type Manager = Employee & { grade: number };
 
-export type { Person, Student };
+export type { Employee, Manager };
