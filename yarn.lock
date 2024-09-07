@@ -4948,17 +4948,10 @@ regexp.prototype.flags@^1.5.2:
     es-errors "^1.3.0"
     set-function-name "^2.0.1"
 
-remeda@2.12.0:
+remeda@2.12.0, remeda@^2.0.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.12.0.tgz#af57ba25fc45141bdc87fd21b85f774ccdc7a02f"
   integrity sha512-VAlyhh1os8boCA9/7yN9sXzo0tfCeOwScGXztwBspS0DXQmbIN8xTBfEABvbAW8rMJMPzqxQ1UymHquuESh/pg==
-  dependencies:
-    type-fest "^4.23.0"
-
-remeda@^2.0.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.11.0.tgz#2507f9f9ad09a426a3e8c195d6afa852bb06b51a"
-  integrity sha512-rQO+zcuNvnTcB2vBctblBARZakY0+wMNtrFGqU1+h4jm5p2APcDKQxUZG2CmMPkSQxa2nauU55GBVS/3Fo83fA==
   dependencies:
     type-fest "^4.23.0"
 
