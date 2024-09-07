@@ -1,2 +1,4 @@
-export type UserId = string | number;
-export type MemberId = string | boolean;
+type UserId = string | number;
+type MemberId = string | boolean;
+
+export type { UserId, MemberId };

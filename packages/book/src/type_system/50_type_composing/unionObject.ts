@@ -1,32 +1,16 @@
-import type { User, Employee, Student, Member } from './objectTypes';
+import type { Executive, Manager } from '../44_subtype/employee';
 
-// 同じ構造の共通部分
-// {id: string} または、 {id: string} => {id: string}
-type UserOrStudent = User | Student;
+// {name: string, age: number}型になります
+type ManagerUnionExecutive = Manager | Executive;
 
-const userOrStudent: UserOrStudent = {
-  id: '',
-};
+declare function ManagerUnionExecutive(): ManagerUnionExecutive;
 
-// 異なる構造であるが、同じプロパティを持つ場合も、直積
-// {id: string} または、{id: string, name: number}
-type UserOrEmployee = User | Employee;
-
-const userOrEmployee1: UserOrEmployee = { id: '' };
-const userOrEmployee2: UserOrEmployee = { id: '', name: '' };
-const userOrEmployee3: User = userOrEmployee2;
-
-// 異なる構造の共通部分
-// {id: string} または、{memberId: number}
-type UserOrMember = User | Member;
-const userOrMember1: UserOrMember = { id: '' };
-const userOrMember2: UserOrMember = { memberId: 1 };
-
-console.log(
-  userOrStudent,
-  userOrMember1,
-  userOrMember2,
-  userOrEmployee1,
-  userOrEmployee2,
-  userOrEmployee3,
-);
+const managerUnionExecutive = ManagerUnionExecutive();
+managerUnionExecutive.name = 'Bob'; // OK
+managerUnionExecutive.age = 32; // OK
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+managerUnionExecutive.grade = 3; // NG: コンパイルエラー
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+managerUnionExecutive.title = 'CTO'; // NG: コンパイルエラー
