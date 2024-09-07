@@ -3,9 +3,21 @@ import type { Manager } from './types';
 const employee: Employee = { name: 'Alice', age: 30 };
 const manager: Manager = { name: 'Bob', age: 25, grade: 3 };
 
-const createEmployee: () => Employee = () => manager;
+type CreateEmployeeFn = () => Employee;
+type CreateManagerFn = () => Manager;
+
+// true
+// 戻り値: 広い型(Employee)に狭い型(Manager)を代入できる
+// 代入できるのでサブタイプ互換性がある
+type X = CreateManagerFn extends CreateEmployeeFn ? true : false;
+// false
+// 戻り値: 狭い型(Manager)に広い型(Employee)を代入できない (危険な出力)
+// 代入できないのでサブタイプ互換性がない
+type Y = CreateEmployeeFn extends CreateManagerFn ? true : false;
+
+const createEmployee: CreateEmployeeFn = () => manager;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const createManager: () => Manager = () => employee;
+const createManager: CreateManagerFn = () => employee;
 
-export { createEmployee, createManager };
+export { createEmployee, createManager, type X, type Y };
