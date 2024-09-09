@@ -8,9 +8,10 @@ interface PartTime {
   age: number;
 }
 
-function modifyName(employee: Employee, name: string): Employee {
-  return { ...employee, name };
-}
+const modifyName = (employee: Employee, name: string): Employee => ({
+  ...employee,
+  name,
+});
 
 {
   let employee: Employee = { name: 'Alice', age: 30 };

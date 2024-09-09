@@ -4,8 +4,9 @@ interface Employee {
   age: number;
 }
 
-function modifyName(employee: Employee, name: EmployeeName): Employee {
-  return { ...employee, name };
-}
+const modifyName = (employee: Employee, name: EmployeeName): Employee => ({
+  ...employee,
+  name,
+});
 
 export { modifyName, type Employee };

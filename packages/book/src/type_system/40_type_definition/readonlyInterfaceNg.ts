@@ -3,11 +3,11 @@ interface Employee {
   age: number;
 }
 
-function modifyName(employee: Employee, name: string): Employee {
+const modifyName = (employee: Employee, name: string): Employee => {
   // eslint-disable-next-line no-param-reassign
   employee.name = name;
   return employee;
-}
+};
 
 {
   const employee = {
