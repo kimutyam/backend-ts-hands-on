@@ -1,7 +1,7 @@
 import type { Manager } from './types';
 
-const employee: Employee = { name: 'Alice', age: 30 };
-const manager: Manager = { name: 'Bob', age: 25, grade: 3 };
+const employee: Employee = { name: '木村', age: 30 };
+const manager: Manager = { name: '佐藤', age: 25, grade: 3 };
 
 type CreateEmployeeFn = () => Employee;
 type CreateManagerFn = () => Manager;

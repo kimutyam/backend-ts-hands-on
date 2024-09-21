@@ -1,11 +1,11 @@
 import type { Executive, Manager } from '../44_subtype/employee';
 
 // {name: string, age: number, grade: number, title: number}型になります
-type ManagerIntersectionExecutive = Manager & Executive;
+type ManagerExecutiveIntersection = Manager & Executive;
 
-declare function ManagerIntersectionExecutive(): ManagerIntersectionExecutive;
-const managerIntersectionExecutive = ManagerIntersectionExecutive();
-managerIntersectionExecutive.name = 'Bob'; // OK
-managerIntersectionExecutive.age = 32; // OK
-managerIntersectionExecutive.grade = 3; // OK
-managerIntersectionExecutive.title = 'CTO'; // OK
+declare function ManagerExecutiveIntersection(): ManagerExecutiveIntersection;
+const managerExecutiveIntersection = ManagerExecutiveIntersection();
+managerExecutiveIntersection.name = '木村'; // OK
+managerExecutiveIntersection.age = 32; // OK
+managerExecutiveIntersection.grade = 3; // OK
+managerExecutiveIntersection.title = 'CTO'; // OK

@@ -6,7 +6,7 @@ interface Employee {
 {
   // eslint-disable-next-line prefer-const
   let employee: Employee = {
-    name: 'Alice',
+    name: '木村',
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     age: 'Secret', // NG: number型ではありません

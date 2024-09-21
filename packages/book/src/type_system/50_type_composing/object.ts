@@ -2,8 +2,8 @@ import type { Employee, Manager } from '../44_subtype/employee';
 
 // あらゆるオブジェクトを代入可能なobject型です
 let anyObject: object;
-const employee: Employee = { name: 'Alice', age: 30 };
-const manager: Manager = { name: 'Bob', age: 25, grade: 3 };
+const employee: Employee = { name: '木村', age: 30 };
+const manager: Manager = { name: '佐藤', age: 25, grade: 3 };
 anyObject = employee;
 anyObject = manager;
 

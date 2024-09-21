@@ -13,10 +13,10 @@ const modifyName = (employee: Employee, name: string): Employee => {
 
 {
   const employee = {
-    name: 'Alice',
+    name: '木村',
     age: 10,
   };
-  modifyName(employee, 'Telles');
+  modifyName(employee, '佐藤');
 }
 
 export { type Employee, modifyName };

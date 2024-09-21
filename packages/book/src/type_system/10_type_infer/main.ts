@@ -23,11 +23,11 @@
 }
 
 {
-  const employee = { name: 'John', age: 30 }; // 型は {name: string; age: number;} と推論されます
+  const employee = { name: '木村', age: 30 }; // 型は {name: string; age: number;} と推論されます
   employee.age = 31; // OK: オブジェクトのプロパティには再代入
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  employee = { name: 'Doe', age: 40 }; // NG: オブジェクト自体を再代入
+  employee = { name: '佐藤', age: 40 }; // NG: オブジェクト自体を再代入
 
   const grades = [1, 2, 3]; // numbersの型はnumber[]と推論されます
   grades.push(4); // OK: 配列の要素の追加

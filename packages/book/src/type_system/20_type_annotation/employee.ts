@@ -3,6 +3,6 @@ interface Employee {
   age: number;
 }
 
-const employee: Employee = { name: 'John', age: 30 };
+const employee: Employee = { name: '木村', age: 30 };
 
 console.log(employee);
