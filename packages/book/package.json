@@ -18,6 +18,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "date-fns": "3.6.0",
     "neverthrow": "6.2.2",
     "remeda": "2.13.0",
     "tozod": "3.0.0",
