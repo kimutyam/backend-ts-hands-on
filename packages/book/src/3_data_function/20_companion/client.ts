@@ -1,0 +1,5 @@
+import { Period } from './period';
+
+const period: Period = Period.build(new Date(2024, 0, 1, 0, 0, 0), 30);
+
+console.log(period);
