@@ -14,10 +14,10 @@ const modifyName = (employee: Employee, name: string): Employee => ({
 });
 
 {
-  let employee: Employee = { name: 'Alice', age: 30 };
-  const partTime: PartTime = { name: 'Bob', age: 25 };
+  let employee: Employee = { name: '木村', age: 30 };
+  const partTime: PartTime = { name: '佐藤', age: 25 };
   employee = partTime; // 構造の互換性があるため、エラーになりません
-  modifyName(employee, 'Charlie'); // 関数シグニチャではPerson型を期待していますが、Employee型を渡してもエラーになりません
+  modifyName(employee, '鈴木'); // 関数シグニチャではPerson型を期待していますが、Employee型を渡してもエラーになりません
   console.log(employee);
 }
 
