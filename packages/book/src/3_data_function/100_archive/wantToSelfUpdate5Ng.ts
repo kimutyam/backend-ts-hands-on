@@ -13,9 +13,10 @@ class Employee extends EmployeeLike {
     super();
   }
 
-  // Employee固有の振る舞いだとする。サブタイプが崩れる
-  zeroPaddedAge() {
-    return this.age.toString().padStart(3, '0');
+  // eslint-disable-next-line no-use-before-define
+  promoteManager(grade: number): Manager {
+    // eslint-disable-next-line no-use-before-define
+    return new Manager(this.name, this.age, grade);
   }
 }
 
