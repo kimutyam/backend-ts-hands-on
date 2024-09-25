@@ -1,4 +1,5 @@
 import { isBefore, isAfter, isEqual, addDays, addHours } from 'date-fns';
+import { pipe } from 'remeda';
 
 interface Period {
   readonly start: Date;
@@ -18,7 +19,7 @@ const isSameOrBefore =
 const isWithin =
   (dateToCompare: Date) =>
   ({ start, end }: Period): boolean =>
-    isSameOrAfter(dateToCompare)(start) && isSameOrBefore(dateToCompare)(end);
+    pipe(start, isSameOrAfter(dateToCompare)) && pipe(end, isSameOrBefore(dateToCompare));
 
 const postpone =
   (delayDays: number, delayHours: number) =>
@@ -27,4 +28,11 @@ const postpone =
     end: addHours(addDays(period.end, delayDays), delayHours),
   });
 
-export { isWithin, postpone, type Period };
+const extend =
+  (extensionDays: number, extensionHours: number) =>
+  ({ start, end }: Period): Period => ({
+    start,
+    end: addHours(addDays(end, extensionDays), extensionHours),
+  });
+
+export { isWithin, postpone, extend, type Period };

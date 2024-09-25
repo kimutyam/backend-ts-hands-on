@@ -16,11 +16,10 @@ const isSameOrBefore =
   (date: Date): boolean =>
     isBefore(date, dateToCompare) || isEqual(date, dateToCompare);
 
-// 期間内かどうか
-const between =
+const isWithin =
   (dateToCompare: Date) =>
   ({ start, end }: Period): boolean =>
-    isSameOrAfter(dateToCompare)(start) && isSameOrBefore(dateToCompare)(end);
+    pipe(start, isSameOrAfter(dateToCompare)) && pipe(end, isSameOrBefore(dateToCompare));
 
 const postpone =
   (delayDays: number, delayHours: number) =>
@@ -29,14 +28,22 @@ const postpone =
     end: pipe(end, addDays(delayDays), addHours(delayHours)),
   });
 
+const extend =
+  (extensionDays: number, extensionHours: number) =>
+  ({ start, end }: Period): Period => ({
+    start,
+    end: pipe(end, addDays(extensionDays), addHours(extensionHours)),
+  });
+
 const build = (start: Date, periodDate: number): Period => ({
   start,
-  end: addDays(periodDate)(start),
+  end: pipe(start, addDays(periodDate)),
 });
 
 const Period = {
   build,
-  between,
+  isWithin,
+  extend,
   postpone,
 } as const;
 
