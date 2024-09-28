@@ -8,13 +8,12 @@ interface Period {
 
 // NOTE: 振る舞いの定義は割愛
 
-const build = (start: Date, periodDate: number): Period => ({
-  start,
-  end: pipe(start, addDays(periodDate)),
-});
-
 const Period = {
-  build,
+  build: (start: Date, periodDate: number): Period => ({
+    start,
+    end: pipe(start, addDays(periodDate)),
+  }),
 } as const;
 
+// 型と値の両方を公開します
 export { Period };
