@@ -13,7 +13,7 @@
     "format:fix": "prettier --write \"{src,test}/**/*.ts\"",
     "lint": "eslint --cache \"{src,test}/**/*.ts\"",
     "lint:fix": "eslint --cache \"{src,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test": "vitest",
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch"
   },
@@ -35,7 +35,8 @@
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vitest": "2.1.3"
   },
   "jest": {
     "verbose": true,
