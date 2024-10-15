@@ -2,7 +2,7 @@ import type { Result } from 'neverthrow';
 import { z } from 'zod';
 import { buildFromZodDefault } from './result';
 
-export declare const OrderQuantityBrand: unique symbol;
+export const OrderQuantityBrand: unique symbol = Symbol();
 
 const schema = z.number().int().min(1).max(10).brand(OrderQuantityBrand);
 

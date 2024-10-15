@@ -2,7 +2,7 @@ import type { Result } from 'neverthrow';
 import { z } from 'zod';
 import { buildFromZodDefault } from '../result';
 
-export declare const ProductIdBrand: unique symbol;
+export const ProductIdBrand: unique symbol = Symbol();
 
 const schema = z.string().uuid().brand(ProductIdBrand);
 

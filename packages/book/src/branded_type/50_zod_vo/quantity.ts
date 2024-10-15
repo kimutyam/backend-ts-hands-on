@@ -3,7 +3,7 @@ import { z } from 'zod';
 import type { Eq } from './eq';
 import { fromZodReturnTypeDefault } from './resultBuilder';
 
-export declare const QuantityBrand: unique symbol;
+export const QuantityBrand = Symbol();
 
 const schema = z.number().int().min(1).max(10).brand(QuantityBrand);
 
