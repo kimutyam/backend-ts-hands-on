@@ -5,7 +5,7 @@ import { fromZodReturnTypeDefault } from '../resultBuilder';
 
 export declare const ProductPriceBrand: unique symbol;
 
-const schema = z.number().int().min(100).max(1_000_000).brand(ProductPriceBrand);
+const schema = z.number().int().min(100).max(1_000_000).brand('ProductPrice');
 
 export type Price = z.infer<typeof schema>;
 

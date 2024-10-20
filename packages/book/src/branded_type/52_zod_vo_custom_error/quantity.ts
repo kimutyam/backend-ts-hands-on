@@ -3,9 +3,7 @@ import { z } from 'zod';
 import { fromZodReturnType } from '../50_zod_vo/resultBuilder';
 import { QuantityError } from './quantityError';
 
-export declare const QuantityBrand: unique symbol;
-
-const schema = z.number().int().min(1).max(10).brand(QuantityBrand);
+const schema = z.number().int().min(1).max(10).brand('Quantity');
 
 export type Quantity = z.infer<typeof schema>;
 

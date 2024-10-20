@@ -1,5 +1,5 @@
+import type { SafeParseReturnType } from 'zod';
 import { z } from 'zod';
-import type { SafeParseReturnType } from 'zod/lib/types';
 
 const schema = z.number().int().min(1);
 
