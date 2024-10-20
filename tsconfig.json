@@ -14,7 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
