@@ -2,9 +2,7 @@ import type { Result } from 'neverthrow';
 import { z } from 'zod';
 import { buildFromZodDefault } from '../result';
 
-export declare const ProductPriceBrand: unique symbol;
-
-const schema = z.number().int().min(100).max(1_000_000).brand(ProductPriceBrand);
+const schema = z.number().int().min(100).max(1_000_000).brand('Price');
 
 export type Price = z.infer<typeof schema>;
 

@@ -3,9 +3,7 @@ import { z } from 'zod';
 import type { Eq } from '../eq';
 import { fromZodReturnTypeDefault } from '../resultBuilder';
 
-export declare const ProductNameBrand: unique symbol;
-
-const schema = z.string().min(1).brand(ProductNameBrand);
+const schema = z.string().min(1).brand('ProductName');
 
 export type Name = z.infer<typeof schema>;
 
