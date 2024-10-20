@@ -17,7 +17,7 @@
     "test:cov": "vitest --coverage"
   },
   "dependencies": {
-    "date-fns": "3.6.0",
+    "date-fns": "4.1.0",
     "neverthrow": "6.2.2",
     "remeda": "2.15.0",
     "tozod": "3.0.0",
