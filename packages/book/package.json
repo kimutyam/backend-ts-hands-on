@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "date-fns": "4.1.0",
-    "neverthrow": "6.2.2",
+    "neverthrow": "8.0.0",
     "remeda": "2.15.0",
     "tozod": "3.0.0",
     "ulidx": "2.4.1",
