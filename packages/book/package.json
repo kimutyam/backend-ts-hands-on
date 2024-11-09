@@ -17,7 +17,9 @@
     "test:cov": "vitest --coverage"
   },
   "dependencies": {
+    "@hono/node-server": "^1.13.2",
     "date-fns": "4.1.0",
+    "hono": "^4.6.7",
     "neverthrow": "6.2.2",
     "remeda": "2.16.0",
     "tozod": "3.0.0",
