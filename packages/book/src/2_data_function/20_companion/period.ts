@@ -9,7 +9,7 @@ interface Period {
 // NOTE: 振る舞いの定義は割愛
 
 const Period = {
-  build: (start: Date, periodDate: number): Period => ({
+  buildAt: (start: Date, periodDate: number): Period => ({
     start,
     end: pipe(start, addDays(periodDate)),
   }),
