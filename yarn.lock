@@ -5288,7 +5288,14 @@ regexp.prototype.flags@^1.5.2:
     es-errors "^1.3.0"
     set-function-name "^2.0.2"
 
-remeda@2.17.3, remeda@^2.0.0:
+remeda@2.17.4:
+  version "2.17.4"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.17.4.tgz#a09cb1cf57a3b0c113e3210f568be8c5423800b9"
+  integrity sha512-pviU2Ag7Qx9mOCAKO4voxDx/scfLzdhp3v85qDO4xxntQsU76uE9sgrAAdK1ATn4zzaOJqCXYMMNRP+O9F4Wiw==
+  dependencies:
+    type-fest "^4.27.0"
+
+remeda@^2.0.0:
   version "2.17.3"
   resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.17.3.tgz#31e3c505e4dffc2709d5cedb607c4e0b57c36e01"
   integrity sha512-xyi2rCQkz2j4BEWbWxPw6JCapv1yBuSwr4Uf9BX00AkesAJaiKvc6Il6thsBidwVZAtNiSaCIXvslkKL0ybz8w==
