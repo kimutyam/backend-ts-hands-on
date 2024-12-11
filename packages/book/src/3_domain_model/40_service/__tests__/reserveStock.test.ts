@@ -64,8 +64,8 @@ describe('reserveStock', () => {
     assert(result.isErr());
     expect(result.error).toStrictEqual(
       new StockReservationError('order-1', [
-        { productId: 'product-2', diff: -1 },
-        { productId: 'product-3', diff: -10 },
+        { productId: 'product-2', shortage: 1 },
+        { productId: 'product-3', shortage: 10 },
       ]),
     );
   });
