@@ -1,4 +1,4 @@
-import type { Manager } from './types';
+import type { Manager, Employee } from './types';
 
 type IsEmployeeSubType<T> = T extends Employee ? 'yes' : 'no';
 

@@ -1,4 +1,4 @@
-import type { Manager } from './types';
+import type { Manager, Employee } from './types';
 
 const employee: Employee = { name: '木村', age: 30 };
 const manager: Manager = { name: '佐藤', age: 25, grade: 3 };
