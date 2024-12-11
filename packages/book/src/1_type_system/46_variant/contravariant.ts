@@ -1,4 +1,4 @@
-import type { Manager } from './types';
+import type { Manager, Employee } from './types';
 
 type PrintEmployeeFn = (arg: Employee) => void;
 type PrintManagerFn = (arg: Manager) => void;

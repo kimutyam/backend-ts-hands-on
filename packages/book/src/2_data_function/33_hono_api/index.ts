@@ -1,5 +1,6 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
+import type { Employee } from '../0_data_and_function/types';
 
 const app = new Hono();
 
