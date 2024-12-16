@@ -5,9 +5,8 @@ import { InvariantsError } from './invariantsError';
 import type { Result } from './result';
 import { Failure, Success } from './result';
 
-declare const tag: unique symbol;
 type RawType = number;
-export type Quantity = Brand<RawType, typeof tag>;
+export type Quantity = Brand<RawType, 'Quantity'>;
 
 type QuantityError = InvariantsError<RawType>;
 

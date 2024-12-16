@@ -1,7 +1,7 @@
 import type { Rational } from './rational';
 
 type PublicProperties<T> = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   [K in keyof T]: T[K] extends Function ? never : K;
 }[keyof T];
 

@@ -29,4 +29,5 @@ export const Product = {
   aggregateName,
   changePrice,
   isSameIdentity,
+  schema,
 } as const;

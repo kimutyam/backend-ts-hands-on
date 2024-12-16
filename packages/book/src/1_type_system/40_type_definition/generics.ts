@@ -10,6 +10,6 @@ interface User {
   email: string;
 }
 
-interface UserResponse extends ApiResponse<User> {}
+type UserResponse = ApiResponse<User>;
 
 export type { ApiResponse, User, UserResponse };

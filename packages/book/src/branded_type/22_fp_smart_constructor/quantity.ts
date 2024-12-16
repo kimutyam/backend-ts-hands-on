@@ -4,9 +4,8 @@ import { QuantityError } from './quantityError';
 import type { Result } from './result';
 import { Failure, Success } from './result';
 
-declare const tag: unique symbol;
 type RawType = number;
-export type Quantity = Brand<RawType, typeof tag>;
+export type Quantity = Brand<RawType, 'Quantity'>;
 
 const validate = (value: number): Array<string> => {
   const issues: Array<string> = [];

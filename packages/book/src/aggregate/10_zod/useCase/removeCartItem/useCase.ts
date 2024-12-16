@@ -5,7 +5,7 @@ import { ProductId } from '../../domain/product/productId';
 import type { ProductNotFoundError } from '../../domain/product/productNotFoundError';
 import type { UseCase } from '../useCase';
 
-const schema = z
+export const schema = z
   .object({
     customerId: CustomerId.schema,
     productId: ProductId.schema,
