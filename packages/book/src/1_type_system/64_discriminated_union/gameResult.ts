@@ -10,7 +10,7 @@ interface Lose extends GameResultLike<'lose'> {
   penalty: number;
 }
 
-interface Draw extends GameResultLike<'draw'> {}
+type Draw = GameResultLike<'draw'>;
 
 type GameResult = Win | Lose | Draw;
 

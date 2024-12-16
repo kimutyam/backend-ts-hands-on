@@ -6,16 +6,15 @@ interface ApiEntityResponse<T extends { id: number }> {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-interface NoBodyResponse extends ApiEntityResponse<undefined> {}
+type NoBodyResponse = ApiEntityResponse<undefined>;
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-interface PayloadResponse extends ApiEntityResponse<string> {}
+type PayloadResponse = ApiEntityResponse<string>;
 
-interface UserResponse
-  extends ApiEntityResponse<{
-    id: number;
-    name: string;
-  }> {}
+type UserResponse = ApiEntityResponse<{
+  id: number;
+  name: string;
+}>;
 
 export type { UserResponse, NoBodyResponse, PayloadResponse, ApiEntityResponse };

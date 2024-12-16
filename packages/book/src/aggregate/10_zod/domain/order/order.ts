@@ -20,4 +20,5 @@ export type Order = z.infer<typeof schema>;
 
 export const Order = {
   aggregateName,
+  schema,
 } as const;

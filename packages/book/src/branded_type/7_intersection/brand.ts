@@ -1,5 +1,5 @@
-declare class BrandTag<S extends symbol> {
+declare class BrandTag<S extends string> {
   private readonly _tag: S;
 }
 
-export type Brand<T, S extends symbol> = T & BrandTag<S>;
+export type Brand<T, S extends string> = T & BrandTag<S>;

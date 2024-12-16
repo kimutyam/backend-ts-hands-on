@@ -5,4 +5,4 @@ const employee = {
 
 type Employee = typeof employee; // { name: string; age: number; }
 
-export type { Employee };
+export { type Employee, employee };

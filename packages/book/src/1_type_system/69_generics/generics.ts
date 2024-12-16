@@ -4,13 +4,12 @@ interface ApiResponse<T> {
   data: T;
 }
 
-interface NoBodyResponse extends ApiResponse<undefined> {}
+type NoBodyResponse = ApiResponse<undefined>;
 
-interface PayloadResponse extends ApiResponse<string> {}
+type PayloadResponse = ApiResponse<string>;
 
-interface UserResponse
-  extends ApiResponse<{
-    name: string;
-  }> {}
+type UserResponse = ApiResponse<{
+  name: string;
+}>;
 
 export type { ApiResponse, UserResponse, NoBodyResponse, PayloadResponse };
