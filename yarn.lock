@@ -5285,19 +5285,12 @@ regexp.prototype.flags@^1.5.2:
     es-errors "^1.3.0"
     set-function-name "^2.0.2"
 
-remeda@2.18.0:
+remeda@2.18.0, remeda@^2.0.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.18.0.tgz#ea6070c15f782a2b17c79713b040f4c71191fe89"
   integrity sha512-wvHvaApA7crz46HWhGTotPawkzd45w1iXzPK7r4ECQgbmcSqHLrVio2LOr7ZEp1pu5QDH1U391ZKu+qra7OoLw==
   dependencies:
     type-fest "^4.30.0"
-
-remeda@^2.0.0:
-  version "2.17.4"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.17.4.tgz#a09cb1cf57a3b0c113e3210f568be8c5423800b9"
-  integrity sha512-pviU2Ag7Qx9mOCAKO4voxDx/scfLzdhp3v85qDO4xxntQsU76uE9sgrAAdK1ATn4zzaOJqCXYMMNRP+O9F4Wiw==
-  dependencies:
-    type-fest "^4.27.0"
 
 repeat-string@^1.6.1:
   version "1.6.1"
@@ -6068,11 +6061,6 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
-
-type-fest@^4.27.0:
-  version "4.27.0"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.27.0.tgz#57329aae32e7b27b942b961e3ef861f0873c4b1b"
-  integrity sha512-3IMSWgP7C5KSQqmo1wjhKrwsvXAtF33jO3QY+Uy++ia7hqvgSK6iXbbg5PbDBc1P2ZbNEDgejOrN4YooXvhwCw==
 
 type-fest@^4.30.0:
   version "4.30.2"
