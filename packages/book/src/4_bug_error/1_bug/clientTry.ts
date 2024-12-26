@@ -1,6 +1,4 @@
-const recursiveFn = () => {
-  recursiveFn(); // 無限再帰
-};
+import { recursiveFn } from './recursiveFn';
 
 try {
   recursiveFn(); // 実行時にスタックオーバーフロー
