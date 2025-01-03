@@ -10,10 +10,7 @@ import type { Order, Stocks } from './types';
  * @param stocks 総在庫
  * @returns 有効在庫
  * */
-export const reserveStock = (
-  order: Order,
-  stocks: Stocks,
-): Result<Stocks, StockReservationError> => {
+const reserveStock = (order: Order, stocks: Stocks): Result<Stocks, StockReservationError> => {
   // 注文の商品ごとの在庫引当計画を作成
   const plans = order.items.map(({ productId, quantity }) => {
     const maybeProductStock = stocks.find((s) => s.productId === productId);
@@ -38,3 +35,5 @@ export const reserveStock = (
   // 在庫が足りない商品があればエラーを返す
   return err(new StockReservationError(order.orderId, outOfStocks));
 };
+
+export { reserveStock };
