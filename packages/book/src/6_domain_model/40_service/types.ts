@@ -1,5 +1,5 @@
 /** 注文 */
-export interface Order {
+interface Order {
   readonly orderId: string;
   readonly items: ReadonlyArray<{
     readonly productId: string;
@@ -8,9 +8,11 @@ export interface Order {
 }
 
 /** 商品在庫 */
-export interface ProductStock {
+interface ProductStock {
   readonly productId: string;
   readonly stock: number;
 }
 
-export type Stocks = ReadonlyArray<ProductStock>;
+type Stocks = ReadonlyArray<ProductStock>;
+
+export type { Order, ProductStock, Stocks };

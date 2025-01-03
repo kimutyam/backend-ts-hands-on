@@ -1,4 +1,4 @@
-export class StockReservationError extends Error {
+class StockReservationError extends Error {
   constructor(
     public orderId: string,
     public outOfStocks: ReadonlyArray<{ productId: string; shortage: number }>,
@@ -7,3 +7,5 @@ export class StockReservationError extends Error {
     this.name = 'StockReservationError';
   }
 }
+
+export { StockReservationError };
