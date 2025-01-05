@@ -1,4 +1,4 @@
-const CustomIdBrand = Symbol('CustomIdBrand');
+const CustomIdBrand = Symbol.for('CustomIdBrand');
 
 type CustomerId = number & { readonly [CustomIdBrand]: unknown };
 
