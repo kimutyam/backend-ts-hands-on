@@ -1,6 +1,13 @@
-## 5_issue
+## 1_issue
 
 - Branded Typeへの誘い
+
+## 3_unique_symbol
+
+## 5_brand_interface
+
+<!--
+以降、利用していない
 
 ## 7_intersection
 
@@ -69,6 +76,7 @@
 - [WIP] エンティティの識別子（ID）を公称型で管理する
 
 ※ 文章の記述が古い
+-->
 
 
 

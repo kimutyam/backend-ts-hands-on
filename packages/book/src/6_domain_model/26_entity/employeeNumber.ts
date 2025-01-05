@@ -1,6 +1,7 @@
 import assert from 'node:assert';
+import type { Brand } from './brand';
 
-type EmployeeNumber = number;
+type EmployeeNumber = number & Brand<'EmployeeNumber'>;
 
 const assertEmployeeNumber = (value: EmployeeNumber): void => {
   assert(value > 0, '社員番号は1以上にしてください');
@@ -8,8 +9,9 @@ const assertEmployeeNumber = (value: EmployeeNumber): void => {
 };
 
 const build = (value: number): EmployeeNumber => {
-  assertEmployeeNumber(value);
-  return value;
+  const v = value as EmployeeNumber;
+  assertEmployeeNumber(v);
+  return v;
 };
 
 const equals = (a: EmployeeNumber, b: EmployeeNumber): boolean => a === b;

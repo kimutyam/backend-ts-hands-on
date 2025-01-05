@@ -4,7 +4,7 @@ class StockReservationError extends Error {
     public outOfStocks: ReadonlyArray<{ productId: string; shortage: number }>,
   ) {
     super('在庫引当できませんでした');
-    this.name = 'StockReservationError';
+    this.name = this.constructor.name;
   }
 }
 
