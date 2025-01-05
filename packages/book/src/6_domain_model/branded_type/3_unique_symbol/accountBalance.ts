@@ -1,4 +1,4 @@
-const AccountBalance = Symbol('AccountBalance');
+const AccountBalance = Symbol.for('AccountBalance');
 
 type AccountBalance = number & { readonly [AccountBalance]: unknown };
 
