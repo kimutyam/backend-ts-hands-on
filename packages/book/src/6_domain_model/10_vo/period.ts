@@ -1,8 +1,9 @@
 import assert from 'node:assert';
 import { isBefore, isAfter, isEqual, addDays, addHours } from 'date-fns/fp';
 import { pipe } from 'remeda';
+import type { Brand } from './brand';
 
-interface Period {
+interface Period extends Brand<'Period'> {
   readonly start: Date;
   readonly end: Date;
 }
@@ -40,8 +41,8 @@ const assertPeriod = (period: Period): void => {
 
 // 不変条件を満たす期間を生成する
 const build = (start: Date, end: Date): Period => {
-  const period = { start, end };
-  assertPeriod({ start, end });
+  const period = { start, end } as Period;
+  assertPeriod(period);
   return period;
 };
 
