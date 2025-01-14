@@ -4,9 +4,9 @@ import type { FindCartById } from './cartRepository';
 
 const extractCartItem =
   (findCartById: FindCartById) =>
-  async (customerId: CustomerId): Promise<ReadonlyArray<CartItem>> => {
-    const maybeCart = await findCartById(customerId);
-    return maybeCart ? maybeCart.cartItems : [];
-  };
+  async (customerId: CustomerId): Promise<ReadonlyArray<CartItem>> =>
+    findCartById(customerId)
+      .map((cart) => cart.cartItems)
+      .unwrapOr([]);
 
 export { extractCartItem };
