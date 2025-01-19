@@ -1,3 +1,4 @@
+import assert from 'node:assert';
 import { pipe } from 'remeda';
 import { Cart } from '../cart';
 import { CustomerId } from '../customerId';
@@ -15,8 +16,10 @@ describe('addCartItem', () => {
       price: Price.build(1_000),
     };
 
-    const addedCart = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
+    const [addedCart, event] = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
+    assert(event.eventName === 'CartItemAdded');
+    expect(event.payload.cartItem).toStrictEqual(cartItem);
   });
 
   it('カート項目に存在しないカート項目を追加', () => {
@@ -32,9 +35,14 @@ describe('addCartItem', () => {
       quantity: Quantity.build(3),
       price: Price.build(2_222),
     };
-    const addedCart = pipe(Cart.build(customId, [cartItem]), Cart.addCartItem(targetCartItem));
-    const expectation = Cart.build(customId, [cartItem, targetCartItem]);
+    const [addedCart, event] = pipe(
+      Cart.build(customId, 0, [cartItem]),
+      Cart.addCartItem(targetCartItem),
+    );
+    const expectation = Cart.build(customId, 1, [cartItem, targetCartItem]);
     expect(addedCart).toStrictEqual(expectation);
+    assert(event.eventName === 'CartItemAdded');
+    expect(event.payload.cartItem).toStrictEqual(targetCartItem);
   });
 
   it('カート項目に存在するカート項目を追加', () => {
@@ -56,8 +64,11 @@ describe('addCartItem', () => {
       quantity: Quantity.build(3),
       price: Price.build(2_222),
     };
-    const addedCart = pipe(Cart.build(customId, cartItems), Cart.addCartItem(targetCartItem));
-    const expectation = Cart.build(customId, [
+    const [addedCart, event] = pipe(
+      Cart.build(customId, 0, cartItems),
+      Cart.addCartItem(targetCartItem),
+    );
+    const expectation = Cart.build(customId, 1, [
       cartItems[0]!,
       {
         ...cartItems[1]!,
@@ -65,7 +76,9 @@ describe('addCartItem', () => {
         price: Price.build(2_222),
       },
     ]);
-    expect(addedCart).toStrictEqual(expectation);
+    expect(addedCart).toEqual(expectation);
+    assert(event.eventName === 'CartItemQuantityUpdated');
+    expect(event.payload.cartItem).toStrictEqual(expectation.cartItems[1]!);
   });
 });
 
@@ -84,11 +97,13 @@ describe('removeCartItem', () => {
         price: Price.build(2_000),
       },
     ];
-    const removedCart = pipe(
-      Cart.build(customId, cartItems),
+    const [removedCart, event] = pipe(
+      Cart.build(customId, 0, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
-    const expectation = Cart.build(customId, [cartItems[1]!]);
-    expect(removedCart).toStrictEqual(expectation);
+    const expectation = Cart.build(customId, 1, [cartItems[1]!]);
+    expect(removedCart).toEqual(expectation);
+    expect(event.eventName).toBe('CartItemRemoved');
+    expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);
   });
 });

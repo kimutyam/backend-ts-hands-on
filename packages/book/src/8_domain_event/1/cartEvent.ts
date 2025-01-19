@@ -2,13 +2,12 @@ import type { CartItem } from './cartItem';
 import type { CustomerId } from './customerId';
 import type { DomainEvent } from './domainEvent';
 import type { ProductId } from './productId';
-import type { Quantity } from './quantity';
 
-const CartClearedOnOrder = {
-  name: 'CartClearedOnOrder' as const,
+const CartCleared = {
+  name: 'CartCleared' as const,
 } as const;
 
-type CartClearedOnOrder = DomainEvent<CustomerId, typeof CartClearedOnOrder.name, undefined>;
+type CartCleared = DomainEvent<CustomerId, typeof CartCleared.name, { aggregateId: CustomerId }>;
 
 const CartItemAdded = {
   name: 'CartItemAdded' as const,
@@ -32,18 +31,9 @@ const CartItemQuantityUpdated = {
 type CartItemQuantityUpdated = DomainEvent<
   CustomerId,
   typeof CartItemQuantityUpdated.name,
-  {
-    productId: ProductId;
-    quantity: Quantity;
-  }
+  { cartItem: CartItem }
 >;
 
-type CartEvent = CartClearedOnOrder | CartItemAdded | CartItemRemoved | CartItemQuantityUpdated;
+type CartEvent = CartCleared | CartItemAdded | CartItemRemoved | CartItemQuantityUpdated;
 
-export {
-  type CartEvent,
-  CartClearedOnOrder,
-  CartItemAdded,
-  CartItemRemoved,
-  CartItemQuantityUpdated,
-};
+export { type CartEvent, CartCleared, CartItemAdded, CartItemRemoved, CartItemQuantityUpdated };
