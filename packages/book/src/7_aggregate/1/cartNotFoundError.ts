@@ -1,11 +1,8 @@
 import type { CustomerId } from './customerId';
 
 class CartNotFoundError extends Error {
-  constructor(
-    message: string,
-    public customerId: CustomerId,
-  ) {
-    super(message);
+  constructor(public customerId: CustomerId) {
+    super(`カートが見つかりませんでした: ${customerId}`);
     this.name = this.constructor.name;
   }
 }
