@@ -8,23 +8,21 @@ const buildFindCartById =
   (aggregates: Map<CustomerId, Cart>): FindCartById =>
   (aggregateId: CustomerId) => {
     const aggregate = aggregates.get(aggregateId);
-    return aggregate
-      ? okAsync(aggregate)
-      : errAsync(new CartNotFoundError('カートが空です', aggregateId));
+    return aggregate ? okAsync(aggregate) : errAsync(new CartNotFoundError(aggregateId));
   };
 
 const buildSaveCart =
   (aggregates: Map<CustomerId, Cart>): SaveCart =>
   (aggregate: Cart) => {
     aggregates.set(aggregate.aggregateId, aggregate);
-    return Promise.resolve(undefined);
+    return Promise.resolve();
   };
 
 const buildDeleteCartById =
   (aggregates: Map<CustomerId, Cart>): DeleteCartById =>
   (aggregateId: CustomerId) => {
     aggregates.delete(aggregateId);
-    return Promise.resolve(undefined);
+    return Promise.resolve();
   };
 
 export { buildFindCartById, buildSaveCart, buildDeleteCartById };

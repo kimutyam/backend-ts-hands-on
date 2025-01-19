@@ -10,9 +10,7 @@ class InMemoryCartRepository implements ICartRepository {
 
   findById(aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError> {
     const aggregate = this.aggregates.get(aggregateId);
-    return aggregate
-      ? okAsync(aggregate)
-      : errAsync(new CartNotFoundError('カートが空です', aggregateId));
+    return aggregate ? okAsync(aggregate) : errAsync(new CartNotFoundError(aggregateId));
   }
 
   save(aggregate: Cart): Promise<void> {
@@ -22,7 +20,7 @@ class InMemoryCartRepository implements ICartRepository {
 
   deleteById(aggregateId: CustomerId): Promise<void> {
     this.aggregates.delete(aggregateId);
-    return Promise.resolve(undefined);
+    return Promise.resolve();
   }
 }
 
