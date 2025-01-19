@@ -5,7 +5,6 @@ import type { Brand } from './brand';
 import { CartItem } from './cartItem';
 import type { CustomerId } from './customerId';
 import { ProductId } from './productId';
-import { Quantity } from './quantity';
 
 interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;
@@ -15,6 +14,7 @@ type Cart = CartNotBranded & Brand<'Cart'>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
+const TotalPriceLimit = 100_000;
 
 const countItems = ({ cartItems }: Cart): number => cartItems.length;
 
@@ -25,8 +25,6 @@ const calculateTotalQuantity = ({ cartItems }: Cart): number =>
 
 const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
-
-const TotalPriceLimit = 100_000;
 
 const calculateTotalPrice = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
@@ -51,6 +49,25 @@ const build = (aggregateId: CustomerId, cartItems: ReadonlyArray<CartItem>): Car
 
 const initBuild = (aggregateId: CustomerId): Cart => build(aggregateId, []);
 
+const addCartItem =
+  (targetCartItem: CartItem) =>
+  ({ aggregateId, cartItems }: Cart): Cart => {
+    const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
+      ProductId.equals(cartItem.productId, targetCartItem.productId),
+    );
+
+    if (updateTargetIndex === -1) {
+      return build(aggregateId, [...cartItems, targetCartItem]);
+    }
+
+    const updated = cartItems.map((cartItem, index) =>
+      updateTargetIndex === index
+        ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
+        : cartItem,
+    );
+    return build(aggregateId, updated);
+  };
+
 const removeCartItem =
   (productId: ProductId) =>
   ({ aggregateId, cartItems }: Cart): Cart => {
@@ -62,37 +79,12 @@ const removeCartItem =
 
 const clear = ({ aggregateId }: Cart): Cart => build(aggregateId, []);
 
-const addCartItem =
-  (targetCartItem: CartItem) =>
-  (cart: Cart): Cart => {
-    const { aggregateId, cartItems } = cart;
-
-    const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
-      ProductId.equals(cartItem.productId, targetCartItem.productId),
-    );
-
-    if (updateTargetIndex === -1) {
-      return build(aggregateId, [...cartItems, targetCartItem]);
-    }
-
-    const updated = cartItems.map((cartItem, index) =>
-      updateTargetIndex === index
-        ? {
-            productId: cartItem.productId,
-            quantity: Quantity.add(cartItem.quantity, targetCartItem.quantity),
-            price: targetCartItem.price,
-          }
-        : cartItem,
-    );
-    return build(aggregateId, updated);
-  };
-
 const Cart = {
   initBuild,
   build,
-  clear,
   addCartItem,
   removeCartItem,
+  clear,
 } as const;
 
 export { Cart };

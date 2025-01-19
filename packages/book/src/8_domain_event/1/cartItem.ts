@@ -9,10 +9,11 @@ interface CartItem {
 }
 
 const add =
-  (quantity: number) =>
+  (quantity: Quantity, price: Price) =>
   (item: CartItem): CartItem => ({
     ...item,
     quantity: Quantity.build(item.quantity + quantity),
+    price,
   });
 
 const calculateTotal = ({ price, quantity }: CartItem): number => price * quantity;

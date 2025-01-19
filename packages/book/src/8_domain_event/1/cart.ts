@@ -1,18 +1,13 @@
 import assert from 'node:assert';
 import { pipe } from 'remeda';
+import * as R from 'remeda';
 import { Aggregate } from './aggregate';
 import type { Brand } from './brand';
-import {
-  CartClearedOnOrder,
-  CartItemAdded,
-  CartItemQuantityUpdated,
-  CartItemRemoved,
-} from './cartEvent';
+import { CartCleared, CartItemAdded, CartItemQuantityUpdated, CartItemRemoved } from './cartEvent';
 import { CartItem } from './cartItem';
 import type { CustomerId } from './customerId';
 import { DomainEvent } from './domainEvent';
 import { ProductId } from './productId';
-import type { Quantity } from './quantity';
 
 const aggregateName = 'Cart';
 
@@ -23,20 +18,18 @@ interface CartNotBranded extends Aggregate<CustomerId, typeof aggregateName> {
 type Cart = CartNotBranded & Brand<typeof aggregateName>;
 
 const ItemsLimit = 10;
+const TotalQuantityLimit = 30;
+const TotalPriceLimit = 100_000;
 
 const countItems = ({ cartItems }: Cart): number => cartItems.length;
 
 const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
-
-const TotalQuantityLimit = 30;
 
 const calculateTotalQuantity = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
 const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
-
-const TotalPriceLimit = 100_000;
 
 const calculateTotalPrice = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
@@ -70,20 +63,43 @@ const initBuild = (aggregateId: CustomerId): Cart =>
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemAdded] => {
-    const addedCartItems = cartItems.map((cartItem) =>
+  ({
+    aggregateId,
+    sequenceNumber,
+    cartItems,
+  }: Cart): [Cart, CartItemAdded | CartItemQuantityUpdated] => {
+    const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
+      ProductId.equals(cartItem.productId, targetCartItem.productId),
+    );
+
+    if (updateTargetIndex === -1) {
+      const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), [
+        ...cartItems,
+        targetCartItem,
+      ]);
+      const event = pipe(
+        aggregate,
+        DomainEvent.generate(CartItemAdded.name, { cartItem: targetCartItem }),
+      );
+      return [aggregate, event];
+    }
+
+    const updated = cartItems.map((cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId)
-        ? CartItem.add(targetCartItem.quantity)(cartItem)
+        ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
         : cartItem,
     );
     const aggregate = build(
       aggregateId,
       Aggregate.incrementSequenceNumber(sequenceNumber),
-      addedCartItems,
+      updated,
     );
-    const event = pipe(
+
+    const event = R.pipe(
       aggregate,
-      DomainEvent.generate(CartItemAdded.name, { cartItem: targetCartItem }),
+      DomainEvent.generate(CartItemQuantityUpdated.name, {
+        cartItem: aggregate.cartItems[updateTargetIndex]!,
+      }),
     );
     return [aggregate, event];
   };
@@ -103,39 +119,18 @@ const removeCartItem =
     return [aggregate, event];
   };
 
-const updateItemQuantity =
-  (productId: ProductId, quantity: Quantity) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemQuantityUpdated] => {
-    const updatedCartItems = cartItems.map((cartItem) =>
-      ProductId.equals(cartItem.productId, productId)
-        ? { productId, quantity, price: cartItem.price }
-        : cartItem,
-    );
-    const aggregate = build(
-      aggregateId,
-      Aggregate.incrementSequenceNumber(sequenceNumber),
-      updatedCartItems,
-    );
-    const event = pipe(
-      aggregate,
-      DomainEvent.generate(CartItemQuantityUpdated.name, { productId, quantity }),
-    );
-    return [aggregate, event];
-  };
-
-const clearOnOrder = ({ aggregateId, sequenceNumber }: Cart): [Cart, CartClearedOnOrder] => {
+const clear = ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
   const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
-  const event = pipe(aggregate, DomainEvent.generate(CartClearedOnOrder.name, undefined));
+  const event = pipe(aggregate, DomainEvent.generate(CartCleared.name, { aggregateId }));
   return [aggregate, event];
 };
 
 const Cart = {
   initBuild,
   build,
-  clearOnOrder,
   addCartItem,
   removeCartItem,
-  updateItemQuantity,
+  clear,
 } as const;
 
 export { Cart };

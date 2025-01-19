@@ -4,7 +4,7 @@ import { DomainEventId } from './domainEventId';
 interface DomainEvent<
   AggregateId,
   EventName extends string,
-  Payload extends { [k: string]: unknown } | undefined,
+  Payload extends { [k: string]: unknown },
 > {
   readonly eventId: DomainEventId;
   readonly occurredAt: Date;
@@ -16,7 +16,7 @@ interface DomainEvent<
 }
 
 const generate =
-  <EventName extends string, Payload extends { [k: string]: unknown } | undefined>(
+  <EventName extends string, Payload extends { [k: string]: unknown }>(
     eventName: EventName,
     payload: Payload,
     generateEventId: () => DomainEventId = DomainEventId.generate,
