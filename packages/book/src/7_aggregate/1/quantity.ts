@@ -15,8 +15,11 @@ const build = (value: number): Quantity => {
   return v;
 };
 
+const add = (a: Quantity, b: Quantity): Quantity => Quantity.build(a + b);
+
 const Quantity = {
   build,
+  add,
 } as const;
 
 export { Quantity };
