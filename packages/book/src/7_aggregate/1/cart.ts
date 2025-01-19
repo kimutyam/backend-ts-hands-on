@@ -1,10 +1,11 @@
 import assert from 'node:assert';
+import * as R from 'remeda';
 import type { Aggregate } from './aggregate';
 import type { Brand } from './brand';
 import { CartItem } from './cartItem';
 import type { CustomerId } from './customerId';
 import { ProductId } from './productId';
-import type { Quantity } from './quantity';
+import { Quantity } from './quantity';
 
 interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;
@@ -50,17 +51,6 @@ const build = (aggregateId: CustomerId, cartItems: ReadonlyArray<CartItem>): Car
 
 const initBuild = (aggregateId: CustomerId): Cart => build(aggregateId, []);
 
-const addCartItem =
-  (targetCartItem: CartItem) =>
-  ({ aggregateId, cartItems }: Cart): Cart => {
-    const addedCartItems = cartItems.map((cartItem) =>
-      ProductId.equals(cartItem.productId, targetCartItem.productId)
-        ? CartItem.add(targetCartItem.quantity)(cartItem)
-        : cartItem,
-    );
-    return build(aggregateId, addedCartItems);
-  };
-
 const removeCartItem =
   (productId: ProductId) =>
   ({ aggregateId, cartItems }: Cart): Cart => {
@@ -70,18 +60,32 @@ const removeCartItem =
     return build(aggregateId, removedCartItems);
   };
 
-const updateItemQuantity =
-  (productId: ProductId, quantity: Quantity) =>
-  ({ aggregateId, cartItems }: Cart): Cart => {
-    const updatedCartItems = cartItems.map((cartItem) =>
-      ProductId.equals(cartItem.productId, productId)
-        ? { productId, quantity, price: cartItem.price }
+const clear = ({ aggregateId }: Cart): Cart => build(aggregateId, []);
+
+const addCartItem =
+  (targetCartItem: CartItem) =>
+  (cart: Cart): Cart => {
+    const { aggregateId, cartItems } = cart;
+
+    const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
+      ProductId.equals(cartItem.productId, targetCartItem.productId),
+    );
+
+    if (updateTargetIndex === -1) {
+      return build(aggregateId, [...cartItems, targetCartItem]);
+    }
+
+    const updated = cartItems.map((cartItem, index) =>
+      updateTargetIndex === index
+        ? {
+            productId: cartItem.productId,
+            quantity: Quantity.add(cartItem.quantity, targetCartItem.quantity),
+            price: targetCartItem.price,
+          }
         : cartItem,
     );
-    return build(aggregateId, updatedCartItems);
+    return build(aggregateId, updated);
   };
-
-const clear = ({ aggregateId }: Cart): Cart => build(aggregateId, []);
 
 const Cart = {
   initBuild,
@@ -89,7 +93,6 @@ const Cart = {
   clear,
   addCartItem,
   removeCartItem,
-  updateItemQuantity,
 } as const;
 
 export { Cart };
