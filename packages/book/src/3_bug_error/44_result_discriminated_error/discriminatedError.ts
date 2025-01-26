@@ -1,4 +1,4 @@
-export abstract class DiscriminatedError<Kind extends string> extends Error {
+abstract class DiscriminatedError<Kind extends string> extends Error {
   protected constructor(
     message: string,
     public kind: Kind,
@@ -7,3 +7,5 @@ export abstract class DiscriminatedError<Kind extends string> extends Error {
     this.name = kind;
   }
 }
+
+export { DiscriminatedError };
