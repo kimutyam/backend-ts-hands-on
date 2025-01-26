@@ -1,4 +1,4 @@
-import type { Result } from './result';
+import type { Result } from './result.js';
 
 declare function doSomething(): Result<number, Error>;
 

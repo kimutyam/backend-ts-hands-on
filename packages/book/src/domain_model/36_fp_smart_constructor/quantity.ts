@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import { QuantityError } from './quantityError';
+import { QuantityError } from './quantityError.js';
 
 export type Quantity = number;
 

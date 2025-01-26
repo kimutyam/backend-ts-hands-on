@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import { StockReservationError } from './stockReservationError';
-import type { Order, ProductStock } from './types';
+import { StockReservationError } from './stockReservationError.js';
+import type { Order, ProductStock } from './types.js';
 
 /** 在庫引当サービス */
 export const StockReservationService = (

@@ -1,4 +1,4 @@
-import type { ProductId } from './productId';
+import type { ProductId } from './productId.js';
 
 export class ProductsNotFoundError extends Error {
   constructor(

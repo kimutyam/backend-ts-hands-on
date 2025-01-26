@@ -1,4 +1,4 @@
-import type { Employee } from './interface';
+import type { Employee } from './interface.js';
 
 const modifyName = (employee: Employee, name: string): Employee => ({
   ...employee,

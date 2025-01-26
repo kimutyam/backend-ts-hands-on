@@ -1,11 +1,11 @@
 import { errAsync, okAsync } from 'neverthrow';
-import { Cart } from '../../1/cart';
-import { CartNotFoundError } from '../../1/cartNotFoundError';
-import { CustomerId } from '../../1/customerId';
-import { Price } from '../../1/price';
-import { ProductId } from '../../1/productId';
-import { Quantity } from '../../1/quantity';
-import { buildExtractCartItems } from '../extractCartItems';
+import { Cart } from '../../1/cart.js';
+import { CartNotFoundError } from '../../1/cartNotFoundError.js';
+import { CustomerId } from '../../1/customerId.js';
+import { Price } from '../../1/price.js';
+import { ProductId } from '../../1/productId.js';
+import { Quantity } from '../../1/quantity.js';
+import { buildExtractCartItems } from '../extractCartItems.js';
 
 describe('extractCartItem', () => {
   it('カートが存在する場合は、そのカート内のカート項目を抽出できる', async () => {

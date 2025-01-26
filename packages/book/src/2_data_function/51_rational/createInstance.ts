@@ -1,4 +1,4 @@
-import type { Rational } from './rational';
+import type { Rational } from './rational.js';
 
 type RationalType = typeof Rational;
 

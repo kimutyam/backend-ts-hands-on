@@ -1,7 +1,7 @@
 import assert from 'node:assert';
-import { isBefore, isAfter, isEqual, addDays, addHours } from 'date-fns/fp';
+import { addDays, addHours, isAfter, isBefore, isEqual } from 'date-fns/fp';
 import { pipe } from 'remeda';
-import type { Brand } from './brand';
+import type { Brand } from './brand.js';
 
 interface Period extends Brand<'Period'> {
   readonly start: Date;

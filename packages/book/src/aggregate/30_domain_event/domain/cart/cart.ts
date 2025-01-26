@@ -1,19 +1,19 @@
 import { ok, Result } from 'neverthrow';
 import { pipe } from 'remeda';
 import { z } from 'zod';
-import { CustomerId } from '../../../10_zod/domain/customer/customerId';
-import { Item } from '../../../10_zod/domain/item/item';
-import type { Quantity, QuantityError } from '../../../10_zod/domain/item/quantity';
-import { ProductId } from '../../../10_zod/domain/product/productId';
-import { buildFromZodDefault } from '../../../10_zod/util/result';
-import { Aggregate } from '../aggregate';
-import { DomainEvent } from '../domainEvent';
+import { CustomerId } from '../../../10_zod/domain/customer/customerId.js';
+import { Item } from '../../../10_zod/domain/item/item.js';
+import type { Quantity, QuantityError } from '../../../10_zod/domain/item/quantity.js';
+import { ProductId } from '../../../10_zod/domain/product/productId.js';
+import { buildFromZodDefault } from '../../../10_zod/util/result.js';
+import { Aggregate } from '../aggregate.js';
+import { DomainEvent } from '../domainEvent.js';
 import {
-  CartItemAdded,
   CartClearedOnOrder,
+  CartItemAdded,
   CartItemQuantityUpdated,
   CartItemRemoved,
-} from './cartEvent';
+} from './cartEvent.js';
 
 const aggregateName = 'Cart';
 

@@ -1,4 +1,4 @@
-import type { Employee } from './types';
+import type { Employee } from './types.js';
 
 type EmployeeRequest = {
   [K in keyof Employee as `employee_${K}`]: Employee[K];

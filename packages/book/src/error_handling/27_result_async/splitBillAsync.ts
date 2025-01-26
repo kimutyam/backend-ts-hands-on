@@ -1,9 +1,9 @@
-import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError';
-import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError';
-import type { Result } from '../23_result/result';
-import { Failure, Success } from '../23_result/result';
-import type { SplitBillError } from '../26_add_error_but/splitBillError';
-import { BillError } from '../27_error_adt/billError';
+import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError.js';
+import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError.js';
+import type { Result } from '../23_result/result.js';
+import { Failure, Success } from '../23_result/result.js';
+import type { SplitBillError } from '../26_add_error_but/splitBillError.js';
+import { BillError } from '../27_error_adt/billError.js';
 
 export function splitBillAsync(
   bill: number,

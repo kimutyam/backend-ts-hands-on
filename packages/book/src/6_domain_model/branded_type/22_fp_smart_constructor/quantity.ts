@@ -1,8 +1,8 @@
 import assert from 'node:assert';
-import type { Brand } from '../7_intersection/brand';
-import { QuantityError } from './quantityError';
-import type { Result } from './result';
-import { Failure, Success } from './result';
+import type { Brand } from '../7_intersection/brand.js';
+import { QuantityError } from './quantityError.js';
+import type { Result } from './result.js';
+import { Failure, Success } from './result.js';
 
 type RawType = number;
 export type Quantity = Brand<RawType, 'Quantity'>;

@@ -1,5 +1,5 @@
 import * as R from 'remeda';
-import { Item } from '../item';
+import { Item } from '../item.js';
 
 it('合計を計算する', () => {
   const item = Item.buildSingle({ name: 'apple', price: 100 });

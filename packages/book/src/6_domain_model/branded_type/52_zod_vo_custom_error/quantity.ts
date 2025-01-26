@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { fromZodReturnType } from '../50_zod_vo/resultBuilder';
-import { QuantityError } from './quantityError';
+import { fromZodReturnType } from '../50_zod_vo/resultBuilder.js';
+import { QuantityError } from './quantityError.js';
 
 const schema = z.number().int().min(1).max(10).brand('Quantity');
 

@@ -1,8 +1,8 @@
 import type { Result } from 'neverthrow';
-import type { Eq } from './eq';
-import { Product } from './product';
-import { Quantity } from './quantity';
-import type { QuantityError } from './quantityError';
+import type { Eq } from './eq.js';
+import { Product } from './product.js';
+import { Quantity } from './quantity.js';
+import type { QuantityError } from './quantityError.js';
 
 export type Item = Readonly<{
   product: Product;

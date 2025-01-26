@@ -1,8 +1,8 @@
-import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError';
-import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError';
-import type { Result } from '../40_result/result';
-import { Failure, Success } from '../40_result/result';
-import type { SplitBillError } from '../42_result/splitBillError';
+import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError.js';
+import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError.js';
+import type { Result } from '../40_result/result.js';
+import { Failure, Success } from '../40_result/result.js';
+import type { SplitBillError } from '../42_result/splitBillError.js';
 
 const splitBillAsync = (bill: number, members: number): Promise<Result<number, SplitBillError>> =>
   new Promise((resolve) => {

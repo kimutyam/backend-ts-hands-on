@@ -1,4 +1,4 @@
-import { Item } from '../item';
+import { Item } from '../item.js';
 
 describe('等価性のテスト', () => {
   const x = { product: { name: 'apple', price: 100 }, quantity: 10 };

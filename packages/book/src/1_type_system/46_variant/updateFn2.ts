@@ -1,4 +1,4 @@
-import type { Manager, Employee } from './types';
+import type { Employee, Manager } from './types.js';
 
 type UpdateEmployeeFn = (target: Employee, props: Partial<Employee>) => Employee;
 type UpdateManagerFn = (target: Employee, props: Partial<Employee>) => Manager;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Price } from './price';
+import { Price } from './price.js';
 
 const schema = z.object({
   id: z.string().uuid(),

@@ -1,6 +1,6 @@
-import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError';
-import { BillError } from '../26_add_error_but/billError';
-import type { SplitBillError } from '../26_add_error_but/splitBillError';
+import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError.js';
+import { BillError } from '../26_add_error_but/billError.js';
+import type { SplitBillError } from '../26_add_error_but/splitBillError.js';
 
 export function validate(bill: number, members: number): ReadonlyArray<SplitBillError> {
   const issues: Array<SplitBillError> = [];

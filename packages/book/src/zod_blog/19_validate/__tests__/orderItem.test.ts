@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { OrderItem } from '../../16_domain_zod_neverthrow/orderItem';
+import { OrderItem } from '../../16_domain_zod_neverthrow/orderItem.js';
 
 it('注文項目をパースする', () => {
   const data: unknown = {

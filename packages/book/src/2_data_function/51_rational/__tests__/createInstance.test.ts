@@ -1,5 +1,5 @@
-import { createInstance } from '../createInstance';
-import { Rational } from '../rational';
+import { createInstance } from '../createInstance.js';
+import { Rational } from '../rational.js';
 
 it('createInstance', () => {
   const rational: Rational = createInstance(Rational, 2, 4);

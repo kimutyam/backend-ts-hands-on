@@ -1,5 +1,5 @@
-import { printError } from './printError';
-import { splitBill } from './splitBill';
+import { printError } from './printError.js';
+import { splitBill } from './splitBill.js';
 
 const result = splitBill(100, 1);
 if (result.success) {

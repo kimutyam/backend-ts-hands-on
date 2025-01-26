@@ -1,5 +1,5 @@
-import type { Result } from '../23_result/result';
-import { Failure, Success } from '../23_result/result';
+import type { Result } from '../23_result/result.js';
+import { Failure, Success } from '../23_result/result.js';
 
 export const fromThrowable = <T, E extends Error>(
   f: () => T,

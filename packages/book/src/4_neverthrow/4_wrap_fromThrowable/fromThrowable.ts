@@ -1,6 +1,6 @@
 import { Result } from 'neverthrow';
-import { toErrorMessage } from './toErrorMessage';
-import { toInt } from './toInt';
+import { toErrorMessage } from './toErrorMessage.js';
+import { toInt } from './toInt.js';
 
 const toIntResult: (s: string) => Result<number, string> = Result.fromThrowable(
   toInt,

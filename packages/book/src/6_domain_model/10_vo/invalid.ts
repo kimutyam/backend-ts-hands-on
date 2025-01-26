@@ -1,4 +1,4 @@
-import type { Period } from './period';
+import type { Period } from './period.js';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

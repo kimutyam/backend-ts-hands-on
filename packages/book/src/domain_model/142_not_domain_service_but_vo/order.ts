@@ -1,4 +1,4 @@
-import { Item } from './item';
+import { Item } from './item.js';
 
 /** 注文 */
 export type Order = Readonly<{

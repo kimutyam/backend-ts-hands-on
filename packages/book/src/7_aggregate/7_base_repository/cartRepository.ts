@@ -1,6 +1,6 @@
-import type { Cart } from '../1/cart';
-import type { CartNotFoundError } from '../1/cartNotFoundError';
-import type { FindById, Save, DeleteById } from './repository';
+import type { Cart } from '../1/cart.js';
+import type { CartNotFoundError } from '../1/cartNotFoundError.js';
+import type { DeleteById, FindById, Save } from './repository.js';
 
 type FindCartById = FindById<Cart, CartNotFoundError>;
 

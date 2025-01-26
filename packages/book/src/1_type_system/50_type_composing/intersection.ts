@@ -1,4 +1,4 @@
-import type { MemberId, UserId } from './types';
+import type { MemberId, UserId } from './types.js';
 
 // string型
 type UserIdAndMemberId = UserId & MemberId;

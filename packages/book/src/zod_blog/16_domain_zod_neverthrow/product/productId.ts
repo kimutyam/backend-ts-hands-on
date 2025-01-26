@@ -1,6 +1,6 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { buildFromZodDefault } from '../result';
+import { buildFromZodDefault } from '../result.js';
 
 const schema = z.string().uuid().brand('ProductId');
 

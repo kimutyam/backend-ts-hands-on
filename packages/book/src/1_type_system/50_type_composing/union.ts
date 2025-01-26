@@ -1,5 +1,5 @@
 // ('hi' | 'hello' | 'good afternoon') 型
-import type { MemberId, UserId } from './types';
+import type { MemberId, UserId } from './types.js';
 
 type Greeting = 'hi' | 'hello';
 

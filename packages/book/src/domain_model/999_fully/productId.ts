@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { isValid } from 'ulidx';
-import type { Eq } from './eq';
+import type { Eq } from './eq.js';
 
 export type ProductId = string;
 

@@ -1,10 +1,10 @@
 import assert from 'node:assert';
 import * as R from 'remeda';
 import { z } from 'zod';
-import { Item } from '../item';
-import { Name } from '../product/name';
-import { Price } from '../product/price';
-import { Quantity } from '../quantity';
+import { Item } from '../item.js';
+import { Name } from '../product/name.js';
+import { Price } from '../product/price.js';
+import { Quantity } from '../quantity.js';
 
 it('注文項目をパースする', () => {
   const productSchema = z.object({

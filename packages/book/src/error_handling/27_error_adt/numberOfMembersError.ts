@@ -1,4 +1,4 @@
-import { DiscriminatedError } from './discriminatedError';
+import { DiscriminatedError } from './discriminatedError.js';
 
 export const NumberOfMembersErrorKind = 'NumberOfMemberError';
 export class NumberOfMembersError extends DiscriminatedError<typeof NumberOfMembersErrorKind> {

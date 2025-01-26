@@ -8,6 +8,16 @@ export default [
   {
     rules: {
       'no-console': 'off',
+      'import/extensions': [
+        'error',
+        'ignorePackages',
+        {
+          js: 'always',
+          ts: 'never',
+          tsx: 'never',
+          json: 'never',
+        },
+      ],
     },
   },
 ];

@@ -1,9 +1,9 @@
-import type { CustomerId } from '../../../10_zod/domain/customer/customerId';
-import type { AggregateResolver } from '../aggregateResolver';
-import type { EventStore } from '../eventStore';
-import type { Cart } from './cart';
-import type { CartEvent } from './cartEvent';
-import type { CartNotFoundError } from './cartNotFoundError';
+import type { CustomerId } from '../../../10_zod/domain/customer/customerId.js';
+import type { AggregateResolver } from '../aggregateResolver.js';
+import type { EventStore } from '../eventStore.js';
+import type { Cart } from './cart.js';
+import type { CartEvent } from './cartEvent.js';
+import type { CartNotFoundError } from './cartNotFoundError.js';
 
 export type CartResolver = AggregateResolver<CustomerId, Cart, CartNotFoundError>;
 

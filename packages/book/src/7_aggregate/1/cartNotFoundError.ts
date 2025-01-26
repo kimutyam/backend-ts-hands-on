@@ -1,4 +1,4 @@
-import type { CustomerId } from './customerId';
+import type { CustomerId } from './customerId.js';
 
 class CartNotFoundError extends Error {
   constructor(public customerId: CustomerId) {

@@ -1,4 +1,4 @@
-import { DiscriminatedError } from './discriminatedError';
+import { DiscriminatedError } from './discriminatedError.js';
 
 const IndivisibleBillErrorKind = 'IndivisibleBillError';
 class IndivisibleBillError extends DiscriminatedError<typeof IndivisibleBillErrorKind> {

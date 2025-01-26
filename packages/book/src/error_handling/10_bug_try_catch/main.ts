@@ -1,4 +1,4 @@
-import { elementToBinaryNumber } from '../5_bug/elementToBinaryNumber';
+import { elementToBinaryNumber } from '../5_bug/elementToBinaryNumber.js';
 
 try {
   // 3番目のindexはundefinedであり、toUpperCaseプロパティを持っていないためTypeErrorがthrowされる

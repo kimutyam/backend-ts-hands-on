@@ -1,4 +1,4 @@
-import type { GameResult } from './gameResult';
+import type { GameResult } from './gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
   if (result.result === 'win') {

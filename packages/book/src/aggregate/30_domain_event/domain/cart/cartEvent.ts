@@ -1,8 +1,8 @@
-import type { CustomerId } from '../../../10_zod/domain/customer/customerId';
-import type { Item } from '../../../10_zod/domain/item/item';
-import type { Quantity } from '../../../10_zod/domain/item/quantity';
-import type { ProductId } from '../../../10_zod/domain/product/productId';
-import type { DomainEvent } from '../domainEvent';
+import type { CustomerId } from '../../../10_zod/domain/customer/customerId.js';
+import type { Item } from '../../../10_zod/domain/item/item.js';
+import type { Quantity } from '../../../10_zod/domain/item/quantity.js';
+import type { ProductId } from '../../../10_zod/domain/product/productId.js';
+import type { DomainEvent } from '../domainEvent.js';
 
 export const CartClearedOnOrder = {
   name: 'CartClearedOnOrder' as const,

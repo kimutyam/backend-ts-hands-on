@@ -1,7 +1,7 @@
-import { assertNever } from '../42_result/assertNever';
-import { IndivisibleBillErrorKind } from './indivisibleBillError';
-import { NumberOfMembersErrorKind } from './numberOfMembersError';
-import type { SplitBillError } from './splitBillError';
+import { assertNever } from '../42_result/assertNever.js';
+import { IndivisibleBillErrorKind } from './indivisibleBillError.js';
+import { NumberOfMembersErrorKind } from './numberOfMembersError.js';
+import type { SplitBillError } from './splitBillError.js';
 
 const printError = (error: SplitBillError): void => {
   switch (error.kind) {

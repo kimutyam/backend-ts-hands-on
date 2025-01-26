@@ -1,4 +1,4 @@
-import type { Eq } from '../80_entity/eq';
+import type { Eq } from '../80_entity/eq.js';
 
 export type StudentId = Readonly<{
   // 学年

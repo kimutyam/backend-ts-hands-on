@@ -1,11 +1,11 @@
 import { ok, Result } from 'neverthrow';
 import * as z from 'zod';
-import { buildFromZodDefault } from '../../util/result';
-import { Aggregate } from '../aggregate';
-import { CustomerId } from '../customer/customerId';
-import { Item } from '../item/item';
-import type { QuantityError, Quantity } from '../item/quantity';
-import { ProductId } from '../product/productId';
+import { buildFromZodDefault } from '../../util/result.js';
+import { Aggregate } from '../aggregate.js';
+import { CustomerId } from '../customer/customerId.js';
+import { Item } from '../item/item.js';
+import type { Quantity, QuantityError } from '../item/quantity.js';
+import { ProductId } from '../product/productId.js';
 
 export declare const CartBrand: unique symbol;
 

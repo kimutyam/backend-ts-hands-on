@@ -1,6 +1,6 @@
 import type { ResultAsync } from 'neverthrow';
-import type { Aggregate } from './aggregate';
-import type { AggregateNotFoundError } from './aggregateNotFoundError';
+import type { Aggregate } from './aggregate.js';
+import type { AggregateNotFoundError } from './aggregateNotFoundError.js';
 
 export interface AggregateResolver<
   AggregateId,

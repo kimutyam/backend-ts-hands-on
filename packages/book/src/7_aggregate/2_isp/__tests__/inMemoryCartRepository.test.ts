@@ -1,11 +1,15 @@
 import assert from 'node:assert';
-import { Cart } from '../../1/cart';
-import { CartItem } from '../../1/cartItem';
-import { CartNotFoundError } from '../../1/cartNotFoundError';
-import { CustomerId } from '../../1/customerId';
-import { Price } from '../../1/price';
-import { ProductId } from '../../1/productId';
-import { buildFindCartById, buildSaveCart, buildDeleteCartById } from '../inMemoryCartRepository';
+import { Cart } from '../../1/cart.js';
+import { CartItem } from '../../1/cartItem.js';
+import { CartNotFoundError } from '../../1/cartNotFoundError.js';
+import { CustomerId } from '../../1/customerId.js';
+import { Price } from '../../1/price.js';
+import { ProductId } from '../../1/productId.js';
+import {
+  buildDeleteCartById,
+  buildFindCartById,
+  buildSaveCart,
+} from '../inMemoryCartRepository.js';
 
 const buildRepository = (
   initialAggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>(),

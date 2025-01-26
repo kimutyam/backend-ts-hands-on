@@ -1,4 +1,4 @@
-import type { GameResult } from '../64_discriminated_union/gameResult';
+import type { GameResult } from '../64_discriminated_union/gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
   switch (result.result) {

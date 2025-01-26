@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import type { OrderQuantityInput } from './orderQuantity';
-import { OrderQuantity } from './orderQuantity';
-import { Product } from './product/product';
+import type { OrderQuantityInput } from './orderQuantity.js';
+import { OrderQuantity } from './orderQuantity.js';
+import { Product } from './product/product.js';
 
 const schema = z
   .object({

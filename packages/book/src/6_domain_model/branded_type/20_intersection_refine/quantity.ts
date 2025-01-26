@@ -1,9 +1,9 @@
 import assert from 'node:assert';
 import { pipe } from 'remeda';
-import type { Brand } from '../7_intersection/brand';
-import { InvariantsError } from './invariantsError';
-import type { Result } from './result';
-import { Failure, Success } from './result';
+import type { Brand } from '../7_intersection/brand.js';
+import { InvariantsError } from './invariantsError.js';
+import type { Result } from './result.js';
+import { Failure, Success } from './result.js';
 
 type RawType = number;
 export type Quantity = Brand<RawType, 'Quantity'>;

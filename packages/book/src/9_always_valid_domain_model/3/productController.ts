@@ -1,7 +1,7 @@
 import { ulid } from 'ulidx';
-import { Price } from './price';
-import type { Product } from './product';
-import type { ProductRepository } from './productRepository';
+import { Price } from './price.js';
+import type { Product } from './product.js';
+import type { ProductRepository } from './productRepository.js';
 
 interface CreateProductRequest {
   readonly price: number;

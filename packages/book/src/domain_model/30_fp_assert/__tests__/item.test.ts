@@ -1,5 +1,5 @@
 import * as R from 'remeda';
-import { Item } from '../item';
+import { Item } from '../item.js';
 
 it.skip('aa', () => {
   const item = Item.build({ name: 'apple', price: 100 }, 3);

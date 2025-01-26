@@ -1,6 +1,6 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { buildFromZodDefault } from './result';
+import { buildFromZodDefault } from './result.js';
 
 const schema = z.number().int().min(1).max(10).brand('OrderQuantity');
 

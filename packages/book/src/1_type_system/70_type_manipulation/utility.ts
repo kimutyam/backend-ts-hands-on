@@ -1,4 +1,4 @@
-import type { Employee } from './types';
+import type { Employee } from './types.js';
 
 type PartialEmployee = Partial<Employee>; // { name?: string; age?: number; }
 type RequiredEmployee = Required<PartialEmployee>; // { name: string; age: number; }

@@ -1,8 +1,8 @@
 import assert from 'node:assert';
 import * as R from 'remeda';
-import type { OrderItem } from '../../16_domain_zod_neverthrow/orderItem';
-import { Price } from '../../16_domain_zod_neverthrow/product/price';
-import { OrderQuantityDto } from '../dto';
+import type { OrderItem } from '../../16_domain_zod_neverthrow/orderItem.js';
+import { Price } from '../../16_domain_zod_neverthrow/product/price.js';
+import { OrderQuantityDto } from '../dto.js';
 
 it('構造の異なる入力値から注文項目を組み立てる', () => {
   const data: unknown = {

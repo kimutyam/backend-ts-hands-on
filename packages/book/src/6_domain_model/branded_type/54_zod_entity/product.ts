@@ -1,5 +1,5 @@
-import type { Eq } from './eq';
-import type { ProductId } from './productId';
+import type { Eq } from './eq.js';
+import type { ProductId } from './productId.js';
 
 export type Product = Readonly<{
   id: ProductId;
