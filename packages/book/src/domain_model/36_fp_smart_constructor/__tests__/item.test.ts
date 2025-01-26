@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import * as R from 'remeda';
-import { Item } from '../item';
+import { Item } from '../item.js';
 
 it('マイナス値の数量を追加するとエラー', () => {
   const result = R.pipe(Item.buildSingle({ name: 'apple', price: 100 }), Item.add(-10)).map(

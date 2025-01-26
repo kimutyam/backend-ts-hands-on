@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { z } from 'zod';
-import { productSchema } from '../../23_zod_schema/schema';
+import { productSchema } from '../../23_zod_schema/schema.js';
 
 describe('parse', () => {
   it('成功', () => {

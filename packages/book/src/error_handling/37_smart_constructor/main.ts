@@ -1,6 +1,6 @@
-import type { Result } from '../23_result/result';
-import { Failure, Success } from '../23_result/result';
-import { FormatError } from './binaryNumberFormatError';
+import type { Result } from '../23_result/result.js';
+import { Failure, Success } from '../23_result/result.js';
+import { FormatError } from './binaryNumberFormatError.js';
 
 function isBinaryNumber(s: string) {
   return /^[01]+$/.test(s);

@@ -1,5 +1,5 @@
-import type { Result } from '../40_result/result';
-import { Failure, Success } from '../40_result/result';
+import type { Result } from '../40_result/result.js';
+import { Failure, Success } from '../40_result/result.js';
 
 const fromThrowable = <T, E>(f: () => T, onThrow: (e: unknown) => E): Result<T, E> => {
   try {

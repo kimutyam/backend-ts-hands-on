@@ -1,13 +1,18 @@
 import assert from 'node:assert';
-import { pipe } from 'remeda';
 import * as R from 'remeda';
-import { Aggregate } from './aggregate';
-import type { Brand } from './brand';
-import { CartCleared, CartItemAdded, CartItemQuantityUpdated, CartItemRemoved } from './cartEvent';
-import { CartItem } from './cartItem';
-import type { CustomerId } from './customerId';
-import { DomainEvent } from './domainEvent';
-import { ProductId } from './productId';
+import { pipe } from 'remeda';
+import { Aggregate } from './aggregate.js';
+import type { Brand } from './brand.js';
+import {
+  CartCleared,
+  CartItemAdded,
+  CartItemQuantityUpdated,
+  CartItemRemoved,
+} from './cartEvent.js';
+import { CartItem } from './cartItem.js';
+import type { CustomerId } from './customerId.js';
+import { DomainEvent } from './domainEvent.js';
+import { ProductId } from './productId.js';
 
 const aggregateName = 'Cart';
 

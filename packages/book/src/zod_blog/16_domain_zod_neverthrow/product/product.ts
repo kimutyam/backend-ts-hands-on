@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { Price } from './price';
-import { ProductId } from './productId';
+import { Price } from './price.js';
+import { ProductId } from './productId.js';
 
 const schema = z
   .object({

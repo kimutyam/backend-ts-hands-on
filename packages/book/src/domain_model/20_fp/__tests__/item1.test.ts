@@ -1,5 +1,5 @@
-import type { Item } from '../item';
-import { add, calculateTotal } from '../item';
+import type { Item } from '../item.js';
+import { add, calculateTotal } from '../item.js';
 
 it('合計を計算する', () => {
   const item: Item = { product: { name: 'apple', price: 100 }, quantity: 1 };

@@ -1,8 +1,8 @@
 import { errAsync, okAsync } from 'neverthrow';
-import type { Cart } from '../1/cart';
-import { CartNotFoundError } from '../1/cartNotFoundError';
-import type { CustomerId } from '../1/customerId';
-import type { DeleteCartById, FindCartById, SaveCart } from './cartRepository';
+import type { Cart } from '../1/cart.js';
+import { CartNotFoundError } from '../1/cartNotFoundError.js';
+import type { CustomerId } from '../1/customerId.js';
+import type { DeleteCartById, FindCartById, SaveCart } from './cartRepository.js';
 
 const buildFindCartById =
   (aggregates: Map<CustomerId, Cart>): FindCartById =>

@@ -1,4 +1,4 @@
-import type { Employee } from './types';
+import type { Employee } from './types.js';
 
 type EmployeeKeys = keyof Employee; // "name" | "age"
 

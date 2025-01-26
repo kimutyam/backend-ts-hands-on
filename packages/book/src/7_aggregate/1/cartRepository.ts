@@ -1,7 +1,7 @@
 import type { ResultAsync } from 'neverthrow';
-import type { Cart } from './cart';
-import type { CartNotFoundError } from './cartNotFoundError';
-import type { CustomerId } from './customerId';
+import type { Cart } from './cart.js';
+import type { CartNotFoundError } from './cartNotFoundError.js';
+import type { CustomerId } from './customerId.js';
 
 interface ICartRepository {
   findById(aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError>;

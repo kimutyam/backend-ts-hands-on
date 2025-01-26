@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Item } from './item';
+import { Item } from './item.js';
 
 export type Order = Readonly<{
   orderId: string;

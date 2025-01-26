@@ -1,5 +1,5 @@
-import { printError } from '../26_add_error_but/printError';
-import { splitBillAsync } from './splitBillAsync';
+import { printError } from '../26_add_error_but/printError.js';
+import { splitBillAsync } from './splitBillAsync.js';
 
 (async () => {
   const result = await splitBillAsync(100, 1);

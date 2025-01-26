@@ -1,6 +1,6 @@
 import { monotonicFactory } from 'ulidx';
 import * as z from 'zod';
-import type { Eq } from './eq';
+import type { Eq } from './eq.js';
 
 const zodType = z.string().ulid().brand('ProductId');
 const generate = () => zodType.parse(monotonicFactory());

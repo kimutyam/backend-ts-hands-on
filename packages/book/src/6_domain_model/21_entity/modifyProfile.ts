@@ -1,5 +1,5 @@
 import { pipe } from 'remeda';
-import { Employee } from './employee';
+import { Employee } from './employee.js';
 
 declare function findEmployee(employeeNumber: number): Promise<Employee>;
 declare function storeEmployee(employee: Employee): Promise<void>;

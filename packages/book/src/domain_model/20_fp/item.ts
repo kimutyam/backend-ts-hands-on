@@ -1,4 +1,4 @@
-import type { Product } from './product';
+import type { Product } from './product.js';
 
 export type Item = Readonly<{
   product: Product;

@@ -1,8 +1,8 @@
 import type { ResultAsync } from 'neverthrow';
-import { Cart } from '../../domain/cart/cart';
-import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
-import type { ProductResolver } from '../../domain/product/productRepository';
-import type { Input, Output, UseCaseError, UpdateCartItemQuantityUseCase } from './useCase';
+import { Cart } from '../../domain/cart/cart.js';
+import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository.js';
+import type { ProductResolver } from '../../domain/product/productRepository.js';
+import type { Input, Output, UpdateCartItemQuantityUseCase, UseCaseError } from './useCase.js';
 
 export class UpdateCartItemQuantityInteractor implements UpdateCartItemQuantityUseCase {
   constructor(

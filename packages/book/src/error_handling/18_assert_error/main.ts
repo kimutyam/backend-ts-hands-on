@@ -1,5 +1,5 @@
-import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError';
-import { splitBill } from './splitBill';
+import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError.js';
+import { splitBill } from './splitBill.js';
 
 try {
   splitBill(100, 1);

@@ -1,5 +1,5 @@
-import type { Result } from './result';
-import { Success } from './result';
+import type { Result } from './result.js';
+import { Success } from './result.js';
 
 function foo(): Result<number, Error> {
   return Success(42);

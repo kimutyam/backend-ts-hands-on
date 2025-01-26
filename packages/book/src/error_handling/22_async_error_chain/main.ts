@@ -1,6 +1,6 @@
-import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError';
-import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError';
-import { splitBillAsync } from '../20_async_error/splitBillAsync';
+import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError.js';
+import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError.js';
+import { splitBillAsync } from '../20_async_error/splitBillAsync.js';
 
 async function splitBillFloor(bill: number, members: number): Promise<number> {
   return splitBillAsync(bill, members).catch((reason: unknown) => {

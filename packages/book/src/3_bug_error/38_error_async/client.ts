@@ -1,5 +1,5 @@
-import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError';
-import { splitBillFloorAsync } from './splitBillFloorAsync';
+import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError.js';
+import { splitBillFloorAsync } from './splitBillFloorAsync.js';
 
 (async () => {
   await splitBillFloorAsync(100, 1).catch((reason): Promise<number> => {

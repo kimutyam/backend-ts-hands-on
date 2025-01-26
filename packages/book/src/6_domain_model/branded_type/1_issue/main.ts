@@ -1,5 +1,5 @@
-import type { AccountBalance } from './accountBalance';
-import type { CustomerId } from './customerId';
+import type { AccountBalance } from './accountBalance.js';
+import type { CustomerId } from './customerId.js';
 
 const chargeInterest = (
   customerId: CustomerId,

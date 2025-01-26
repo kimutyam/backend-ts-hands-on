@@ -1,5 +1,5 @@
-import type { Name } from './name';
-import type { Telephone } from './telphone';
+import type { Name } from './name.js';
+import type { Telephone } from './telphone.js';
 
 interface Employee {
   readonly employeeNumber: number;

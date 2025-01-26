@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { Quantity } from '../quantity';
+import { Quantity } from '../quantity.js';
 
 it('制約違反の場合は、カスタムエラー', () => {
   const result = Quantity.safeBuild(100);

@@ -1,4 +1,4 @@
-import type { Eq } from './eq';
+import type { Eq } from './eq.js';
 
 export type Quantity = number;
 

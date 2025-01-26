@@ -1,8 +1,8 @@
 import assert from 'assert';
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import { QuantityError } from '../36_fp_smart_constructor/quantityError';
-import type { Eq } from './eq';
+import { QuantityError } from '../36_fp_smart_constructor/quantityError.js';
+import type { Eq } from './eq.js';
 
 export type Quantity = number;
 

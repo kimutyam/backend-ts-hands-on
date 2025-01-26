@@ -1,10 +1,10 @@
 import assert from 'node:assert';
-import { Cart } from '../cart/cart';
-import type { Item } from '../item/item';
-import type { Product } from '../product/product';
-import { ProductId } from '../product/productId';
-import type { Order } from './order';
-import type { OrderId } from './orderId';
+import { Cart } from '../cart/cart.js';
+import type { Item } from '../item/item.js';
+import type { Product } from '../product/product.js';
+import { ProductId } from '../product/productId.js';
+import type { Order } from './order.js';
+import type { OrderId } from './orderId.js';
 
 const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
   const { props } = cart;

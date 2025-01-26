@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import type { Eq } from '../eq';
-import { fromZodReturnTypeDefault } from '../resultBuilder';
+import type { Eq } from '../eq.js';
+import { fromZodReturnTypeDefault } from '../resultBuilder.js';
 
 export declare const ProductPriceBrand: unique symbol;
 

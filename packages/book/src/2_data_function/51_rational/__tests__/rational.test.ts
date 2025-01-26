@@ -1,4 +1,4 @@
-import { Rational } from '../rational';
+import { Rational } from '../rational.js';
 
 describe('Rational', () => {
   it('add', () => {

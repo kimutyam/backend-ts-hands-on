@@ -1,5 +1,5 @@
 import { assert, expect } from 'vitest';
-import { ticketSchema } from '../ticketSchema';
+import { ticketSchema } from '../ticketSchema.js';
 
 describe('safeParse', () => {
   it.each([

@@ -1,4 +1,4 @@
-import type { Price } from './price';
+import type { Price } from './price.js';
 
 interface Product {
   readonly productId: string;

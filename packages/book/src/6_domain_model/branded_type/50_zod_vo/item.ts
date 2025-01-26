@@ -1,9 +1,9 @@
 import type { Result } from 'neverthrow';
 import type { z } from 'zod';
-import type { Eq } from './eq';
-import { Product } from './product/product';
-import type { QuantityInput } from './quantity';
-import { Quantity } from './quantity';
+import type { Eq } from './eq.js';
+import { Product } from './product/product.js';
+import type { QuantityInput } from './quantity.js';
+import { Quantity } from './quantity.js';
 
 export type Item = Readonly<{
   product: Product;

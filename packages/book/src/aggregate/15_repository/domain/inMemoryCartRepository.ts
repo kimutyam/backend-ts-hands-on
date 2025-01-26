@@ -1,6 +1,6 @@
-import { Cart } from '../../10_zod/domain/cart/cart';
-import type { CustomerId } from '../../10_zod/domain/customer/customerId';
-import type { ICartRepository } from './cartRepository';
+import { Cart } from '../../10_zod/domain/cart/cart.js';
+import type { CustomerId } from '../../10_zod/domain/customer/customerId.js';
+import type { ICartRepository } from './cartRepository.js';
 
 export class InMemoryCartRepository implements ICartRepository {
   private readonly aggregates: Record<CustomerId, Cart> = {};

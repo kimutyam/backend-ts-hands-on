@@ -1,5 +1,5 @@
-import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError';
-import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError';
+import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError.js';
+import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError.js';
 
 const splitBillAsync = (bill: number, members: number): Promise<number> =>
   new Promise((resolve, reject) => {

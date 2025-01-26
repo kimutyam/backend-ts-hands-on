@@ -1,6 +1,6 @@
-import type { Eq } from './eq';
-import { Product } from './product';
-import { Quantity } from './quantity';
+import type { Eq } from './eq.js';
+import { Product } from './product.js';
+import { Quantity } from './quantity.js';
 
 export type Item = Readonly<{
   product: Product;

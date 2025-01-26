@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import type { OrderItem } from '../16_domain_zod_neverthrow/orderItem';
-import { OrderQuantity } from '../16_domain_zod_neverthrow/orderQuantity';
-import type { Price } from '../16_domain_zod_neverthrow/product/price';
-import { ProductId } from '../16_domain_zod_neverthrow/product/productId';
+import type { OrderItem } from '../16_domain_zod_neverthrow/orderItem.js';
+import { OrderQuantity } from '../16_domain_zod_neverthrow/orderQuantity.js';
+import type { Price } from '../16_domain_zod_neverthrow/product/price.js';
+import { ProductId } from '../16_domain_zod_neverthrow/product/productId.js';
 
 // 価格が存在しない
 const schema = z

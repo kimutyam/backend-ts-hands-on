@@ -1,6 +1,6 @@
 import { assert, expect } from 'vitest';
 import { z } from 'zod';
-import { employeeSchema } from '../employeeSchema';
+import { employeeSchema } from '../employeeSchema.js';
 
 describe('parse', () => {
   it('成功', () => {

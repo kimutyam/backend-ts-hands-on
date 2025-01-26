@@ -1,5 +1,5 @@
-import type { Cart } from '../../10_zod/domain/cart/cart';
-import type { CustomerId } from '../../10_zod/domain/customer/customerId';
+import type { Cart } from '../../10_zod/domain/cart/cart.js';
+import type { CustomerId } from '../../10_zod/domain/customer/customerId.js';
 
 export interface ICartRepository {
   findById(aggregateId: CustomerId): Promise<Cart>;

@@ -1,7 +1,7 @@
 import assert from 'assert';
 import * as R from 'remeda';
-import { Item } from './item';
-import type { Quantity } from './quantity';
+import { Item } from './item.js';
+import type { Quantity } from './quantity.js';
 
 const item = Item.build({ name: 'apple', price: 100 }, 10);
 const orderTotal = R.pipe(item, Item.add(-10), Item.total);

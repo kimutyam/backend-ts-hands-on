@@ -1,5 +1,5 @@
 // インスタンスを生成し、インスタンス型の値を取得
-import { Rational } from './rational';
+import { Rational } from './rational.js';
 
 const rational: Rational = new Rational(5, 6);
 // NG: 型エラー

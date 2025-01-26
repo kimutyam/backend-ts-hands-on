@@ -1,6 +1,6 @@
 import { ulid } from 'ulidx';
 import * as z from 'zod';
-import type { Eq } from '../../../../6_domain_model/branded_type/54_zod_entity/eq';
+import type { Eq } from '../../../../6_domain_model/branded_type/54_zod_entity/eq.js';
 
 export declare const OrderIdBrand: unique symbol;
 

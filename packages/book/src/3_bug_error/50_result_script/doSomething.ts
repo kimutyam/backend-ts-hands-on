@@ -1,7 +1,7 @@
-import type { Result } from '../40_result/result';
-import { Failure, Success } from '../40_result/result';
-import type { MyError, SomeError } from './types';
-import { calculate, toMyError, subRouting1, subRouting2 } from './types';
+import type { Result } from '../40_result/result.js';
+import { Failure, Success } from '../40_result/result.js';
+import type { MyError, SomeError } from './types.js';
+import { calculate, subRouting1, subRouting2, toMyError } from './types.js';
 
 const doSomething = (): Result<number, SomeError | MyError> => {
   const result1 = subRouting1();

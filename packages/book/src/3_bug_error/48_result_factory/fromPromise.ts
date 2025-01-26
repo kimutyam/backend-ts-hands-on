@@ -1,5 +1,5 @@
-import type { Result } from '../40_result/result';
-import { Failure, Success } from '../40_result/result';
+import type { Result } from '../40_result/result.js';
+import { Failure, Success } from '../40_result/result.js';
 
 const fromPromise = async <T, E>(
   f: () => Promise<T>,

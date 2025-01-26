@@ -1,4 +1,4 @@
-import { ProductId } from '../../domain_model/999_fully/productId';
+import { ProductId } from '../../domain_model/999_fully/productId.js';
 
 interface Item {
   readonly productId: string;

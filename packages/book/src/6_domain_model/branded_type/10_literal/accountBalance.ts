@@ -1,4 +1,4 @@
-import type { Brand, BrandValue } from './brand';
+import type { Brand, BrandValue } from './brand.js';
 
 const tag = 'AccountBalance';
 export type AccountBalance = Brand<number, typeof tag>;

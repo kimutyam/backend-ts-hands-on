@@ -1,14 +1,14 @@
 import { ResultAsync } from 'neverthrow';
-import type { Cart } from '../../domain/cart/cart';
-import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository';
-import type { Order } from '../../domain/order/order';
-import { OrderId } from '../../domain/order/orderId';
-import type { OrderStorer } from '../../domain/order/orderRepository';
-import { OrderService } from '../../domain/order/orderService';
-import type { Product } from '../../domain/product/product';
-import type { ProductsResolver } from '../../domain/product/productRepository';
-import type { ProductsNotFoundError } from '../../domain/product/productsNotFoundError';
-import type { Input, Output, UseCaseError, OrderUseCase } from './useCase';
+import type { Cart } from '../../domain/cart/cart.js';
+import type { CartResolver, CartStorer } from '../../domain/cart/cartRepository.js';
+import type { Order } from '../../domain/order/order.js';
+import { OrderId } from '../../domain/order/orderId.js';
+import type { OrderStorer } from '../../domain/order/orderRepository.js';
+import { OrderService } from '../../domain/order/orderService.js';
+import type { Product } from '../../domain/product/product.js';
+import type { ProductsResolver } from '../../domain/product/productRepository.js';
+import type { ProductsNotFoundError } from '../../domain/product/productsNotFoundError.js';
+import type { Input, OrderUseCase, Output, UseCaseError } from './useCase.js';
 
 export class OrderInteractor implements OrderUseCase {
   constructor(

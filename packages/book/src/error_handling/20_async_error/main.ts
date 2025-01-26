@@ -1,5 +1,5 @@
-import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError';
-import { splitBillAsync } from './splitBillAsync';
+import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError.js';
+import { splitBillAsync } from './splitBillAsync.js';
 
 (async () => {
   await splitBillAsync(100, 1).catch((reason: unknown) => {

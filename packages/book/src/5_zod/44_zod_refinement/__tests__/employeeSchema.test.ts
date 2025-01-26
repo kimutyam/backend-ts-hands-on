@@ -1,5 +1,5 @@
 import { assert } from 'vitest';
-import { employeeSchema } from '../employeeSchema';
+import { employeeSchema } from '../employeeSchema.js';
 
 describe('safeParse', () => {
   it.each([

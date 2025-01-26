@@ -1,4 +1,4 @@
-import { DiscriminatedError } from './discriminatedError';
+import { DiscriminatedError } from './discriminatedError.js';
 
 export const BillErrorKind = 'BillError';
 export class BillError extends DiscriminatedError<typeof BillErrorKind> {

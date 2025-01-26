@@ -1,8 +1,8 @@
 import { err, ok, ResultAsync } from 'neverthrow';
-import type { Product } from '../../10_zod/domain/product/product';
-import type { ProductId } from '../../10_zod/domain/product/productId';
-import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError';
-import type { IProductRepository } from './productRespository';
+import type { Product } from '../../10_zod/domain/product/product.js';
+import type { ProductId } from '../../10_zod/domain/product/productId.js';
+import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError.js';
+import type { IProductRepository } from './productRespository.js';
 
 export class InMemoryProductRepository implements IProductRepository {
   private readonly aggregates: Record<ProductId, Product> = {};

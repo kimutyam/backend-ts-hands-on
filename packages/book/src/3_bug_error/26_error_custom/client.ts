@@ -1,6 +1,6 @@
-import { splitBill } from '../20_error/splitBill';
-import { IndivisibleBillError } from './indivisibleBillError';
-import { NumberOfMembersError } from './numberOfMembersError';
+import { splitBill } from '../20_error/splitBill.js';
+import { IndivisibleBillError } from './indivisibleBillError.js';
+import { NumberOfMembersError } from './numberOfMembersError.js';
 
 try {
   splitBill(100, 1);

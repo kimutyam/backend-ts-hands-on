@@ -1,4 +1,4 @@
-import { recursiveFn } from './recursiveFn';
+import { recursiveFn } from './recursiveFn.js';
 
 try {
   recursiveFn(); // 実行時にスタックオーバーフロー

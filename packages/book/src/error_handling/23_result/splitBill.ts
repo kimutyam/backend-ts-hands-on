@@ -1,8 +1,8 @@
-import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError';
-import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError';
-import type { Result } from './result';
-import { Failure, Success } from './result';
-import type { SplitBillError } from './splitBillError';
+import { NumberOfMembersError } from '../15_custom_error/numberOfMembersError.js';
+import { IndivisibleBillError } from '../16_custom_error_split_bill/indivisibleBillError.js';
+import type { Result } from './result.js';
+import { Failure, Success } from './result.js';
+import type { SplitBillError } from './splitBillError.js';
 
 export function splitBill(bill: number, members: number): Result<number, SplitBillError> {
   if (members < 2) {

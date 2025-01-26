@@ -1,5 +1,5 @@
 import assert from 'assert';
-import type { Eq } from './eq';
+import type { Eq } from './eq.js';
 
 export type Price = number;
 

@@ -1,9 +1,9 @@
 import type { ResultAsync } from 'neverthrow';
 import { errAsync, okAsync } from 'neverthrow';
-import type { Cart } from './cart';
-import { CartNotFoundError } from './cartNotFoundError';
-import type { ICartRepository } from './cartRepository';
-import type { CustomerId } from './customerId';
+import type { Cart } from './cart.js';
+import { CartNotFoundError } from './cartNotFoundError.js';
+import type { ICartRepository } from './cartRepository.js';
+import type { CustomerId } from './customerId.js';
 
 class InMemoryCartRepository implements ICartRepository {
   private readonly aggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>();

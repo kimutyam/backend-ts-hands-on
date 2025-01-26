@@ -1,4 +1,4 @@
-import type { ParticipationSlot } from './participationSlot';
+import type { ParticipationSlot } from './participationSlot.js';
 
 export type GeneralParticipantType = {
   kind: 'GeneralParticipantType';

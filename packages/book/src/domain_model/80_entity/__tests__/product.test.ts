@@ -1,4 +1,4 @@
-import { Product } from '../product';
+import { Product } from '../product.js';
 
 it('価格を変更しても、同一の商品とみなす', () => {
   const baseProduct = { productId: 'base', name: 'apple', price: 100 };

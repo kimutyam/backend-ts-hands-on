@@ -1,7 +1,7 @@
-import type { CartItem } from './cartItem';
-import type { CustomerId } from './customerId';
-import type { DomainEvent } from './domainEvent';
-import type { ProductId } from './productId';
+import type { CartItem } from './cartItem.js';
+import type { CustomerId } from './customerId.js';
+import type { DomainEvent } from './domainEvent.js';
+import type { ProductId } from './productId.js';
 
 const CartCleared = {
   name: 'CartCleared' as const,

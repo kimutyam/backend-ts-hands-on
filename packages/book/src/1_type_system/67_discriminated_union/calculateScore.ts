@@ -1,4 +1,4 @@
-import type { GameResult } from '../64_discriminated_union/gameResult';
+import type { GameResult } from '../64_discriminated_union/gameResult.js';
 
 const assertNever = (x: never): never => {
   throw new Error(`${x} is Unexpected value. Should have been never.`);

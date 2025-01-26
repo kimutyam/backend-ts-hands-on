@@ -1,6 +1,6 @@
 import assert from 'node:assert';
-import { ulid, isValid } from 'ulidx';
-import type { Brand } from './brand';
+import { isValid, ulid } from 'ulidx';
+import type { Brand } from './brand.js';
 
 type CustomerId = string & Brand<'CustomerId'>;
 

@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import type { Result } from 'neverthrow';
-import type { NotFoundError } from './notFoundError';
+import type { NotFoundError } from './notFoundError.js';
 
 declare const r: Result<number, NotFoundError>;
 

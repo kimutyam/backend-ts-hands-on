@@ -1,5 +1,5 @@
-import type { CustomerId } from '../customer/customerId';
-import type { Cart } from './cart';
+import type { CustomerId } from '../customer/customerId.js';
+import type { Cart } from './cart.js';
 
 export interface CartResolver {
   resolveById(aggregateId: CustomerId): Promise<Cart>;

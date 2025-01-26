@@ -1,4 +1,4 @@
-import { Period } from './period';
+import { Period } from './period.js';
 
 Period.build(new Date(2024, 0, 1, 0, 0, 0), 30)
   .postpone(3, 1)

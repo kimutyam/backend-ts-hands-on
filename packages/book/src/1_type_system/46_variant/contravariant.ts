@@ -1,4 +1,4 @@
-import type { Manager, Employee } from './types';
+import type { Employee, Manager } from './types.js';
 
 type PrintEmployeeFn = (arg: Employee) => void;
 type PrintManagerFn = (arg: Manager) => void;

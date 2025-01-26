@@ -1,9 +1,9 @@
 import { pipe } from 'remeda';
-import { Cart } from '../cart';
-import { CustomerId } from '../customerId';
-import { Price } from '../price';
-import { ProductId } from '../productId';
-import { Quantity } from '../quantity';
+import { Cart } from '../cart.js';
+import { CustomerId } from '../customerId.js';
+import { Price } from '../price.js';
+import { ProductId } from '../productId.js';
+import { Quantity } from '../quantity.js';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {
