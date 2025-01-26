@@ -1,5 +1,5 @@
 import { Name } from './name.js';
-import { Telephone } from './telphone.js'; // 不変でも支障がない。readonlyを使う。
+import { Telephone } from './telphone.js';
 
 // 不変でも支障がない。readonlyを使う。
 interface Employee {
