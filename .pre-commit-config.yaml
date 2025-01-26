@@ -22,7 +22,7 @@ repos:
         types: [file, yaml]
         entry: yamllint -c .yamllint.yml --strict
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 3.0.3
+    rev: 3.1.2
     hooks:
       - id: editorconfig-checker
 
