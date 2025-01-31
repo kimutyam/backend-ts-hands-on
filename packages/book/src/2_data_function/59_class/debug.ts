@@ -51,7 +51,7 @@ type ExampleType = typeof Example;
 type ExampleType1 = {
   new (value: number): Example; // コンストラクタシグネチャ
   publicCount: number; // public 静的プロパティのみ含む
-  incrementPublicCount(): void; // public 静的メソッドのみ含む
+  incrementPublicCount: () => void; // public 静的メソッドのみ含む
 };
 
 type X = ExampleType extends ExampleType1 ? true : false;

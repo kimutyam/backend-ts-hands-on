@@ -18,6 +18,8 @@ export default [
           json: 'never',
         },
       ],
+      'func-style': ['error', 'expression'],
+      '@typescript-eslint/method-signature-style': ['error', 'property'],
     },
   },
 ];
