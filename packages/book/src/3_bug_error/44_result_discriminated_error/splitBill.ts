@@ -4,7 +4,7 @@ import { IndivisibleBillError } from './indivisibleBillError.js';
 import { NumberOfMembersError } from './numberOfMembersError.js';
 import type { SplitBillError } from './splitBillError.js';
 
-export function splitBill(bill: number, members: number): Result<number, SplitBillError> {
+const splitBill = (bill: number, members: number): Result<number, SplitBillError> => {
   if (members < 2) {
     return Failure(new NumberOfMembersError('2人以上を指定してください', members));
   }
@@ -13,4 +13,6 @@ export function splitBill(bill: number, members: number): Result<number, SplitBi
     return Failure(new IndivisibleBillError('割り切れません', calculated));
   }
   return Success(calculated);
-}
+};
+
+export { splitBill };

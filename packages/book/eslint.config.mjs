@@ -18,6 +18,7 @@ export default [
           json: 'never',
         },
       ],
+      'func-style': ['error', 'expression'],
     },
   },
 ];
