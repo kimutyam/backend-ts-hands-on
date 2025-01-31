@@ -3,6 +3,7 @@ import * as R from 'remeda';
 import { pipe } from 'remeda';
 import { Aggregate } from './aggregate.js';
 import type { Brand } from './brand.js';
+import type { CartClearReason } from './cartClearReason.js';
 import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 import type { CustomerId } from './customerId.js';
@@ -115,11 +116,16 @@ const removeCartItem =
     return [aggregate, event];
   };
 
-const clear = ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
-  const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
-  const event = pipe(aggregate, DomainEvent.generate(CartCleared.eventName, { aggregateId }));
-  return [aggregate, event];
-};
+const clear =
+  (reason: CartClearReason) =>
+  ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
+    const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
+    const event = pipe(
+      aggregate,
+      DomainEvent.generate(CartCleared.eventName, { aggregateId, reason }),
+    );
+    return [aggregate, event];
+  };
 
 const Cart = {
   initBuild,
