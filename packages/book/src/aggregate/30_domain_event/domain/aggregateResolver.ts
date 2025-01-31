@@ -7,5 +7,5 @@ export interface AggregateResolver<
   T extends Aggregate<AggregateId, any>,
   E extends AggregateNotFoundError,
 > {
-  resolveById(id: AggregateId): ResultAsync<T, E>;
+  resolveById: (id: AggregateId) => ResultAsync<T, E>;
 }

@@ -19,6 +19,7 @@ export default [
         },
       ],
       'func-style': ['error', 'expression'],
+      '@typescript-eslint/method-signature-style': ['error', 'property'],
     },
   },
 ];
