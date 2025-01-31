@@ -1,17 +1,8 @@
+import type { CartClearReason } from './cartClearReason.js';
 import type { CartItem } from './cartItem.js';
 import type { CustomerId } from './customerId.js';
 import type { DomainEvent } from './domainEvent.js';
 import type { ProductId } from './productId.js';
-
-const CartCleared = {
-  eventName: 'CartCleared' as const,
-} as const;
-
-type CartCleared = DomainEvent<
-  CustomerId,
-  typeof CartCleared.eventName,
-  { aggregateId: CustomerId }
->;
 
 const CartItemAdded = {
   eventName: 'CartItemAdded' as const,
@@ -20,6 +11,16 @@ const CartItemAdded = {
 type CartItemAdded = DomainEvent<
   CustomerId,
   typeof CartItemAdded.eventName,
+  { cartItem: CartItem }
+>;
+
+const CartItemUpdated = {
+  eventName: 'CartItemUpdated' as const,
+} as const;
+
+type CartItemUpdated = DomainEvent<
+  CustomerId,
+  typeof CartItemUpdated.eventName,
   { cartItem: CartItem }
 >;
 
@@ -32,16 +33,17 @@ type CartItemRemoved = DomainEvent<
   typeof CartItemRemoved.eventName,
   { productId: ProductId }
 >;
-const CartItemUpdated = {
-  eventName: 'CartItemUpdated' as const,
+
+const CartCleared = {
+  eventName: 'CartCleared' as const,
 } as const;
 
-type CartItemUpdated = DomainEvent<
+type CartCleared = DomainEvent<
   CustomerId,
-  typeof CartItemUpdated.eventName,
-  { cartItem: CartItem }
+  typeof CartCleared.eventName,
+  { aggregateId: CustomerId; reason: CartClearReason }
 >;
 
-type CartEvent = CartCleared | CartItemAdded | CartItemRemoved | CartItemUpdated;
+type CartEvent = CartItemAdded | CartItemUpdated | CartItemRemoved | CartCleared;
 
 export { type CartEvent, CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated };
