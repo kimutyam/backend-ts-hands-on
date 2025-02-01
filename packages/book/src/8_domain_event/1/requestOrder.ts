@@ -43,7 +43,8 @@ const requestOrder = (
   generateOrderId = OrderId.generate,
 ): [Order, OrderRequested, Cart, CartCleared] => {
   assertExistsProduct(cart, products);
-  const order = Order.generate(cart.aggregateId, applyPrice(cart, products), generateOrderId);
+  const items = applyPrice(cart, products);
+  const order = Order.generate(cart.aggregateId, items, generateOrderId);
   const orderRequested = pipe(
     order,
     DomainEvent.generate(OrderRequested.eventName, {
