@@ -6,7 +6,7 @@ interface FindById<A extends Aggregate<any>, out E extends Error> {
 }
 
 interface Save<in A extends Aggregate<any>> {
-  (aggregateId: A['aggregateId']): Promise<void>;
+  (aggregate: A): Promise<void>;
 }
 
 interface DeleteById<in A extends Aggregate<any>> {
