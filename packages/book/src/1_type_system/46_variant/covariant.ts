@@ -7,11 +7,11 @@ type CreateEmployeeFn = () => Employee;
 type CreateManagerFn = () => Manager;
 
 // true
-// 戻り値: 広い型(Employee)に狭い型(Manager)を代入できる
+// 戻り値: 広い型(Manager)を狭い型(Employee)に代入できる
 // 代入できるのでサブタイプ互換性がある
 type X = CreateManagerFn extends CreateEmployeeFn ? true : false;
 // false
-// 戻り値: 狭い型(Manager)に広い型(Employee)を代入できない (危険な出力)
+// 戻り値: 狭い型(Employee)広い型(Manager)に代入できない (危険な出力)
 // 代入できないのでサブタイプ互換性がない
 type Y = CreateEmployeeFn extends CreateManagerFn ? true : false;
 
