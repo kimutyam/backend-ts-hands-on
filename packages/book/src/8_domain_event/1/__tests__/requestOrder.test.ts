@@ -4,7 +4,7 @@ import { Cart } from '../cart.js';
 import { CustomerId } from '../customerId.js';
 import { OrderId } from '../orderId.js';
 import { Price } from '../price.js';
-import type { Product } from '../product.js';
+import { Product } from '../product.js';
 import { ProductId } from '../productId.js';
 import { Quantity } from '../quantity.js';
 import { requestOrder } from '../requestOrder.js';
@@ -12,16 +12,18 @@ import { requestOrder } from '../requestOrder.js';
 describe('requestOrder', () => {
   it('should place an order', () => {
     const products: Array<Product> = [
-      {
-        aggregateId: ProductId.generate(),
-        name: 'product1',
-        price: Price.build(1_001),
-      },
-      {
-        aggregateId: ProductId.generate(),
-        name: 'product2',
-        price: Price.build(2_001),
-      },
+      Product.build(
+        ProductId.generate(),
+        Aggregate.InitialSequenceNumber,
+        'product1',
+        Price.build(1_001),
+      ),
+      Product.build(
+        ProductId.generate(),
+        Aggregate.InitialSequenceNumber,
+        'product2',
+        Price.build(2_001),
+      ),
     ];
 
     const cart = Cart.build(CustomerId.generate(), Aggregate.InitialSequenceNumber, [
