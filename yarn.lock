@@ -1514,10 +1514,10 @@
   resolved "https://registry.yarnpkg.com/@better-typescript-lib/webworker/-/webworker-2.7.0.tgz#7dbe1e40373fa70ac5597c71a9172a823846ab17"
   integrity sha512-g2xqQFU67qSpAswBH4CtSSahVOtpfFPQF7PkhSI8SXeXu/M/irEKnoGln9/AzwJE+4iSNsAMH9CLYqmcZVsmaw==
 
-"@vitest/coverage-v8@2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@vitest/coverage-v8/-/coverage-v8-2.1.8.tgz#738527e6e79cef5004248452527e272e0df12284"
-  integrity sha512-2Y7BPlKH18mAZYAW1tYByudlCYrQyl5RGvnnDYJKW5tCiO5qg3KSAy3XAxcxKz900a0ZXxWtKrMuZLe3lKBpJw==
+"@vitest/coverage-v8@2.1.9":
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/@vitest/coverage-v8/-/coverage-v8-2.1.9.tgz#060bebfe3705c1023bdc220e17fdea4bd9e2b24d"
+  integrity sha512-Z2cOr0ksM00MpEfyVE8KXIYPEcBFxdbLSs56L8PO0QQMxt/6bDj45uQfxoc96v05KW3clk7vvgP0qfDit9DmfQ==
   dependencies:
     "@ampproject/remapping" "^2.3.0"
     "@bcoe/v8-coverage" "^0.2.3"
@@ -1551,13 +1551,6 @@
     estree-walker "^3.0.3"
     magic-string "^0.30.12"
 
-"@vitest/pretty-format@2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@vitest/pretty-format/-/pretty-format-2.1.8.tgz#88f47726e5d0cf4ba873d50c135b02e4395e2bca"
-  integrity sha512-9HiSZ9zpqNLKlbIDRWOnAWqgcA7xu+8YxXSekhr0Ykab7PAYFkhkwoqVArPOtJhPmYeE2YHgKZlj3CP36z2AJQ==
-  dependencies:
-    tinyrainbow "^1.2.0"
-
 "@vitest/pretty-format@2.1.9", "@vitest/pretty-format@^2.1.9":
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/@vitest/pretty-format/-/pretty-format-2.1.9.tgz#434ff2f7611689f9ce70cd7d567eceb883653fdf"
@@ -1589,26 +1582,17 @@
   dependencies:
     tinyspy "^3.0.2"
 
-"@vitest/ui@2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-2.1.8.tgz#4a4d88e20bcced4c8710826cd4e2795f5ec1f0a1"
-  integrity sha512-5zPJ1fs0ixSVSs5+5V2XJjXLmNzjugHRyV11RqxYVR+oMcogZ9qTuSfKW+OcTV0JeFNznI83BNylzH6SSNJ1+w==
+"@vitest/ui@2.1.9":
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-2.1.9.tgz#9e876cf3caf492dd6fddbd7f87b2d6bf7186a7a9"
+  integrity sha512-izzd2zmnk8Nl5ECYkW27328RbQ1nKvkm6Bb5DAaz1Gk59EbLkiCMa6OLT0NoaAYTjOFS6N+SMYW1nh4/9ljPiw==
   dependencies:
-    "@vitest/utils" "2.1.8"
+    "@vitest/utils" "2.1.9"
     fflate "^0.8.2"
     flatted "^3.3.1"
     pathe "^1.1.2"
     sirv "^3.0.0"
     tinyglobby "^0.2.10"
-    tinyrainbow "^1.2.0"
-
-"@vitest/utils@2.1.8":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-2.1.8.tgz#f8ef85525f3362ebd37fd25d268745108d6ae388"
-  integrity sha512-dwSoui6djdwbfFmIgbIjX2ZhIoG7Ex/+xpxyiEgIGzjliY8xGkcpITKTlp6B4MgtGkF2ilvm97cPM96XZaAgcA==
-  dependencies:
-    "@vitest/pretty-format" "2.1.8"
-    loupe "^3.1.2"
     tinyrainbow "^1.2.0"
 
 "@vitest/utils@2.1.9":
