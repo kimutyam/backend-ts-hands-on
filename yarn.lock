@@ -3564,9 +3564,9 @@ hexoid@^2.0.0:
   integrity sha512-qlspKUK7IlSQv2o+5I7yhUd7TxlOG2Vr5LTa3ve2XSNVKAL/n/u/7KLvKmFNimomDIKvZFXWHv0T12mv7rT8Aw==
 
 hono@^4.6.7:
-  version "4.6.20"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.6.20.tgz#9cf3d89e50484d3cd13d867a4fb094f09c9a9c20"
-  integrity sha512-5qfNQeaIptMaJKyoJ6N/q4gIq0DBp2FCRaLNuUI3LlJKL4S37DY/rLL1uAxA4wrPB39tJ3s+f7kgI79O4ScSug==
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.7.1.tgz#0eea31bce9a4080510614b3bddb9fa5854229f0c"
+  integrity sha512-V3eWoPkBxoNgFCkSc5Y5rpLF6YoQQx1pkYO4qrF6YfOw8RZbujUNlJLZCxh0z9gZct70+je2Ih7Zrdpv21hP9w==
 
 html-escaper@^2.0.0:
   version "2.0.2"
