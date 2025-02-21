@@ -1,26 +1,20 @@
-import assert from 'node:assert';
-import { isValid, ulid } from 'ulidx';
-import type { Brand } from './brand.js';
+import { ulid } from 'ulidx';
+import * as z from 'zod';
 
-type CustomerId = string & Brand<'CustomerId'>;
+const schema = z.string().ulid().brand('CustomerId');
+type Input = z.input<typeof schema>;
+type CustomerId = z.infer<typeof schema>;
 
 const equals = (a: CustomerId, b: CustomerId): boolean => a === b;
 
-const assertCustomerId = (value: CustomerId): void => {
-  assert(isValid(value), 'ULIDで指定ください');
-};
-
-const build = (value: string): CustomerId => {
-  const v = value as CustomerId;
-  assertCustomerId(v);
-  return v;
-};
+const build = (value: Input): CustomerId => schema.parse(value);
 
 // 乱数生成器のシード
 const SEED = 123;
 const generate = (): CustomerId => build(ulid(SEED));
 
 const CustomerId = {
+  schema,
   build,
   equals,
   generate,

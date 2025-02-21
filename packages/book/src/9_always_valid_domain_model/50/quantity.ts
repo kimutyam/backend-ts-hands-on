@@ -1,22 +1,22 @@
-import assert from 'node:assert';
-import type { Brand } from './brand.js';
+import type { Result } from 'neverthrow';
+import * as R from 'remeda';
+import { z } from 'zod';
+import { buildFromZodDefault } from './result.js';
 
-type Quantity = number & Brand<'Quantity'>;
+const schema = z.number().int().min(1).max(10).brand('Quantity');
 
-const assertQuantity = (value: Quantity): void => {
-  assert(Number.isInteger(value), '数量は整数で指定してください');
-  assert(value >= 1, '数量は1以上にしてください');
-  assert(value <= 10, '数量は10以下にしてください');
-};
+type Input = z.input<typeof schema>;
+type Quantity = z.infer<typeof schema>;
+type QuantityError = z.ZodError<Input>;
 
-const build = (value: number): Quantity => {
-  const v = value as Quantity;
-  assertQuantity(v);
-  return v;
-};
+const build = (value: Input): Quantity => schema.parse(value);
+const safeBuild = (value: Input): Result<Quantity, QuantityError> =>
+  R.pipe(schema.safeParse(value), buildFromZodDefault);
 
 const Quantity = {
+  schema,
   build,
+  safeBuild,
 } as const;
 
-export { Quantity };
+export { Quantity, type QuantityError };

@@ -1,20 +1,28 @@
-import type { Price } from './price.js';
-import type { ProductId } from './productId.js';
+import type { Result } from 'neverthrow';
+import * as z from 'zod';
+import { Price } from './price.js';
+import { ProductId } from './productId.js';
+import type { QuantityError } from './quantity.js';
 import { Quantity } from './quantity.js';
 
-interface CartItem {
-  readonly productId: ProductId;
-  readonly quantity: Quantity;
-  readonly price: Price;
-}
+const schema = z
+  .object({
+    productId: ProductId.schema,
+    price: Price.schema,
+    quantity: Quantity.schema,
+  })
+  .readonly();
+
+type CartItem = z.infer<typeof schema>;
 
 const add =
   (quantity: Quantity, price: Price) =>
-  (item: CartItem): CartItem => ({
-    ...item,
-    quantity: Quantity.build(item.quantity + quantity),
-    price,
-  });
+  (item: CartItem): Result<CartItem, QuantityError> =>
+    Quantity.safeBuild(item.quantity + quantity).map((newQuantity) => ({
+      ...item,
+      quantity: newQuantity,
+      price,
+    }));
 
 const calculateTotal = ({ price, quantity }: CartItem): number => price * quantity;
 
@@ -27,6 +35,7 @@ const buildSingle = (productId: ProductId, price: Price): CartItem => ({
 const identify = (x: CartItem, y: CartItem): boolean => x.productId === y.productId;
 
 const CartItem = {
+  schema,
   add,
   calculateTotal,
   buildSingle,

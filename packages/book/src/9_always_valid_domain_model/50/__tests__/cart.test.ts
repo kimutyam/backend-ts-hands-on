@@ -1,5 +1,6 @@
 import assert from 'node:assert';
 import { pipe } from 'remeda';
+import { Aggregate } from '../aggregate.js';
 import { Cart } from '../cart.js';
 import { CustomerId } from '../customerId.js';
 import { Price } from '../price.js';
@@ -16,7 +17,9 @@ describe('addCartItem', () => {
       price: Price.build(1_000),
     };
 
-    const [addedCart, event] = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
+    const result = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
+    assert(result.isOk());
+    const [addedCart, event] = result.value;
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(cartItem);
@@ -35,11 +38,21 @@ describe('addCartItem', () => {
       quantity: Quantity.build(3),
       price: Price.build(2_222),
     };
-    const [addedCart, event] = pipe(
-      Cart.build(customId, 0, [cartItem]),
+    const result = pipe(
+      Cart.build({
+        aggregateId: customId,
+        sequenceNumber: Aggregate.InitialSequenceNumber,
+        cartItems: [cartItem],
+      }),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.build(customId, 1, [cartItem, targetCartItem]);
+    assert(result.isOk());
+    const [addedCart, event] = result.value;
+    const expectation = Cart.build({
+      aggregateId: customId,
+      sequenceNumber: 2,
+      cartItems: [cartItem, targetCartItem],
+    });
     expect(addedCart).toStrictEqual(expectation);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(targetCartItem);
@@ -64,18 +77,28 @@ describe('addCartItem', () => {
       quantity: Quantity.build(3),
       price: Price.build(2_222),
     };
-    const [addedCart, event] = pipe(
-      Cart.build(customId, 0, cartItems),
+    const result = pipe(
+      Cart.build({
+        aggregateId: customId,
+        sequenceNumber: Aggregate.InitialSequenceNumber,
+        cartItems,
+      }),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.build(customId, 1, [
-      cartItems[0]!,
-      {
-        ...cartItems[1]!,
-        quantity: Quantity.build(8),
-        price: Price.build(2_222),
-      },
-    ]);
+    assert(result.isOk());
+    const [addedCart, event] = result.value;
+    const expectation = Cart.build({
+      aggregateId: customId,
+      sequenceNumber: 2,
+      cartItems: [
+        cartItems[0]!,
+        {
+          ...cartItems[1]!,
+          quantity: Quantity.build(8),
+          price: Price.build(2_222),
+        },
+      ],
+    });
     expect(addedCart).toEqual(expectation);
     assert(event.eventName === 'CartItemUpdated');
     expect(event.payload.cartItem).toStrictEqual(expectation.cartItems[1]!);
@@ -98,10 +121,18 @@ describe('removeCartItem', () => {
       },
     ];
     const [removedCart, event] = pipe(
-      Cart.build(customId, 0, cartItems),
+      Cart.build({
+        aggregateId: customId,
+        sequenceNumber: Aggregate.InitialSequenceNumber,
+        cartItems,
+      }),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
-    const expectation = Cart.build(customId, 1, [cartItems[1]!]);
+    const expectation = Cart.build({
+      aggregateId: customId,
+      sequenceNumber: 2,
+      cartItems: [cartItems[1]!],
+    });
     expect(removedCart).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
     expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);

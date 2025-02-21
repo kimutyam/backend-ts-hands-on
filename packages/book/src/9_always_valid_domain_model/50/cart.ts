@@ -1,22 +1,40 @@
-import assert from 'node:assert';
+import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { pipe } from 'remeda';
+import { z } from 'zod';
+import type { QuantityError } from '../../aggregate/10_zod/domain/item/quantity.js';
 import { Aggregate } from './aggregate.js';
-import type { Brand } from './brand.js';
 import type { CartClearReason } from './cartClearReason.js';
 import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
-import type { CustomerId } from './customerId.js';
+import { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
+import { buildFromZodDefault } from './result.js';
 
-const aggregateName = 'Cart';
+const aggregateName = 'Cart' as const;
 
-interface CartNotBranded extends Aggregate<CustomerId, typeof aggregateName> {
-  readonly cartItems: ReadonlyArray<CartItem>;
-}
+const schemaWithoutRefinements = Aggregate.makeSchema(
+  CustomerId.schema,
+  aggregateName,
+  z.object({
+    cartItems: z.array(CartItem.schema).readonly(),
+  }),
+);
 
-type Cart = CartNotBranded & Brand<typeof aggregateName>;
+// type Cart = Readonly<{
+//   aggregateId: string & z.BRAND<typeof 'CustomerId'>;
+//   aggregateName: 'Cart';
+//   sequenceNumber: number;
+//   cartItems: readonly Readonly<{
+//     productId: string & z.BRAND<typeof 'ProductId'>;
+//     price: number & z.BRAND<typeof 'Price'>;
+//     quantity: number & z.BRAND<typeof 'Quantity'>;
+//   }>[];
+// }> & z.BRAND<typeof 'Cart'>
+type Cart = z.infer<typeof schemaWithoutRefinements>;
+type Input = Omit<z.input<typeof schemaWithoutRefinements>, 'aggregateName'>;
+type CartError = z.ZodError<Input>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -37,68 +55,80 @@ const calculateTotalPrice = ({ cartItems }: Cart): number =>
 
 const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
-const assertCart = (cart: Cart): void => {
-  assert(withinItemsLimit(cart), `品目数上限 ${ItemsLimit} を上回っています`);
-  assert(withinTotalQuantityLimit(cart), `合計数量上限 ${TotalQuantityLimit} を上回っています`);
-  assert(withinTotalPriceLimit(cart), `合計金額上限 ${TotalPriceLimit} を上回っています`);
-};
+const schema = schemaWithoutRefinements
+  .refine(
+    (cart) => withinItemsLimit(cart),
+    () => ({ message: `品目数上限 ${ItemsLimit} を上回っています` }),
+  )
+  .refine(
+    (cart) => withinTotalQuantityLimit(cart),
+    () => ({ message: `合計数量上限 ${TotalQuantityLimit} を上回っています` }),
+  )
+  .refine(
+    (cart) => withinTotalPriceLimit(cart),
+    () => ({ message: `合計金額上限 ${TotalPriceLimit} を上回っています` }),
+  );
 
-const build = (
-  aggregateId: CustomerId,
-  sequenceNumber: number,
-  cartItems: ReadonlyArray<CartItem>,
-): Cart => {
-  const notBranded: CartNotBranded = {
-    aggregateId,
-    aggregateName,
-    sequenceNumber,
-    cartItems,
-  };
-  const cart = notBranded as Cart;
-  assertCart(cart);
-  return cart;
-};
+const build = (value: Input): Cart => schema.parse({ ...value, aggregateName });
+
+const safeBuild = (value: Input): Result<Cart, CartError> =>
+  R.pipe(schema.safeParse({ ...value, aggregateName }), buildFromZodDefault);
 
 const initBuild = (aggregateId: CustomerId): Cart =>
-  build(aggregateId, Aggregate.InitialSequenceNumber, []);
+  build({
+    aggregateId,
+    sequenceNumber: Aggregate.InitialSequenceNumber,
+    cartItems: [],
+  });
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemAdded | CartItemUpdated] => {
+  ({
+    aggregateId,
+    sequenceNumber,
+    cartItems,
+  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], CartError | QuantityError> => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
 
     if (updateTargetIndex === -1) {
-      const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), [
-        ...cartItems,
-        targetCartItem,
-      ]);
-      const event = pipe(
-        aggregate,
-        DomainEvent.generate(CartItemAdded.eventName, { cartItem: targetCartItem }),
-      );
-      return [aggregate, event];
+      return safeBuild({
+        aggregateId,
+        sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+        cartItems: [...cartItems, targetCartItem],
+      }).map((aggregate) => {
+        const event = pipe(
+          aggregate,
+          DomainEvent.generate(CartItemAdded.eventName, { cartItem: targetCartItem }),
+        );
+        return [aggregate, event];
+      });
     }
 
-    const updated = cartItems.map((cartItem) =>
-      ProductId.equals(cartItem.productId, targetCartItem.productId)
-        ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
-        : cartItem,
-    );
-    const aggregate = build(
-      aggregateId,
-      Aggregate.incrementSequenceNumber(sequenceNumber),
-      updated,
-    );
-
-    const event = R.pipe(
-      aggregate,
-      DomainEvent.generate(CartItemUpdated.eventName, {
-        cartItem: aggregate.cartItems[updateTargetIndex]!,
-      }),
-    );
-    return [aggregate, event];
+    return Result.combine(
+      cartItems.map((cartItem) =>
+        ProductId.equals(cartItem.productId, targetCartItem.productId)
+          ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
+          : R.pipe(cartItem, ok),
+      ),
+    )
+      .andThen((updated) =>
+        safeBuild({
+          aggregateId,
+          sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+          cartItems: updated,
+        }),
+      )
+      .map((aggregate) => {
+        const event = R.pipe(
+          aggregate,
+          DomainEvent.generate(CartItemUpdated.eventName, {
+            cartItem: aggregate.cartItems[updateTargetIndex]!,
+          }),
+        );
+        return [aggregate, event];
+      });
   };
 
 const removeCartItem =
@@ -107,11 +137,11 @@ const removeCartItem =
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
-    const aggregate = build(
+    const aggregate = build({
       aggregateId,
-      Aggregate.incrementSequenceNumber(sequenceNumber),
-      removedCartItems,
-    );
+      sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+      cartItems: removedCartItems,
+    });
     const event = pipe(aggregate, DomainEvent.generate(CartItemRemoved.eventName, { productId }));
     return [aggregate, event];
   };
@@ -119,7 +149,11 @@ const removeCartItem =
 const clear =
   (reason: CartClearReason) =>
   ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
-    const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
+    const aggregate = build({
+      aggregateId,
+      sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+      cartItems: [],
+    });
     const event = pipe(
       aggregate,
       DomainEvent.generate(CartCleared.eventName, { aggregateId, reason }),

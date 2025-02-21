@@ -12,32 +12,36 @@ import { requestOrder } from '../requestOrder.js';
 describe('requestOrder', () => {
   it('should place an order', () => {
     const products: Array<Product> = [
-      Product.build(
-        ProductId.generate(),
-        Aggregate.InitialSequenceNumber,
-        'product1',
-        Price.build(1_001),
-      ),
-      Product.build(
-        ProductId.generate(),
-        Aggregate.InitialSequenceNumber,
-        'product2',
-        Price.build(2_001),
-      ),
+      Product.build({
+        aggregateId: ProductId.generate(),
+        sequenceNumber: Aggregate.InitialSequenceNumber,
+        name: 'product1',
+        price: Price.build(1_001),
+      }),
+      Product.build({
+        aggregateId: ProductId.generate(),
+        sequenceNumber: Aggregate.InitialSequenceNumber,
+        name: 'product2',
+        price: Price.build(2_001),
+      }),
     ];
 
-    const cart = Cart.build(CustomerId.generate(), Aggregate.InitialSequenceNumber, [
-      {
-        productId: products[0]!.aggregateId,
-        quantity: Quantity.build(1),
-        price: Price.build(1_000),
-      },
-      {
-        productId: products[1]!.aggregateId,
-        quantity: Quantity.build(1),
-        price: Price.build(2_000),
-      },
-    ]);
+    const cart = Cart.build({
+      aggregateId: CustomerId.generate(),
+      sequenceNumber: Aggregate.InitialSequenceNumber,
+      cartItems: [
+        {
+          productId: products[0]!.aggregateId,
+          quantity: Quantity.build(1),
+          price: Price.build(1_000),
+        },
+        {
+          productId: products[1]!.aggregateId,
+          quantity: Quantity.build(1),
+          price: Price.build(2_000),
+        },
+      ],
+    });
 
     const [order, orderRequested, cartAfterOrder, cartCleared] = requestOrder(
       cart,

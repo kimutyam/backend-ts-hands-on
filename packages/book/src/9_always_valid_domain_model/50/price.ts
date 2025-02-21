@@ -1,22 +1,22 @@
-import assert from 'node:assert';
-import type { Brand } from './brand.js';
+import type { Result } from 'neverthrow';
+import * as R from 'remeda';
+import { z } from 'zod';
+import { buildFromZodDefault } from './result.js';
 
-type Price = number & Brand<'Price'>;
+const schema = z.number().int().min(100).max(10_000).brand('Price');
 
-const assertQuantity = (value: Price): void => {
-  assert(Number.isInteger(value), '値段は整数で指定してください');
-  assert(value >= 100, '値段は100円以上にしてください');
-  assert(value <= 10_000, '値段は10000円以下にしてください');
-};
+type Input = z.input<typeof schema>;
+type Price = z.infer<typeof schema>;
+type PriceError = z.ZodError<Input>;
 
-const build = (value: number): Price => {
-  const v = value as Price;
-  assertQuantity(v);
-  return v;
-};
+const build = (value: Input): Price => schema.parse(value);
+const safeBuild = (value: Input): Result<Price, PriceError> =>
+  R.pipe(schema.safeParse(value), buildFromZodDefault);
 
 const Price = {
+  schema,
   build,
+  safeBuild,
 } as const;
 
 export { Price };
