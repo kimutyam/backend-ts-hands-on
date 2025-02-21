@@ -1,6 +1,7 @@
 import type { CartItem } from './cartItem.js';
 import type { CustomerId } from './customerId.js';
 import type { DomainEvent } from './domainEvent.js';
+import type { Order } from './order.js';
 import type { OrderId } from './orderId.js';
 
 const OrderRequested = {
@@ -9,6 +10,7 @@ const OrderRequested = {
 
 type OrderRequested = DomainEvent<
   OrderId,
+  typeof Order.aggregateName,
   typeof OrderRequested.eventName,
   {
     customerId: CustomerId;

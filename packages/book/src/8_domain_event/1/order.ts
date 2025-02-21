@@ -6,7 +6,7 @@ import type { OrderId } from './orderId.js';
 
 const aggregateName = 'Order';
 
-interface OrderNotBranded extends Aggregate<OrderId, typeof aggregateName> {
+interface OrderNotBranded extends Aggregate<OrderId> {
   readonly customerId: CustomerId;
   readonly items: ReadonlyArray<CartItem>;
 }
@@ -21,7 +21,6 @@ const build = (
 ): Order => {
   const notBranded: OrderNotBranded = {
     aggregateId,
-    aggregateName,
     sequenceNumber,
     customerId,
     items,
@@ -36,6 +35,7 @@ const generate = (
 ): Order => build(generateOrderId(), Aggregate.InitialSequenceNumber, customerId, items);
 
 const Order = {
+  aggregateName,
   build,
   generate,
 } as const;

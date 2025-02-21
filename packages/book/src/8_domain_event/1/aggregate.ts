@@ -1,6 +1,5 @@
-interface Aggregate<AggregateId, AggregateName extends string> {
+interface Aggregate<AggregateId> {
   readonly aggregateId: AggregateId;
-  readonly aggregateName: AggregateName;
   readonly sequenceNumber: number;
 }
 
