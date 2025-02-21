@@ -12,7 +12,7 @@ import { ProductId } from './productId.js';
 
 const aggregateName = 'Cart';
 
-interface CartNotBranded extends Aggregate<CustomerId, typeof aggregateName> {
+interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;
 }
 
@@ -50,7 +50,6 @@ const build = (
 ): Cart => {
   const notBranded: CartNotBranded = {
     aggregateId,
-    aggregateName,
     sequenceNumber,
     cartItems,
   };
@@ -76,7 +75,7 @@ const addCartItem =
       ]);
       const event = pipe(
         aggregate,
-        DomainEvent.generate(CartItemAdded.eventName, { cartItem: targetCartItem }),
+        DomainEvent.generate(aggregateName, CartItemAdded.eventName, { cartItem: targetCartItem }),
       );
       return [aggregate, event];
     }
@@ -94,7 +93,7 @@ const addCartItem =
 
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(CartItemUpdated.eventName, {
+      DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
         cartItem: aggregate.cartItems[updateTargetIndex]!,
       }),
     );
@@ -112,7 +111,10 @@ const removeCartItem =
       Aggregate.incrementSequenceNumber(sequenceNumber),
       removedCartItems,
     );
-    const event = pipe(aggregate, DomainEvent.generate(CartItemRemoved.eventName, { productId }));
+    const event = pipe(
+      aggregate,
+      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, { productId }),
+    );
     return [aggregate, event];
   };
 
@@ -122,12 +124,13 @@ const clear =
     const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
     const event = pipe(
       aggregate,
-      DomainEvent.generate(CartCleared.eventName, { aggregateId, reason }),
+      DomainEvent.generate(aggregateName, CartCleared.eventName, { aggregateId, reason }),
     );
     return [aggregate, event];
   };
 
 const Cart = {
+  aggregateName,
   initBuild,
   build,
   addCartItem,
