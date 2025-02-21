@@ -3,6 +3,7 @@ import { DomainEventId } from './domainEventId.js';
 
 interface DomainEvent<
   AggregateId,
+  AggregateName extends string,
   EventName extends string,
   Payload extends { [k: string]: unknown },
 > {
@@ -11,21 +12,25 @@ interface DomainEvent<
   readonly sequenceNumber: number;
   readonly eventName: EventName;
   readonly aggregateId: AggregateId;
-  readonly aggregateName: string;
+  readonly aggregateName: AggregateName;
   readonly payload: Payload;
 }
 
 const generate =
-  <EventName extends string, Payload extends { [k: string]: unknown }>(
+  <
+    AggregateName extends string,
+    EventName extends string,
+    Payload extends { [k: string]: unknown },
+  >(
+    aggregateName: AggregateName,
     eventName: EventName,
     payload: Payload,
     generateEventId: () => DomainEventId = DomainEventId.generate,
   ) =>
-  <A extends Aggregate<any, any>>({
+  <A extends Aggregate<any>>({
     aggregateId,
-    aggregateName,
     sequenceNumber,
-  }: A): DomainEvent<A['aggregateId'], EventName, Payload> => {
+  }: A): DomainEvent<A['aggregateId'], AggregateName, EventName, Payload> => {
     const eventId = generateEventId();
     return {
       eventId,

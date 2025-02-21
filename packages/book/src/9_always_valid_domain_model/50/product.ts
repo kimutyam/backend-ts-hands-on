@@ -5,7 +5,7 @@ import type { ProductId } from './productId.js';
 
 const aggregateName = 'Product';
 
-interface ProductNotBranded extends Aggregate<ProductId, typeof aggregateName> {
+interface ProductNotBranded extends Aggregate<ProductId> {
   readonly name: string;
   readonly price: Price;
 }
@@ -20,7 +20,6 @@ const build = (
 ): Product => {
   const notBranded: ProductNotBranded = {
     aggregateId,
-    aggregateName,
     sequenceNumber,
     name,
     price,
@@ -29,6 +28,7 @@ const build = (
 };
 
 const Product = {
+  aggregateName,
   build,
 } as const;
 
