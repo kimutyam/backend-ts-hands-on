@@ -8,17 +8,17 @@ const aggregateName = 'Order';
 
 const schema = Aggregate.makeSchema(
   OrderId.schema,
-  aggregateName,
   z.object({
     customerId: CustomerId.schema,
     items: z.array(CartItem.schema).readonly(),
   }),
+  aggregateName,
 );
 
 type Input = Omit<z.input<typeof schema>, 'aggregateName'>;
 type Order = z.infer<typeof schema>;
 
-const build = (value: Input): Order => schema.parse({ ...value, aggregateName });
+const build = (value: Input): Order => schema.parse(value);
 
 const generate = (
   customerId: CustomerId,
@@ -33,6 +33,7 @@ const generate = (
   });
 
 const Order = {
+  aggregateName,
   build,
   generate,
 } as const;

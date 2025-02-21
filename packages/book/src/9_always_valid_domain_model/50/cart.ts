@@ -16,15 +16,14 @@ const aggregateName = 'Cart' as const;
 
 const schemaWithoutRefinements = Aggregate.makeSchema(
   CustomerId.schema,
-  aggregateName,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
   }),
+  aggregateName,
 );
 
 // type Cart = Readonly<{
 //   aggregateId: string & z.BRAND<typeof 'CustomerId'>;
-//   aggregateName: 'Cart';
 //   sequenceNumber: number;
 //   cartItems: readonly Readonly<{
 //     productId: string & z.BRAND<typeof 'ProductId'>;
@@ -69,10 +68,10 @@ const schema = schemaWithoutRefinements
     () => ({ message: `合計金額上限 ${TotalPriceLimit} を上回っています` }),
   );
 
-const build = (value: Input): Cart => schema.parse({ ...value, aggregateName });
+const build = (value: Input): Cart => schema.parse(value);
 
 const safeBuild = (value: Input): Result<Cart, CartError> =>
-  R.pipe(schema.safeParse({ ...value, aggregateName }), buildFromZodDefault);
+  R.pipe(schema.safeParse(value), buildFromZodDefault);
 
 const initBuild = (aggregateId: CustomerId): Cart =>
   build({
@@ -100,7 +99,9 @@ const addCartItem =
       }).map((aggregate) => {
         const event = pipe(
           aggregate,
-          DomainEvent.generate(CartItemAdded.eventName, { cartItem: targetCartItem }),
+          DomainEvent.generate(aggregateName, CartItemAdded.eventName, {
+            cartItem: targetCartItem,
+          }),
         );
         return [aggregate, event];
       });
@@ -123,7 +124,7 @@ const addCartItem =
       .map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(CartItemUpdated.eventName, {
+          DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
             cartItem: aggregate.cartItems[updateTargetIndex]!,
           }),
         );
@@ -142,7 +143,10 @@ const removeCartItem =
       sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: removedCartItems,
     });
-    const event = pipe(aggregate, DomainEvent.generate(CartItemRemoved.eventName, { productId }));
+    const event = pipe(
+      aggregate,
+      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, { productId }),
+    );
     return [aggregate, event];
   };
 
@@ -156,12 +160,13 @@ const clear =
     });
     const event = pipe(
       aggregate,
-      DomainEvent.generate(CartCleared.eventName, { aggregateId, reason }),
+      DomainEvent.generate(aggregateName, CartCleared.eventName, { aggregateId, reason }),
     );
     return [aggregate, event];
   };
 
 const Cart = {
+  aggregateName,
   initBuild,
   build,
   addCartItem,
