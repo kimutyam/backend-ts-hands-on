@@ -15,6 +15,12 @@ const schema = z
 
 type CartItem = z.infer<typeof schema>;
 
+const buildSingle = (productId: ProductId, price: Price): CartItem => ({
+  productId,
+  quantity: Quantity.build(1),
+  price,
+});
+
 const add =
   (quantity: Quantity, price: Price) =>
   (item: CartItem): Result<CartItem, QuantityError> =>
@@ -25,12 +31,6 @@ const add =
     }));
 
 const calculateTotal = ({ price, quantity }: CartItem): number => price * quantity;
-
-const buildSingle = (productId: ProductId, price: Price): CartItem => ({
-  productId,
-  quantity: Quantity.build(1),
-  price,
-});
 
 const identify = (x: CartItem, y: CartItem): boolean => x.productId === y.productId;
 
