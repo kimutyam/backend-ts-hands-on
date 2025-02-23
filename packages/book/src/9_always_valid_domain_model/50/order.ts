@@ -6,7 +6,7 @@ import { OrderId } from './orderId.js';
 
 const aggregateName = 'Order';
 
-const schema = Aggregate.makeSchema(
+const schema = Aggregate.makeBrandedSchema(
   OrderId.schema,
   z.object({
     customerId: CustomerId.schema,

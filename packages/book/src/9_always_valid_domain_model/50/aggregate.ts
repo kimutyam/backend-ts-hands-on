@@ -15,7 +15,6 @@ const makeSchema = <
 >(
   aggregateIdSchema: AggregateIdSchema,
   propsSchema: PropsSchema,
-  brandName: string,
 ) =>
   z
     .object({
@@ -23,13 +22,22 @@ const makeSchema = <
       sequenceNumber: z.number().int().min(InitialSequenceNumber),
     })
     .merge(propsSchema)
-    .readonly()
-    .brand(brandName);
+    .readonly();
+
+const makeBrandedSchema = <
+  AggregateIdSchema extends z.ZodType,
+  PropsSchema extends z.ZodObject<z.ZodRawShape>,
+>(
+  aggregateIdSchema: AggregateIdSchema,
+  propsSchema: PropsSchema,
+  brandName: string,
+) => makeSchema(aggregateIdSchema, propsSchema).brand(brandName);
 
 const Aggregate = {
   InitialSequenceNumber,
   incrementSequenceNumber,
   makeSchema,
+  makeBrandedSchema,
 } as const;
 
 export { Aggregate };

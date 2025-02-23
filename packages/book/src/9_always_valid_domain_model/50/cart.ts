@@ -14,7 +14,7 @@ import { buildFromZodDefault } from './result.js';
 
 const aggregateName = 'Cart' as const;
 
-const schemaWithoutRefinements = Aggregate.makeSchema(
+const schemaWithoutRefinements = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),

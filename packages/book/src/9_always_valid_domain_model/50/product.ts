@@ -8,7 +8,7 @@ import { buildFromZodDefault } from './result.js';
 
 const aggregateName = 'Product';
 
-const schema = Aggregate.makeSchema(
+const schema = Aggregate.makeBrandedSchema(
   ProductId.schema,
   z.object({
     name: z.string(),
