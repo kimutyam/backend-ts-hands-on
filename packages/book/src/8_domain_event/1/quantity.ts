@@ -1,7 +1,8 @@
 import assert from 'node:assert';
 import type { Brand } from './brand.js';
 
-type Quantity = number & Brand<'Quantity'>;
+const name = 'Quantity';
+type Quantity = number & Brand<typeof name>;
 
 const assertQuantity = (value: Quantity): void => {
   assert(Number.isInteger(value), '数量は整数で指定してください');
@@ -16,6 +17,7 @@ const build = (value: number): Quantity => {
 };
 
 const Quantity = {
+  name,
   build,
 } as const;
 

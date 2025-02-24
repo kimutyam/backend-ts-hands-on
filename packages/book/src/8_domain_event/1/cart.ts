@@ -10,13 +10,13 @@ import type { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
 
-const aggregateName = 'Cart';
+const name = 'Cart';
 
 interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;
 }
 
-type Cart = CartNotBranded & Brand<typeof aggregateName>;
+type Cart = CartNotBranded & Brand<typeof name>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -38,7 +38,7 @@ const calculateTotalPrice = ({ cartItems }: Cart): number =>
 const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const assertCart = (cart: Cart): void => {
-  assert(withinItemsLimit(cart), `品目数上限 ${ItemsLimit} を上回っています`);
+  assert(withinItemsLimit(cart), `カート項目数上限 ${ItemsLimit} を上回っています`);
   assert(withinTotalQuantityLimit(cart), `合計数量上限 ${TotalQuantityLimit} を上回っています`);
   assert(withinTotalPriceLimit(cart), `合計金額上限 ${TotalPriceLimit} を上回っています`);
 };
@@ -75,7 +75,7 @@ const addCartItem =
       ]);
       const event = pipe(
         aggregate,
-        DomainEvent.generate(aggregateName, CartItemAdded.eventName, { cartItem: targetCartItem }),
+        DomainEvent.generate(name, CartItemAdded.eventName, { cartItem: targetCartItem }),
       );
       return [aggregate, event];
     }
@@ -93,7 +93,7 @@ const addCartItem =
 
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
+      DomainEvent.generate(name, CartItemUpdated.eventName, {
         cartItem: aggregate.cartItems[updateTargetIndex]!,
       }),
     );
@@ -113,7 +113,7 @@ const removeCartItem =
     );
     const event = pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, { productId }),
+      DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
     );
     return [aggregate, event];
   };
@@ -124,13 +124,13 @@ const clear =
     const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
     const event = pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartCleared.eventName, { aggregateId, reason }),
+      DomainEvent.generate(name, CartCleared.eventName, { aggregateId, reason }),
     );
     return [aggregate, event];
   };
 
 const Cart = {
-  aggregateName,
+  name,
   initBuild,
   build,
   addCartItem,

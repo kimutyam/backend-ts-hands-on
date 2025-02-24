@@ -1,6 +1,7 @@
 import assert from 'node:assert';
 import type { Brand } from './brand.js';
 
+const name = 'Price';
 type Price = number & Brand<'Price'>;
 
 const assertQuantity = (value: Price): void => {
@@ -16,6 +17,7 @@ const build = (value: number): Price => {
 };
 
 const Price = {
+  name,
   build,
 } as const;
 

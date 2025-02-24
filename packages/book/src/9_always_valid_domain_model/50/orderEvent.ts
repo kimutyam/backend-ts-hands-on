@@ -10,7 +10,7 @@ const OrderRequested = {
 
 type OrderRequested = DomainEvent<
   OrderId,
-  typeof Order.aggregateName,
+  typeof Order.name,
   typeof OrderRequested.eventName,
   {
     customerId: CustomerId;

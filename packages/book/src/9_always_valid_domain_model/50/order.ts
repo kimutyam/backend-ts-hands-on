@@ -1,41 +1,39 @@
+import { z } from 'zod';
 import { Aggregate } from './aggregate.js';
-import type { Brand } from './brand.js';
-import type { CartItem } from './cartItem.js';
-import type { CustomerId } from './customerId.js';
-import type { OrderId } from './orderId.js';
+import { CartItem } from './cartItem.js';
+import { CustomerId } from './customerId.js';
+import { OrderId } from './orderId.js';
 
-const aggregateName = 'Order';
+const name = 'Order';
 
-interface OrderNotBranded extends Aggregate<OrderId> {
-  readonly customerId: CustomerId;
-  readonly items: ReadonlyArray<CartItem>;
-}
+const schema = Aggregate.makeBrandedSchema(
+  OrderId.schema,
+  z.object({
+    customerId: CustomerId.schema,
+    items: z.array(CartItem.schema).readonly(),
+  }),
+  name,
+);
 
-type Order = OrderNotBranded & Brand<typeof aggregateName>;
+type Input = z.input<typeof schema>;
+type Order = z.infer<typeof schema>;
 
-const build = (
-  aggregateId: OrderId,
-  sequenceNumber: number,
-  customerId: CustomerId,
-  items: ReadonlyArray<CartItem>,
-): Order => {
-  const notBranded: OrderNotBranded = {
-    aggregateId,
-    sequenceNumber,
-    customerId,
-    items,
-  };
-  return notBranded as Order;
-};
+const build = (value: Input): Order => schema.parse(value);
 
 const generate = (
   customerId: CustomerId,
   items: ReadonlyArray<CartItem>,
   generateOrderId: () => OrderId,
-): Order => build(generateOrderId(), Aggregate.InitialSequenceNumber, customerId, items);
+): Order =>
+  build({
+    aggregateId: generateOrderId(),
+    sequenceNumber: Aggregate.InitialSequenceNumber,
+    customerId,
+    items,
+  });
 
 const Order = {
-  aggregateName,
+  name,
   build,
   generate,
 } as const;

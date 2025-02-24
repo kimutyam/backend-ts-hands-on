@@ -1,20 +1,13 @@
-import assert from 'node:assert';
-import { decodeTime, isValid, ulid } from 'ulidx';
-import type { Brand } from './brand.js';
+import { decodeTime, ulid } from 'ulidx';
+import * as z from 'zod';
 
-type DomainEventId = string & Brand<'DomainEventId'>;
+const schema = z.string().ulid().brand('DomainEventId');
+type Input = z.input<typeof schema>;
+type DomainEventId = z.infer<typeof schema>;
 
 const equals = (a: DomainEventId, b: DomainEventId): boolean => a === b;
 
-const assertDomainEventId = (value: DomainEventId): void => {
-  assert(isValid(value), 'ULIDで指定ください');
-};
-
-const build = (value: string): DomainEventId => {
-  const v = value as DomainEventId;
-  assertDomainEventId(v);
-  return v;
-};
+const build = (value: Input): DomainEventId => schema.parse(value);
 
 // 乱数生成器のシード
 const SEED = 123;
@@ -23,6 +16,7 @@ const generate = (): DomainEventId => build(ulid(SEED));
 const getTimestamp = (id: DomainEventId): number => decodeTime(id);
 
 const DomainEventId = {
+  schema,
   build,
   generate,
   equals,

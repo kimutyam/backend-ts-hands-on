@@ -1,13 +1,14 @@
-import type { Result } from 'neverthrow';
 import * as z from 'zod';
-import type { QuantityRefinementsError } from './cartError.js';
 import { Price } from './price.js';
 import { ProductId } from './productId.js';
+import type { QuantityInput } from './quantity.js';
 import { Quantity } from './quantity.js';
 
 const schema = z
   .object({
+    // NOTE: Quantity.schemaと類似した定義になるため実装例は割愛
     productId: ProductId.schema,
+    // NOTE: Quantity.schemaと類似した定義になるため実装例は割愛
     price: Price.schema,
     quantity: Quantity.schema,
   })
@@ -23,12 +24,16 @@ const buildSingle = (productId: ProductId, price: Price): CartItem => ({
 
 const add =
   (quantity: Quantity, price: Price) =>
-  (item: CartItem): Result<CartItem, QuantityRefinementsError> =>
-    Quantity.safeBuild(item.quantity + quantity).map((newQuantity) => ({
-      ...item,
-      quantity: newQuantity,
-      price,
-    }));
+  (item: CartItem): CartItem | z.ZodError<QuantityInput> => {
+    const result = Quantity.safeBuild(item.quantity + quantity);
+    return result.success
+      ? {
+          ...item,
+          quantity: result.data,
+          price,
+        }
+      : result.error;
+  };
 
 const calculateTotal = ({ price, quantity }: CartItem): number => price * quantity;
 

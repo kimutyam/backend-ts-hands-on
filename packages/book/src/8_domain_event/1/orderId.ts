@@ -2,7 +2,8 @@ import assert from 'node:assert';
 import { isValid, ulid } from 'ulidx';
 import type { Brand } from './brand.js';
 
-type OrderId = string & Brand<'OrderId'>;
+const name = 'OrderId';
+type OrderId = string & Brand<typeof name>;
 
 const equals = (a: OrderId, b: OrderId): boolean => a === b;
 
@@ -21,6 +22,7 @@ const SEED = 123;
 const generate = (): OrderId => build(ulid(SEED));
 
 const OrderId = {
+  name,
   build,
   equals,
   generate,

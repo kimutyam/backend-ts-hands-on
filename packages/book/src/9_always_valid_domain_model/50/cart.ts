@@ -1,22 +1,30 @@
-import assert from 'node:assert';
+import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { pipe } from 'remeda';
+import { z } from 'zod';
 import { Aggregate } from './aggregate.js';
-import type { Brand } from './brand.js';
 import type { CartClearReason } from './cartClearReason.js';
+import type { AddCartError } from './cartError.js';
 import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
-import type { CustomerId } from './customerId.js';
+import { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
+import { buildFromZod } from './result.js';
 
-const aggregateName = 'Cart';
+const name = 'Cart';
 
-interface CartNotBranded extends Aggregate<CustomerId> {
-  readonly cartItems: ReadonlyArray<CartItem>;
-}
+const schema = Aggregate.makeBrandedSchema(
+  CustomerId.schema,
+  z.object({
+    cartItems: z.array(CartItem.schema).readonly(),
+  }),
+  name,
+);
 
-type Cart = CartNotBranded & Brand<typeof aggregateName>;
+type Cart = z.infer<typeof schema>;
+type CartInput = z.input<typeof schema>;
+type CartZodError = z.ZodError<CartInput>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -37,67 +45,91 @@ const calculateTotalPrice = ({ cartItems }: Cart): number =>
 
 const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
-const assertCart = (cart: Cart): void => {
-  assert(withinItemsLimit(cart), `品目数上限 ${ItemsLimit} を上回っています`);
-  assert(withinTotalQuantityLimit(cart), `合計数量上限 ${TotalQuantityLimit} を上回っています`);
-  assert(withinTotalPriceLimit(cart), `合計金額上限 ${TotalPriceLimit} を上回っています`);
-};
+const schemaWithRefinements = schema
+  .refine(
+    (cart) => withinItemsLimit(cart),
+    () => ({ message: `カート項目数上限 ${ItemsLimit} を上回っています` }),
+  )
+  .refine(
+    (cart) => withinTotalQuantityLimit(cart),
+    () => ({ message: `合計数量上限 ${TotalQuantityLimit} を上回っています` }),
+  )
+  .refine(
+    (cart) => withinTotalPriceLimit(cart),
+    () => ({ message: `合計金額上限 ${TotalPriceLimit} を上回っています` }),
+  );
 
-const build = (
-  aggregateId: CustomerId,
-  sequenceNumber: number,
-  cartItems: ReadonlyArray<CartItem>,
-): Cart => {
-  const notBranded: CartNotBranded = {
-    aggregateId,
-    sequenceNumber,
-    cartItems,
-  };
-  const cart = notBranded as Cart;
-  assertCart(cart);
-  return cart;
-};
+const build = (value: CartInput): Cart => schemaWithRefinements.parse(value);
+
+const safeBuild = (value: CartInput): Result<Cart, AddCartError> =>
+  R.pipe(
+    schemaWithRefinements.safeParse(value),
+    buildFromZod((zodError) => ({ kind: name, error: zodError })),
+  );
 
 const initBuild = (aggregateId: CustomerId): Cart =>
-  build(aggregateId, Aggregate.InitialSequenceNumber, []);
+  build({
+    aggregateId,
+    sequenceNumber: Aggregate.InitialSequenceNumber,
+    cartItems: [],
+  });
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemAdded | CartItemUpdated] => {
+  ({
+    aggregateId,
+    sequenceNumber,
+    cartItems,
+    // (1)
+  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
 
     if (updateTargetIndex === -1) {
-      const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), [
-        ...cartItems,
-        targetCartItem,
-      ]);
-      const event = pipe(
-        aggregate,
-        DomainEvent.generate(aggregateName, CartItemAdded.eventName, { cartItem: targetCartItem }),
-      );
-      return [aggregate, event];
+      // (2)
+      return safeBuild({
+        aggregateId,
+        sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+        cartItems: [...cartItems, targetCartItem],
+      }).map((aggregate) => {
+        const event = pipe(
+          aggregate,
+          DomainEvent.generate(name, CartItemAdded.eventName, {
+            cartItem: targetCartItem,
+          }),
+        );
+        return [aggregate, event];
+      });
     }
 
-    const updated = cartItems.map((cartItem) =>
-      ProductId.equals(cartItem.productId, targetCartItem.productId)
-        ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
-        : cartItem,
-    );
-    const aggregate = build(
-      aggregateId,
-      Aggregate.incrementSequenceNumber(sequenceNumber),
-      updated,
+    // (3)
+    const cartItemsResult = Result.combine(
+      cartItems.map((cartItem) =>
+        ProductId.equals(cartItem.productId, targetCartItem.productId)
+          ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
+          : R.pipe(cartItem, ok),
+      ),
     );
 
-    const event = R.pipe(
-      aggregate,
-      DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
-        cartItem: aggregate.cartItems[updateTargetIndex]!,
-      }),
-    );
-    return [aggregate, event];
+    // (4)
+    return cartItemsResult
+      .andThen((updated) =>
+        safeBuild({
+          aggregateId,
+          sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+          cartItems: updated,
+        }),
+      )
+      .map((aggregate) => {
+        const event = R.pipe(
+          aggregate,
+          DomainEvent.generate(name, CartItemUpdated.eventName, {
+            cartItem: aggregate.cartItems[updateTargetIndex]!,
+          }),
+        );
+        return [aggregate, event];
+      });
   };
 
 const removeCartItem =
@@ -106,14 +138,14 @@ const removeCartItem =
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
-    const aggregate = build(
+    const aggregate = build({
       aggregateId,
-      Aggregate.incrementSequenceNumber(sequenceNumber),
-      removedCartItems,
-    );
+      sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+      cartItems: removedCartItems,
+    });
     const event = pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, { productId }),
+      DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
     );
     return [aggregate, event];
   };
@@ -121,16 +153,21 @@ const removeCartItem =
 const clear =
   (reason: CartClearReason) =>
   ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
-    const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
+    const aggregate = build({
+      aggregateId,
+      sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
+      cartItems: [],
+    });
     const event = pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartCleared.eventName, { aggregateId, reason }),
+      DomainEvent.generate(name, CartCleared.eventName, { aggregateId, reason }),
     );
     return [aggregate, event];
   };
 
 const Cart = {
-  aggregateName,
+  name,
+  schema: schemaWithRefinements,
   initBuild,
   build,
   addCartItem,
@@ -138,4 +175,4 @@ const Cart = {
   clear,
 } as const;
 
-export { Cart };
+export { Cart, type CartZodError };

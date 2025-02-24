@@ -13,7 +13,7 @@
     "format:fix": "prettier --write \"{src,test}/**/*.ts\"",
     "lint": "eslint --cache \"{src,test}/**/*.ts\"",
     "lint:fix": "eslint --cache \"{src,test}/**/*.ts\" --fix",
-    "test": "vitest",
+    "test": "vitest --typecheck",
     "test:cov": "vitest --coverage"
   },
   "dependencies": {
