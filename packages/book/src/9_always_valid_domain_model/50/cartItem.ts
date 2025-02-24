@@ -1,8 +1,8 @@
 import type { Result } from 'neverthrow';
 import * as z from 'zod';
+import type { QuantityRefinementsError } from './cartError.js';
 import { Price } from './price.js';
 import { ProductId } from './productId.js';
-import type { QuantityError } from './quantity.js';
 import { Quantity } from './quantity.js';
 
 const schema = z
@@ -23,7 +23,7 @@ const buildSingle = (productId: ProductId, price: Price): CartItem => ({
 
 const add =
   (quantity: Quantity, price: Price) =>
-  (item: CartItem): Result<CartItem, QuantityError> =>
+  (item: CartItem): Result<CartItem, QuantityRefinementsError> =>
     Quantity.safeBuild(item.quantity + quantity).map((newQuantity) => ({
       ...item,
       quantity: newQuantity,

@@ -11,7 +11,7 @@ const CartItemAdded = {
 
 type CartItemAdded = DomainEvent<
   CustomerId,
-  typeof Cart.aggregateName,
+  typeof Cart.name,
   typeof CartItemAdded.eventName,
   { cartItem: CartItem }
 >;
@@ -22,7 +22,7 @@ const CartItemUpdated = {
 
 type CartItemUpdated = DomainEvent<
   CustomerId,
-  typeof Cart.aggregateName,
+  typeof Cart.name,
   typeof CartItemUpdated.eventName,
   { cartItem: CartItem }
 >;
@@ -33,7 +33,7 @@ const CartItemRemoved = {
 
 type CartItemRemoved = DomainEvent<
   CustomerId,
-  typeof Cart.aggregateName,
+  typeof Cart.name,
   typeof CartItemRemoved.eventName,
   { productId: ProductId }
 >;
@@ -44,7 +44,7 @@ const CartCleared = {
 
 type CartCleared = DomainEvent<
   CustomerId,
-  typeof Cart.aggregateName,
+  typeof Cart.name,
   typeof CartCleared.eventName,
   { aggregateId: CustomerId; reason: CartClearReason }
 >;

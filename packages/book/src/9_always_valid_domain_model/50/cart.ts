@@ -2,29 +2,29 @@ import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { pipe } from 'remeda';
 import { z } from 'zod';
-import type { QuantityError } from '../../aggregate/10_zod/domain/item/quantity.js';
 import { Aggregate } from './aggregate.js';
 import type { CartClearReason } from './cartClearReason.js';
+import type { CartError, CartRefinementsError } from './cartError.js';
 import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 import { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
-import { buildFromZodDefault } from './result.js';
+import { buildFromZod } from './result.js';
 
-const aggregateName = 'Cart' as const;
+const name = 'Cart' as const;
 
 const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
   }),
-  aggregateName,
+  name,
 );
 
 type Cart = z.infer<typeof schema>;
-type Input = z.input<typeof schema>;
-type CartError = z.ZodError<Input>;
+type CartInput = z.input<typeof schema>;
+type CartZodError = z.ZodError<CartInput>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -59,10 +59,13 @@ const schemaWithRefinements = schema
     () => ({ message: `合計金額上限 ${TotalPriceLimit} を上回っています` }),
   );
 
-const build = (value: Input): Cart => schemaWithRefinements.parse(value);
+const build = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeBuild = (value: Input): Result<Cart, CartError> =>
-  R.pipe(schemaWithRefinements.safeParse(value), buildFromZodDefault);
+const safeBuild = (value: CartInput): Result<Cart, CartRefinementsError> =>
+  R.pipe(
+    schemaWithRefinements.safeParse(value),
+    buildFromZod((zodError) => ({ kind: name, error: zodError })),
+  );
 
 const initBuild = (aggregateId: CustomerId): Cart =>
   build({
@@ -77,7 +80,7 @@ const addCartItem =
     aggregateId,
     sequenceNumber,
     cartItems,
-  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], CartError | QuantityError> => {
+  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], CartError> => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
@@ -90,7 +93,7 @@ const addCartItem =
       }).map((aggregate) => {
         const event = pipe(
           aggregate,
-          DomainEvent.generate(aggregateName, CartItemAdded.eventName, {
+          DomainEvent.generate(name, CartItemAdded.eventName, {
             cartItem: targetCartItem,
           }),
         );
@@ -115,7 +118,7 @@ const addCartItem =
       .map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
+          DomainEvent.generate(name, CartItemUpdated.eventName, {
             cartItem: aggregate.cartItems[updateTargetIndex]!,
           }),
         );
@@ -136,7 +139,7 @@ const removeCartItem =
     });
     const event = pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, { productId }),
+      DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
     );
     return [aggregate, event];
   };
@@ -151,13 +154,13 @@ const clear =
     });
     const event = pipe(
       aggregate,
-      DomainEvent.generate(aggregateName, CartCleared.eventName, { aggregateId, reason }),
+      DomainEvent.generate(name, CartCleared.eventName, { aggregateId, reason }),
     );
     return [aggregate, event];
   };
 
 const Cart = {
-  aggregateName,
+  name,
   initBuild,
   build,
   addCartItem,
@@ -165,4 +168,4 @@ const Cart = {
   clear,
 } as const;
 
-export { Cart };
+export { Cart, type CartZodError };
