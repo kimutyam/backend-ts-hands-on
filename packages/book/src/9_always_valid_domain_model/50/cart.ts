@@ -80,13 +80,14 @@ const addCartItem =
     aggregateId,
     sequenceNumber,
     cartItems,
+    // (1)
   }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
 
     if (updateTargetIndex === -1) {
-      // (1)
+      // (2)
       return safeBuild({
         aggregateId,
         sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
@@ -102,7 +103,7 @@ const addCartItem =
       });
     }
 
-    // (2)
+    // (3)
     const cartItemsResult = Result.combine(
       cartItems.map((cartItem) =>
         ProductId.equals(cartItem.productId, targetCartItem.productId)
@@ -111,7 +112,7 @@ const addCartItem =
       ),
     );
 
-    // (3)
+    // (4)
     return cartItemsResult
       .andThen((updated) =>
         safeBuild({
