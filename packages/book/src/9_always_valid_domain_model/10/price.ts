@@ -2,11 +2,12 @@ import { z } from 'zod';
 
 const schema = z.number().int().min(100).max(10_000).brand('Price');
 
-type Input = z.input<typeof schema>;
 type Price = z.infer<typeof schema>;
+type PriceInput = z.input<typeof schema>;
 
-const build = (value: Input): Price => schema.parse(value);
-const safeBuild = (value: Input): z.SafeParseReturnType<Input, Price> => schema.safeParse(value);
+const build = (value: PriceInput): Price => schema.parse(value);
+const safeBuild = (value: PriceInput): z.SafeParseReturnType<PriceInput, Price> =>
+  schema.safeParse(value);
 
 const Price = {
   schema,
