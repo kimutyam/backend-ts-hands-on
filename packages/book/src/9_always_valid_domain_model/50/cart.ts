@@ -14,7 +14,7 @@ import { buildFromZodDefault } from './result.js';
 
 const aggregateName = 'Cart' as const;
 
-const schemaWithoutRefinements = Aggregate.makeBrandedSchema(
+const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
@@ -22,17 +22,8 @@ const schemaWithoutRefinements = Aggregate.makeBrandedSchema(
   aggregateName,
 );
 
-// type Cart = Readonly<{
-//   aggregateId: string & z.BRAND<typeof 'CustomerId'>;
-//   sequenceNumber: number;
-//   cartItems: readonly Readonly<{
-//     productId: string & z.BRAND<typeof 'ProductId'>;
-//     price: number & z.BRAND<typeof 'Price'>;
-//     quantity: number & z.BRAND<typeof 'Quantity'>;
-//   }>[];
-// }> & z.BRAND<typeof 'Cart'>
-type Cart = z.infer<typeof schemaWithoutRefinements>;
-type Input = Omit<z.input<typeof schemaWithoutRefinements>, 'aggregateName'>;
+type Cart = z.infer<typeof schema>;
+type Input = z.input<typeof schema>;
 type CartError = z.ZodError<Input>;
 
 const ItemsLimit = 10;
@@ -54,7 +45,7 @@ const calculateTotalPrice = ({ cartItems }: Cart): number =>
 
 const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
-const schema = schemaWithoutRefinements
+const schemaWithRefinements = schema
   .refine(
     (cart) => withinItemsLimit(cart),
     () => ({ message: `品目数上限 ${ItemsLimit} を上回っています` }),
@@ -68,10 +59,10 @@ const schema = schemaWithoutRefinements
     () => ({ message: `合計金額上限 ${TotalPriceLimit} を上回っています` }),
   );
 
-const build = (value: Input): Cart => schema.parse(value);
+const build = (value: Input): Cart => schemaWithRefinements.parse(value);
 
 const safeBuild = (value: Input): Result<Cart, CartError> =>
-  R.pipe(schema.safeParse(value), buildFromZodDefault);
+  R.pipe(schemaWithRefinements.safeParse(value), buildFromZodDefault);
 
 const initBuild = (aggregateId: CustomerId): Cart =>
   build({

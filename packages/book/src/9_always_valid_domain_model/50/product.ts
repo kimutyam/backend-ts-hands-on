@@ -17,7 +17,7 @@ const schema = Aggregate.makeBrandedSchema(
   aggregateName,
 );
 
-type Input = Omit<z.input<typeof schema>, 'aggregateName'>;
+type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
 type ProductError = z.ZodError<Input>;
 
