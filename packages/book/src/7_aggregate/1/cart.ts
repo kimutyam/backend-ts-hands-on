@@ -32,7 +32,7 @@ const calculateTotalPrice = ({ cartItems }: Cart): number =>
 const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const assertCart = (cart: Cart): void => {
-  assert(withinItemsLimit(cart), `品目数上限 ${ItemsLimit} を上回っています`);
+  assert(withinItemsLimit(cart), `カート項目数上限 ${ItemsLimit} を上回っています`);
   assert(withinTotalQuantityLimit(cart), `合計数量上限 ${TotalQuantityLimit} を上回っています`);
   assert(withinTotalPriceLimit(cart), `合計金額上限 ${TotalPriceLimit} を上回っています`);
 };

@@ -56,7 +56,7 @@ const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart)
 const schema = schemaWithoutRefinements
   .refine(
     (cart) => withinItemsLimit(cart),
-    () => ({ message: `品目数上限 ${ItemsLimit} を上回っています` }),
+    () => ({ message: `カート項目数上限 ${ItemsLimit} を上回っています` }),
   )
   .refine(
     (cart) => withinTotalQuantityLimit(cart),

@@ -4,7 +4,7 @@ import { pipe } from 'remeda';
 import { z } from 'zod';
 import { Aggregate } from './aggregate.js';
 import type { CartClearReason } from './cartClearReason.js';
-import type { CartError } from './cartError.js';
+import type { AddCartError } from './cartError.js';
 import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 import { CustomerId } from './customerId.js';
@@ -48,7 +48,7 @@ const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart)
 const schemaWithRefinements = schema
   .refine(
     (cart) => withinItemsLimit(cart),
-    () => ({ message: `品目数上限 ${ItemsLimit} を上回っています` }),
+    () => ({ message: `カート項目数上限 ${ItemsLimit} を上回っています` }),
   )
   .refine(
     (cart) => withinTotalQuantityLimit(cart),
@@ -61,7 +61,7 @@ const schemaWithRefinements = schema
 
 const build = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeBuild = (value: CartInput): Result<Cart, CartError> =>
+const safeBuild = (value: CartInput): Result<Cart, AddCartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({ kind: name, error: zodError })),
@@ -80,7 +80,7 @@ const addCartItem =
     aggregateId,
     sequenceNumber,
     cartItems,
-  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], CartError> => {
+  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
@@ -165,8 +165,8 @@ const clear =
   };
 
 const Cart = {
-  schema: schemaWithRefinements,
   name,
+  schema: schemaWithRefinements,
   initBuild,
   build,
   addCartItem,
