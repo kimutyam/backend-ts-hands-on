@@ -1,7 +1,7 @@
 import { ulid } from 'ulidx';
 import * as z from 'zod';
 
-const name = 'ProductId' as const;
+const name = 'ProductId';
 
 const schema = z.string().ulid().brand('ProductId');
 

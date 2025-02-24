@@ -4,7 +4,7 @@ import { z } from 'zod';
 import type { PriceRefinementsError } from './cartError.js';
 import { buildFromZod } from './result.js';
 
-const name = 'Price' as const;
+const name = 'Price';
 
 const schema = z.number().int().min(100).max(10_000).brand('Price');
 

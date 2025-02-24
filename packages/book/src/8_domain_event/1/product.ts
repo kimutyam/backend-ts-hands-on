@@ -3,32 +3,32 @@ import type { Brand } from './brand.js';
 import type { Price } from './price.js';
 import type { ProductId } from './productId.js';
 
-const aggregateName = 'Product';
+const name = 'Product';
 
 interface ProductNotBranded extends Aggregate<ProductId> {
   readonly name: string;
   readonly price: Price;
 }
 
-type Product = ProductNotBranded & Brand<typeof aggregateName>;
+type Product = ProductNotBranded & Brand<typeof name>;
 
 const build = (
   aggregateId: ProductId,
   sequenceNumber: number,
-  name: string,
+  productName: string,
   price: Price,
 ): Product => {
   const notBranded: ProductNotBranded = {
     aggregateId,
     sequenceNumber,
-    name,
+    name: productName,
     price,
   };
   return notBranded as Product;
 };
 
 const Product = {
-  aggregateName,
+  name,
   build,
 } as const;
 

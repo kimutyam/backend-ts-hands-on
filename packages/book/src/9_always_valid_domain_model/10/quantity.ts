@@ -1,6 +1,12 @@
 import { z } from 'zod';
 
-const schema = z.number().int().min(1).max(10).brand('Quantity');
+const name = 'Quantity';
+const schema = z
+  .number()
+  .int()
+  .min(1)
+  .max(10)
+  .brand(typeof name);
 
 type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
@@ -10,6 +16,7 @@ const safeBuild = (value: QuantityInput): z.SafeParseReturnType<QuantityInput, Q
   schema.safeParse(value);
 
 const Quantity = {
+  name,
   schema,
   build,
   safeBuild,

@@ -4,7 +4,7 @@ import { pipe } from 'remeda';
 import { z } from 'zod';
 import { Aggregate } from './aggregate.js';
 import type { CartClearReason } from './cartClearReason.js';
-import type { CartError, CartRefinementsError } from './cartError.js';
+import type { CartError } from './cartError.js';
 import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 import { CustomerId } from './customerId.js';
@@ -12,7 +12,7 @@ import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
 import { buildFromZod } from './result.js';
 
-const name = 'Cart' as const;
+const name = 'Cart';
 
 const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
@@ -61,7 +61,7 @@ const schemaWithRefinements = schema
 
 const build = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeBuild = (value: CartInput): Result<Cart, CartRefinementsError> =>
+const safeBuild = (value: CartInput): Result<Cart, CartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({ kind: name, error: zodError })),
@@ -160,6 +160,7 @@ const clear =
   };
 
 const Cart = {
+  schema: schemaWithRefinements,
   name,
   initBuild,
   build,

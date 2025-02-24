@@ -10,7 +10,7 @@ import type { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
 
-const name = 'Cart' as const;
+const name = 'Cart';
 
 interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;
