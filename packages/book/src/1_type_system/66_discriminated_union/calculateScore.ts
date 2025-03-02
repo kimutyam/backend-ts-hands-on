@@ -15,8 +15,14 @@ const calculateScore = (result: GameResult): number => {
   }
 };
 
-const winResult: GameResult = { result: 'win', points: 100 };
-const loseResult: GameResult = { result: 'lose', penalty: 50 };
+const winResult: GameResult = {
+  result: 'win',
+  points: 100,
+};
+const loseResult: GameResult = {
+  result: 'lose',
+  penalty: 50,
+};
 const drawResult: GameResult = { result: 'draw' };
 
 console.log(calculateScore(winResult)); // 100

@@ -4,7 +4,8 @@ import type { Brand } from './brand.js';
 
 type EmployeeId = string & Brand<'EmployeeId'>;
 
-const equals = (a: EmployeeId, b: EmployeeId): boolean => a === b;
+const equals = (a: EmployeeId, b: EmployeeId): boolean =>
+  a === b;
 
 const assertEmployeeNumber = (value: EmployeeId): void => {
   assert(isValid(value), 'ULIDで指定ください');

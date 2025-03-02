@@ -5,6 +5,10 @@ import type { Cart } from './cart.js';
 import type { CartEvent } from './cartEvent.js';
 import type { CartNotFoundError } from './cartNotFoundError.js';
 
-export type CartResolver = AggregateResolver<CustomerId, Cart, CartNotFoundError>;
+export type CartResolver = AggregateResolver<
+  CustomerId,
+  Cart,
+  CartNotFoundError
+>;
 
 export type CartEventStore = EventStore<Cart, CartEvent>;

@@ -8,19 +8,30 @@ interface Employee {
   readonly telephone: Telephone; // 値オブジェクトを参照
 }
 
-const identify = (a: Employee, b: Employee): boolean => a.employeeNumber === b.employeeNumber;
+const identify = (a: Employee, b: Employee): boolean =>
+  a.employeeNumber === b.employeeNumber;
 
 // 外から値オブジェクトを指定する。違反コードをかける。
 const changeName =
   (name: string) =>
-  (employee: Employee): Employee => ({ ...employee, name: Name.build(name) });
+  (employee: Employee): Employee => ({
+    ...employee,
+    name: Name.build(name),
+  });
 
 // 外から値オブジェクトを指定する。違反コードをかける。
 const changeTelephone =
   (telephone: string) =>
-  (employee: Employee): Employee => ({ ...employee, telephone: Telephone.build(telephone) });
+  (employee: Employee): Employee => ({
+    ...employee,
+    telephone: Telephone.build(telephone),
+  });
 
-const buildFromPrimitive = (employeeNumber: number, name: string, telephone: string): Employee => ({
+const buildFromPrimitive = (
+  employeeNumber: number,
+  name: string,
+  telephone: string,
+): Employee => ({
   employeeNumber,
   name: Name.build(name),
   telephone: Telephone.build(telephone),

@@ -3,9 +3,14 @@ import type { Brand } from './brand.js';
 
 type EmployeeNumber = number & Brand<'EmployeeNumber'>;
 
-const assertEmployeeNumber = (value: EmployeeNumber): void => {
+const assertEmployeeNumber = (
+  value: EmployeeNumber,
+): void => {
   assert(value > 0, '社員番号は1以上にしてください');
-  assert(Number.isInteger(value), '社員番号は整数で指定してください');
+  assert(
+    Number.isInteger(value),
+    '社員番号は整数で指定してください',
+  );
 };
 
 const build = (value: number): EmployeeNumber => {
@@ -14,7 +19,10 @@ const build = (value: number): EmployeeNumber => {
   return v;
 };
 
-const equals = (a: EmployeeNumber, b: EmployeeNumber): boolean => a === b;
+const equals = (
+  a: EmployeeNumber,
+  b: EmployeeNumber,
+): boolean => a === b;
 
 const EmployeeNumber = {
   build,

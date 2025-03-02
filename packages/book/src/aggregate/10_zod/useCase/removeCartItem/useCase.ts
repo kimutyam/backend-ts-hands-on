@@ -1,5 +1,8 @@
 import * as z from 'zod';
-import type { Cart, CartError } from '../../domain/cart/cart.js';
+import type {
+  Cart,
+  CartError,
+} from '../../domain/cart/cart.js';
 import { CustomerId } from '../../domain/customer/customerId.js';
 import { ProductId } from '../../domain/product/productId.js';
 import type { ProductNotFoundError } from '../../domain/product/productNotFoundError.js';
@@ -18,4 +21,8 @@ export type Output = Cart;
 
 export type UseCaseError = CartError | ProductNotFoundError;
 
-export type RemoveCartItemUseCase = UseCase<Input, Output, UseCaseError>;
+export type RemoveCartItemUseCase = UseCase<
+  Input,
+  Output,
+  UseCaseError
+>;

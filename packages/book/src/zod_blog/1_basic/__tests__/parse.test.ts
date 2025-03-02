@@ -68,11 +68,15 @@ describe('safeParse', () => {
         _errors: [],
         product: expect.objectContaining({
           price: expect.objectContaining({
-            _errors: expect.arrayContaining(['Expected number, received string']),
+            _errors: expect.arrayContaining([
+              'Expected number, received string',
+            ]),
           }),
         }),
         quantity: expect.objectContaining({
-          _errors: expect.arrayContaining(['Expected number, received string']),
+          _errors: expect.arrayContaining([
+            'Expected number, received string',
+          ]),
         }),
       }),
     );

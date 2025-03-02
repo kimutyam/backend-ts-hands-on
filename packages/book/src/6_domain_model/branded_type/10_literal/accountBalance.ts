@@ -3,7 +3,9 @@ import type { Brand, BrandValue } from './brand.js';
 const tag = 'AccountBalance';
 export type AccountBalance = Brand<number, typeof tag>;
 
-export const AccountBalance = (value: BrandValue<AccountBalance>): AccountBalance => ({
+export const AccountBalance = (
+  value: BrandValue<AccountBalance>,
+): AccountBalance => ({
   _tag: tag,
   value,
 });

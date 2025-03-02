@@ -38,10 +38,13 @@ describe('safeParse', () => {
   });
 
   it('エラー: オブジェクトではない', () => {
-    const result = employeeSchema.safeParse('not an object');
+    const result =
+      employeeSchema.safeParse('not an object');
     assert(!result.success);
     expect(result.error.format()).toStrictEqual({
-      _errors: expect.arrayContaining(['Expected object, received string']),
+      _errors: expect.arrayContaining([
+        'Expected object, received string',
+      ]),
     });
   });
 
@@ -54,7 +57,9 @@ describe('safeParse', () => {
     expect(result.error.format()).toStrictEqual({
       _errors: [],
       age: {
-        _errors: expect.arrayContaining(['Expected number, received string']),
+        _errors: expect.arrayContaining([
+          'Expected number, received string',
+        ]),
       },
     });
   });

@@ -26,24 +26,29 @@ describe('requestOrder', () => {
       ),
     ];
 
-    const cart = Cart.build(CustomerId.generate(), Aggregate.InitialSequenceNumber, [
-      {
-        productId: products[0]!.aggregateId,
-        quantity: Quantity.build(1),
-        price: Price.build(1_000),
-      },
-      {
-        productId: products[1]!.aggregateId,
-        quantity: Quantity.build(1),
-        price: Price.build(2_000),
-      },
-    ]);
-
-    const [order, orderRequested, cartAfterOrder, cartCleared] = requestOrder(
-      cart,
-      products,
-      OrderId.generate,
+    const cart = Cart.build(
+      CustomerId.generate(),
+      Aggregate.InitialSequenceNumber,
+      [
+        {
+          productId: products[0]!.aggregateId,
+          quantity: Quantity.build(1),
+          price: Price.build(1_000),
+        },
+        {
+          productId: products[1]!.aggregateId,
+          quantity: Quantity.build(1),
+          price: Price.build(2_000),
+        },
+      ],
     );
+
+    const [
+      order,
+      orderRequested,
+      cartAfterOrder,
+      cartCleared,
+    ] = requestOrder(cart, products, OrderId.generate);
 
     expect(order.items).toStrictEqual([
       {

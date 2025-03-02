@@ -4,7 +4,9 @@ import type { ProductId } from '../../10_zod/domain/product/productId.js';
 import type { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError.js';
 
 export interface IProductRepository {
-  findById: (aggregateId: ProductId) => ResultAsync<Product, ProductNotFoundError>;
+  findById: (
+    aggregateId: ProductId,
+  ) => ResultAsync<Product, ProductNotFoundError>;
 
   findAll: () => Promise<ReadonlyArray<Product>>;
 

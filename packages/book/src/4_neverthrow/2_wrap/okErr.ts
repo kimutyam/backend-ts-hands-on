@@ -1,7 +1,9 @@
 import type { Err, Ok } from 'neverthrow';
 import { err, ok } from 'neverthrow';
 
-const ok1: Ok<{ data: string }, never> = ok({ data: 'success' });
+const ok1: Ok<{ data: string }, never> = ok({
+  data: 'success',
+});
 ok1.isOk(); // true
 ok1.isErr(); // false
 

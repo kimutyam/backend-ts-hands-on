@@ -10,10 +10,13 @@ export type Name = z.infer<typeof schema>;
 export type NameInput = z.input<typeof schema>;
 
 const build = (a: NameInput): Name => schema.parse(a);
-const safeBuild = (a: NameInput): Result<Name, z.ZodError<NameInput>> =>
+const safeBuild = (
+  a: NameInput,
+): Result<Name, z.ZodError<NameInput>> =>
   fromZodReturnTypeDefault(schema.safeParse(a));
 
-const equals: Eq<Name> = (x: Name, y: Name): boolean => x === y;
+const equals: Eq<Name> = (x: Name, y: Name): boolean =>
+  x === y;
 
 export const Name = {
   build,

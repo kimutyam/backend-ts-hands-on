@@ -10,7 +10,10 @@ interface Failure<E> extends ResultLike<false> {
   readonly error: E;
 }
 
-const Success = <T>(data: T): Success<T> => ({ success: true, data });
+const Success = <T>(data: T): Success<T> => ({
+  success: true,
+  data,
+});
 
 const Failure = <E>(error: E): Failure<E> => ({
   success: false,

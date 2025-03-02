@@ -12,7 +12,10 @@ class NumberOfMembersError extends Error {
 
     this.name = 'NumberOfMembersError';
     // ES6より前のターゲットでErrorのプロトタイプを継承するための記述
-    Object.setPrototypeOf(this, NumberOfMembersError.prototype);
+    Object.setPrototypeOf(
+      this,
+      NumberOfMembersError.prototype,
+    );
   }
 }
 

@@ -11,7 +11,8 @@ const SEED = 123;
 
 const equals = (a: OrderId, b: OrderId): boolean => a === b;
 
-const build = (value: Input): OrderId => schema.parse(value);
+const build = (value: Input): OrderId =>
+  schema.parse(value);
 
 const generate = (): OrderId => build(ulid(SEED));
 

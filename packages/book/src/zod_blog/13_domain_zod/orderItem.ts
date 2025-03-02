@@ -19,12 +19,24 @@ const buildSingle = (product: Product): OrderItem => ({
 
 const add =
   (quantity: OrderQuantity) =>
-  (orderItem: OrderItem): OrderItem | z.ZodError<OrderQuantityInput> => {
-    const result = OrderQuantity.safeBuild(orderItem.quantity + quantity);
-    return result.success ? { product: orderItem.product, quantity: result.data } : result.error;
+  (
+    orderItem: OrderItem,
+  ): OrderItem | z.ZodError<OrderQuantityInput> => {
+    const result = OrderQuantity.safeBuild(
+      orderItem.quantity + quantity,
+    );
+    return result.success
+      ? {
+          product: orderItem.product,
+          quantity: result.data,
+        }
+      : result.error;
   };
 
-const calculateTotal = ({ product, quantity }: OrderItem): number => product.price * quantity;
+const calculateTotal = ({
+  product,
+  quantity,
+}: OrderItem): number => product.price * quantity;
 
 export const OrderItem = {
   buildSingle,

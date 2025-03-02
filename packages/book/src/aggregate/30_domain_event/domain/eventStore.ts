@@ -7,5 +7,8 @@ export interface EventStore<
 > {
   persist: (event: KnownDomainEvent) => Promise<void>;
 
-  persistEventAndSnapshot: (event: KnownDomainEvent, aggregate: KnownAggregate) => Promise<void>;
+  persistEventAndSnapshot: (
+    event: KnownDomainEvent,
+    aggregate: KnownAggregate,
+  ) => Promise<void>;
 }

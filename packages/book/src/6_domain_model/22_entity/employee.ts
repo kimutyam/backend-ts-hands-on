@@ -8,7 +8,8 @@ interface Employee {
   readonly telephone: Telephone; // 値オブジェクトを参照
 }
 
-const identify = (a: Employee, b: Employee): boolean => a.employeeNumber === b.employeeNumber;
+const identify = (a: Employee, b: Employee): boolean =>
+  a.employeeNumber === b.employeeNumber;
 
 const changeName =
   (name: Name) =>
@@ -16,7 +17,10 @@ const changeName =
 
 const changeTelephone =
   (telephone: Telephone) =>
-  (employee: Employee): Employee => ({ ...employee, telephone });
+  (employee: Employee): Employee => ({
+    ...employee,
+    telephone,
+  });
 
 const Employee = {
   identify,

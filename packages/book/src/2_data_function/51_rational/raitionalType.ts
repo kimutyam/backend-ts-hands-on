@@ -6,6 +6,9 @@ type PublicProperties<T> = {
 }[keyof T];
 
 // { readonly numerator: number; readonly denominator: number; }
-type PublicFieldsOfRational = Pick<Rational, PublicProperties<Rational>>;
+type PublicFieldsOfRational = Pick<
+  Rational,
+  PublicProperties<Rational>
+>;
 
 export type { PublicFieldsOfRational };

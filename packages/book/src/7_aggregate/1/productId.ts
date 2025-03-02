@@ -4,7 +4,8 @@ import type { Brand } from './brand.js';
 
 type ProductId = string & Brand<'ProductId'>;
 
-const equals = (a: ProductId, b: ProductId): boolean => a === b;
+const equals = (a: ProductId, b: ProductId): boolean =>
+  a === b;
 
 const assertProductId = (value: ProductId): void => {
   assert(isValid(value), 'ULIDで指定ください');

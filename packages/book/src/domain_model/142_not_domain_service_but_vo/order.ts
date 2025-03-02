@@ -7,7 +7,10 @@ export type Order = Readonly<{
 }>;
 
 const calculatePrice = ({ items }: Order): number =>
-  items.reduce((acc, item) => acc + Item.calculateTotalPrice(item), 0);
+  items.reduce(
+    (acc, item) => acc + Item.calculateTotalPrice(item),
+    0,
+  );
 
 export const Order = {
   calculatePrice,

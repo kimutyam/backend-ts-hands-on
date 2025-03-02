@@ -5,8 +5,10 @@ export type Product = Readonly<{
   price: number;
 }>;
 
-const equals: Eq<Product> = (x: Product, y: Product): boolean =>
-  x.name === y.name && x.price === y.price;
+const equals: Eq<Product> = (
+  x: Product,
+  y: Product,
+): boolean => x.name === y.name && x.price === y.price;
 
 export const Product = {
   equals,

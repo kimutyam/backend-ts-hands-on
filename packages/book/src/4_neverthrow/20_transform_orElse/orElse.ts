@@ -4,7 +4,8 @@ import { ok, err } from 'neverthrow';
 declare const r: Result<number, Error>;
 
 // 適用する関数1
-const f1 = (e: Error): Result<number, string> => err(e.message);
+const f1 = (e: Error): Result<number, string> =>
+  err(e.message);
 // 適用する関数2
 const f2 = (e: Error): Result<undefined, string> =>
   e.name === 'RangeError' ? ok(undefined) : err(e.message);

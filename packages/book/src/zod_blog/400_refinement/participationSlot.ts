@@ -7,10 +7,15 @@ export type ParticipationSlot = z.infer<typeof schema>;
 
 export type ParticipationSlotInput = z.input<typeof schema>;
 
-const build = (input: ParticipationSlotInput): ParticipationSlot => schema.parse(input);
+const build = (
+  input: ParticipationSlotInput,
+): ParticipationSlot => schema.parse(input);
 const safeBuild = (
   input: ParticipationSlotInput,
-): SafeParseReturnType<ParticipationSlotInput, ParticipationSlot> => schema.safeParse(input);
+): SafeParseReturnType<
+  ParticipationSlotInput,
+  ParticipationSlot
+> => schema.safeParse(input);
 
 export const OrderQuantity = {
   build,

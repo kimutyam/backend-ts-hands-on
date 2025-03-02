@@ -6,7 +6,10 @@ import { ProductId } from '../product/productId.js';
 import type { Order } from './order.js';
 import type { OrderId } from './orderId.js';
 
-const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
+const detectItems = (
+  cart: Cart,
+  products: ReadonlyArray<Product>,
+) => {
   const { props } = cart;
   const items = props.items.reduce((acc, item) => {
     const maybeProduct = products.find((product) =>

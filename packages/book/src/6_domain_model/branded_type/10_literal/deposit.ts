@@ -5,7 +5,9 @@ export const deposit = (
   customerId: CustomerId,
   accountBalance: AccountBalance,
 ): { [key: number]: AccountBalance } => ({
-  [customerId.value]: AccountBalance(accountBalance.value * 2),
+  [customerId.value]: AccountBalance(
+    accountBalance.value * 2,
+  ),
 });
 
 const customerId = CustomerId(10);

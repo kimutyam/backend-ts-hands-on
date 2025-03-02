@@ -65,7 +65,11 @@ it('構造の異なる入力値から注文項目を組み立てる', () => {
 
   // 内部で価格を決定することを想定
   const price = Price.build(100);
-  const total = R.pipe(result.data, convertToItem(price), Item.total);
+  const total = R.pipe(
+    result.data,
+    convertToItem(price),
+    Item.total,
+  );
   expect(total).toBe(100);
 });
 
@@ -91,11 +95,15 @@ it('注文項目の構成要素の不変条件違反を検出してエラーに�
   expect(result.error.format()).toEqual(
     expect.objectContaining({
       quantity: expect.objectContaining({
-        _errors: expect.arrayContaining(['Number must be greater than or equal to 1']),
+        _errors: expect.arrayContaining([
+          'Number must be greater than or equal to 1',
+        ]),
       }),
       product: expect.objectContaining({
         price: expect.objectContaining({
-          _errors: expect.arrayContaining(['Number must be greater than or equal to 100']),
+          _errors: expect.arrayContaining([
+            'Number must be greater than or equal to 100',
+          ]),
         }),
       }),
     }),

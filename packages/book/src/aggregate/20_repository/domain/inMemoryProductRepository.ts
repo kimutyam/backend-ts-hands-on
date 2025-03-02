@@ -4,13 +4,20 @@ import type { ProductId } from '../../10_zod/domain/product/productId.js';
 import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError.js';
 import type { IProductRepository } from './productRespository.js';
 
-export class InMemoryProductRepository implements IProductRepository {
-  private readonly aggregates: Record<ProductId, Product> = {};
+export class InMemoryProductRepository
+  implements IProductRepository
+{
+  private readonly aggregates: Record<ProductId, Product> =
+    {};
 
-  findById(aggregateId: ProductId): ResultAsync<Product, ProductNotFoundError> {
+  findById(
+    aggregateId: ProductId,
+  ): ResultAsync<Product, ProductNotFoundError> {
     const aggregate = this.aggregates[aggregateId];
     const result =
-      aggregate === undefined ? err(new ProductNotFoundError(aggregateId)) : ok(aggregate);
+      aggregate === undefined
+        ? err(new ProductNotFoundError(aggregateId))
+        : ok(aggregate);
     const promise = Promise.resolve(result);
     return new ResultAsync(promise);
   }

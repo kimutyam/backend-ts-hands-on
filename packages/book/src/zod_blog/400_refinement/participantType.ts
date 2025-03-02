@@ -10,4 +10,6 @@ export type VipParticipantType = {
   slot: ParticipationSlot;
 };
 
-export type ParticipantType = GeneralParticipantType | VipParticipantType;
+export type ParticipantType =
+  | GeneralParticipantType
+  | VipParticipantType;

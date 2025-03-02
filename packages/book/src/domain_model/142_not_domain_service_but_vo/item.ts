@@ -5,8 +5,10 @@ export type Item = Readonly<{
   quantity: number;
 }>;
 
-export const calculateTotalPrice = ({ product, quantity }: Item): number =>
-  product.price * quantity;
+export const calculateTotalPrice = ({
+  product,
+  quantity,
+}: Item): number => product.price * quantity;
 
 export const Item = {
   calculateTotalPrice,

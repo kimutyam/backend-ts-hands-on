@@ -6,17 +6,28 @@ import { buildFromZod } from './result.js';
 
 const name = 'Price';
 
-const schema = z.number().int().min(100).max(10_000).brand('Price');
+const schema = z
+  .number()
+  .int()
+  .min(100)
+  .max(10_000)
+  .brand('Price');
 
 type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
 type PriceZodError = z.ZodError<PriceInput>;
 
-const build = (value: PriceInput): Price => schema.parse(value);
-const safeBuild = (value: PriceInput): Result<Price, PriceRefinementsError> =>
+const build = (value: PriceInput): Price =>
+  schema.parse(value);
+const safeBuild = (
+  value: PriceInput,
+): Result<Price, PriceRefinementsError> =>
   R.pipe(
     schema.safeParse(value),
-    buildFromZod((zodError) => ({ kind: name, error: zodError })),
+    buildFromZod((zodError) => ({
+      kind: name,
+      error: zodError,
+    })),
   );
 
 const Price = {
