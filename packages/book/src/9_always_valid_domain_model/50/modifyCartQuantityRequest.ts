@@ -17,7 +17,10 @@ type ModifyCartQuantityRequest = z.infer<typeof schema>;
 // (2)
 const toCartItem =
   (price: Price) =>
-  ({ productId, quantity }: ModifyCartQuantityRequest): CartItem => ({
+  ({
+    productId,
+    quantity,
+  }: ModifyCartQuantityRequest): CartItem => ({
     productId,
     price,
     quantity: Quantity.build(quantity),

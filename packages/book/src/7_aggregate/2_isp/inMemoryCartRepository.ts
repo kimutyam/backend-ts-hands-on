@@ -2,13 +2,19 @@ import { errAsync, okAsync } from 'neverthrow';
 import type { Cart } from '../1/cart.js';
 import { CartNotFoundError } from '../1/cartNotFoundError.js';
 import type { CustomerId } from '../1/customerId.js';
-import type { DeleteCartById, FindCartById, SaveCart } from './cartRepository.js';
+import type {
+  DeleteCartById,
+  FindCartById,
+  SaveCart,
+} from './cartRepository.js';
 
 const buildFindCartById =
   (aggregates: Map<CustomerId, Cart>): FindCartById =>
   (aggregateId: CustomerId) => {
     const aggregate = aggregates.get(aggregateId);
-    return aggregate ? okAsync(aggregate) : errAsync(new CartNotFoundError(aggregateId));
+    return aggregate
+      ? okAsync(aggregate)
+      : errAsync(new CartNotFoundError(aggregateId));
   };
 
 const buildSaveCart =
@@ -25,4 +31,8 @@ const buildDeleteCartById =
     return Promise.resolve();
   };
 
-export { buildFindCartById, buildSaveCart, buildDeleteCartById };
+export {
+  buildFindCartById,
+  buildSaveCart,
+  buildDeleteCartById,
+};

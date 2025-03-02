@@ -2,10 +2,15 @@ import type { Product } from '../../10_zod/domain/product/product.js';
 import type { ProductId } from '../../10_zod/domain/product/productId.js';
 import type { IProductRepository } from './productRespository.js';
 
-export class InMemoryProductRepository implements IProductRepository {
-  private readonly aggregates: Record<ProductId, Product> = {};
+export class InMemoryProductRepository
+  implements IProductRepository
+{
+  private readonly aggregates: Record<ProductId, Product> =
+    {};
 
-  findById(aggregateId: ProductId): Promise<Product | undefined> {
+  findById(
+    aggregateId: ProductId,
+  ): Promise<Product | undefined> {
     return Promise.resolve(this.aggregates[aggregateId]);
   }
 

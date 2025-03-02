@@ -18,7 +18,10 @@ z.array(z.string());
 z.tuple([z.string(), z.number()]);
 z.enum(['foo', 'bar']);
 z.union([z.string(), z.number()]);
-z.intersection(z.object({ name: z.string() }), z.object({ price: z.number() }));
+z.intersection(
+  z.object({ name: z.string() }),
+  z.object({ price: z.number() }),
+);
 
 // others...
 

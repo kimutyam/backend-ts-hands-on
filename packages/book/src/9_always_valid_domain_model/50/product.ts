@@ -21,9 +21,12 @@ type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
 type ProductError = z.ZodError<Input>;
 
-const build = (value: Input): Product => schema.parse(value);
+const build = (value: Input): Product =>
+  schema.parse(value);
 
-const safeBuild = (value: Input): Result<Product, ProductError> =>
+const safeBuild = (
+  value: Input,
+): Result<Product, ProductError> =>
   R.pipe(schema.safeParse(value), buildFromZodDefault);
 
 const Product = {

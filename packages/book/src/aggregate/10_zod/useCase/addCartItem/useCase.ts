@@ -1,5 +1,8 @@
 import * as z from 'zod';
-import type { Cart, CartError } from '../../domain/cart/cart.js';
+import type {
+  Cart,
+  CartError,
+} from '../../domain/cart/cart.js';
 import { CustomerId } from '../../domain/customer/customerId.js';
 import type { QuantityError } from '../../domain/item/quantity.js';
 import { Quantity } from '../../domain/item/quantity.js';
@@ -19,6 +22,13 @@ export type Input = z.infer<typeof schema>;
 
 export type Output = Cart;
 
-export type UseCaseError = CartError | QuantityError | ProductNotFoundError;
+export type UseCaseError =
+  | CartError
+  | QuantityError
+  | ProductNotFoundError;
 
-export type AddCartItemUseCase = UseCase<Input, Output, UseCaseError>;
+export type AddCartItemUseCase = UseCase<
+  Input,
+  Output,
+  UseCaseError
+>;

@@ -1,6 +1,8 @@
 import type { Employee, Manager } from './types.js';
 
-type IsEmployeeSubType<T> = T extends Employee ? 'yes' : 'no';
+type IsEmployeeSubType<T> = T extends Employee
+  ? 'yes'
+  : 'no';
 
 // "yes" 型
 type Test1 = IsEmployeeSubType<Manager>;

@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
-export interface Aggregate<AggregateID, Props extends { [k: string]: unknown }> {
+export interface Aggregate<
+  AggregateID,
+  Props extends { [k: string]: unknown },
+> {
   readonly aggregateId: AggregateID;
   readonly props: Props;
 }

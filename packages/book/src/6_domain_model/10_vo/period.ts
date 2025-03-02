@@ -1,5 +1,11 @@
 import assert from 'node:assert';
-import { addDays, addHours, isAfter, isBefore, isEqual } from 'date-fns/fp';
+import {
+  addDays,
+  addHours,
+  isAfter,
+  isBefore,
+  isEqual,
+} from 'date-fns/fp';
 import { pipe } from 'remeda';
 import type { Brand } from './brand.js';
 
@@ -14,12 +20,14 @@ const equals = (a: Period, b: Period): boolean =>
 const isSameOrAfter =
   (dateToCompare: Date) =>
   (date: Date): boolean =>
-    isAfter(date, dateToCompare) || isEqual(date, dateToCompare);
+    isAfter(date, dateToCompare) ||
+    isEqual(date, dateToCompare);
 
 const isSameOrBefore =
   (dateToCompare: Date) =>
   (date: Date): boolean =>
-    isBefore(date, dateToCompare) || isEqual(date, dateToCompare);
+    isBefore(date, dateToCompare) ||
+    isEqual(date, dateToCompare);
 
 // 期間の長さが3日以上かどうかを判定する
 const satisfiesMin = ({ start, end }: Period) => {
@@ -35,8 +43,14 @@ const satisfiesMax = ({ start, end }: Period) => {
 
 // 不変条件を満たすかどうかを検証する
 const assertPeriod = (period: Period): void => {
-  assert(satisfiesMin(period), '期間を3日以上設けてください');
-  assert(satisfiesMax(period), '期間を10日未満にしてください');
+  assert(
+    satisfiesMin(period),
+    '期間を3日以上設けてください',
+  );
+  assert(
+    satisfiesMax(period),
+    '期間を10日未満にしてください',
+  );
 };
 
 // 不変条件を満たす期間を生成する
@@ -53,7 +67,8 @@ const buildAt = (start: Date, periodDate: number): Period =>
 const isWithin =
   (dateToCompare: Date) =>
   ({ start, end }: Period): boolean =>
-    pipe(start, isSameOrAfter(dateToCompare)) && pipe(end, isSameOrBefore(dateToCompare));
+    pipe(start, isSameOrAfter(dateToCompare)) &&
+    pipe(end, isSameOrBefore(dateToCompare));
 
 // build関数を経由
 const postpone =
@@ -68,7 +83,14 @@ const postpone =
 const extend =
   (extensionDays: number, extensionHours: number) =>
   ({ start, end }: Period): Period =>
-    build(start, pipe(end, addDays(extensionDays), addHours(extensionHours)));
+    build(
+      start,
+      pipe(
+        end,
+        addDays(extensionDays),
+        addHours(extensionHours),
+      ),
+    );
 
 const Period = {
   build,

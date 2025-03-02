@@ -8,6 +8,9 @@ const results: Array<ResultAsync<number, string>> = [
   errAsync('god'),
 ];
 
-const r1: ResultAsync<Array<number>, Array<string>> = ResultAsync.combineWithAllErrors(results);
+const r1: ResultAsync<
+  Array<number>,
+  Array<string>
+> = ResultAsync.combineWithAllErrors(results);
 
 console.log(r1);

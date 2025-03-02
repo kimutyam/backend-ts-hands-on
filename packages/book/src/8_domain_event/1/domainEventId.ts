@@ -4,9 +4,14 @@ import type { Brand } from './brand.js';
 
 type DomainEventId = string & Brand<'DomainEventId'>;
 
-const equals = (a: DomainEventId, b: DomainEventId): boolean => a === b;
+const equals = (
+  a: DomainEventId,
+  b: DomainEventId,
+): boolean => a === b;
 
-const assertDomainEventId = (value: DomainEventId): void => {
+const assertDomainEventId = (
+  value: DomainEventId,
+): void => {
   assert(isValid(value), 'ULIDで指定ください');
 };
 
@@ -20,7 +25,8 @@ const build = (value: string): DomainEventId => {
 const SEED = 123;
 const generate = (): DomainEventId => build(ulid(SEED));
 
-const getTimestamp = (id: DomainEventId): number => decodeTime(id);
+const getTimestamp = (id: DomainEventId): number =>
+  decodeTime(id);
 
 const DomainEventId = {
   build,

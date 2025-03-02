@@ -11,7 +11,10 @@ export type OrderId = z.infer<typeof schema>;
 
 const generate = (): OrderId => schema.parse(ulid());
 
-const equals: Eq<OrderId> = (x: OrderId, y: OrderId): boolean => x === y;
+const equals: Eq<OrderId> = (
+  x: OrderId,
+  y: OrderId,
+): boolean => x === y;
 
 const build = (a: Input): OrderId => schema.parse(a);
 

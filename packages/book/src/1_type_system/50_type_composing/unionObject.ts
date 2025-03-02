@@ -1,4 +1,7 @@
-import type { Executive, Manager } from '../44_subtype/employee.js';
+import type {
+  Executive,
+  Manager,
+} from '../44_subtype/employee.js';
 
 // {name: string, age: number}型になります
 type ManagerExecutiveUnion = Manager | Executive;

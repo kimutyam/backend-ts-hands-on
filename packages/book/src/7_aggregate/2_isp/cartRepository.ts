@@ -4,7 +4,9 @@ import type { CartNotFoundError } from '../1/cartNotFoundError.js';
 import type { CustomerId } from '../1/customerId.js';
 
 interface FindCartById {
-  (aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError>;
+  (
+    aggregateId: CustomerId,
+  ): ResultAsync<Cart, CartNotFoundError>;
 }
 
 interface SaveCart {

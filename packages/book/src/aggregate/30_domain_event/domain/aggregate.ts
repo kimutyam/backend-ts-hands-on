@@ -3,7 +3,10 @@ import { z } from 'zod';
 const sequenceNumberSchema = z.number();
 type SequenceNumber = z.infer<typeof sequenceNumberSchema>;
 
-export interface Aggregate<AggregateID, Props extends { [k: string]: unknown }> {
+export interface Aggregate<
+  AggregateID,
+  Props extends { [k: string]: unknown },
+> {
   readonly aggregateId: AggregateID;
   readonly sequenceNumber: SequenceNumber;
   readonly props: Props;

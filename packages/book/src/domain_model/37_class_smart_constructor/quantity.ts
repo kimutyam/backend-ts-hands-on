@@ -20,14 +20,21 @@ const validate = (value: number): Array<string> => {
 export class Quantity {
   private constructor(public value: number) {}
 
-  static safeBuild(value: number): Result<Quantity, QuantityError> {
+  static safeBuild(
+    value: number,
+  ): Result<Quantity, QuantityError> {
     const issues = validate(value);
-    return issues.length ? err(QuantityError.build(issues)) : ok(new Quantity(value));
+    return issues.length
+      ? err(QuantityError.build(issues))
+      : ok(new Quantity(value));
   }
 
   static build(value: number): Quantity {
     let issues: Array<string>;
-    assert((issues = validate(value)).length === 0, issues.join('\n'));
+    assert(
+      (issues = validate(value)).length === 0,
+      issues.join('\n'),
+    );
     return new Quantity(value);
   }
 }

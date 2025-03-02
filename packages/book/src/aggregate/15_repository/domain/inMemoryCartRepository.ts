@@ -2,11 +2,16 @@ import { Cart } from '../../10_zod/domain/cart/cart.js';
 import type { CustomerId } from '../../10_zod/domain/customer/customerId.js';
 import type { ICartRepository } from './cartRepository.js';
 
-export class InMemoryCartRepository implements ICartRepository {
-  private readonly aggregates: Record<CustomerId, Cart> = {};
+export class InMemoryCartRepository
+  implements ICartRepository
+{
+  private readonly aggregates: Record<CustomerId, Cart> =
+    {};
 
   findById(aggregateId: CustomerId): Promise<Cart> {
-    const aggregate = this.aggregates[aggregateId] || Cart.initBuild(aggregateId);
+    const aggregate =
+      this.aggregates[aggregateId] ||
+      Cart.initBuild(aggregateId);
     return Promise.resolve(aggregate);
   }
 

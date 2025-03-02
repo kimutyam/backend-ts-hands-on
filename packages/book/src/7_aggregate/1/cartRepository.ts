@@ -4,7 +4,9 @@ import type { CartNotFoundError } from './cartNotFoundError.js';
 import type { CustomerId } from './customerId.js';
 
 interface ICartRepository {
-  findById: (aggregateId: CustomerId) => ResultAsync<Cart, CartNotFoundError>;
+  findById: (
+    aggregateId: CustomerId,
+  ) => ResultAsync<Cart, CartNotFoundError>;
   save: (cart: Cart) => Promise<void>;
   deleteById: (aggregateId: CustomerId) => Promise<void>;
 }

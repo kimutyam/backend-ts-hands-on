@@ -3,7 +3,9 @@ import { AggregateNotFoundError } from '../aggregateNotFoundError.js';
 
 export class CartNotFoundError extends AggregateNotFoundError {
   constructor(id: CustomerId) {
-    super(`カスタマー: ${id} のカートが見つかりませんでした`);
+    super(
+      `カスタマー: ${id} のカートが見つかりませんでした`,
+    );
     this.name = 'CartNotFoundError';
   }
 }

@@ -5,13 +5,19 @@ type PrintManagerFn = (arg: Manager) => void;
 
 // false
 // 引数: 狭い型(Employee)に広い型(Manager)を代入できない (危険な入力)
-type Y = PrintManagerFn extends PrintEmployeeFn ? true : false;
+type Y = PrintManagerFn extends PrintEmployeeFn
+  ? true
+  : false;
 // true
 // 引数: 広い型(Manager)に狭い型(Employee)を代入できる
-type X = PrintEmployeeFn extends PrintManagerFn ? true : false;
+type X = PrintEmployeeFn extends PrintManagerFn
+  ? true
+  : false;
 
-let printEmployee: PrintEmployeeFn = (arg: Employee) => console.log(arg.name);
-let printManager: PrintManagerFn = (arg: Manager) => console.log(arg.grade);
+let printEmployee: PrintEmployeeFn = (arg: Employee) =>
+  console.log(arg.name);
+let printManager: PrintManagerFn = (arg: Manager) =>
+  console.log(arg.grade);
 
 // 型エラー。型の引数は Employee だが、実際には Manager が必要
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -10,7 +10,10 @@ const generate = () => schema.parse(ulid());
 type Input = z.input<typeof schema>;
 export type ProductId = z.infer<typeof schema>;
 
-const equals: Eq<ProductId> = (x: ProductId, y: ProductId): boolean => x === y;
+const equals: Eq<ProductId> = (
+  x: ProductId,
+  y: ProductId,
+): boolean => x === y;
 
 const build = (a: Input): ProductId => schema.parse(a);
 

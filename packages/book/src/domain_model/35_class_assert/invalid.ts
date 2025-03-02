@@ -14,7 +14,10 @@ class NumberContainer {
 export class SpecialQuantity extends Quantity {
   constructor(value: number) {
     super(value);
-    assert(value !== 5, 'このサブクラスでは5個の注文は許可されません。');
+    assert(
+      value !== 5,
+      'このサブクラスでは5個の注文は許可されません。',
+    );
   }
 }
 

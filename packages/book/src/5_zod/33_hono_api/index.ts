@@ -4,8 +4,13 @@ import { Hono } from 'hono';
 const app = new Hono();
 
 app.post('/', async (c) => {
-  const employee = await c.req.json<{ name: string; age: number }>();
-  return c.json({ message: `Hello ${employee.name.toUpperCase()}!` });
+  const employee = await c.req.json<{
+    name: string;
+    age: number;
+  }>();
+  return c.json({
+    message: `Hello ${employee.name.toUpperCase()}!`,
+  });
 });
 
 const port = 3000;

@@ -2,10 +2,16 @@ import assert from 'node:assert';
 import { z } from 'zod';
 
 describe('zod組み込みのRefinements', () => {
-  const schema = z.number().min(1).max(10, '10以上である必要があります').int('整数ではないです');
+  const schema = z
+    .number()
+    .min(1)
+    .max(10, '10以上である必要があります')
+    .int('整数ではないです');
 
   it('parse関数: 文字列の場合は例外がthrowされる', () => {
-    expect(() => schema.parse('Invalid')).toThrow(z.ZodError);
+    expect(() => schema.parse('Invalid')).toThrow(
+      z.ZodError,
+    );
   });
 
   it('safeParse関数: 文字列の場合はパースエラー', () => {
@@ -14,7 +20,9 @@ describe('zod組み込みのRefinements', () => {
     const formattedError = result.error.format();
     expect(formattedError).toEqual(
       expect.objectContaining({
-        _errors: expect.arrayContaining(['Expected number, received string']),
+        _errors: expect.arrayContaining([
+          'Expected number, received string',
+        ]),
       }),
     );
   });
@@ -27,7 +35,9 @@ describe('zod組み込みのRefinements', () => {
     const formattedError = result.error.format();
     expect(formattedError).toEqual(
       expect.objectContaining({
-        _errors: expect.arrayContaining(['Number must be greater than or equal to 1']),
+        _errors: expect.arrayContaining([
+          'Number must be greater than or equal to 1',
+        ]),
       }),
     );
   });
@@ -40,7 +50,10 @@ describe('zod組み込みのRefinements', () => {
     const formattedError = result.error.format();
     expect(formattedError).toEqual(
       expect.objectContaining({
-        _errors: expect.arrayContaining(['10以上である必要があります', '整数ではないです']),
+        _errors: expect.arrayContaining([
+          '10以上である必要があります',
+          '整数ではないです',
+        ]),
       }),
     );
   });
@@ -59,7 +72,9 @@ describe('ユーザー定義のRefinements', () => {
     .max(10, '10文字以内で指定ください')
     .refine(
       (arg) => [...arg].sort().join('') === arg,
-      (arg) => ({ message: `ソートされていません: ${arg}` }),
+      (arg) => ({
+        message: `ソートされていません: ${arg}`,
+      }),
     );
 
   it('Refinementsを満たす条件の場合は成功', () => {
@@ -75,13 +90,16 @@ describe('ユーザー定義のRefinements', () => {
     expect(formattedError).toEqual(
       expect.objectContaining({
         // zodのデフォルトのエラーメッセージ
-        _errors: expect.arrayContaining(['String must contain at least 3 character(s)']),
+        _errors: expect.arrayContaining([
+          'String must contain at least 3 character(s)',
+        ]),
       }),
     );
   });
 
   it('複数のエラー: 10文字超過 & ソートされていない', () => {
-    const result = sortedStringSchema.safeParse('DAUQQDRFSEGAE');
+    const result =
+      sortedStringSchema.safeParse('DAUQQDRFSEGAE');
     assert(!result.success);
     const formattedError = result.error.format();
     expect(formattedError).toEqual(

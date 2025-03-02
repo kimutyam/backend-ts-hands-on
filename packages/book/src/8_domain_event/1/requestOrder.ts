@@ -28,12 +28,18 @@ const applyPrice = (
     return acc;
   }, [] as Array<CartItem>);
 
-const assertExistsProduct = (cart: Cart, products: ReadonlyArray<Product>): void => {
+const assertExistsProduct = (
+  cart: Cart,
+  products: ReadonlyArray<Product>,
+): void => {
   cart.cartItems.forEach((item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
-    assert(maybeProduct !== undefined, `価格を適用する商品が見つかりません`);
+    assert(
+      maybeProduct !== undefined,
+      `価格を適用する商品が見つかりません`,
+    );
   });
 };
 
@@ -44,16 +50,32 @@ const requestOrder = (
 ): [Order, OrderRequested, Cart, CartCleared] => {
   assertExistsProduct(cart, products);
   const items = applyPrice(cart, products);
-  const order = Order.generate(cart.aggregateId, items, generateOrderId);
+  const order = Order.generate(
+    cart.aggregateId,
+    items,
+    generateOrderId,
+  );
   const orderRequested = pipe(
     order,
-    DomainEvent.generate(Order.name, OrderRequested.eventName, {
-      customerId: cart.aggregateId,
-      items: order.items,
-    }),
+    DomainEvent.generate(
+      Order.name,
+      OrderRequested.eventName,
+      {
+        customerId: cart.aggregateId,
+        items: order.items,
+      },
+    ),
   );
-  const [newCart, cartClearedOnOrder] = pipe(cart, Cart.clear('OnOrder'));
-  return [order, orderRequested, newCart, cartClearedOnOrder];
+  const [newCart, cartClearedOnOrder] = pipe(
+    cart,
+    Cart.clear('OnOrder'),
+  );
+  return [
+    order,
+    orderRequested,
+    newCart,
+    cartClearedOnOrder,
+  ];
 };
 
 export { requestOrder };

@@ -3,7 +3,10 @@ export type Success<T> = Readonly<{
   data: T;
 }>;
 
-export const Success = <T>(data: T): Success<T> => ({ success: true, data });
+export const Success = <T>(data: T): Success<T> => ({
+  success: true,
+  data,
+});
 export type Failure<E> = Readonly<{
   success: false;
   error: E;

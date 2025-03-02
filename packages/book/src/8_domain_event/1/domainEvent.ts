@@ -30,11 +30,18 @@ const generate =
   <A extends Aggregate<any>>({
     aggregateId,
     sequenceNumber,
-  }: A): DomainEvent<A['aggregateId'], AggregateName, EventName, Payload> => {
+  }: A): DomainEvent<
+    A['aggregateId'],
+    AggregateName,
+    EventName,
+    Payload
+  > => {
     const eventId = generateEventId();
     return {
       eventId,
-      occurredAt: new Date(DomainEventId.getTimestamp(eventId)),
+      occurredAt: new Date(
+        DomainEventId.getTimestamp(eventId),
+      ),
       sequenceNumber,
       eventName,
       aggregateId,

@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   semi: true,
   singleQuote: true,
   trailingComma: 'all',
@@ -6,3 +6,5 @@ module.exports = {
   tabWidth: 2,
   endOfLine: 'lf',
 };
+
+export default config;

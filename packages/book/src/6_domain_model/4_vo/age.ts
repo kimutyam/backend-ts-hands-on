@@ -2,7 +2,9 @@ type Age = number;
 
 const equals = (a: Age, b: Age): boolean => a === b;
 
-const judgeGeneration = (age: Age): 'JUNIOR' | 'MIDDLE' | 'SENIOR' => {
+const judgeGeneration = (
+  age: Age,
+): 'JUNIOR' | 'MIDDLE' | 'SENIOR' => {
   if (age <= 29) {
     return 'JUNIOR';
   }

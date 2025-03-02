@@ -12,7 +12,10 @@ import {
 } from '../inMemoryCartRepository.js';
 
 const buildRepository = (
-  initialAggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>(),
+  initialAggregates: Map<CustomerId, Cart> = new Map<
+    CustomerId,
+    Cart
+  >(),
 ) => {
   const aggregates = new Map(initialAggregates);
   return {
@@ -24,8 +27,14 @@ const buildRepository = (
 
 const makeCart = (customerId: CustomerId): Cart =>
   Cart.build(customerId, [
-    CartItem.buildSingle(ProductId.generate(), Price.build(1000)),
-    CartItem.buildSingle(ProductId.generate(), Price.build(1000)),
+    CartItem.buildSingle(
+      ProductId.generate(),
+      Price.build(1000),
+    ),
+    CartItem.buildSingle(
+      ProductId.generate(),
+      Price.build(1000),
+    ),
   ]);
 
 describe('InMemoryCartRepository', () => {
@@ -42,10 +51,14 @@ describe('InMemoryCartRepository', () => {
   it('削除できる', async () => {
     const customerId = CustomerId.generate();
     const cart = makeCart(customerId);
-    const repository = buildRepository(new Map([[customerId, cart]]));
+    const repository = buildRepository(
+      new Map([[customerId, cart]]),
+    );
     await repository.deleteById(customerId);
     const foundCart = await repository.findById(customerId);
     assert(foundCart.isErr());
-    expect(foundCart.error).toBeInstanceOf(CartNotFoundError);
+    expect(foundCart.error).toBeInstanceOf(
+      CartNotFoundError,
+    );
   });
 });

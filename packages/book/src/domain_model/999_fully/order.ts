@@ -6,13 +6,21 @@ export type Order = Readonly<{
   items: ReadonlyArray<Item>;
 }>;
 
-const calculateTotal = (items: ReadonlyArray<Item>): number =>
+const calculateTotal = (
+  items: ReadonlyArray<Item>,
+): number =>
   items.reduce((acc, item) => acc + Item.total(item), 0);
 
 const CreditLimit = 100_000;
 
-const build = (orderId: string, items: ReadonlyArray<Item>): Order => {
-  assert(calculateTotal(items) <= CreditLimit, `限度額 ${CreditLimit} を上回っています`);
+const build = (
+  orderId: string,
+  items: ReadonlyArray<Item>,
+): Order => {
+  assert(
+    calculateTotal(items) <= CreditLimit,
+    `限度額 ${CreditLimit} を上回っています`,
+  );
   return { orderId, items };
 };
 

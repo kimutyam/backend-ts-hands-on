@@ -7,8 +7,14 @@ const calculateScore = (result: GameResult): number => {
   return -result.penalty;
 };
 
-const winResult: GameResult = { result: 'win', points: 100 };
-const loseResult: GameResult = { result: 'lose', penalty: 50 };
+const winResult: GameResult = {
+  result: 'win',
+  points: 100,
+};
+const loseResult: GameResult = {
+  result: 'lose',
+  penalty: 50,
+};
 
 console.log(calculateScore(winResult)); // 100
 console.log(calculateScore(loseResult)); // -50
