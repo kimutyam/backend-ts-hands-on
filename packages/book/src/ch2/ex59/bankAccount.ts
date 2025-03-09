@@ -14,10 +14,7 @@ export class BankAccount {
 
   public readonly accountNumber: string; // 口座番号 (publicプロパティ、readonly)
 
-  constructor(
-    accountHolder: string,
-    initialBalance: number,
-  ) {
+  constructor(accountHolder: string, initialBalance: number) {
     this.accountHolder = accountHolder;
     this.balance = initialBalance;
     this.accountNumber = this.generateAccountNumber();
@@ -32,9 +29,7 @@ export class BankAccount {
       return;
     }
     this.balance += amount;
-    console.log(
-      `${amount} has been deposited. New balance: ${this.balance}`,
-    );
+    console.log(`${amount} has been deposited. New balance: ${this.balance}`);
   }
 
   public withdraw(amount: number): void {
@@ -47,15 +42,11 @@ export class BankAccount {
       return;
     }
     this.balance -= amount;
-    console.log(
-      `${amount} has been withdrawn. New balance: ${this.balance}`,
-    );
+    console.log(`${amount} has been withdrawn. New balance: ${this.balance}`);
   }
 
   public checkBalance(): void {
-    console.log(
-      `The balance for account ${this.accountNumber} is ${this.balance}`,
-    );
+    console.log(`The balance for account ${this.accountNumber} is ${this.balance}`);
   }
 
   // protectedメソッド

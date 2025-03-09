@@ -3,9 +3,7 @@ import { AggregateNotFoundError } from 'chx/ex30/domain/aggregateNotFoundError.j
 
 export class CartNotFoundError extends AggregateNotFoundError {
   constructor(id: CustomerId) {
-    super(
-      `カスタマー: ${id} のカートが見つかりませんでした`,
-    );
+    super(`カスタマー: ${id} のカートが見つかりませんでした`);
     this.name = 'CartNotFoundError';
   }
 }

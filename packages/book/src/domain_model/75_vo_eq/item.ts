@@ -8,8 +8,7 @@ export type Item = Readonly<{
 }>;
 
 const equals: Eq<Item> = (x: Item, y: Item): boolean =>
-  Product.equals(x.product, y.product) &&
-  Quantity.equals(x.quantity, y.quantity);
+  Product.equals(x.product, y.product) && Quantity.equals(x.quantity, y.quantity);
 
 export const Item = {
   equals,

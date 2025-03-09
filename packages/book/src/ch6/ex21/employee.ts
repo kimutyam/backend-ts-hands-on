@@ -7,17 +7,13 @@ interface Employee {
   readonly telephone: string;
 }
 
-const identify = (a: Employee, b: Employee): boolean =>
-  a.employeeNumber === b.employeeNumber;
+const identify = (a: Employee, b: Employee): boolean => a.employeeNumber === b.employeeNumber;
 
 // 外から値オブジェクトを指定する。違反コードをかける。
 const changeTelephone =
   (telephone: string) =>
   (employee: Employee): Employee => {
-    assert(
-      /^0\d{1,4}-\d{1,4}-\d{4}$/.test(telephone),
-      '電話番号の形式が正しくありません',
-    );
+    assert(/^0\d{1,4}-\d{1,4}-\d{4}$/.test(telephone), '電話番号の形式が正しくありません');
     return { ...employee, telephone };
   };
 

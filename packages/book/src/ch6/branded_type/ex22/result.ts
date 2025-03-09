@@ -11,9 +11,7 @@ export type Failure<E> = Readonly<{
   success: false;
   error: E;
 }>;
-export const Failure = <E extends Error>(
-  error: E,
-): Failure<E> => ({
+export const Failure = <E extends Error>(error: E): Failure<E> => ({
   success: false,
   error,
 });

@@ -11,10 +11,7 @@ import { DomainEvent } from 'chx/ex30/domain/domainEvent.js';
 import { OrderRequested } from 'chx/ex30/domain/order/orderEvent.js';
 import { pipe } from 'remeda';
 
-const applyItems = (
-  cart: Cart,
-  products: ReadonlyArray<Product>,
-): ReadonlyArray<Item> => {
+const applyItems = (cart: Cart, products: ReadonlyArray<Product>): ReadonlyArray<Item> => {
   const { props } = cart;
   const items = props.items.reduce((acc, item) => {
     const maybeProduct = products.find((product) =>
@@ -48,22 +45,12 @@ export const OrderService = (
   };
   const orderRequested = pipe(
     order,
-    DomainEvent.generate(
-      OrderRequested.name,
-      Order.aggregateName,
-      {
-        customerId: order.props.customerId,
-        items: order.props.items,
-      },
-    ),
+    DomainEvent.generate(OrderRequested.name, Order.aggregateName, {
+      customerId: order.props.customerId,
+      items: order.props.items,
+    }),
   );
 
-  const [newCart, cartClearedOnOrder] =
-    Cart.clearOnOrder(cart);
-  return [
-    order,
-    orderRequested,
-    newCart,
-    cartClearedOnOrder,
-  ];
+  const [newCart, cartClearedOnOrder] = Cart.clearOnOrder(cart);
+  return [order, orderRequested, newCart, cartClearedOnOrder];
 };

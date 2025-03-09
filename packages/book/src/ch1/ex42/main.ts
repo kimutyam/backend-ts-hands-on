@@ -8,10 +8,7 @@ interface PartTime {
   age: number;
 }
 
-const modifyName = (
-  employee: Employee,
-  name: string,
-): Employee => ({
+const modifyName = (employee: Employee, name: string): Employee => ({
   ...employee,
   name,
 });

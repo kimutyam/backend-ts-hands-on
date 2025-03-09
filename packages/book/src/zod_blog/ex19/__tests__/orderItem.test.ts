@@ -15,9 +15,7 @@ it('注文項目をパースする', () => {
 
   const orderItem: OrderItem = result.data;
 
-  expect(orderItem.product.id).toBe(
-    '8456C9A7-5135-4067-913A-378ED93A1DAC',
-  );
+  expect(orderItem.product.id).toBe('8456C9A7-5135-4067-913A-378ED93A1DAC');
   expect(orderItem.product.price).toBe(1_000);
   expect(orderItem.quantity).toBe(3);
 });

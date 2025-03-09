@@ -14,10 +14,7 @@ const satisfiesMax = (age: Age) => age <= 65;
 const assertAge = (age: Age): void => {
   assert(satisfiesMin(age), '年齢を20歳以上にしてください');
   assert(satisfiesMax(age), '年齢を65歳以下にしてください');
-  assert(
-    Number.isInteger(age),
-    '年齢は整数で指定してください',
-  );
+  assert(Number.isInteger(age), '年齢は整数で指定してください');
 };
 
 const build = (value: number): Age => {
@@ -26,9 +23,7 @@ const build = (value: number): Age => {
   return v;
 };
 
-const judgeGeneration = (
-  age: Age,
-): 'JUNIOR' | 'MIDDLE' | 'SENIOR' => {
+const judgeGeneration = (age: Age): 'JUNIOR' | 'MIDDLE' | 'SENIOR' => {
   if (age <= 29) {
     return 'JUNIOR';
   }

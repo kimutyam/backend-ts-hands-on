@@ -35,28 +35,20 @@ const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
 const TotalPriceLimit = 100_000;
 
-const countItems = ({ cartItems }: Cart): number =>
-  cartItems.length;
+const countItems = ({ cartItems }: Cart): number => cartItems.length;
 
-const withinItemsLimit = (cart: Cart): boolean =>
-  countItems(cart) <= ItemsLimit;
+const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
 
-const calculateTotalQuantity = ({
-  cartItems,
-}: Cart): number =>
+const calculateTotalQuantity = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
 const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
 
 const calculateTotalPrice = ({ cartItems }: Cart): number =>
-  cartItems.reduce(
-    (acc, item) => acc + CartItem.calculateTotal(item),
-    0,
-  );
+  cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
 
-const withinTotalPriceLimit = (cart: Cart): boolean =>
-  calculateTotalPrice(cart) <= TotalPriceLimit;
+const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const schemaWithRefinements = schema
   .refine(
@@ -78,12 +70,9 @@ const schemaWithRefinements = schema
     }),
   );
 
-const build = (value: CartInput): Cart =>
-  schemaWithRefinements.parse(value);
+const build = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeBuild = (
-  value: CartInput,
-): Result<Cart, AddCartError> =>
+const safeBuild = (value: CartInput): Result<Cart, AddCartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({
@@ -106,36 +95,23 @@ const addCartItem =
     sequenceNumber,
     cartItems,
     // (1)
-  }: Cart): Result<
-    [Cart, CartItemAdded | CartItemUpdated],
-    AddCartError
-  > => {
-    const updateTargetIndex = R.findIndex(
-      cartItems,
-      (cartItem) =>
-        ProductId.equals(
-          cartItem.productId,
-          targetCartItem.productId,
-        ),
+  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
+    const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
+      ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
 
     if (updateTargetIndex === -1) {
       // (2)
       return safeBuild({
         aggregateId,
-        sequenceNumber:
-          Aggregate.incrementSequenceNumber(sequenceNumber),
+        sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
         cartItems: [...cartItems, targetCartItem],
       }).map((aggregate) => {
         const event = pipe(
           aggregate,
-          DomainEvent.generate(
-            name,
-            CartItemAdded.eventName,
-            {
-              cartItem: targetCartItem,
-            },
-          ),
+          DomainEvent.generate(name, CartItemAdded.eventName, {
+            cartItem: targetCartItem,
+          }),
         );
         return [aggregate, event];
       });
@@ -144,17 +120,8 @@ const addCartItem =
     // (3)
     const cartItemsResult = Result.combine(
       cartItems.map((cartItem) =>
-        ProductId.equals(
-          cartItem.productId,
-          targetCartItem.productId,
-        )
-          ? R.pipe(
-              cartItem,
-              CartItem.add(
-                targetCartItem.quantity,
-                targetCartItem.price,
-              ),
-            )
+        ProductId.equals(cartItem.productId, targetCartItem.productId)
+          ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
           : R.pipe(cartItem, ok),
       ),
     );
@@ -164,24 +131,16 @@ const addCartItem =
       .andThen((updated) =>
         safeBuild({
           aggregateId,
-          sequenceNumber:
-            Aggregate.incrementSequenceNumber(
-              sequenceNumber,
-            ),
+          sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
           cartItems: updated,
         }),
       )
       .map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(
-            name,
-            CartItemUpdated.eventName,
-            {
-              cartItem:
-                aggregate.cartItems[updateTargetIndex]!,
-            },
-          ),
+          DomainEvent.generate(name, CartItemUpdated.eventName, {
+            cartItem: aggregate.cartItems[updateTargetIndex]!,
+          }),
         );
         return [aggregate, event];
       });
@@ -189,42 +148,28 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  ({
-    aggregateId,
-    sequenceNumber,
-    cartItems,
-  }: Cart): [Cart, CartItemRemoved] => {
+  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemRemoved] => {
     const removedCartItems = cartItems.filter(
-      (cartItem) =>
-        !ProductId.equals(cartItem.productId, productId),
+      (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
     const aggregate = build({
       aggregateId,
-      sequenceNumber:
-        Aggregate.incrementSequenceNumber(sequenceNumber),
+      sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: removedCartItems,
     });
     const event = pipe(
       aggregate,
-      DomainEvent.generate(
-        name,
-        CartItemRemoved.eventName,
-        { productId },
-      ),
+      DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
     );
     return [aggregate, event];
   };
 
 const clear =
   (reason: CartClearReason) =>
-  ({
-    aggregateId,
-    sequenceNumber,
-  }: Cart): [Cart, CartCleared] => {
+  ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
     const aggregate = build({
       aggregateId,
-      sequenceNumber:
-        Aggregate.incrementSequenceNumber(sequenceNumber),
+      sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: [],
     });
     const event = pipe(

@@ -8,9 +8,7 @@ const orderTotal = R.pipe(item, Item.add(-10), Item.total);
 // -1000になる。おかしい
 console.log(orderTotal);
 
-export const NegativeQuantity = (
-  value: number,
-): Quantity => {
+export const NegativeQuantity = (value: number): Quantity => {
   assert(value < 0);
   return value;
 };

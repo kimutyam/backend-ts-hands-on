@@ -2,10 +2,7 @@
 interface Employee {
   readonly name: string;
   readonly age: number;
-  readonly update: <T extends Employee>(
-    target: T,
-    props: Partial<T>,
-  ) => T;
+  readonly update: <T extends Employee>(target: T, props: Partial<T>) => T;
 }
 
 interface Manager extends Employee {
@@ -16,10 +13,7 @@ interface Manager extends Employee {
 const employee: Employee = {
   name: '木村',
   age: 20,
-  update: <T extends Employee>(
-    target: T,
-    props: Partial<T>,
-  ): T => ({ ...target, ...props }),
+  update: <T extends Employee>(target: T, props: Partial<T>): T => ({ ...target, ...props }),
 };
 
 const manager: Manager = {
@@ -27,10 +21,7 @@ const manager: Manager = {
   age: 20,
   grade: 1,
   // 同じ関数を実装している
-  update: <T extends Employee>(
-    target: T,
-    props: Partial<T>,
-  ): T => ({ ...target, ...props }),
+  update: <T extends Employee>(target: T, props: Partial<T>): T => ({ ...target, ...props }),
 };
 
 employee.update(employee, { age: 30 }); // { name: '木村', age: 30 }

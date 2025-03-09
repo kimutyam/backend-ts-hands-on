@@ -9,10 +9,7 @@ interface Manager {
   grade: number;
 }
 
-const update = <T extends Employee>(
-  target: T,
-  props: Partial<T>,
-): T => ({ ...target, ...props });
+const update = <T extends Employee>(target: T, props: Partial<T>): T => ({ ...target, ...props });
 
 const employee = { name: '木村', age: 20 };
 const manager = { name: '佐藤', age: 20, grade: 1 };

@@ -8,9 +8,6 @@ export class QuantityError extends Error {
   }
 
   static build(descriptions: Array<string>): QuantityError {
-    return new QuantityError(
-      descriptions.join('\n'),
-      descriptions,
-    );
+    return new QuantityError(descriptions.join('\n'), descriptions);
   }
 }

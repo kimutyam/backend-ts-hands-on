@@ -2,15 +2,10 @@ import type { Product } from 'chx/ex10/domain/product/product.js';
 import type { ProductId } from 'chx/ex10/domain/product/productId.js';
 import type { IProductRepository } from 'chx/ex15/domain/productRespository.js';
 
-export class InMemoryProductRepository
-  implements IProductRepository
-{
-  private readonly aggregates: Record<ProductId, Product> =
-    {};
+export class InMemoryProductRepository implements IProductRepository {
+  private readonly aggregates: Record<ProductId, Product> = {};
 
-  findById(
-    aggregateId: ProductId,
-  ): Promise<Product | undefined> {
+  findById(aggregateId: ProductId): Promise<Product | undefined> {
     return Promise.resolve(this.aggregates[aggregateId]);
   }
 

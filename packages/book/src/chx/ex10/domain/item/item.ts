@@ -19,31 +19,20 @@ export type Item = z.infer<typeof schema>;
 const add =
   (quantity: Quantity) =>
   (item: Item): Result<Item, QuantityError> =>
-    Quantity.safeBuild(item.quantity + quantity).map(
-      (newQuantity) => ({
-        ...item,
-        quantity: newQuantity,
-      }),
-    );
+    Quantity.safeBuild(item.quantity + quantity).map((newQuantity) => ({
+      ...item,
+      quantity: newQuantity,
+    }));
 
-const calculateTotal = ({
-  price,
-  quantity,
-}: Item): number => price * quantity;
+const calculateTotal = ({ price, quantity }: Item): number => price * quantity;
 
-const buildSingle = (
-  productId: ProductId,
-  price: Price,
-): Item => ({
+const buildSingle = (productId: ProductId, price: Price): Item => ({
   productId,
   price,
   quantity: Quantity.build(1),
 });
 
-const isSameIdentity: Eq<Item> = (
-  x: Item,
-  y: Item,
-): boolean => x.productId === y.productId;
+const isSameIdentity: Eq<Item> = (x: Item, y: Item): boolean => x.productId === y.productId;
 
 export const Item = {
   schema,

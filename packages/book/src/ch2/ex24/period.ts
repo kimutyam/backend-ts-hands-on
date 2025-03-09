@@ -3,9 +3,6 @@ interface Period {
   readonly end: Date;
 }
 
-declare function buildAt(
-  start: Date,
-  periodDate: number,
-): Period;
+declare function buildAt(start: Date, periodDate: number): Period;
 
 export { buildAt, type Period };

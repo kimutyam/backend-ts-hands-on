@@ -17,10 +17,7 @@ z.array(z.string()); // ZodArray型
 z.tuple([z.string(), z.number()]); // ZodTuple型
 z.enum(['foo', 'bar']); // ZodEnum型
 z.union([z.string(), z.number()]); // ZodUnion型
-z.intersection(
-  z.object({ name: z.string() }),
-  z.object({ price: z.number() }),
-); // ZodIntersection型
+z.intersection(z.object({ name: z.string() }), z.object({ price: z.number() })); // ZodIntersection型
 
 // Others...
 z.any(); // ZodAny型

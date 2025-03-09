@@ -6,10 +6,7 @@ import type { OrderId } from 'chx/ex10/domain/order/orderId.js';
 import type { Product } from 'chx/ex10/domain/product/product.js';
 import { ProductId } from 'chx/ex10/domain/product/productId.js';
 
-const detectItems = (
-  cart: Cart,
-  products: ReadonlyArray<Product>,
-) => {
+const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
   const { props } = cart;
   const items = props.items.reduce((acc, item) => {
     const maybeProduct = products.find((product) =>

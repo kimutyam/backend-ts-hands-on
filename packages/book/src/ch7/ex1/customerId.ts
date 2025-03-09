@@ -4,8 +4,7 @@ import { isValid, ulid } from 'ulidx';
 
 type CustomerId = string & Brand<'CustomerId'>;
 
-const equals = (a: CustomerId, b: CustomerId): boolean =>
-  a === b;
+const equals = (a: CustomerId, b: CustomerId): boolean => a === b;
 
 const assertCustomerId = (value: CustomerId): void => {
   assert(isValid(value), 'ULIDで指定ください');

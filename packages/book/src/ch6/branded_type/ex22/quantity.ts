@@ -1,10 +1,7 @@
 import assert from 'node:assert';
 import { QuantityError } from 'ch6/branded_type/ex22/quantityError.js';
 import type { Result } from 'ch6/branded_type/ex22/result.js';
-import {
-  Failure,
-  Success,
-} from 'ch6/branded_type/ex22/result.js';
+import { Failure, Success } from 'ch6/branded_type/ex22/result.js';
 import type { Brand } from 'ch6/branded_type/ex7/brand.js';
 
 type RawType = number;
@@ -28,20 +25,13 @@ const cast = (value: number): Quantity => value as Quantity;
 
 const build = (value: number): Quantity => {
   let issues: Array<string>;
-  assert(
-    (issues = validate(value)).length === 0,
-    issues.join('\n'),
-  );
+  assert((issues = validate(value)).length === 0, issues.join('\n'));
   return cast(value);
 };
 
-const safeBuild = (
-  value: number,
-): Result<QuantityError, Quantity> => {
+const safeBuild = (value: number): Result<QuantityError, Quantity> => {
   const issues = validate(value);
-  return issues.length
-    ? Failure(QuantityError.build(issues))
-    : Success(cast(value));
+  return issues.length ? Failure(QuantityError.build(issues)) : Success(cast(value));
 };
 
 export const Quantity = {

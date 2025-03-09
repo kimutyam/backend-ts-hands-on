@@ -10,30 +10,20 @@ import { err, ok } from 'neverthrow';
  * @param stocks 総在庫
  * @returns 有効在庫
  * */
-const reserveStock = (
-  order: Order,
-  stocks: Stocks,
-): Result<Stocks, StockReservationError> => {
+const reserveStock = (order: Order, stocks: Stocks): Result<Stocks, StockReservationError> => {
   // 注文の商品ごとの在庫引当計画を作成
-  const plans = order.items.map(
-    ({ productId, quantity }) => {
-      const maybeProductStock = stocks.find(
-        (s) => s.productId === productId,
-      );
-      const currentStock = maybeProductStock?.stock || 0;
-      return {
-        productId,
-        stockDiff: currentStock - quantity,
-      };
-    },
-  );
+  const plans = order.items.map(({ productId, quantity }) => {
+    const maybeProductStock = stocks.find((s) => s.productId === productId);
+    const currentStock = maybeProductStock?.stock || 0;
+    return {
+      productId,
+      stockDiff: currentStock - quantity,
+    };
+  });
 
   // 在庫が足りない商品の在庫引当計画を取得
   const outOfStocks = plans
-    .filter(
-      (updatedProductStock) =>
-        updatedProductStock.stockDiff < 0,
-    )
+    .filter((updatedProductStock) => updatedProductStock.stockDiff < 0)
     .map(({ productId, stockDiff }) => ({
       productId,
       shortage: Math.abs(stockDiff),
@@ -49,9 +39,7 @@ const reserveStock = (
     );
   }
   // 在庫が足りない商品があればエラーを返す
-  return err(
-    new StockReservationError(order.orderId, outOfStocks),
-  );
+  return err(new StockReservationError(order.orderId, outOfStocks));
 };
 
 export { reserveStock };

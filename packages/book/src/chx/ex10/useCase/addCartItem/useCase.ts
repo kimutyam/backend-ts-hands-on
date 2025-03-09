@@ -1,7 +1,4 @@
-import type {
-  Cart,
-  CartError,
-} from 'chx/ex10/domain/cart/cart.js';
+import type { Cart, CartError } from 'chx/ex10/domain/cart/cart.js';
 import { CustomerId } from 'chx/ex10/domain/customer/customerId.js';
 import type { QuantityError } from 'chx/ex10/domain/item/quantity.js';
 import { Quantity } from 'chx/ex10/domain/item/quantity.js';
@@ -22,13 +19,6 @@ export type Input = z.infer<typeof schema>;
 
 export type Output = Cart;
 
-export type UseCaseError =
-  | CartError
-  | QuantityError
-  | ProductNotFoundError;
+export type UseCaseError = CartError | QuantityError | ProductNotFoundError;
 
-export type AddCartItemUseCase = UseCase<
-  Input,
-  Output,
-  UseCaseError
->;
+export type AddCartItemUseCase = UseCase<Input, Output, UseCaseError>;

@@ -12,9 +12,4 @@ type UserResponse = ApiResponse<{
   name: string;
 }>;
 
-export type {
-  ApiResponse,
-  UserResponse,
-  NoBodyResponse,
-  PayloadResponse,
-};
+export type { ApiResponse, UserResponse, NoBodyResponse, PayloadResponse };

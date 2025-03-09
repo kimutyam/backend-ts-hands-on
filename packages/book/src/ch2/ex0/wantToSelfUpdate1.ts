@@ -1,10 +1,7 @@
 interface Employee {
   readonly name: string;
   readonly age: number;
-  readonly update: (
-    target: Employee,
-    props: Partial<Employee>,
-  ) => Employee;
+  readonly update: (target: Employee, props: Partial<Employee>) => Employee;
 }
 
 // Managerをupdateしたい

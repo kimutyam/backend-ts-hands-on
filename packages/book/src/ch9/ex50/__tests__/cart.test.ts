@@ -17,10 +17,7 @@ describe('addCartItem', () => {
       price: Price.build(1_000),
     };
 
-    const result = pipe(
-      Cart.initBuild(customId),
-      Cart.addCartItem(cartItem),
-    );
+    const result = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
     assert(result.isOk());
     const [addedCart, event] = result.value;
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
@@ -58,9 +55,7 @@ describe('addCartItem', () => {
     });
     expect(addedCart).toStrictEqual(expectation);
     assert(event.eventName === 'CartItemAdded');
-    expect(event.payload.cartItem).toStrictEqual(
-      targetCartItem,
-    );
+    expect(event.payload.cartItem).toStrictEqual(targetCartItem);
   });
 
   it('カート項目に存在するカート項目を追加', () => {
@@ -106,9 +101,7 @@ describe('addCartItem', () => {
     });
     expect(addedCart).toEqual(expectation);
     assert(event.eventName === 'CartItemUpdated');
-    expect(event.payload.cartItem).toStrictEqual(
-      expectation.cartItems[1]!,
-    );
+    expect(event.payload.cartItem).toStrictEqual(expectation.cartItems[1]!);
   });
 });
 
@@ -142,8 +135,6 @@ describe('removeCartItem', () => {
     });
     expect(removedCart).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
-    expect(event.payload.productId).toStrictEqual(
-      cartItems[0]!.productId,
-    );
+    expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);
   });
 });

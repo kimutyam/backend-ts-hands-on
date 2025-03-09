@@ -7,9 +7,7 @@ interface Aggregate<AggregateId> {
 
 const InitialSequenceNumber = 1;
 
-const incrementSequenceNumber = (
-  sequenceNumber: number,
-): number => sequenceNumber + 1;
+const incrementSequenceNumber = (sequenceNumber: number): number => sequenceNumber + 1;
 
 const makeSchema = <
   AggregateIdSchema extends z.ZodType,
@@ -21,10 +19,7 @@ const makeSchema = <
   z
     .object({
       aggregateId: aggregateIdSchema,
-      sequenceNumber: z
-        .number()
-        .int()
-        .min(InitialSequenceNumber),
+      sequenceNumber: z.number().int().min(InitialSequenceNumber),
     })
     .merge(propsSchema)
     .readonly();
@@ -36,10 +31,7 @@ const makeBrandedSchema = <
   aggregateIdSchema: AggregateIdSchema,
   propsSchema: PropsSchema,
   brandName: string,
-) =>
-  makeSchema(aggregateIdSchema, propsSchema).brand(
-    brandName,
-  );
+) => makeSchema(aggregateIdSchema, propsSchema).brand(brandName);
 
 const Aggregate = {
   InitialSequenceNumber,

@@ -6,8 +6,7 @@ interface Success<T> extends ResultLike<true> {
   readonly data: T;
 }
 
-interface Failure<E extends Error>
-  extends ResultLike<false> {
+interface Failure<E extends Error> extends ResultLike<false> {
   readonly error: E;
 }
 
@@ -16,9 +15,7 @@ const Success = <T>(data: T): Success<T> => ({
   data,
 });
 
-const Failure = <E extends Error>(
-  error: E,
-): Failure<E> => ({
+const Failure = <E extends Error>(error: E): Failure<E> => ({
   success: false,
   error,
 });

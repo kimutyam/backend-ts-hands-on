@@ -1,8 +1,5 @@
 import type { Item } from 'domain_model/20_fp/item.js';
-import {
-  add,
-  calculateTotal,
-} from 'domain_model/20_fp/item.js';
+import { add, calculateTotal } from 'domain_model/20_fp/item.js';
 import * as R from 'remeda';
 
 it('合計を計算する', () => {

@@ -1,10 +1,7 @@
 interface Employee {
   readonly name: string;
   readonly age: number;
-  readonly update: (
-    target: Employee,
-    props: Partial<Employee>,
-  ) => Employee;
+  readonly update: (target: Employee, props: Partial<Employee>) => Employee;
 }
 
 // extendsしないで定義する必要がでてくる
@@ -12,10 +9,7 @@ interface Manager {
   readonly name: string;
   readonly age: number;
   readonly grade: number;
-  readonly update: (
-    target: Manager,
-    props: Partial<Manager>,
-  ) => Manager;
+  readonly update: (target: Manager, props: Partial<Manager>) => Manager;
 }
 
 // false
