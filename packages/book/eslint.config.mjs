@@ -41,9 +41,14 @@ export default [
       'max-len': [
         'error',
         {
-          code: 90,
+          code: 100,
           tabWidth: 2,
-          ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
+          ignoreComments: false,
+          ignoreTrailingComments: false,
+          ignoreStrings: false,
+          ignoreTemplateLiterals: false,
+          ignoreRegExpLiterals: false,
+          // ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
         },
       ],
       'simple-import-sort/imports': 'error',
