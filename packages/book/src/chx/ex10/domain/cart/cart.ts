@@ -36,7 +36,8 @@ const ItemsLimit = 10;
 
 const countItems = ({ props }: Cart): number => props.items.length;
 
-const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
+const withinItemsLimit = (cart: Cart): boolean =>
+  countItems(cart) <= ItemsLimit;
 
 const TotalQuantityLimit = 30;
 
@@ -51,7 +52,8 @@ const TotalPriceLimit = 100_000;
 const calculateTotalPrice = ({ props }: Cart): number =>
   props.items.reduce((acc, item) => acc + Item.calculateTotal(item), 0);
 
-const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
+const withinTotalPriceLimit = (cart: Cart): boolean =>
+  calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const schema = schemaWithoutRefinements
   .refine(
@@ -77,7 +79,8 @@ const build = (input: CartInput): Cart => schema.parse(input);
 const safeBuild = (input: CartInput): Result<Cart, CartError> =>
   buildFromZodDefault(schema.safeParse(input));
 
-const initBuild = (aggregateId: CustomerId): Cart => build({ aggregateId, props: { items: [] } });
+const initBuild = (aggregateId: CustomerId): Cart =>
+  build({ aggregateId, props: { items: [] } });
 
 const addItem =
   (targetItem: Item) =>
@@ -112,7 +115,8 @@ const updateItemQuantity =
     return safeBuild({ ...cart, props: { items } });
   };
 
-const clearOnOrder = (cart: Cart): Cart => build({ ...cart, props: { items: [] } });
+const clearOnOrder = (cart: Cart): Cart =>
+  build({ ...cart, props: { items: [] } });
 
 export const Cart = {
   schema,

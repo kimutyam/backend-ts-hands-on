@@ -11,6 +11,7 @@ const buildFromZod =
 
 const buildFromZodDefault = <Input, Output>(
   result: z.SafeParseReturnType<Input, Output>,
-): Result<Output, z.ZodError<Input>> => R.pipe(result, buildFromZod(identity()));
+): Result<Output, z.ZodError<Input>> =>
+  R.pipe(result, buildFromZod(identity()));
 
 export { buildFromZod, buildFromZodDefault };

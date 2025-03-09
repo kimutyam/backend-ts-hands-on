@@ -11,7 +11,10 @@ import { DomainEvent } from 'chx/ex30/domain/domainEvent.js';
 import { OrderRequested } from 'chx/ex30/domain/order/orderEvent.js';
 import { pipe } from 'remeda';
 
-const applyItems = (cart: Cart, products: ReadonlyArray<Product>): ReadonlyArray<Item> => {
+const applyItems = (
+  cart: Cart,
+  products: ReadonlyArray<Product>,
+): ReadonlyArray<Item> => {
   const { props } = cart;
   const items = props.items.reduce((acc, item) => {
     const maybeProduct = products.find((product) =>

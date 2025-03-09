@@ -1,6 +1,10 @@
 import type { Employee, Manager } from 'ch1/ex46/types.js';
 
-type UpdateEmployeeFn = (target: Employee, props: Partial<Employee>) => Employee;
+type UpdateEmployeeFn = (
+  target: Employee,
+  props: Partial<Employee>,
+) => Employee;
+
 type UpdateManagerFn = (target: Manager, props: Partial<Manager>) => Manager;
 
 // 互換性の判断が難しくなります。

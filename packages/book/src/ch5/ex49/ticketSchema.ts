@@ -36,7 +36,17 @@ const ticketSchema = z
     }
   });
 
-// { age: number; dayOfWeek: 'Monday'| 'Tuesday' | 'Wednesday'| 'Thursday'| 'Friday' | 'Saturday' | 'Sunday' };
+// {
+//   age: number;
+//   dayOfWeek:
+//     | 'Monday'
+//     | 'Tuesday'
+//     | 'Wednesday'
+//     | 'Thursday'
+//     | 'Friday'
+//     | 'Saturday'
+//     | 'Sunday';
+// };
 type Ticket = z.infer<typeof ticketSchema>;
 
 export { type Ticket, ticketSchema };

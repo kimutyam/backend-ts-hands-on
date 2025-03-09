@@ -18,7 +18,8 @@ const TotalPriceLimit = 100_000;
 
 const countItems = ({ cartItems }: Cart): number => cartItems.length;
 
-const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
+const withinItemsLimit = (cart: Cart): boolean =>
+  countItems(cart) <= ItemsLimit;
 
 const calculateTotalQuantity = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -29,15 +30,28 @@ const withinTotalQuantityLimit = (cart: Cart): boolean =>
 const calculateTotalPrice = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
 
-const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
+const withinTotalPriceLimit = (cart: Cart): boolean =>
+  calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const assertCart = (cart: Cart): void => {
-  assert(withinItemsLimit(cart), `カート項目数上限 ${ItemsLimit} を上回っています`);
-  assert(withinTotalQuantityLimit(cart), `合計数量上限 ${TotalQuantityLimit} を上回っています`);
-  assert(withinTotalPriceLimit(cart), `合計金額上限 ${TotalPriceLimit} を上回っています`);
+  assert(
+    withinItemsLimit(cart),
+    `カート項目数上限 ${ItemsLimit} を上回っています`,
+  );
+  assert(
+    withinTotalQuantityLimit(cart),
+    `合計数量上限 ${TotalQuantityLimit} を上回っています`,
+  );
+  assert(
+    withinTotalPriceLimit(cart),
+    `合計金額上限 ${TotalPriceLimit} を上回っています`,
+  );
 };
 
-const build = (aggregateId: CustomerId, cartItems: ReadonlyArray<CartItem>): Cart => {
+const build = (
+  aggregateId: CustomerId,
+  cartItems: ReadonlyArray<CartItem>,
+): Cart => {
   const notBranded: CartNotBranded = {
     aggregateId,
     cartItems,
@@ -62,7 +76,10 @@ const addCartItem =
 
     const updated = cartItems.map((cartItem, index) =>
       updateTargetIndex === index
-        ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
+        ? R.pipe(
+            cartItem,
+            CartItem.add(targetCartItem.quantity, targetCartItem.price),
+          )
         : cartItem,
     );
     return build(aggregateId, updated);

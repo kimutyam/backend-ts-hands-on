@@ -28,7 +28,10 @@ const applyPrice = (
     return acc;
   }, [] as Array<CartItem>);
 
-const assertExistsProduct = (cart: Cart, products: ReadonlyArray<Product>): void => {
+const assertExistsProduct = (
+  cart: Cart,
+  products: ReadonlyArray<Product>,
+): void => {
   cart.cartItems.forEach((item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),

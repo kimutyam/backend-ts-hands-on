@@ -1,14 +1,20 @@
 import type { Cart } from 'ch7/ex1/cart.js';
 import { CartNotFoundError } from 'ch7/ex1/cartNotFoundError.js';
 import type { CustomerId } from 'ch7/ex1/customerId.js';
-import type { DeleteCartById, FindCartById, SaveCart } from 'ch7/ex2/cartRepository.js';
+import type {
+  DeleteCartById,
+  FindCartById,
+  SaveCart,
+} from 'ch7/ex2/cartRepository.js';
 import { errAsync, okAsync } from 'neverthrow';
 
 const buildFindCartById =
   (aggregates: Map<CustomerId, Cart>): FindCartById =>
   (aggregateId: CustomerId) => {
     const aggregate = aggregates.get(aggregateId);
-    return aggregate ? okAsync(aggregate) : errAsync(new CartNotFoundError(aggregateId));
+    return aggregate
+      ? okAsync(aggregate)
+      : errAsync(new CartNotFoundError(aggregateId));
   };
 
 const buildSaveCart =

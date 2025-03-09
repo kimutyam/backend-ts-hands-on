@@ -1,5 +1,8 @@
 import { Cart } from 'chx/ex10/domain/cart/cart.js';
-import type { CartResolver, CartStorer } from 'chx/ex10/domain/cart/cartRepository.js';
+import type {
+  CartResolver,
+  CartStorer,
+} from 'chx/ex10/domain/cart/cartRepository.js';
 import type { ProductResolver } from 'chx/ex10/domain/product/productRepository.js';
 import type {
   Input,

@@ -46,7 +46,9 @@ export class BankAccount {
   }
 
   public checkBalance(): void {
-    console.log(`The balance for account ${this.accountNumber} is ${this.balance}`);
+    console.log(
+      `The balance for account ${this.accountNumber} is ${this.balance}`,
+    );
   }
 
   // protectedメソッド
@@ -63,7 +65,7 @@ export class BankAccount {
 
   // アクセサプロパティ
   get accountInfo(): string {
-    return `Account Number: ${this.accountNumber}, Holder: ${this.accountHolder}`;
+    return `Number: ${this.accountNumber}, Holder: ${this.accountHolder}`;
   }
 }
 

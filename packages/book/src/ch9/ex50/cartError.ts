@@ -20,4 +20,9 @@ interface CartRefinementsError extends CartErrorLike<typeof Cart.name> {
 
 type AddCartError = QuantityRefinementsError | CartRefinementsError;
 
-export type { AddCartError, QuantityRefinementsError, PriceRefinementsError, CartRefinementsError };
+export type {
+  AddCartError,
+  QuantityRefinementsError,
+  PriceRefinementsError,
+  CartRefinementsError,
+};

@@ -13,8 +13,8 @@ import { DomainEvent } from 'ch9/ex50/domainEvent.js';
 import { ProductId } from 'ch9/ex50/productId.js';
 import { buildFromZod } from 'ch9/ex50/result.js';
 import { ok, Result } from 'neverthrow';
-import { pipe } from 'remeda';
 import * as R from 'remeda';
+import { pipe } from 'remeda';
 import { z } from 'zod';
 
 const name = 'Cart';
@@ -37,7 +37,8 @@ const TotalPriceLimit = 100_000;
 
 const countItems = ({ cartItems }: Cart): number => cartItems.length;
 
-const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
+const withinItemsLimit = (cart: Cart): boolean =>
+  countItems(cart) <= ItemsLimit;
 
 const calculateTotalQuantity = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -48,7 +49,8 @@ const withinTotalQuantityLimit = (cart: Cart): boolean =>
 const calculateTotalPrice = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
 
-const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
+const withinTotalPriceLimit = (cart: Cart): boolean =>
+  calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const schemaWithRefinements = schema
   .refine(
@@ -121,7 +123,10 @@ const addCartItem =
     const cartItemsResult = Result.combine(
       cartItems.map((cartItem) =>
         ProductId.equals(cartItem.productId, targetCartItem.productId)
-          ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
+          ? R.pipe(
+              cartItem,
+              CartItem.add(targetCartItem.quantity, targetCartItem.price),
+            )
           : R.pipe(cartItem, ok),
       ),
     );
@@ -148,7 +153,11 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemRemoved] => {
+  ({
+    aggregateId,
+    sequenceNumber,
+    cartItems,
+  }: Cart): [Cart, CartItemRemoved] => {
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );

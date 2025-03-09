@@ -8,7 +8,9 @@ const splitBillAsync = (bill: number, members: number): Promise<number> =>
     }
     const calculated = bill / members;
     if (!Number.isInteger(calculated)) {
-      reject(new IndivisibleBillError('割り切れません', bill, members, calculated));
+      reject(
+        new IndivisibleBillError('割り切れません', bill, members, calculated),
+      );
     }
     resolve(calculated);
   });

@@ -13,7 +13,9 @@ type Quantity = z.infer<typeof schema>;
 type QuantityZodError = z.ZodError<QuantityInput>;
 
 const build = (value: QuantityInput): Quantity => schema.parse(value);
-const safeBuild = (value: QuantityInput): Result<Quantity, QuantityRefinementsError> =>
+const safeBuild = (
+  value: QuantityInput,
+): Result<Quantity, QuantityRefinementsError> =>
   R.pipe(
     schema.safeParse(value),
     buildFromZod((zodError) => ({

@@ -53,7 +53,8 @@ const buildAt = (start: Date, periodDate: number): Period =>
 const isWithin =
   (dateToCompare: Date) =>
   ({ start, end }: Period): boolean =>
-    pipe(start, isSameOrAfter(dateToCompare)) && pipe(end, isSameOrBefore(dateToCompare));
+    pipe(start, isSameOrAfter(dateToCompare)) &&
+    pipe(end, isSameOrBefore(dateToCompare));
 
 // build関数を経由
 const postpone =

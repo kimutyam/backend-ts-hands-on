@@ -16,7 +16,10 @@ describe('addCartItem', () => {
       price: Price.build(1_000),
     };
 
-    const [addedCart, event] = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
+    const [addedCart, event] = pipe(
+      Cart.initBuild(customId),
+      Cart.addCartItem(cartItem),
+    );
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(cartItem);

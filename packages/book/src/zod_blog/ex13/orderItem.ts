@@ -29,7 +29,8 @@ const add =
       : result.error;
   };
 
-const calculateTotal = ({ product, quantity }: OrderItem): number => product.price * quantity;
+const calculateTotal = ({ product, quantity }: OrderItem): number =>
+  product.price * quantity;
 
 export const OrderItem = {
   buildSingle,

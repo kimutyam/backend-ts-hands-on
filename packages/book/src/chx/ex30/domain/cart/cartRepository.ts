@@ -5,6 +5,8 @@ import type { CartEvent } from 'chx/ex30/domain/cart/cartEvent.js';
 import type { CartNotFoundError } from 'chx/ex30/domain/cart/cartNotFoundError.js';
 import type { EventStore } from 'chx/ex30/domain/eventStore.js';
 
-export type CartResolver = AggregateResolver<CustomerId, Cart, CartNotFoundError>;
+type CartResolver = AggregateResolver<CustomerId, Cart, CartNotFoundError>;
 
-export type CartEventStore = EventStore<Cart, CartEvent>;
+type CartEventStore = EventStore<Cart, CartEvent>;
+
+export type { CartResolver, CartEventStore };

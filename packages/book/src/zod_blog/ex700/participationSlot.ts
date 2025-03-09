@@ -8,7 +8,8 @@ export type ParticipationSlot = z.infer<typeof schema>;
 
 export type ParticipationSlotInput = z.input<typeof schema>;
 
-const build = (input: ParticipationSlotInput): ParticipationSlot => schema.parse(input);
+const build = (input: ParticipationSlotInput): ParticipationSlot =>
+  schema.parse(input);
 
 const safeBuild = (
   a: ParticipationSlotInput,

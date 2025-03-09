@@ -8,6 +8,8 @@ interface StudentId {
 }
 
 const equals = (x: StudentId, y: StudentId): boolean =>
-  x.grade === y.grade && x.class === y.class && x.attendanceNumber === y.attendanceNumber;
+  x.grade === y.grade &&
+  x.class === y.class &&
+  x.attendanceNumber === y.attendanceNumber;
 
 export { type StudentId, equals };

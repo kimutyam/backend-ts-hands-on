@@ -65,7 +65,9 @@ const addItem =
       .map((newCart) => {
         const event = pipe(
           newCart,
-          DomainEvent.generate(CartItemAdded.name, aggregateName, { item: targetItem }),
+          DomainEvent.generate(CartItemAdded.name, aggregateName, {
+            item: targetItem,
+          }),
         );
         return [newCart, event];
       });

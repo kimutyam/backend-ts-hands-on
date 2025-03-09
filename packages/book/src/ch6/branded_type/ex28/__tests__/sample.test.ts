@@ -1,5 +1,7 @@
 it('objectContaining', () => {
-  expect({ name: 'Apple', price: 1000 }).toEqual(expect.objectContaining({ price: 1000 }));
+  expect({ name: 'Apple', price: 1000 }).toEqual(
+    expect.objectContaining({ price: 1000 }),
+  );
 });
 
 it('arrayContaining', () => {

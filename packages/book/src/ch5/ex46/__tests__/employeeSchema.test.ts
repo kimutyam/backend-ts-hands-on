@@ -14,7 +14,10 @@ describe('safeParse', () => {
         _errors: expect.arrayContaining(['文字列で指定してください']),
       },
       age: {
-        _errors: expect.arrayContaining(['整数で指定してください', '60以下で指定してください']),
+        _errors: expect.arrayContaining([
+          '整数で指定してください',
+          '60以下で指定してください',
+        ]),
       },
     });
   });

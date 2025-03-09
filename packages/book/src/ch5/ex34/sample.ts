@@ -5,7 +5,9 @@ import { err, ok } from 'neverthrow';
 
 const app = new Hono();
 
-const parseEmployee = (json: any): Result<{ name: string; age: number }, ReadonlyArray<string>> => {
+const parseEmployee = (
+  json: any,
+): Result<{ name: string; age: number }, ReadonlyArray<string>> => {
   const errors: Array<string> = [];
 
   if (typeof json !== 'object' || json === null) {
@@ -24,7 +26,9 @@ const parseEmployee = (json: any): Result<{ name: string; age: number }, Readonl
     }
   }
 
-  return errors.length > 0 ? err(errors) : ok({ name: json.name, age: json.age });
+  return errors.length > 0
+    ? err(errors)
+    : ok({ name: json.name, age: json.age });
 };
 
 app.post('/', async (c) => {

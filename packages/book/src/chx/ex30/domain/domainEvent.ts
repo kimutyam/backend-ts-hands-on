@@ -16,7 +16,10 @@ export interface DomainEvent<
 }
 
 const generate =
-  <EventName extends string, Payload extends { [k: string]: unknown } | undefined>(
+  <
+    EventName extends string,
+    Payload extends { [k: string]: unknown } | undefined,
+  >(
     eventName: EventName,
     aggregateName: string,
     payload: Payload,

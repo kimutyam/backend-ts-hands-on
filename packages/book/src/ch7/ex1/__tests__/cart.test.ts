@@ -15,7 +15,10 @@ describe('addCartItem', () => {
       price: Price.build(1_000),
     };
 
-    const addedCart = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
+    const addedCart = pipe(
+      Cart.initBuild(customId),
+      Cart.addCartItem(cartItem),
+    );
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
   });
 
@@ -32,7 +35,10 @@ describe('addCartItem', () => {
       quantity: Quantity.build(3),
       price: Price.build(2_222),
     };
-    const addedCart = pipe(Cart.build(customId, [cartItem]), Cart.addCartItem(targetCartItem));
+    const addedCart = pipe(
+      Cart.build(customId, [cartItem]),
+      Cart.addCartItem(targetCartItem),
+    );
     const expectation = Cart.build(customId, [cartItem, targetCartItem]);
     expect(addedCart).toStrictEqual(expectation);
   });
@@ -56,7 +62,10 @@ describe('addCartItem', () => {
       quantity: Quantity.build(3),
       price: Price.build(2_222),
     };
-    const addedCart = pipe(Cart.build(customId, cartItems), Cart.addCartItem(targetCartItem));
+    const addedCart = pipe(
+      Cart.build(customId, cartItems),
+      Cart.addCartItem(targetCartItem),
+    );
     const expectation = Cart.build(customId, [
       cartItems[0]!,
       {

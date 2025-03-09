@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export interface Aggregate<AggregateID, Props extends { [k: string]: unknown }> {
+interface Aggregate<AggregateID, Props extends { [k: string]: unknown }> {
   readonly aggregateId: AggregateID;
   readonly props: Props;
 }
@@ -21,6 +21,8 @@ const makeSchema = <
     })
     .readonly();
 
-export const Aggregate = {
+const Aggregate = {
   makeSchema,
 } as const;
+
+export { Aggregate };

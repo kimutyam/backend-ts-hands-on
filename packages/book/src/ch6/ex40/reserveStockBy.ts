@@ -4,8 +4,12 @@ import type { Order, ProductStock } from 'ch6/ex40/types.js';
 import { ResultAsync } from 'neverthrow';
 
 declare function findOrder(orderId: string): Promise<Order>;
-declare function findStocks(productId: ReadonlyArray<string>): Promise<ReadonlyArray<ProductStock>>;
-declare function storeStocks(employee: ReadonlyArray<ProductStock>): Promise<void>;
+declare function findStocks(
+  productId: ReadonlyArray<string>,
+): Promise<ReadonlyArray<ProductStock>>;
+declare function storeStocks(
+  employee: ReadonlyArray<ProductStock>,
+): Promise<void>;
 
 const reserveStockOf = (
   order: Order,
@@ -16,7 +20,9 @@ const reserveStockOf = (
   );
 };
 
-const reserveStockBy = (orderId: string): ResultAsync<void, StockReservationError> =>
+const reserveStockBy = (
+  orderId: string,
+): ResultAsync<void, StockReservationError> =>
   ResultAsync.fromSafePromise(findOrder(orderId))
     .andThen((order) => reserveStockOf(order))
     .map((availableStocks) => storeStocks(availableStocks));
