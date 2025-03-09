@@ -1,8 +1,8 @@
+import { Aggregate } from 'aggregate/10_zod/domain/aggregate.js';
+import { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
+import { Item } from 'aggregate/10_zod/domain/item/item.js';
+import { OrderId } from 'aggregate/10_zod/domain/order/orderId.js';
 import * as z from 'zod';
-import { Aggregate } from '../aggregate.js';
-import { CustomerId } from '../customer/customerId.js';
-import { Item } from '../item/item.js';
-import { OrderId } from './orderId.js';
 
 const aggregateName = 'order' as const;
 

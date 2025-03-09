@@ -1,4 +1,4 @@
-import type { ParticipationSlot } from './participationSlot.js';
+import type { ParticipationSlot } from 'zod_blog/400_refinement/participationSlot.js';
 
 export type GeneralParticipantType = {
   kind: 'GeneralParticipantType';

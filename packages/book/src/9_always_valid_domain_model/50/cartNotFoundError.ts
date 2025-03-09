@@ -1,4 +1,4 @@
-import type { CustomerId } from './customerId.js';
+import type { CustomerId } from '9_always_valid_domain_model/50/customerId.js';
 
 class CartNotFoundError extends Error {
   constructor(public customerId: CustomerId) {

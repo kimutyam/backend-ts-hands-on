@@ -1,7 +1,7 @@
+import type { Product } from 'domain_model/20_fp/product.js';
+import { Quantity } from 'domain_model/36_fp_smart_constructor/quantity.js';
+import type { QuantityError } from 'domain_model/36_fp_smart_constructor/quantityError.js';
 import type { Result } from 'neverthrow';
-import type { Product } from '../20_fp/product.js';
-import { Quantity } from './quantity.js';
-import type { QuantityError } from './quantityError.js';
 
 export type Item = Readonly<{
   product: Product;

@@ -1,8 +1,8 @@
+import { Aggregate } from 'aggregate/10_zod/domain/aggregate.js';
+import { Price } from 'aggregate/10_zod/domain/price/price.js';
+import { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import type { Eq } from 'aggregate/10_zod/util/eq.js';
 import * as z from 'zod';
-import type { Eq } from '../../util/eq.js';
-import { Aggregate } from '../aggregate.js';
-import { Price } from '../price/price.js';
-import { ProductId } from './productId.js';
 
 const aggregateName = 'product' as const;
 

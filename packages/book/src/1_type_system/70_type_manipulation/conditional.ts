@@ -1,4 +1,7 @@
-import type { Employee, Manager } from './types.js';
+import type {
+  Employee,
+  Manager,
+} from '1_type_system/70_type_manipulation/types.js';
 
 type IsEmployeeSubType<T> = T extends Employee
   ? 'yes'

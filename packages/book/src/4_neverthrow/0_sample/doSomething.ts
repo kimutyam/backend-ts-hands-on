@@ -1,11 +1,14 @@
-import type { Result } from 'neverthrow';
-import type { MyError, SomeError } from './types.js';
+import type {
+  MyError,
+  SomeError,
+} from '4_neverthrow/0_sample/types.js';
 import {
   calculate,
   subRouting1,
   subRouting2,
   toMyError,
-} from './types.js';
+} from '4_neverthrow/0_sample/types.js';
+import type { Result } from 'neverthrow';
 
 const doSomething = (): Result<
   number,

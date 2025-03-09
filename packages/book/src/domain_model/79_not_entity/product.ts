@@ -1,4 +1,4 @@
-import type { Eq } from './eq.js';
+import type { Eq } from 'domain_model/79_not_entity/eq.js';
 
 export type Product = Readonly<{
   name: string;

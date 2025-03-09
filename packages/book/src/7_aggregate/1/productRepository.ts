@@ -1,5 +1,5 @@
-import type { Product } from './product.js';
-import type { ProductId } from './productId.js';
+import type { Product } from '7_aggregate/1/product.js';
+import type { ProductId } from '7_aggregate/1/productId.js';
 
 interface IProductRepository {
   findById: (

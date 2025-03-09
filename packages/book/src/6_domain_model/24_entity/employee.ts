@@ -1,5 +1,5 @@
-import { Name } from './name.js';
-import { Telephone } from './telphone.js';
+import { Name } from '6_domain_model/24_entity/name.js';
+import { Telephone } from '6_domain_model/24_entity/telphone.js';
 
 // 不変でも支障がない。readonlyを使う。
 interface Employee {

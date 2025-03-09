@@ -1,6 +1,6 @@
 import assert from 'node:assert';
-import { reserveStock } from '../reserveStock.js';
-import { StockReservationError } from '../stockReservationError.js';
+import { reserveStock } from '6_domain_model/40_service/reserveStock.js';
+import { StockReservationError } from '6_domain_model/40_service/stockReservationError.js';
 
 describe('reserveStock', () => {
   const stocks = [

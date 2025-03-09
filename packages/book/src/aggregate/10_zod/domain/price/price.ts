@@ -1,7 +1,7 @@
+import type { Eq } from 'aggregate/10_zod/util/eq.js';
+import { buildFromZodDefault } from 'aggregate/10_zod/util/result.js';
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import type { Eq } from '../../util/eq.js';
-import { buildFromZodDefault } from '../../util/result.js';
 
 export declare const PriceBrand: unique symbol;
 

@@ -1,6 +1,6 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { fromZodReturnTypeDefault } from './resultBuilder.js';
+import { fromZodReturnTypeDefault } from 'zod_blog/700_refinement/resultBuilder.js';
 
 const schema = z.number().int().min(1);
 

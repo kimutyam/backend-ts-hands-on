@@ -1,6 +1,6 @@
-import type { Eq } from '../eq.js';
-import { Name } from './name.js';
-import { Price } from './price.js';
+import type { Eq } from '6_domain_model/branded_type/50_zod_vo/eq.js';
+import { Name } from '6_domain_model/branded_type/50_zod_vo/product/name.js';
+import { Price } from '6_domain_model/branded_type/50_zod_vo/product/price.js';
 
 export type Product = Readonly<{
   name: Name;

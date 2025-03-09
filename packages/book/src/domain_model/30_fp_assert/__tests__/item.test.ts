@@ -1,5 +1,5 @@
+import { Item } from 'domain_model/30_fp_assert/item.js';
 import * as R from 'remeda';
-import { Item } from '../item.js';
 
 it.skip('aa', () => {
   const item = Item.build({ name: 'apple', price: 100 }, 3);

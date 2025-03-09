@@ -1,9 +1,15 @@
-import type { Cart, CartZodError } from './cart.js';
-import type { Price, PriceZodError } from './price.js';
+import type {
+  Cart,
+  CartZodError,
+} from '9_always_valid_domain_model/50/cart.js';
+import type {
+  Price,
+  PriceZodError,
+} from '9_always_valid_domain_model/50/price.js';
 import type {
   Quantity,
   QuantityZodError,
-} from './quantity.js';
+} from '9_always_valid_domain_model/50/quantity.js';
 
 interface CartErrorLike<S extends string> {
   readonly kind: S;

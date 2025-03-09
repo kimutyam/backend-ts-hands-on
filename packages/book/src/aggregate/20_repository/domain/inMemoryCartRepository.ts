@@ -1,6 +1,6 @@
-import { Cart } from '../../10_zod/domain/cart/cart.js';
-import type { CustomerId } from '../../10_zod/domain/customer/customerId.js';
-import type { ICartRepository } from './cartRepository.js';
+import { Cart } from 'aggregate/10_zod/domain/cart/cart.js';
+import type { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
+import type { ICartRepository } from 'aggregate/20_repository/domain/cartRepository.js';
 
 export class InMemoryCartRepository
   implements ICartRepository

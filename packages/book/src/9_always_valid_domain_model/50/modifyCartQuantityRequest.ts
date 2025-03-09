@@ -1,8 +1,8 @@
+import type { CartItem } from '9_always_valid_domain_model/50/cartItem.js';
+import type { Price } from '9_always_valid_domain_model/50/price.js';
+import { ProductId } from '9_always_valid_domain_model/50/productId.js';
+import { Quantity } from '9_always_valid_domain_model/50/quantity.js';
 import { z } from 'zod';
-import type { CartItem } from './cartItem.js';
-import type { Price } from './price.js';
-import { ProductId } from './productId.js';
-import { Quantity } from './quantity.js';
 
 // (1)
 const schema = z

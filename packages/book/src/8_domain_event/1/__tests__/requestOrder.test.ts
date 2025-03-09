@@ -1,13 +1,13 @@
+import { Aggregate } from '8_domain_event/1/aggregate.js';
+import { Cart } from '8_domain_event/1/cart.js';
+import { CustomerId } from '8_domain_event/1/customerId.js';
+import { OrderId } from '8_domain_event/1/orderId.js';
+import { Price } from '8_domain_event/1/price.js';
+import { Product } from '8_domain_event/1/product.js';
+import { ProductId } from '8_domain_event/1/productId.js';
+import { Quantity } from '8_domain_event/1/quantity.js';
+import { requestOrder } from '8_domain_event/1/requestOrder.js';
 import { describe, expect } from 'vitest';
-import { Aggregate } from '../aggregate.js';
-import { Cart } from '../cart.js';
-import { CustomerId } from '../customerId.js';
-import { OrderId } from '../orderId.js';
-import { Price } from '../price.js';
-import { Product } from '../product.js';
-import { ProductId } from '../productId.js';
-import { Quantity } from '../quantity.js';
-import { requestOrder } from '../requestOrder.js';
 
 describe('requestOrder', () => {
   it('should place an order', () => {

@@ -1,4 +1,4 @@
-import { divide } from './divide.js';
+import { divide } from '3_bug_error/3_bug/divide.js';
 
 const divided = divide(1, 0);
 

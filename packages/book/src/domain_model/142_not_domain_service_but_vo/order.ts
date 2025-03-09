@@ -1,4 +1,4 @@
-import { Item } from './item.js';
+import { Item } from 'domain_model/142_not_domain_service_but_vo/item.js';
 
 /** 注文 */
 export type Order = Readonly<{

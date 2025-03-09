@@ -1,16 +1,16 @@
-import type { ResultAsync } from 'neverthrow';
-import { Cart } from '../../domain/cart/cart.js';
+import { Cart } from 'aggregate/10_zod/domain/cart/cart.js';
 import type {
   CartResolver,
   CartStorer,
-} from '../../domain/cart/cartRepository.js';
-import type { ProductResolver } from '../../domain/product/productRepository.js';
+} from 'aggregate/10_zod/domain/cart/cartRepository.js';
+import type { ProductResolver } from 'aggregate/10_zod/domain/product/productRepository.js';
 import type {
   Input,
   Output,
   UpdateCartItemQuantityUseCase,
   UseCaseError,
-} from './useCase.js';
+} from 'aggregate/10_zod/useCase/updateCartItemQuantity/useCase.js';
+import type { ResultAsync } from 'neverthrow';
 
 export class UpdateCartItemQuantityInteractor
   implements UpdateCartItemQuantityUseCase

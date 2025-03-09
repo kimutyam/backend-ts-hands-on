@@ -1,9 +1,9 @@
+import type { Eq } from '6_domain_model/branded_type/50_zod_vo/eq.js';
+import { Product } from '6_domain_model/branded_type/50_zod_vo/product/product.js';
+import type { QuantityInput } from '6_domain_model/branded_type/50_zod_vo/quantity.js';
+import { Quantity } from '6_domain_model/branded_type/50_zod_vo/quantity.js';
 import type { Result } from 'neverthrow';
 import type { z } from 'zod';
-import type { Eq } from './eq.js';
-import { Product } from './product/product.js';
-import type { QuantityInput } from './quantity.js';
-import { Quantity } from './quantity.js';
 
 export type Item = Readonly<{
   product: Product;

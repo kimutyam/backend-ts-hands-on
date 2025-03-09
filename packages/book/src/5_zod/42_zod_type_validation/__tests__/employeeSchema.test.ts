@@ -1,6 +1,6 @@
+import { employeeSchema } from '5_zod/42_zod_type_validation/employeeSchema.js';
 import { assert, expect } from 'vitest';
 import { z } from 'zod';
-import { employeeSchema } from '../employeeSchema.js';
 
 describe('parse', () => {
   it('成功', () => {

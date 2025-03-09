@@ -1,8 +1,8 @@
 import assert from 'node:assert';
+import type { CartItem } from '9_always_valid_domain_model/50/cartItem.js';
+import { ModifyCartQuantityRequest } from '9_always_valid_domain_model/50/modifyCartQuantityRequest.js';
+import { Price } from '9_always_valid_domain_model/50/price.js';
 import * as R from 'remeda';
-import type { CartItem } from '../cartItem.js';
-import { ModifyCartQuantityRequest } from '../modifyCartQuantityRequest.js';
-import { Price } from '../price.js';
 
 it('構造の異なる入力値からカート項目を組み立てる', () => {
   const data: unknown = {

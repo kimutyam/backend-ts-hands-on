@@ -1,4 +1,4 @@
-import type { Product } from './product.js';
+import type { Product } from 'domain_model/10_class/bad/product.js';
 
 export class Item {
   constructor(

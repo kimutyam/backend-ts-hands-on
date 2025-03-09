@@ -1,12 +1,18 @@
-import type { Result } from '../40_result/result.js';
-import { Failure, Success } from '../40_result/result.js';
-import type { MyError, SomeError } from './types.js';
+import type { Result } from '3_bug_error/40_result/result.js';
+import {
+  Failure,
+  Success,
+} from '3_bug_error/40_result/result.js';
+import type {
+  MyError,
+  SomeError,
+} from '3_bug_error/50_result_script/types.js';
 import {
   calculate,
   subRouting1,
   subRouting2,
   toMyError,
-} from './types.js';
+} from '3_bug_error/50_result_script/types.js';
 
 const doSomething = (): Result<
   number,

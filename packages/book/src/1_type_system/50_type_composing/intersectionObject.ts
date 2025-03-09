@@ -1,7 +1,7 @@
 import type {
   Executive,
   Manager,
-} from '../44_subtype/employee.js';
+} from '1_type_system/44_subtype/employee.js';
 
 // {name: string, age: number, grade: number, title: number}型になります
 type ManagerExecutiveIntersection = Manager & Executive;

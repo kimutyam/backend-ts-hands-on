@@ -1,4 +1,4 @@
-import type { GameResult } from '../64_discriminated_union/gameResult.js';
+import type { GameResult } from '1_type_system/64_discriminated_union/gameResult.js';
 
 const assertNever = (x: never): never => {
   throw new Error(

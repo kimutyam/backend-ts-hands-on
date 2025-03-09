@@ -1,7 +1,7 @@
 import type {
   Employee,
   Manager,
-} from '../44_subtype/employee.js';
+} from '1_type_system/44_subtype/employee.js';
 
 // あらゆるオブジェクトを代入可能なobject型です
 let anyObject: object;

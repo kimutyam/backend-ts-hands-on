@@ -1,4 +1,4 @@
-import type { Product } from './product.js';
+import type { Product } from 'domain_model/20_fp/product.js';
 
 export type Item = Readonly<{
   product: Product;

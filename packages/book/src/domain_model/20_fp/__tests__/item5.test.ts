@@ -1,5 +1,5 @@
+import { Item } from 'domain_model/20_fp/item.js';
 import * as R from 'remeda';
-import { Item } from '../item.js';
 
 it('品目の数量をマイナスで追加すると、合計がマイナスに', () => {
   const item = Item.buildSingle({

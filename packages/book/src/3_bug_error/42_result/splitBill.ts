@@ -1,8 +1,11 @@
-import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError.js';
-import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError.js';
-import type { Result } from '../40_result/result.js';
-import { Failure, Success } from '../40_result/result.js';
-import type { SplitBillError } from './splitBillError.js';
+import { IndivisibleBillError } from '3_bug_error/26_error_custom/indivisibleBillError.js';
+import { NumberOfMembersError } from '3_bug_error/26_error_custom/numberOfMembersError.js';
+import type { Result } from '3_bug_error/40_result/result.js';
+import {
+  Failure,
+  Success,
+} from '3_bug_error/40_result/result.js';
+import type { SplitBillError } from '3_bug_error/42_result/splitBillError.js';
 
 const splitBill = (
   bill: number,

@@ -1,5 +1,5 @@
+import { employeeSchema } from '5_zod/44_zod_refinement/employeeSchema.js';
 import { assert } from 'vitest';
-import { employeeSchema } from '../employeeSchema.js';
 
 describe('safeParse', () => {
   it.each([

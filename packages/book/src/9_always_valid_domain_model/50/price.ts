@@ -1,8 +1,8 @@
+import type { PriceRefinementsError } from '9_always_valid_domain_model/50/cartError.js';
+import { buildFromZod } from '9_always_valid_domain_model/50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
-import type { PriceRefinementsError } from './cartError.js';
-import { buildFromZod } from './result.js';
 
 const name = 'Price';
 

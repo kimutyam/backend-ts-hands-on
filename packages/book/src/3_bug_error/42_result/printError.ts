@@ -1,7 +1,7 @@
-import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError.js';
-import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError.js';
-import { assertNever } from './assertNever.js';
-import type { SplitBillError } from './splitBillError.js';
+import { IndivisibleBillError } from '3_bug_error/26_error_custom/indivisibleBillError.js';
+import { NumberOfMembersError } from '3_bug_error/26_error_custom/numberOfMembersError.js';
+import { assertNever } from '3_bug_error/42_result/assertNever.js';
+import type { SplitBillError } from '3_bug_error/42_result/splitBillError.js';
 
 const printError = (error: SplitBillError): void => {
   if (error instanceof NumberOfMembersError) {

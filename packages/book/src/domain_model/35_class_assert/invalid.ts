@@ -1,6 +1,6 @@
 import assert from 'assert';
-import { Item } from './item.js';
-import { Quantity } from './quantity.js';
+import { Item } from 'domain_model/35_class_assert/item.js';
+import { Quantity } from 'domain_model/35_class_assert/quantity.js';
 
 /* eslint max-classes-per-file:0 */
 

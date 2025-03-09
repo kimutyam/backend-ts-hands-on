@@ -1,7 +1,10 @@
+import { StockReservationError } from 'domain_model/140_domain_service/stockReservationError.js';
+import type {
+  Order,
+  ProductStock,
+} from 'domain_model/140_domain_service/types.js';
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import { StockReservationError } from './stockReservationError.js';
-import type { Order, ProductStock } from './types.js';
 
 /** 在庫引当サービス */
 export const StockReservationService = (

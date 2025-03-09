@@ -1,8 +1,8 @@
+import type { Eq } from 'domain_model/999_fully/eq.js';
+import { Product } from 'domain_model/999_fully/product.js';
+import { Quantity } from 'domain_model/999_fully/quantity.js';
+import type { QuantityError } from 'domain_model/999_fully/quantityError.js';
 import type { Result } from 'neverthrow';
-import type { Eq } from './eq.js';
-import { Product } from './product.js';
-import { Quantity } from './quantity.js';
-import type { QuantityError } from './quantityError.js';
 
 export type Item = Readonly<{
   product: Product;

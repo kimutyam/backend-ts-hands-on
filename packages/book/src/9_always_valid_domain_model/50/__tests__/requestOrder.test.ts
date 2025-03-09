@@ -1,13 +1,13 @@
+import { Aggregate } from '9_always_valid_domain_model/50/aggregate.js';
+import { Cart } from '9_always_valid_domain_model/50/cart.js';
+import { CustomerId } from '9_always_valid_domain_model/50/customerId.js';
+import { OrderId } from '9_always_valid_domain_model/50/orderId.js';
+import { Price } from '9_always_valid_domain_model/50/price.js';
+import { Product } from '9_always_valid_domain_model/50/product.js';
+import { ProductId } from '9_always_valid_domain_model/50/productId.js';
+import { Quantity } from '9_always_valid_domain_model/50/quantity.js';
+import { requestOrder } from '9_always_valid_domain_model/50/requestOrder.js';
 import { describe, expect } from 'vitest';
-import { Aggregate } from '../aggregate.js';
-import { Cart } from '../cart.js';
-import { CustomerId } from '../customerId.js';
-import { OrderId } from '../orderId.js';
-import { Price } from '../price.js';
-import { Product } from '../product.js';
-import { ProductId } from '../productId.js';
-import { Quantity } from '../quantity.js';
-import { requestOrder } from '../requestOrder.js';
 
 describe('requestOrder', () => {
   it('should place an order', () => {

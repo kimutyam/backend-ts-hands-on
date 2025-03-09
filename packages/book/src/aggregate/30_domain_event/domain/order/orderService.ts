@@ -1,15 +1,15 @@
 import assert from 'node:assert';
+import type { Item } from 'aggregate/10_zod/domain/item/item.js';
+import { Order } from 'aggregate/10_zod/domain/order/order.js';
+import { OrderId } from 'aggregate/10_zod/domain/order/orderId.js';
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import { Aggregate } from 'aggregate/30_domain_event/domain/aggregate.js';
+import { Cart } from 'aggregate/30_domain_event/domain/cart/cart.js';
+import type { CartClearedOnOrder } from 'aggregate/30_domain_event/domain/cart/cartEvent.js';
+import { DomainEvent } from 'aggregate/30_domain_event/domain/domainEvent.js';
+import { OrderRequested } from 'aggregate/30_domain_event/domain/order/orderEvent.js';
 import { pipe } from 'remeda';
-import type { Item } from '../../../10_zod/domain/item/item.js';
-import { Order } from '../../../10_zod/domain/order/order.js';
-import { OrderId } from '../../../10_zod/domain/order/orderId.js';
-import type { Product } from '../../../10_zod/domain/product/product.js';
-import { ProductId } from '../../../10_zod/domain/product/productId.js';
-import { Aggregate } from '../aggregate.js';
-import { Cart } from '../cart/cart.js';
-import type { CartClearedOnOrder } from '../cart/cartEvent.js';
-import { DomainEvent } from '../domainEvent.js';
-import { OrderRequested } from './orderEvent.js';
 
 const applyItems = (
   cart: Cart,

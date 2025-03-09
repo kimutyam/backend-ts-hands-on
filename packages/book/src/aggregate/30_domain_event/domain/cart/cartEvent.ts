@@ -1,8 +1,8 @@
-import type { CustomerId } from '../../../10_zod/domain/customer/customerId.js';
-import type { Item } from '../../../10_zod/domain/item/item.js';
-import type { Quantity } from '../../../10_zod/domain/item/quantity.js';
-import type { ProductId } from '../../../10_zod/domain/product/productId.js';
-import type { DomainEvent } from '../domainEvent.js';
+import type { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
+import type { Item } from 'aggregate/10_zod/domain/item/item.js';
+import type { Quantity } from 'aggregate/10_zod/domain/item/quantity.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import type { DomainEvent } from 'aggregate/30_domain_event/domain/domainEvent.js';
 
 export const CartClearedOnOrder = {
   name: 'CartClearedOnOrder' as const,

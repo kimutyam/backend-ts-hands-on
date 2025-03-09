@@ -1,10 +1,16 @@
-import type { ResultAsync } from 'neverthrow';
-import type { MyError, SomeError } from './types.js';
-import { calculate, toMyError } from './types.js';
+import type {
+  MyError,
+  SomeError,
+} from '4_neverthrow/0_sample/types.js';
+import {
+  calculate,
+  toMyError,
+} from '4_neverthrow/0_sample/types.js';
 import {
   subRoutingAsync1,
   subRoutingAsync2,
-} from './typesAsync.js';
+} from '4_neverthrow/0_sample/typesAsync.js';
+import type { ResultAsync } from 'neverthrow';
 
 const doSomethingAsync = (): ResultAsync<
   number,

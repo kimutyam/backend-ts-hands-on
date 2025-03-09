@@ -1,8 +1,11 @@
 import assert from 'node:assert';
-import type { Brand } from '../7_intersection/brand.js';
-import { QuantityError } from './quantityError.js';
-import type { Result } from './result.js';
-import { Failure, Success } from './result.js';
+import { QuantityError } from '6_domain_model/branded_type/22_fp_smart_constructor/quantityError.js';
+import type { Result } from '6_domain_model/branded_type/22_fp_smart_constructor/result.js';
+import {
+  Failure,
+  Success,
+} from '6_domain_model/branded_type/22_fp_smart_constructor/result.js';
+import type { Brand } from '6_domain_model/branded_type/7_intersection/brand.js';
 
 type RawType = number;
 export type Quantity = Brand<RawType, 'Quantity'>;

@@ -1,6 +1,6 @@
-import type { Product } from '../../10_zod/domain/product/product.js';
-import type { ProductId } from '../../10_zod/domain/product/productId.js';
-import type { IProductRepository } from './productRespository.js';
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import type { IProductRepository } from 'aggregate/15_repository/domain/productRespository.js';
 
 export class InMemoryProductRepository
   implements IProductRepository

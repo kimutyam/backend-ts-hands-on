@@ -1,10 +1,10 @@
 import assert from 'node:assert';
-import { Cart } from '../cart/cart.js';
-import type { Item } from '../item/item.js';
-import type { Product } from '../product/product.js';
-import { ProductId } from '../product/productId.js';
-import type { Order } from './order.js';
-import type { OrderId } from './orderId.js';
+import { Cart } from 'aggregate/10_zod/domain/cart/cart.js';
+import type { Item } from 'aggregate/10_zod/domain/item/item.js';
+import type { Order } from 'aggregate/10_zod/domain/order/order.js';
+import type { OrderId } from 'aggregate/10_zod/domain/order/orderId.js';
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
 
 const detectItems = (
   cart: Cart,

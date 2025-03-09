@@ -1,6 +1,6 @@
 import assert from 'assert';
+import type { Eq } from 'domain_model/999_fully/eq.js';
 import { isValid } from 'ulidx';
-import type { Eq } from './eq.js';
 
 export type ProductId = string;
 

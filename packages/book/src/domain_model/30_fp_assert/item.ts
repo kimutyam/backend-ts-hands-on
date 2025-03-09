@@ -1,5 +1,5 @@
-import type { Product } from '../20_fp/product.js';
-import { Quantity } from './quantity.js';
+import type { Product } from 'domain_model/20_fp/product.js';
+import { Quantity } from 'domain_model/30_fp_assert/quantity.js';
 
 export type Item = Readonly<{
   product: Product;

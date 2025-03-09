@@ -1,6 +1,6 @@
 import assert from 'node:assert';
+import type { Brand } from '8_domain_event/1/brand.js';
 import { isValid, ulid } from 'ulidx';
-import type { Brand } from './brand.js';
 
 const name = 'OrderId';
 type OrderId = string & Brand<typeof name>;

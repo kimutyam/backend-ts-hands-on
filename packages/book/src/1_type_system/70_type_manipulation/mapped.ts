@@ -1,4 +1,4 @@
-import type { Employee } from './types.js';
+import type { Employee } from '1_type_system/70_type_manipulation/types.js';
 
 type Nullable<T> = {
   [K in keyof T]: T[K] | null;

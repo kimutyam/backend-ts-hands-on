@@ -1,10 +1,10 @@
+import type { QuantityError } from 'aggregate/10_zod/domain/item/quantity.js';
+import { Quantity } from 'aggregate/10_zod/domain/item/quantity.js';
+import { Price } from 'aggregate/10_zod/domain/price/price.js';
+import { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import type { Eq } from 'aggregate/10_zod/util/eq.js';
 import type { Result } from 'neverthrow';
 import * as z from 'zod';
-import type { Eq } from '../../util/eq.js';
-import { Price } from '../price/price.js';
-import { ProductId } from '../product/productId.js';
-import type { QuantityError } from './quantity.js';
-import { Quantity } from './quantity.js';
 
 const schema = z
   .object({
