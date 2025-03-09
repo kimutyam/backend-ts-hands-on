@@ -1,4 +1,4 @@
-let value: unknown;
+const value: unknown = 'Hello';
 
 // NG: 型が保証されていないためプロパティにはアクセスできません
 // value.toUpperCase();
