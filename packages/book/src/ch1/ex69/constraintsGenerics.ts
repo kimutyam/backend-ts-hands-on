@@ -18,8 +18,8 @@ type UserResponse = ApiEntityResponse<{
 }>;
 
 export type {
-  UserResponse,
+  ApiEntityResponse,
   NoBodyResponse,
   PayloadResponse,
-  ApiEntityResponse,
+  UserResponse,
 };

@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { Aggregate } from 'ch9/ex50/aggregate.js';
 import { Cart } from 'ch9/ex50/cart.js';
 import { CustomerId } from 'ch9/ex50/customerId.js';

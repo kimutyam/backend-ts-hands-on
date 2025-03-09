@@ -8,4 +8,4 @@ type SaveCart = Save<Cart>;
 
 type DeleteCartById = DeleteById<Cart>;
 
-export type { FindCartById, SaveCart, DeleteCartById };
+export type { DeleteCartById, FindCartById, SaveCart };

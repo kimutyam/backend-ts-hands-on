@@ -6,4 +6,4 @@ type CustomerId = number & {
 
 const build = (value: number): CustomerId => value as CustomerId;
 
-export { type CustomerId, build };
+export { build, type CustomerId };

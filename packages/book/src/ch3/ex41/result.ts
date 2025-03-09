@@ -22,4 +22,4 @@ const Failure = <E extends Error>(error: E): Failure<E> => ({
 
 type Result<T, E extends Error> = Success<T> | Failure<E>;
 
-export { Success, Failure, type Result };
+export { Failure, type Result, Success };

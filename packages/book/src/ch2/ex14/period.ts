@@ -36,4 +36,4 @@ const extend =
     end: pipe(end, addDays(extensionDays), addHours(extensionHours)),
   });
 
-export { isWithin, postpone, extend, type Period };
+export { extend, isWithin, type Period, postpone };

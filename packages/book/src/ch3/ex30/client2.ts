@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { splitBill } from 'ch3/ex30/splitBill.js';
 
 try {

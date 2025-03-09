@@ -9,4 +9,4 @@ const modifyName = (employee: Employee, name: EmployeeName): Employee => ({
   name,
 });
 
-export { modifyName, type Employee };
+export { type Employee, modifyName };

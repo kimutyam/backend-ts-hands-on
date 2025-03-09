@@ -36,4 +36,4 @@ const extend =
     end: addHours(addDays(end, extensionDays), extensionHours),
   });
 
-export { isWithin, postpone, extend, type Period };
+export { extend, isWithin, type Period, postpone };

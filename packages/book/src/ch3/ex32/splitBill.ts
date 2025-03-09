@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { IndivisibleBillError } from 'ch3/ex26/indivisibleBillError.js';
 
 const splitBill = (bill: number, members: number): number => {

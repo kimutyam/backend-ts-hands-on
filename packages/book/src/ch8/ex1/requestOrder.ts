@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { Cart } from 'ch8/ex1/cart.js';
 import type { CartCleared } from 'ch8/ex1/cartEvent.js';
 import type { CartItem } from 'ch8/ex1/cartItem.js';

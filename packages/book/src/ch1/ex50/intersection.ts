@@ -6,4 +6,4 @@ type UserIdAndMemberId = UserId & MemberId;
 // never型
 type NeverGreeting = 'hi' & 'hello';
 
-export type { UserIdAndMemberId, NeverGreeting };
+export type { NeverGreeting, UserIdAndMemberId };

@@ -9,4 +9,4 @@ type CartResolver = AggregateResolver<CustomerId, Cart, CartNotFoundError>;
 
 type CartEventStore = EventStore<Cart, CartEvent>;
 
-export type { CartResolver, CartEventStore };
+export type { CartEventStore, CartResolver };

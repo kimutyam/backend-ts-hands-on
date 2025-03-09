@@ -56,9 +56,9 @@ type CartEvent =
   | CartCleared;
 
 export {
+  CartCleared,
   type CartEvent,
   CartItemAdded,
-  CartItemUpdated,
   CartItemRemoved,
-  CartCleared,
+  CartItemUpdated,
 };

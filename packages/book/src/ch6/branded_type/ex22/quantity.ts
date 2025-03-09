@@ -1,8 +1,9 @@
 import assert from 'node:assert';
+
+import type { Brand } from 'ch6/branded_type/ex7/brand.js';
 import { QuantityError } from 'ch6/branded_type/ex22/quantityError.js';
 import type { Result } from 'ch6/branded_type/ex22/result.js';
 import { Failure, Success } from 'ch6/branded_type/ex22/result.js';
-import type { Brand } from 'ch6/branded_type/ex7/brand.js';
 
 type RawType = number;
 export type Quantity = Brand<RawType, 'Quantity'>;

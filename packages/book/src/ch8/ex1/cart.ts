@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { Aggregate } from 'ch8/ex1/aggregate.js';
 import type { Brand } from 'ch8/ex1/brand.js';
 import type { CartClearReason } from 'ch8/ex1/cartClearReason.js';

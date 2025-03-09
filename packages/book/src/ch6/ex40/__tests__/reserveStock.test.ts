@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { reserveStock } from 'ch6/ex40/reserveStock.js';
 import { StockReservationError } from 'ch6/ex40/stockReservationError.js';
 

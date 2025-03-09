@@ -9,4 +9,4 @@ type PartialEmployee = Partial<Employee>;
 // "square" | "rectangle"
 type ShapeWithoutCircle = Exclude<'square' | 'rectangle' | 'circle', 'circle'>;
 
-export type { ReadonlyEmployee, PartialEmployee, ShapeWithoutCircle };
+export type { PartialEmployee, ReadonlyEmployee, ShapeWithoutCircle };

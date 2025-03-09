@@ -12,4 +12,4 @@ const equals = (x: StudentId, y: StudentId): boolean =>
   x.class === y.class &&
   x.attendanceNumber === y.attendanceNumber;
 
-export { type StudentId, equals };
+export { equals, type StudentId };

@@ -7,4 +7,4 @@ type RequiredEmployee = Required<PartialEmployee>;
 // { readonly name: string; readonly age: number; }
 type ReadonlyEmployee = Readonly<Employee>;
 
-export type { PartialEmployee, RequiredEmployee, ReadonlyEmployee };
+export type { PartialEmployee, ReadonlyEmployee, RequiredEmployee };

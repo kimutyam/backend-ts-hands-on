@@ -13,4 +13,4 @@ interface DeleteById<in A extends Aggregate<any>> {
   (aggregateId: A['aggregateId']): Promise<void>;
 }
 
-export type { FindById, Save, DeleteById };
+export type { DeleteById, FindById, Save };

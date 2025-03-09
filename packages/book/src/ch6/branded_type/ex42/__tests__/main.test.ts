@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { z } from 'zod';
 
 describe('zod組み込みのRefinements', () => {

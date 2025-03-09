@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { Cart } from 'ch8/ex1/cart.js';
 import { CustomerId } from 'ch8/ex1/customerId.js';
 import { Price } from 'ch8/ex1/price.js';

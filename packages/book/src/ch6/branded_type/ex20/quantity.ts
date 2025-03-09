@@ -1,8 +1,9 @@
 import assert from 'node:assert';
+
+import type { Brand } from 'ch6/branded_type/ex7/brand.js';
 import { InvariantsError } from 'ch6/branded_type/ex20/invariantsError.js';
 import type { Result } from 'ch6/branded_type/ex20/result.js';
 import { Failure, Success } from 'ch6/branded_type/ex20/result.js';
-import type { Brand } from 'ch6/branded_type/ex7/brand.js';
 import { pipe } from 'remeda';
 
 type RawType = number;

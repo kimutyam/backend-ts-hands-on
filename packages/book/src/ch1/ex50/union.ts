@@ -7,4 +7,4 @@ type Greeting = 'hi' | 'hello';
 type UserOrMemberId = UserId | MemberId;
 type UsernameOrAliases = string | Array<string>;
 
-export type { Greeting, UserOrMemberId, UsernameOrAliases };
+export type { Greeting, UsernameOrAliases, UserOrMemberId };
