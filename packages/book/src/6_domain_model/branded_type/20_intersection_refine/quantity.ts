@@ -1,9 +1,12 @@
 import assert from 'node:assert';
+import { InvariantsError } from '6_domain_model/branded_type/20_intersection_refine/invariantsError.js';
+import type { Result } from '6_domain_model/branded_type/20_intersection_refine/result.js';
+import {
+  Failure,
+  Success,
+} from '6_domain_model/branded_type/20_intersection_refine/result.js';
+import type { Brand } from '6_domain_model/branded_type/7_intersection/brand.js';
 import { pipe } from 'remeda';
-import type { Brand } from '../7_intersection/brand.js';
-import { InvariantsError } from './invariantsError.js';
-import type { Result } from './result.js';
-import { Failure, Success } from './result.js';
 
 type RawType = number;
 export type Quantity = Brand<RawType, 'Quantity'>;

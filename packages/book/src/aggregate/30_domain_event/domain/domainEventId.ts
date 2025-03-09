@@ -1,6 +1,6 @@
+import type { Eq } from 'aggregate/10_zod/util/eq.js';
 import { decodeTime, ulid } from 'ulidx';
 import * as z from 'zod';
-import type { Eq } from '../../10_zod/util/eq.js';
 
 export declare const DomainEventIdBrand: unique symbol;
 

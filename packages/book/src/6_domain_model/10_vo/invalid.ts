@@ -1,4 +1,4 @@
-import type { Period } from './period.js';
+import type { Period } from '6_domain_model/10_vo/period.js';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

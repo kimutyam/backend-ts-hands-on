@@ -1,8 +1,8 @@
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import { ProductNotFoundError } from 'aggregate/10_zod/domain/product/productNotFoundError.js';
+import type { IProductRepository } from 'aggregate/20_repository/domain/productRespository.js';
 import { err, ok, ResultAsync } from 'neverthrow';
-import type { Product } from '../../10_zod/domain/product/product.js';
-import type { ProductId } from '../../10_zod/domain/product/productId.js';
-import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError.js';
-import type { IProductRepository } from './productRespository.js';
 
 export class InMemoryProductRepository
   implements IProductRepository

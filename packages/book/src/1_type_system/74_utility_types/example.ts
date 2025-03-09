@@ -1,4 +1,4 @@
-import type { Employee } from '../70_type_manipulation/types.js';
+import type { Employee } from '1_type_system/70_type_manipulation/types.js';
 
 type ReadonlyEmployee = Readonly<Employee>; // { readonly name: string; readonly age: number; }
 

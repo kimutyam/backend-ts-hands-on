@@ -1,21 +1,21 @@
-import { ok, Result } from 'neverthrow';
-import * as R from 'remeda';
-import { pipe } from 'remeda';
-import { z } from 'zod';
-import { Aggregate } from './aggregate.js';
-import type { CartClearReason } from './cartClearReason.js';
-import type { AddCartError } from './cartError.js';
+import { Aggregate } from '9_always_valid_domain_model/50/aggregate.js';
+import type { CartClearReason } from '9_always_valid_domain_model/50/cartClearReason.js';
+import type { AddCartError } from '9_always_valid_domain_model/50/cartError.js';
 import {
   CartCleared,
   CartItemAdded,
   CartItemRemoved,
   CartItemUpdated,
-} from './cartEvent.js';
-import { CartItem } from './cartItem.js';
-import { CustomerId } from './customerId.js';
-import { DomainEvent } from './domainEvent.js';
-import { ProductId } from './productId.js';
-import { buildFromZod } from './result.js';
+} from '9_always_valid_domain_model/50/cartEvent.js';
+import { CartItem } from '9_always_valid_domain_model/50/cartItem.js';
+import { CustomerId } from '9_always_valid_domain_model/50/customerId.js';
+import { DomainEvent } from '9_always_valid_domain_model/50/domainEvent.js';
+import { ProductId } from '9_always_valid_domain_model/50/productId.js';
+import { buildFromZod } from '9_always_valid_domain_model/50/result.js';
+import { ok, Result } from 'neverthrow';
+import { pipe } from 'remeda';
+import * as R from 'remeda';
+import { z } from 'zod';
 
 const name = 'Cart';
 

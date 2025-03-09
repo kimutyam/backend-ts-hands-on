@@ -1,7 +1,7 @@
 import assert from 'node:assert';
+import { QuantityError } from 'domain_model/36_fp_smart_constructor/quantityError.js';
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import { QuantityError } from '../36_fp_smart_constructor/quantityError.js';
 
 const validate = (value: number): Array<string> => {
   const issues: Array<string> = [];

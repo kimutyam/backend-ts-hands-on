@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import type { Brand } from './brand.js';
+import type { Brand } from '6_domain_model/14_vo/brand.js';
 
 type Age = number & Brand<'Age'>;
 

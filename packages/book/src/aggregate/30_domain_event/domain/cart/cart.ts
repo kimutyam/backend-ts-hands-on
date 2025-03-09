@@ -1,22 +1,22 @@
-import { ok, Result } from 'neverthrow';
-import { pipe } from 'remeda';
-import { z } from 'zod';
-import { CustomerId } from '../../../10_zod/domain/customer/customerId.js';
-import { Item } from '../../../10_zod/domain/item/item.js';
+import { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
+import { Item } from 'aggregate/10_zod/domain/item/item.js';
 import type {
   Quantity,
   QuantityError,
-} from '../../../10_zod/domain/item/quantity.js';
-import { ProductId } from '../../../10_zod/domain/product/productId.js';
-import { buildFromZodDefault } from '../../../10_zod/util/result.js';
-import { Aggregate } from '../aggregate.js';
-import { DomainEvent } from '../domainEvent.js';
+} from 'aggregate/10_zod/domain/item/quantity.js';
+import { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import { buildFromZodDefault } from 'aggregate/10_zod/util/result.js';
+import { Aggregate } from 'aggregate/30_domain_event/domain/aggregate.js';
 import {
   CartClearedOnOrder,
   CartItemAdded,
   CartItemQuantityUpdated,
   CartItemRemoved,
-} from './cartEvent.js';
+} from 'aggregate/30_domain_event/domain/cart/cartEvent.js';
+import { DomainEvent } from 'aggregate/30_domain_event/domain/domainEvent.js';
+import { ok, Result } from 'neverthrow';
+import { pipe } from 'remeda';
+import { z } from 'zod';
 
 const aggregateName = 'Cart';
 

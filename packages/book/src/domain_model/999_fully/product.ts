@@ -1,6 +1,6 @@
-import type { Eq } from './eq.js';
-import type { Price } from './price.js';
-import { ProductId } from './productId.js';
+import type { Eq } from 'domain_model/999_fully/eq.js';
+import type { Price } from 'domain_model/999_fully/price.js';
+import { ProductId } from 'domain_model/999_fully/productId.js';
 
 export type Product = Readonly<{
   productId: ProductId;

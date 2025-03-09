@@ -1,10 +1,10 @@
 import assert from 'node:assert';
+import { Item } from '6_domain_model/branded_type/50_zod_vo/item.js';
+import { Name } from '6_domain_model/branded_type/50_zod_vo/product/name.js';
+import { Price } from '6_domain_model/branded_type/50_zod_vo/product/price.js';
+import { Quantity } from '6_domain_model/branded_type/50_zod_vo/quantity.js';
 import * as R from 'remeda';
 import { z } from 'zod';
-import { Item } from '../item.js';
-import { Name } from '../product/name.js';
-import { Price } from '../product/price.js';
-import { Quantity } from '../quantity.js';
 
 it('注文項目をパースする', () => {
   const productSchema = z.object({

@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import type { Brand } from '6_domain_model/10_vo/brand.js';
 import {
   addDays,
   addHours,
@@ -7,7 +8,6 @@ import {
   isEqual,
 } from 'date-fns/fp';
 import { pipe } from 'remeda';
-import type { Brand } from './brand.js';
 
 interface Period extends Brand<'Period'> {
   readonly start: Date;

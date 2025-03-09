@@ -1,4 +1,4 @@
-import { splitBill } from './splitBill.js';
+import { splitBill } from '3_bug_error/30_error_assertion/splitBill.js';
 
 try {
   splitBill(100, 0);

@@ -1,5 +1,5 @@
+import type { Aggregate } from '7_aggregate/1/aggregate.js';
 import type { ResultAsync } from 'neverthrow';
-import type { Aggregate } from '../1/aggregate.js';
 
 interface FindById<
   A extends Aggregate<any>,

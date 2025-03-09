@@ -1,8 +1,8 @@
-import type { CartItem } from './cartItem.js';
-import type { CustomerId } from './customerId.js';
-import type { DomainEvent } from './domainEvent.js';
-import type { Order } from './order.js';
-import type { OrderId } from './orderId.js';
+import type { CartItem } from '8_domain_event/1/cartItem.js';
+import type { CustomerId } from '8_domain_event/1/customerId.js';
+import type { DomainEvent } from '8_domain_event/1/domainEvent.js';
+import type { Order } from '8_domain_event/1/order.js';
+import type { OrderId } from '8_domain_event/1/orderId.js';
 
 const OrderRequested = {
   eventName: 'OrderRequested' as const,

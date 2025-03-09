@@ -1,10 +1,10 @@
+import { Aggregate } from '9_always_valid_domain_model/50/aggregate.js';
+import { Price } from '9_always_valid_domain_model/50/price.js';
+import { ProductId } from '9_always_valid_domain_model/50/productId.js';
+import { buildFromZodDefault } from '9_always_valid_domain_model/50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
-import { Aggregate } from './aggregate.js';
-import { Price } from './price.js';
-import { ProductId } from './productId.js';
-import { buildFromZodDefault } from './result.js';
 
 const aggregateName = 'Product';
 

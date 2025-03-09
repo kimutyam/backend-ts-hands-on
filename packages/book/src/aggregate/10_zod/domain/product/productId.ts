@@ -1,6 +1,6 @@
+import type { Eq } from 'aggregate/10_zod/util/eq.js';
 import { ulid } from 'ulidx';
 import * as z from 'zod';
-import type { Eq } from '../../util/eq.js';
 
 export declare const ProductIdBrand: unique symbol;
 

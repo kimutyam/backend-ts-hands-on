@@ -1,5 +1,5 @@
+import { ticketSchema } from '5_zod/49_zod_superRefine/ticketSchema.js';
 import { assert, expect } from 'vitest';
-import { ticketSchema } from '../ticketSchema.js';
 
 describe('safeParse', () => {
   it.each([

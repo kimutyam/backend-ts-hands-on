@@ -1,14 +1,14 @@
 import assert from 'node:assert';
+import { Cart } from '9_always_valid_domain_model/50/cart.js';
+import type { CartCleared } from '9_always_valid_domain_model/50/cartEvent.js';
+import type { CartItem } from '9_always_valid_domain_model/50/cartItem.js';
+import { DomainEvent } from '9_always_valid_domain_model/50/domainEvent.js';
+import { Order } from '9_always_valid_domain_model/50/order.js';
+import { OrderRequested } from '9_always_valid_domain_model/50/orderEvent.js';
+import { OrderId } from '9_always_valid_domain_model/50/orderId.js';
+import type { Product } from '9_always_valid_domain_model/50/product.js';
+import { ProductId } from '9_always_valid_domain_model/50/productId.js';
 import { pipe } from 'remeda';
-import { Cart } from './cart.js';
-import type { CartCleared } from './cartEvent.js';
-import type { CartItem } from './cartItem.js';
-import { DomainEvent } from './domainEvent.js';
-import { Order } from './order.js';
-import { OrderRequested } from './orderEvent.js';
-import { OrderId } from './orderId.js';
-import type { Product } from './product.js';
-import { ProductId } from './productId.js';
 
 const applyPrice = (
   { cartItems }: Cart,

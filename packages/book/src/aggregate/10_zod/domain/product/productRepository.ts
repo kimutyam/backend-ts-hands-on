@@ -1,8 +1,8 @@
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import type { ProductNotFoundError } from 'aggregate/10_zod/domain/product/productNotFoundError.js';
+import type { ProductsNotFoundError } from 'aggregate/10_zod/domain/product/productsNotFoundError.js';
 import type { ResultAsync } from 'neverthrow';
-import type { Product } from './product.js';
-import type { ProductId } from './productId.js';
-import type { ProductNotFoundError } from './productNotFoundError.js';
-import type { ProductsNotFoundError } from './productsNotFoundError.js';
 
 export interface ProductResolver {
   resolveBy: (

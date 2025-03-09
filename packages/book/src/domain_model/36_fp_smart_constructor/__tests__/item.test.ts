@@ -1,6 +1,6 @@
 import assert from 'node:assert';
+import { Item } from 'domain_model/36_fp_smart_constructor/item.js';
 import * as R from 'remeda';
-import { Item } from '../item.js';
 
 it('マイナス値の数量を追加するとエラー', () => {
   const result = R.pipe(

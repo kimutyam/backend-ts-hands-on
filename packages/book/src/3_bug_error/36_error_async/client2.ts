@@ -1,6 +1,6 @@
-import { IndivisibleBillError } from '../26_error_custom/indivisibleBillError.js';
-import { NumberOfMembersError } from '../26_error_custom/numberOfMembersError.js';
-import { splitBillAsync } from './splitBillAsync.js';
+import { IndivisibleBillError } from '3_bug_error/26_error_custom/indivisibleBillError.js';
+import { NumberOfMembersError } from '3_bug_error/26_error_custom/numberOfMembersError.js';
+import { splitBillAsync } from '3_bug_error/36_error_async/splitBillAsync.js';
 
 await splitBillAsync(100, 1)
   .catch((reason): Promise<number> => {

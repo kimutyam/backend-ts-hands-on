@@ -1,7 +1,7 @@
-import type { Aggregate } from './aggregate.js';
-import type { Brand } from './brand.js';
-import type { Price } from './price.js';
-import type { ProductId } from './productId.js';
+import type { Aggregate } from '8_domain_event/1/aggregate.js';
+import type { Brand } from '8_domain_event/1/brand.js';
+import type { Price } from '8_domain_event/1/price.js';
+import type { ProductId } from '8_domain_event/1/productId.js';
 
 const name = 'Product';
 

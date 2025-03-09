@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Item } from './item.js';
+import { Item } from 'domain_model/999_fully/item.js';
 
 export type Order = Readonly<{
   orderId: string;

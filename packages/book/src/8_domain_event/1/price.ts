@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import type { Brand } from './brand.js';
+import type { Brand } from '8_domain_event/1/brand.js';
 
 const name = 'Price';
 type Price = number & Brand<'Price'>;

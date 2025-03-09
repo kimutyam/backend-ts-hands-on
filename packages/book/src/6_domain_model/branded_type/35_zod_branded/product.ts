@@ -1,6 +1,6 @@
+import { nameSchema } from '6_domain_model/branded_type/35_zod_branded/name.js';
+import { priceSchema } from '6_domain_model/branded_type/35_zod_branded/price.js';
 import { z } from 'zod';
-import { nameSchema } from './name.js';
-import { priceSchema } from './price.js';
 
 declare const ProductBrand: unique symbol;
 export const productSchema = z

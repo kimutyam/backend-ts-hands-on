@@ -1,7 +1,10 @@
+import { StockReservationError } from '6_domain_model/40_service/stockReservationError.js';
+import type {
+  Order,
+  Stocks,
+} from '6_domain_model/40_service/types.js';
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import { StockReservationError } from './stockReservationError.js';
-import type { Order, Stocks } from './types.js';
 
 /**
  * 在庫引当サービス

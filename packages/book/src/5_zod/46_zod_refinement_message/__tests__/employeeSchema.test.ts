@@ -1,5 +1,5 @@
+import { employeeSchema } from '5_zod/46_zod_refinement_message/employeeSchema.js';
 import { assert, expect } from 'vitest';
-import { employeeSchema } from '../employeeSchema.js';
 
 describe('safeParse', () => {
   it('名前と年齢のバリデーションエラー', () => {

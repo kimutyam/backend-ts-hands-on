@@ -1,8 +1,8 @@
+import { Price } from '9_always_valid_domain_model/10/price.js';
+import { ProductId } from '9_always_valid_domain_model/10/productId.js';
+import type { QuantityInput } from '9_always_valid_domain_model/10/quantity.js';
+import { Quantity } from '9_always_valid_domain_model/10/quantity.js';
 import * as z from 'zod';
-import { Price } from './price.js';
-import { ProductId } from './productId.js';
-import type { QuantityInput } from './quantity.js';
-import { Quantity } from './quantity.js';
 
 const schema = z
   .object({

@@ -1,8 +1,8 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import type { OrderQuantityInput } from './orderQuantity.js';
-import { OrderQuantity } from './orderQuantity.js';
-import { Product } from './product/product.js';
+import type { OrderQuantityInput } from 'zod_blog/16_domain_zod_neverthrow/orderQuantity.js';
+import { OrderQuantity } from 'zod_blog/16_domain_zod_neverthrow/orderQuantity.js';
+import { Product } from 'zod_blog/16_domain_zod_neverthrow/product/product.js';
 
 const schema = z
   .object({

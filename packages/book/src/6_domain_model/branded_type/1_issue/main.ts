@@ -1,5 +1,5 @@
-import type { AccountBalance } from './accountBalance.js';
-import type { CustomerId } from './customerId.js';
+import type { AccountBalance } from '6_domain_model/branded_type/1_issue/accountBalance.js';
+import type { CustomerId } from '6_domain_model/branded_type/1_issue/customerId.js';
 
 const chargeInterest = (
   customerId: CustomerId,

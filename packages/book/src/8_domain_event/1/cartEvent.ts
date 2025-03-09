@@ -1,9 +1,9 @@
-import type { Cart } from './cart.js';
-import type { CartClearReason } from './cartClearReason.js';
-import type { CartItem } from './cartItem.js';
-import type { CustomerId } from './customerId.js';
-import type { DomainEvent } from './domainEvent.js';
-import type { ProductId } from './productId.js';
+import type { Cart } from '8_domain_event/1/cart.js';
+import type { CartClearReason } from '8_domain_event/1/cartClearReason.js';
+import type { CartItem } from '8_domain_event/1/cartItem.js';
+import type { CustomerId } from '8_domain_event/1/customerId.js';
+import type { DomainEvent } from '8_domain_event/1/domainEvent.js';
+import type { ProductId } from '8_domain_event/1/productId.js';
 
 const CartItemAdded = {
   eventName: 'CartItemAdded' as const,

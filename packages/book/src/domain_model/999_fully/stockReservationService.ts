@@ -1,8 +1,8 @@
-import type { Result } from 'neverthrow';
+import type { Order } from 'domain_model/999_fully/order.js';
+import type { ProductStock } from 'domain_model/999_fully/productStock.js';
+import { StockReservationError } from 'domain_model/999_fully/stockReservationError.js';
 import { err, ok } from 'neverthrow';
-import type { Order } from './order.js';
-import type { ProductStock } from './productStock.js';
-import { StockReservationError } from './stockReservationError.js';
+import type { Result } from 'neverthrow';
 
 /** 在庫引当サービス */
 export const StockReservationService = (

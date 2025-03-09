@@ -1,8 +1,8 @@
-import { Aggregate } from './aggregate.js';
-import type { Brand } from './brand.js';
-import type { CartItem } from './cartItem.js';
-import type { CustomerId } from './customerId.js';
-import type { OrderId } from './orderId.js';
+import { Aggregate } from '8_domain_event/1/aggregate.js';
+import type { Brand } from '8_domain_event/1/brand.js';
+import type { CartItem } from '8_domain_event/1/cartItem.js';
+import type { CustomerId } from '8_domain_event/1/customerId.js';
+import type { OrderId } from '8_domain_event/1/orderId.js';
 
 const name = 'Order';
 

@@ -1,4 +1,4 @@
-import { divide } from './divide.js';
+import { divide } from '3_bug_error/7_bug_console_assert/divide.js';
 
 // Infinity = 1 / 0
 const divided = divide(1, 0);

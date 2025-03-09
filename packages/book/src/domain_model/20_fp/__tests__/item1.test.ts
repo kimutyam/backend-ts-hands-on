@@ -1,5 +1,8 @@
-import type { Item } from '../item.js';
-import { add, calculateTotal } from '../item.js';
+import type { Item } from 'domain_model/20_fp/item.js';
+import {
+  add,
+  calculateTotal,
+} from 'domain_model/20_fp/item.js';
 
 it('合計を計算する', () => {
   const item: Item = {

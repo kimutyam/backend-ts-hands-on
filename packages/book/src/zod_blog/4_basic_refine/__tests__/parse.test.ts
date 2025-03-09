@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { orderItemSchema } from '../schema.js';
+import { orderItemSchema } from 'zod_blog/4_basic_refine/schema.js';
 
 describe('safeParse', () => {
   it('全てのプロパティで制約エラー', () => {

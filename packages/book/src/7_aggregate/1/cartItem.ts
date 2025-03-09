@@ -1,6 +1,6 @@
-import type { Price } from './price.js';
-import type { ProductId } from './productId.js';
-import { Quantity } from './quantity.js';
+import type { Price } from '7_aggregate/1/price.js';
+import type { ProductId } from '7_aggregate/1/productId.js';
+import { Quantity } from '7_aggregate/1/quantity.js';
 
 interface CartItem {
   readonly productId: ProductId;

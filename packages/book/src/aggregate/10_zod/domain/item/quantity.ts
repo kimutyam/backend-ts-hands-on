@@ -1,7 +1,7 @@
+import type { Eq } from 'aggregate/10_zod/util/eq.js';
+import { buildFromZodDefault } from 'aggregate/10_zod/util/result.js';
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { fromZodReturnTypeDefault } from '../../../../6_domain_model/branded_type/50_zod_vo/resultBuilder.js';
-import type { Eq } from '../../util/eq.js';
 
 export declare const QuantityBrand: unique symbol;
 
@@ -23,7 +23,7 @@ const build = (a: QuantityInput): Quantity =>
 const safeBuild = (
   a: QuantityInput,
 ): Result<Quantity, QuantityError> =>
-  fromZodReturnTypeDefault(schema.safeParse(a));
+  buildFromZodDefault(schema.safeParse(a));
 
 const equals: Eq<Quantity> = (
   x: Quantity,

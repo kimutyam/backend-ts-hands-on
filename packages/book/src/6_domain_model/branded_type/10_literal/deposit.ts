@@ -1,5 +1,5 @@
-import { AccountBalance } from './accountBalance.js';
-import { CustomerId } from './customerId.js';
+import { AccountBalance } from '6_domain_model/branded_type/10_literal/accountBalance.js';
+import { CustomerId } from '6_domain_model/branded_type/10_literal/customerId.js';
 
 export const deposit = (
   customerId: CustomerId,

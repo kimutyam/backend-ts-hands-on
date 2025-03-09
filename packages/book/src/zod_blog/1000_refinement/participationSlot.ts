@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { fromZodReturnTypeDefault } from '../700_refinement/resultBuilder.js';
-import type { SlatChange } from './slotChange.js';
+import type { SlatChange } from 'zod_blog/1000_refinement/slotChange.js';
+import { fromZodReturnTypeDefault } from 'zod_blog/700_refinement/resultBuilder.js';
 
 const schema = z.number().int().min(1).max(1_000);
 

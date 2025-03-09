@@ -1,7 +1,7 @@
+import type { Eq } from '6_domain_model/branded_type/50_zod_vo/eq.js';
+import { fromZodReturnTypeDefault } from '6_domain_model/branded_type/50_zod_vo/resultBuilder.js';
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import type { Eq } from './eq.js';
-import { fromZodReturnTypeDefault } from './resultBuilder.js';
 
 // export declare const QuantityBrand: unique symbol;
 

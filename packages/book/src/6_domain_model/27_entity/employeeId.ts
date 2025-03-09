@@ -1,6 +1,6 @@
 import assert from 'node:assert';
+import type { Brand } from '6_domain_model/27_entity/brand.js';
 import { isValid, ulid } from 'ulidx';
-import type { Brand } from './brand.js';
 
 type EmployeeId = string & Brand<'EmployeeId'>;
 

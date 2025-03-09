@@ -1,6 +1,6 @@
+import type { Aggregate } from 'aggregate/30_domain_event/domain/aggregate.js';
+import type { AggregateNotFoundError } from 'aggregate/30_domain_event/domain/aggregateNotFoundError.js';
 import type { ResultAsync } from 'neverthrow';
-import type { Aggregate } from './aggregate.js';
-import type { AggregateNotFoundError } from './aggregateNotFoundError.js';
 
 export interface AggregateResolver<
   AggregateId,

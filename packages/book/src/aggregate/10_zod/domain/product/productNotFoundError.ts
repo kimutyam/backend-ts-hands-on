@@ -1,4 +1,4 @@
-import type { ProductId } from './productId.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
 
 export class ProductNotFoundError extends Error {
   constructor(public productId: ProductId) {

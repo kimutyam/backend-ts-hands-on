@@ -1,4 +1,7 @@
-import type { Employee, Manager } from './types.js';
+import type {
+  Employee,
+  Manager,
+} from '1_type_system/46_variant/types.js';
 
 interface EmployeeFn {
   // プロパティ記法

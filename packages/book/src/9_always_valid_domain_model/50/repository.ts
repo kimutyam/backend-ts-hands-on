@@ -1,5 +1,5 @@
+import type { Aggregate } from '9_always_valid_domain_model/50/aggregate.js';
 import type { ResultAsync } from 'neverthrow';
-import type { Aggregate } from './aggregate.js';
 
 interface FindById<
   A extends Aggregate<any>,

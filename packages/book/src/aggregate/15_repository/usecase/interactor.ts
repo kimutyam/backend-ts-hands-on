@@ -1,16 +1,16 @@
-import type { Result } from 'neverthrow';
-import { err, ResultAsync } from 'neverthrow';
-import type { CartError } from '../../10_zod/domain/cart/cart.js';
-import { Cart } from '../../10_zod/domain/cart/cart.js';
-import type { CustomerId } from '../../10_zod/domain/customer/customerId.js';
+import type { CartError } from 'aggregate/10_zod/domain/cart/cart.js';
+import { Cart } from 'aggregate/10_zod/domain/cart/cart.js';
+import type { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
 import type {
   Quantity,
   QuantityError,
-} from '../../10_zod/domain/item/quantity.js';
-import type { ProductId } from '../../10_zod/domain/product/productId.js';
-import { ProductNotFoundError } from '../../10_zod/domain/product/productNotFoundError.js';
-import type { ICartRepository } from '../domain/cartRepository.js';
-import type { IProductRepository } from '../domain/productRespository.js';
+} from 'aggregate/10_zod/domain/item/quantity.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import { ProductNotFoundError } from 'aggregate/10_zod/domain/product/productNotFoundError.js';
+import type { ICartRepository } from 'aggregate/15_repository/domain/cartRepository.js';
+import type { IProductRepository } from 'aggregate/15_repository/domain/productRespository.js';
+import { err, ResultAsync } from 'neverthrow';
+import type { Result } from 'neverthrow';
 
 export const addCartItem =
   (

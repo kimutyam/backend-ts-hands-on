@@ -1,5 +1,5 @@
-import type { Aggregate } from './aggregate.js';
-import type { DomainEvent } from './domainEvent.js';
+import type { Aggregate } from 'aggregate/30_domain_event/domain/aggregate.js';
+import type { DomainEvent } from 'aggregate/30_domain_event/domain/domainEvent.js';
 
 export interface EventStore<
   KnownAggregate extends Aggregate<any, any>,

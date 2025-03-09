@@ -1,5 +1,5 @@
+import { Period } from '2_data_function/22_companion_all/period.js';
 import { pipe } from 'remeda';
-import { Period } from './period.js';
 
 pipe(
   Period.buildAt(new Date(2024, 0, 1, 0, 0, 0), 30),

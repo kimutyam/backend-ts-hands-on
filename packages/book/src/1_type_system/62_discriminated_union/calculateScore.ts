@@ -1,4 +1,4 @@
-import type { GameResult } from './gameResult.js';
+import type { GameResult } from '1_type_system/62_discriminated_union/gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
   if (result.result === 'win') {

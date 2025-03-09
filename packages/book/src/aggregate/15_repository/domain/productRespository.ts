@@ -1,5 +1,5 @@
-import type { Product } from '../../10_zod/domain/product/product.js';
-import type { ProductId } from '../../10_zod/domain/product/productId.js';
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import type { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
 
 export interface IProductRepository {
   findById: (

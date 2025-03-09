@@ -1,4 +1,4 @@
-import type { Employee } from './types.js';
+import type { Employee } from '1_type_system/70_type_manipulation/types.js';
 
 type PartialEmployee = Partial<Employee>; // { name?: string; age?: number; }
 type RequiredEmployee = Required<PartialEmployee>; // { name: string; age: number; }

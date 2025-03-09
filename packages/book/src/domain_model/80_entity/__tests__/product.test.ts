@@ -1,4 +1,4 @@
-import { Product } from '../product.js';
+import { Product } from 'domain_model/80_entity/product.js';
 
 it('価格を変更しても、同一の商品とみなす', () => {
   const baseProduct = {

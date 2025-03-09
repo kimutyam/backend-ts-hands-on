@@ -1,5 +1,5 @@
-import type { Eq } from './eq.js';
-import type { ProductId } from './productId.js';
+import type { Eq } from '6_domain_model/branded_type/54_zod_entity/eq.js';
+import type { ProductId } from '6_domain_model/branded_type/54_zod_entity/productId.js';
 
 export type Product = Readonly<{
   id: ProductId;

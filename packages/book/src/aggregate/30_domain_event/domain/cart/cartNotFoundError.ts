@@ -1,5 +1,5 @@
-import type { CustomerId } from '../../../10_zod/domain/customer/customerId.js';
-import { AggregateNotFoundError } from '../aggregateNotFoundError.js';
+import type { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
+import { AggregateNotFoundError } from 'aggregate/30_domain_event/domain/aggregateNotFoundError.js';
 
 export class CartNotFoundError extends AggregateNotFoundError {
   constructor(id: CustomerId) {

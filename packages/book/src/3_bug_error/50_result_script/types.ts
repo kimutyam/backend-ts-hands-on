@@ -1,4 +1,4 @@
-import type { Result } from '../40_result/result.js';
+import type { Result } from '3_bug_error/40_result/result.js';
 
 type MyError = { message: string };
 type SomeError = { error: string; detail: string };

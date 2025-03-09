@@ -1,22 +1,22 @@
-import { ResultAsync } from 'neverthrow';
-import type { Cart } from '../../domain/cart/cart.js';
+import type { Cart } from 'aggregate/10_zod/domain/cart/cart.js';
 import type {
   CartResolver,
   CartStorer,
-} from '../../domain/cart/cartRepository.js';
-import type { Order } from '../../domain/order/order.js';
-import { OrderId } from '../../domain/order/orderId.js';
-import type { OrderStorer } from '../../domain/order/orderRepository.js';
-import { OrderService } from '../../domain/order/orderService.js';
-import type { Product } from '../../domain/product/product.js';
-import type { ProductsResolver } from '../../domain/product/productRepository.js';
-import type { ProductsNotFoundError } from '../../domain/product/productsNotFoundError.js';
+} from 'aggregate/10_zod/domain/cart/cartRepository.js';
+import type { Order } from 'aggregate/10_zod/domain/order/order.js';
+import { OrderId } from 'aggregate/10_zod/domain/order/orderId.js';
+import type { OrderStorer } from 'aggregate/10_zod/domain/order/orderRepository.js';
+import { OrderService } from 'aggregate/10_zod/domain/order/orderService.js';
+import type { Product } from 'aggregate/10_zod/domain/product/product.js';
+import type { ProductsResolver } from 'aggregate/10_zod/domain/product/productRepository.js';
+import type { ProductsNotFoundError } from 'aggregate/10_zod/domain/product/productsNotFoundError.js';
 import type {
   Input,
   OrderUseCase,
   Output,
   UseCaseError,
-} from './useCase.js';
+} from 'aggregate/10_zod/useCase/order/useCase.js';
+import { ResultAsync } from 'neverthrow';
 
 export class OrderInteractor implements OrderUseCase {
   constructor(

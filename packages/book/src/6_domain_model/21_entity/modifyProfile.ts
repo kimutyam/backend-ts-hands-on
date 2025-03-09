@@ -1,5 +1,5 @@
+import { Employee } from '6_domain_model/21_entity/employee.js';
 import { pipe } from 'remeda';
-import { Employee } from './employee.js';
 
 declare function findEmployee(
   employeeNumber: number,

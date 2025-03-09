@@ -1,12 +1,12 @@
-import * as z from 'zod';
 import type {
   Cart,
   CartError,
-} from '../../domain/cart/cart.js';
-import { CustomerId } from '../../domain/customer/customerId.js';
-import { ProductId } from '../../domain/product/productId.js';
-import type { ProductNotFoundError } from '../../domain/product/productNotFoundError.js';
-import type { UseCase } from '../useCase.js';
+} from 'aggregate/10_zod/domain/cart/cart.js';
+import { CustomerId } from 'aggregate/10_zod/domain/customer/customerId.js';
+import { ProductId } from 'aggregate/10_zod/domain/product/productId.js';
+import type { ProductNotFoundError } from 'aggregate/10_zod/domain/product/productNotFoundError.js';
+import type { UseCase } from 'aggregate/10_zod/useCase/useCase.js';
+import * as z from 'zod';
 
 export const schema = z
   .object({

@@ -1,4 +1,4 @@
-import { Item } from '../item.js';
+import { Item } from 'domain_model/75_vo_eq/item.js';
 
 describe('等価性のテスト', () => {
   const x = {

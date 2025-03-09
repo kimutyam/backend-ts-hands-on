@@ -1,8 +1,8 @@
+import { Aggregate } from '9_always_valid_domain_model/50/aggregate.js';
+import { CartItem } from '9_always_valid_domain_model/50/cartItem.js';
+import { CustomerId } from '9_always_valid_domain_model/50/customerId.js';
+import { OrderId } from '9_always_valid_domain_model/50/orderId.js';
 import { z } from 'zod';
-import { Aggregate } from './aggregate.js';
-import { CartItem } from './cartItem.js';
-import { CustomerId } from './customerId.js';
-import { OrderId } from './orderId.js';
 
 const name = 'Order';
 
