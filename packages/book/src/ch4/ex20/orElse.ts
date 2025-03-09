@@ -1,5 +1,5 @@
 import type { Result } from 'neverthrow';
-import { ok, err } from 'neverthrow';
+import { err, ok } from 'neverthrow';
 
 declare const r: Result<number, Error>;
 

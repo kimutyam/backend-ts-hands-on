@@ -22,7 +22,7 @@ type AddCartError = QuantityRefinementsError | CartRefinementsError;
 
 export type {
   AddCartError,
-  QuantityRefinementsError,
-  PriceRefinementsError,
   CartRefinementsError,
+  PriceRefinementsError,
+  QuantityRefinementsError,
 };

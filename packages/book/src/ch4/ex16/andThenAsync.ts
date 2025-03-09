@@ -1,5 +1,5 @@
 import type { ResultAsync } from 'neverthrow';
-import { okAsync, errAsync } from 'neverthrow';
+import { errAsync, okAsync } from 'neverthrow';
 
 // 適用する関数1
 const f1 = (n: number): ResultAsync<number, Error> => okAsync(n * 2);

@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { productSchema } from 'ch6/branded_type/ex23/schema.js';
 import { z } from 'zod';
 

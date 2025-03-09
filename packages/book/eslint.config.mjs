@@ -2,6 +2,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 import baseConfig from '../../eslint.config.mjs';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import stylisticJs from '@stylistic/eslint-plugin-js';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 const compat = new FlatCompat();
 
@@ -11,9 +12,11 @@ export default [
     plugins: {
       'no-relative-import-paths': noRelativeImportPaths,
       '@stylistic/js': stylisticJs,
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
       'no-console': 'off',
+      'import/order': 'off',
       'import/extensions': [
         'error',
         'ignorePackages',
@@ -38,12 +41,13 @@ export default [
       'max-len': [
         'error',
         {
-          code: 80,
+          code: 90,
           tabWidth: 2,
-          comments: 92,
           ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
         },
       ],
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
 ];

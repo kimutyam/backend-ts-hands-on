@@ -14,4 +14,4 @@ type Draw = GameResultLike<'draw'>;
 
 type GameResult = Win | Lose | Draw;
 
-export type { GameResult, Win, Lose, Draw };
+export type { Draw, GameResult, Lose, Win };

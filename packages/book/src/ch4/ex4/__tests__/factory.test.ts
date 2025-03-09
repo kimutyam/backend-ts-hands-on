@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { ResultAsync } from 'neverthrow';
 
 it('a', async () => {

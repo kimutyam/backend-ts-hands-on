@@ -24,4 +24,4 @@ type X = Manager extends Employee ? true : false;
 type Y = Executive extends Employee ? true : false;
 type Z = User extends Employee ? true : false;
 
-export type { Employee, Manager, Executive, User, X, Y, Z };
+export type { Employee, Executive, Manager, User, X, Y, Z };

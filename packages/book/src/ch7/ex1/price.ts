@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import type { Brand } from 'ch7/ex1/brand.js';
 
 type Price = number & Brand<'Price'>;

@@ -12,4 +12,4 @@ interface Lose extends GameResultLike<'lose'> {
 
 type GameResult = Win | Lose;
 
-export type { GameResult, Win, Lose };
+export type { GameResult, Lose, Win };

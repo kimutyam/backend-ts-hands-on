@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import type { Brand } from 'ch8/ex1/brand.js';
 import { isValid, ulid } from 'ulidx';
 

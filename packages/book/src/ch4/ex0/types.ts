@@ -10,10 +10,10 @@ declare function calculate(a: number, b: number): number;
 declare function toMyError(a: SomeError): MyError;
 
 export {
+  calculate,
   type MyError,
   type SomeError,
   subRouting1,
   subRouting2,
-  calculate,
   toMyError,
 };

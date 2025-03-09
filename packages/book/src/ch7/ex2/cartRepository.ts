@@ -15,4 +15,4 @@ interface DeleteCartById {
   (aggregateId: CustomerId): Promise<void>;
 }
 
-export type { FindCartById, SaveCart, DeleteCartById };
+export type { DeleteCartById, FindCartById, SaveCart };

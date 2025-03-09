@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { OrderItem } from 'zod_blog/ex16/orderItem.js';
 
 it('注文項目をパースする', () => {

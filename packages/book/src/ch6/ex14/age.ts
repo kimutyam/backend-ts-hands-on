@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import type { Brand } from 'ch6/ex14/brand.js';
 
 type Age = number & Brand<'Age'>;

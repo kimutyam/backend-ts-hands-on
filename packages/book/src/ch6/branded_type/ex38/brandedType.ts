@@ -13,7 +13,11 @@ const productSchema = z
 type Name = z.infer<typeof nameSchema>;
 // number &  z.BRAND<"Price">
 type Price = z.infer<typeof priceSchema>;
-// {name: string & z.BRAND<"name">, price: number &  z.BRAND<"Price"> } & z.BRAND<"product">
+
+// {
+//   name: string & z.BRAND<'name'>;
+//   price: number & z.BRAND<'Price'>;
+// } & z.BRAND<'product'>;
 type Product = z.infer<typeof productSchema>;
 
 export { nameSchema, priceSchema, productSchema };

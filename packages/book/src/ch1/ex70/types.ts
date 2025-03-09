@@ -14,4 +14,4 @@ interface Executive {
   title: string;
 }
 
-export type { Employee, Manager, Executive };
+export type { Employee, Executive, Manager };

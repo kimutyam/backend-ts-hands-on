@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+
 import { Item } from 'ch6/branded_type/ex50/item.js';
 import { Name } from 'ch6/branded_type/ex50/product/name.js';
 import { Price } from 'ch6/branded_type/ex50/product/price.js';
