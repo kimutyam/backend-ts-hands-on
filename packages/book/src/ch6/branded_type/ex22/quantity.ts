@@ -31,7 +31,9 @@ const build = (value: number): Quantity => {
 
 const safeBuild = (value: number): Result<QuantityError, Quantity> => {
   const issues = validate(value);
-  return issues.length ? Failure(QuantityError.build(issues)) : Success(cast(value));
+  return issues.length
+    ? Failure(QuantityError.build(issues))
+    : Success(cast(value));
 };
 
 export const Quantity = {

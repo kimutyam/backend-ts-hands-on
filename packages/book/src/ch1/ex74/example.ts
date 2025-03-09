@@ -1,9 +1,12 @@
 import type { Employee } from 'ch1/ex70/types.js';
 
-type ReadonlyEmployee = Readonly<Employee>; // { readonly name: string; readonly age: number; }
+// { readonly name: string; readonly age: number; }
+type ReadonlyEmployee = Readonly<Employee>;
 
-type PartialEmployee = Partial<Employee>; // { name?: string; age?: number; }
+// { name?: string; age?: number; }
+type PartialEmployee = Partial<Employee>;
 
-type ShapeWithoutCircle = Exclude<'square' | 'rectangle' | 'circle', 'circle'>; // "square" | "rectangle"
+// "square" | "rectangle"
+type ShapeWithoutCircle = Exclude<'square' | 'rectangle' | 'circle', 'circle'>;
 
 export type { ReadonlyEmployee, PartialEmployee, ShapeWithoutCircle };

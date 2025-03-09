@@ -23,9 +23,9 @@ export const addCartItem =
         price: product.props.price,
       }))
       .andThen((item) =>
-        ResultAsync.fromSafePromise(cartRepository.findById(customerId)).andThen(
-          Cart.addItem(item),
-        ),
+        ResultAsync.fromSafePromise(
+          cartRepository.findById(customerId),
+        ).andThen(Cart.addItem(item)),
       )
       .map(async (cart) => {
         await cartRepository.save(cart);

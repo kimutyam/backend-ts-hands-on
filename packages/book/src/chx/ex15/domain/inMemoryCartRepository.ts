@@ -6,7 +6,8 @@ export class InMemoryCartRepository implements ICartRepository {
   private readonly aggregates: Record<CustomerId, Cart> = {};
 
   findById(aggregateId: CustomerId): Promise<Cart> {
-    const aggregate = this.aggregates[aggregateId] || Cart.initBuild(aggregateId);
+    const aggregate =
+      this.aggregates[aggregateId] || Cart.initBuild(aggregateId);
     return Promise.resolve(aggregate);
   }
 

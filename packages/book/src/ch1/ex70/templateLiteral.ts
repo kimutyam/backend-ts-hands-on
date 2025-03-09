@@ -1,3 +1,4 @@
-type Greeting = `Hello, ${'world' | 'TypeScript'}`; // "Hello, world" | "Hello, TypeScript"
+// "Hello, world" | "Hello, TypeScript"
+type Greeting = `Hello, ${'world' | 'TypeScript'}`;
 
 export type { Greeting };

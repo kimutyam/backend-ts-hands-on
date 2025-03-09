@@ -2,13 +2,18 @@ import assert from 'node:assert';
 import { Aggregate } from 'ch8/ex1/aggregate.js';
 import type { Brand } from 'ch8/ex1/brand.js';
 import type { CartClearReason } from 'ch8/ex1/cartClearReason.js';
-import { CartCleared, CartItemAdded, CartItemRemoved, CartItemUpdated } from 'ch8/ex1/cartEvent.js';
+import {
+  CartCleared,
+  CartItemAdded,
+  CartItemRemoved,
+  CartItemUpdated,
+} from 'ch8/ex1/cartEvent.js';
 import { CartItem } from 'ch8/ex1/cartItem.js';
 import type { CustomerId } from 'ch8/ex1/customerId.js';
 import { DomainEvent } from 'ch8/ex1/domainEvent.js';
 import { ProductId } from 'ch8/ex1/productId.js';
-import { pipe } from 'remeda';
 import * as R from 'remeda';
+import { pipe } from 'remeda';
 
 const name = 'Cart';
 
@@ -24,7 +29,8 @@ const TotalPriceLimit = 100_000;
 
 const countItems = ({ cartItems }: Cart): number => cartItems.length;
 
-const withinItemsLimit = (cart: Cart): boolean => countItems(cart) <= ItemsLimit;
+const withinItemsLimit = (cart: Cart): boolean =>
+  countItems(cart) <= ItemsLimit;
 
 const calculateTotalQuantity = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -35,12 +41,22 @@ const withinTotalQuantityLimit = (cart: Cart): boolean =>
 const calculateTotalPrice = ({ cartItems }: Cart): number =>
   cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
 
-const withinTotalPriceLimit = (cart: Cart): boolean => calculateTotalPrice(cart) <= TotalPriceLimit;
+const withinTotalPriceLimit = (cart: Cart): boolean =>
+  calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const assertCart = (cart: Cart): void => {
-  assert(withinItemsLimit(cart), `カート項目数上限 ${ItemsLimit} を上回っています`);
-  assert(withinTotalQuantityLimit(cart), `合計数量上限 ${TotalQuantityLimit} を上回っています`);
-  assert(withinTotalPriceLimit(cart), `合計金額上限 ${TotalPriceLimit} を上回っています`);
+  assert(
+    withinItemsLimit(cart),
+    `カート項目数上限 ${ItemsLimit} を上回っています`,
+  );
+  assert(
+    withinTotalQuantityLimit(cart),
+    `合計数量上限 ${TotalQuantityLimit} を上回っています`,
+  );
+  assert(
+    withinTotalPriceLimit(cart),
+    `合計金額上限 ${TotalPriceLimit} を上回っています`,
+  );
 };
 
 const build = (
@@ -63,26 +79,36 @@ const initBuild = (aggregateId: CustomerId): Cart =>
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemAdded | CartItemUpdated] => {
+  ({
+    aggregateId,
+    sequenceNumber,
+    cartItems,
+  }: Cart): [Cart, CartItemAdded | CartItemUpdated] => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
 
     if (updateTargetIndex === -1) {
-      const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), [
-        ...cartItems,
-        targetCartItem,
-      ]);
+      const aggregate = build(
+        aggregateId,
+        Aggregate.incrementSequenceNumber(sequenceNumber),
+        [...cartItems, targetCartItem],
+      );
       const event = pipe(
         aggregate,
-        DomainEvent.generate(name, CartItemAdded.eventName, { cartItem: targetCartItem }),
+        DomainEvent.generate(name, CartItemAdded.eventName, {
+          cartItem: targetCartItem,
+        }),
       );
       return [aggregate, event];
     }
 
     const updated = cartItems.map((cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId)
-        ? R.pipe(cartItem, CartItem.add(targetCartItem.quantity, targetCartItem.price))
+        ? R.pipe(
+            cartItem,
+            CartItem.add(targetCartItem.quantity, targetCartItem.price),
+          )
         : cartItem,
     );
     const aggregate = build(
@@ -102,7 +128,11 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  ({ aggregateId, sequenceNumber, cartItems }: Cart): [Cart, CartItemRemoved] => {
+  ({
+    aggregateId,
+    sequenceNumber,
+    cartItems,
+  }: Cart): [Cart, CartItemRemoved] => {
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
@@ -121,7 +151,11 @@ const removeCartItem =
 const clear =
   (reason: CartClearReason) =>
   ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
-    const aggregate = build(aggregateId, Aggregate.incrementSequenceNumber(sequenceNumber), []);
+    const aggregate = build(
+      aggregateId,
+      Aggregate.incrementSequenceNumber(sequenceNumber),
+      [],
+    );
     const event = pipe(
       aggregate,
       DomainEvent.generate(name, CartCleared.eventName, {

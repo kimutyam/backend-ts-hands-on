@@ -8,14 +8,18 @@ class Example {
   private static incrementSecretCount(): void {
     // eslint-disable-next-line no-plusplus
     Example.secretCount++;
-    console.log(`Secret count incremented. Current secretCount: ${Example.secretCount}`);
+    console.log(
+      `Secret count incremented. Current secretCount: ${Example.secretCount}`,
+    );
   }
 
   // public static メソッド
   static incrementPublicCount(): void {
     // eslint-disable-next-line no-plusplus
     Example.publicCount++;
-    console.log(`Public count incremented. Current publicCount: ${Example.publicCount}`);
+    console.log(
+      `Public count incremented. Current publicCount: ${Example.publicCount}`,
+    );
 
     // private static メソッドをクラス内で使用
     Example.incrementSecretCount();

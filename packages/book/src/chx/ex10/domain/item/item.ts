@@ -32,7 +32,8 @@ const buildSingle = (productId: ProductId, price: Price): Item => ({
   quantity: Quantity.build(1),
 });
 
-const isSameIdentity: Eq<Item> = (x: Item, y: Item): boolean => x.productId === y.productId;
+const isSameIdentity: Eq<Item> = (x: Item, y: Item): boolean =>
+  x.productId === y.productId;
 
 export const Item = {
   schema,

@@ -32,7 +32,10 @@ class Period {
   }
 
   extend(extensionDays: number, extensionHours: number): Period {
-    return new Period(this.start, pipe(this.end, addDays(extensionDays), addHours(extensionHours)));
+    return new Period(
+      this.start,
+      pipe(this.end, addDays(extensionDays), addHours(extensionHours)),
+    );
   }
 
   static build(start: Date, periodDate: number): Period {

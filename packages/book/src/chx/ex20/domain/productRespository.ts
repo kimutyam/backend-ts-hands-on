@@ -4,7 +4,9 @@ import type { ProductNotFoundError } from 'chx/ex10/domain/product/productNotFou
 import type { ResultAsync } from 'neverthrow';
 
 export interface IProductRepository {
-  findById: (aggregateId: ProductId) => ResultAsync<Product, ProductNotFoundError>;
+  findById: (
+    aggregateId: ProductId,
+  ) => ResultAsync<Product, ProductNotFoundError>;
 
   findAll: () => Promise<ReadonlyArray<Product>>;
 

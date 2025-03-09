@@ -15,7 +15,9 @@ export const addCartItem =
     customerId: CustomerId,
     productId: ProductId,
     quantity: Quantity,
-  ): Promise<Result<Cart, ProductNotFoundError | CartError | QuantityError>> => {
+  ): Promise<
+    Result<Cart, ProductNotFoundError | CartError | QuantityError>
+  > => {
     const product = await productRepository.findById(productId);
     if (product === undefined) {
       return err(new ProductNotFoundError(productId));
@@ -25,10 +27,10 @@ export const addCartItem =
       quantity,
       price: product.props.price,
     };
-    return new ResultAsync(cartRepository.findById(customerId).then(Cart.addItem(item))).map(
-      async (cart) => {
-        await cartRepository.save(cart);
-        return cart;
-      },
-    );
+    return new ResultAsync(
+      cartRepository.findById(customerId).then(Cart.addItem(item)),
+    ).map(async (cart) => {
+      await cartRepository.save(cart);
+      return cart;
+    });
   };

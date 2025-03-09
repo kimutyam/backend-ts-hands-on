@@ -6,7 +6,8 @@ import type { z } from 'zod';
 export const fromZodReturnType = <Input, Output, E = z.ZodError<Input>>(
   result: z.SafeParseReturnType<Input, Output>,
   f: (e: z.ZodError<Input>) => E,
-): Result<Output, E> => (result.success ? ok(result.data) : err(f(result.error)));
+): Result<Output, E> =>
+  result.success ? ok(result.data) : err(f(result.error));
 
 export const fromZodReturnTypeDefault = <Input, Output>(
   result: z.SafeParseReturnType<Input, Output>,

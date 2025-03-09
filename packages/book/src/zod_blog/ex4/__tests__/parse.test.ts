@@ -20,11 +20,15 @@ describe('safeParse', () => {
             _errors: expect.arrayContaining(['Invalid uuid']),
           }),
           price: expect.objectContaining({
-            _errors: expect.arrayContaining(['Number must be greater than or equal to 1000']),
+            _errors: expect.arrayContaining([
+              'Number must be greater than or equal to 1000',
+            ]),
           }),
         }),
         quantity: expect.objectContaining({
-          _errors: expect.arrayContaining(['Number must be less than or equal to 10']),
+          _errors: expect.arrayContaining([
+            'Number must be less than or equal to 10',
+          ]),
         }),
       }),
     );

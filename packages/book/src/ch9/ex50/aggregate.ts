@@ -7,7 +7,8 @@ interface Aggregate<AggregateId> {
 
 const InitialSequenceNumber = 1;
 
-const incrementSequenceNumber = (sequenceNumber: number): number => sequenceNumber + 1;
+const incrementSequenceNumber = (sequenceNumber: number): number =>
+  sequenceNumber + 1;
 
 const makeSchema = <
   AggregateIdSchema extends z.ZodType,

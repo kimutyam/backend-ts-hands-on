@@ -49,6 +49,16 @@ type CartCleared = DomainEvent<
   { aggregateId: CustomerId; reason: CartClearReason }
 >;
 
-type CartEvent = CartItemAdded | CartItemUpdated | CartItemRemoved | CartCleared;
+type CartEvent =
+  | CartItemAdded
+  | CartItemUpdated
+  | CartItemRemoved
+  | CartCleared;
 
-export { type CartEvent, CartItemAdded, CartItemUpdated, CartItemRemoved, CartCleared };
+export {
+  type CartEvent,
+  CartItemAdded,
+  CartItemUpdated,
+  CartItemRemoved,
+  CartCleared,
+};

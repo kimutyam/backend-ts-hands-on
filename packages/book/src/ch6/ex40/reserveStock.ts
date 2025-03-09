@@ -10,7 +10,10 @@ import { err, ok } from 'neverthrow';
  * @param stocks 総在庫
  * @returns 有効在庫
  * */
-const reserveStock = (order: Order, stocks: Stocks): Result<Stocks, StockReservationError> => {
+const reserveStock = (
+  order: Order,
+  stocks: Stocks,
+): Result<Stocks, StockReservationError> => {
   // 注文の商品ごとの在庫引当計画を作成
   const plans = order.items.map(({ productId, quantity }) => {
     const maybeProductStock = stocks.find((s) => s.productId === productId);

@@ -35,9 +35,11 @@ const add =
       : result.error;
   };
 
-const calculateTotal = ({ price, quantity }: CartItem): number => price * quantity;
+const calculateTotal = ({ price, quantity }: CartItem): number =>
+  price * quantity;
 
-const identify = (x: CartItem, y: CartItem): boolean => x.productId === y.productId;
+const identify = (x: CartItem, y: CartItem): boolean =>
+  x.productId === y.productId;
 
 const CartItem = {
   schema,

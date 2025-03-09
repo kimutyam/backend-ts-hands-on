@@ -10,7 +10,10 @@ const generate = () => schema.parse(ulid());
 type Input = z.input<typeof schema>;
 export type DomainEventId = z.infer<typeof schema>;
 
-const equals: Eq<DomainEventId> = (x: DomainEventId, y: DomainEventId): boolean => x === y;
+const equals: Eq<DomainEventId> = (
+  x: DomainEventId,
+  y: DomainEventId,
+): boolean => x === y;
 
 const build = (a: Input): DomainEventId => schema.parse(a);
 

@@ -5,7 +5,9 @@ import type { ProductsNotFoundError } from 'chx/ex10/domain/product/productsNotF
 import type { ResultAsync } from 'neverthrow';
 
 export interface ProductResolver {
-  resolveBy: (productId: ProductId) => ResultAsync<Product, ProductNotFoundError>;
+  resolveBy: (
+    productId: ProductId,
+  ) => ResultAsync<Product, ProductNotFoundError>;
 }
 
 export interface ProductsResolver {

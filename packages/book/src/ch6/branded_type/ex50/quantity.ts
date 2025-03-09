@@ -12,7 +12,9 @@ export type Quantity = z.infer<typeof schema>;
 export type QuantityInput = z.input<typeof schema>;
 
 const build = (a: QuantityInput): Quantity => schema.parse(a);
-const safeBuild = (a: QuantityInput): Result<Quantity, z.ZodError<QuantityInput>> =>
+const safeBuild = (
+  a: QuantityInput,
+): Result<Quantity, z.ZodError<QuantityInput>> =>
   fromZodReturnTypeDefault(schema.safeParse(a));
 
 const equals: Eq<Quantity> = (x: Quantity, y: Quantity): boolean => x === y;

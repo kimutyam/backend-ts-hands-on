@@ -18,7 +18,8 @@ const add =
       quantity: newQuantity,
     }));
 
-const calculateTotal = ({ product, quantity }: Item): number => product.price * quantity;
+const calculateTotal = ({ product, quantity }: Item): number =>
+  product.price * quantity;
 
 const buildSingle = (product: Product): Item => ({
   product,
@@ -26,7 +27,8 @@ const buildSingle = (product: Product): Item => ({
 });
 
 const equals: Eq<Item> = (x: Item, y: Item): boolean =>
-  Product.equals(x.product, y.product) && Quantity.equals(x.quantity, y.quantity);
+  Product.equals(x.product, y.product) &&
+  Quantity.equals(x.quantity, y.quantity);
 
 export const Item = {
   buildSingle,

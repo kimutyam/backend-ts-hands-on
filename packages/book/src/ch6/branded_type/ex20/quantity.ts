@@ -32,7 +32,9 @@ const build = (value: number): Quantity => {
 
 const safeBuild = (value: number): Result<QuantityError, Quantity> =>
   pipe(validate(value), (invariantsError) =>
-    invariantsError === undefined ? Success(value as Quantity) : Failure(invariantsError),
+    invariantsError === undefined
+      ? Success(value as Quantity)
+      : Failure(invariantsError),
   );
 
 export const Quantity = {

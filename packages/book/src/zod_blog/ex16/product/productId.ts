@@ -9,7 +9,10 @@ export type ProductId = z.infer<typeof schema>;
 export type ProductIdInput = z.input<typeof schema>;
 
 const build = (input: ProductIdInput): ProductId => schema.parse(input);
-const safeBuild = (input: ProductIdInput): Result<ProductId, z.ZodError<ProductIdInput>> =>
+
+const safeBuild = (
+  input: ProductIdInput,
+): Result<ProductId, z.ZodError<ProductIdInput>> =>
   buildFromZodDefault(schema.safeParse(input));
 
 export const ProductId = {
