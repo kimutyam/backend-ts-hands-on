@@ -6,10 +6,6 @@ it('品目の数量をマイナスで追加すると、合計がマイナスに'
     name: 'apple',
     price: 100,
   });
-  const orderTotal = R.pipe(
-    item,
-    Item.add(-10),
-    Item.total,
-  );
+  const orderTotal = R.pipe(item, Item.add(-10), Item.total);
   expect(orderTotal).toBe(-900);
 });

@@ -5,12 +5,7 @@ import { err, ok } from 'neverthrow';
 
 const app = new Hono();
 
-const parseEmployee = (
-  json: any,
-): Result<
-  { name: string; age: number },
-  ReadonlyArray<string>
-> => {
+const parseEmployee = (json: any): Result<{ name: string; age: number }, ReadonlyArray<string>> => {
   const errors: Array<string> = [];
 
   if (typeof json !== 'object' || json === null) {
@@ -19,9 +14,7 @@ const parseEmployee = (
     if (typeof json.name !== 'string') {
       errors.push("Property 'name' must be a string.");
     } else if (json.name.length < 3) {
-      errors.push(
-        "Property 'name' must be at least 3 characters long.",
-      );
+      errors.push("Property 'name' must be at least 3 characters long.");
     }
 
     if (typeof json.age !== 'number') {
@@ -31,9 +24,7 @@ const parseEmployee = (
     }
   }
 
-  return errors.length > 0
-    ? err(errors)
-    : ok({ name: json.name, age: json.age });
+  return errors.length > 0 ? err(errors) : ok({ name: json.name, age: json.age });
 };
 
 app.post('/', async (c) => {

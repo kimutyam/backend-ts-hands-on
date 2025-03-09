@@ -1,7 +1,4 @@
-import type {
-  Employee,
-  Manager,
-} from 'ch1/ex44/employee.js';
+import type { Employee, Manager } from 'ch1/ex44/employee.js';
 
 // あらゆるオブジェクトを代入可能なobject型です
 let anyObject: object;

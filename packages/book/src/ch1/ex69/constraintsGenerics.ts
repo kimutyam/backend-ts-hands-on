@@ -17,9 +17,4 @@ type UserResponse = ApiEntityResponse<{
   name: string;
 }>;
 
-export type {
-  UserResponse,
-  NoBodyResponse,
-  PayloadResponse,
-  ApiEntityResponse,
-};
+export type { UserResponse, NoBodyResponse, PayloadResponse, ApiEntityResponse };

@@ -8,10 +8,8 @@ export type Product = Readonly<{
   price: Price;
 }>;
 
-const isSameIdentity: Eq<Product> = (
-  x: Product,
-  y: Product,
-): boolean => ProductId.equals(x.productId, y.productId);
+const isSameIdentity: Eq<Product> = (x: Product, y: Product): boolean =>
+  ProductId.equals(x.productId, y.productId);
 
 const changePrice =
   (price: Price) =>

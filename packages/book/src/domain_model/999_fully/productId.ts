@@ -9,10 +9,7 @@ const build = (value: string): ProductId => {
   return value;
 };
 
-const equals: Eq<ProductId> = (
-  x: ProductId,
-  y: ProductId,
-): boolean => x === y;
+const equals: Eq<ProductId> = (x: ProductId, y: ProductId): boolean => x === y;
 
 export const ProductId = {
   build,

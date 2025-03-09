@@ -10,8 +10,7 @@ const build = (value: number): Price => {
   return value;
 };
 
-const equals: Eq<Price> = (x: Price, y: Price): boolean =>
-  x === y;
+const equals: Eq<Price> = (x: Price, y: Price): boolean => x === y;
 
 export const Price = {
   equals,

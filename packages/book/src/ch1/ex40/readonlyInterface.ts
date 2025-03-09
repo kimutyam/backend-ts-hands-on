@@ -3,10 +3,7 @@ interface Employee {
   readonly age: number;
 }
 
-const modifyName = (
-  employee: Employee,
-  name: string,
-): Employee => {
+const modifyName = (employee: Employee, name: string): Employee => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // eslint-disable-next-line no-param-reassign

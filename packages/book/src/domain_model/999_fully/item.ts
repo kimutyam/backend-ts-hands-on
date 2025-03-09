@@ -12,33 +12,20 @@ export type Item = Readonly<{
 const add =
   (quantity: Quantity) =>
   (item: Item): Result<Item, QuantityError> =>
-    Quantity.safeBuild(item.quantity + quantity).map(
-      (newQuantity) => ({
-        ...item,
-        quantity: newQuantity,
-      }),
-    );
+    Quantity.safeBuild(item.quantity + quantity).map((newQuantity) => ({
+      ...item,
+      quantity: newQuantity,
+    }));
 
-const calculateTotal = ({
-  product,
-  quantity,
-}: Item): number => product.price * quantity;
+const calculateTotal = ({ product, quantity }: Item): number => product.price * quantity;
 
-const build = (
-  product: Product,
-  quantity: Quantity,
-): Item => ({
+const build = (product: Product, quantity: Quantity): Item => ({
   product,
   quantity: Quantity.build(quantity),
 });
 
-const safeBuild = (
-  product: Product,
-  quantity: Quantity,
-): Result<Item, QuantityError> =>
-  Quantity.safeBuild(quantity).map((q) =>
-    Item.build(product, q),
-  );
+const safeBuild = (product: Product, quantity: Quantity): Result<Item, QuantityError> =>
+  Quantity.safeBuild(quantity).map((q) => Item.build(product, q));
 
 const buildSingle = (product: Product): Item => ({
   product,
@@ -46,8 +33,7 @@ const buildSingle = (product: Product): Item => ({
 });
 
 const equals: Eq<Item> = (x: Item, y: Item): boolean =>
-  Product.isSameIdentity(x.product, y.product) &&
-  Quantity.equals(x.quantity, y.quantity);
+  Product.isSameIdentity(x.product, y.product) && Quantity.equals(x.quantity, y.quantity);
 
 export const Item = {
   equals,

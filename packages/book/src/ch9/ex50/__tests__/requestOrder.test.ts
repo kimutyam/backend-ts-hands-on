@@ -43,12 +43,11 @@ describe('requestOrder', () => {
       ],
     });
 
-    const [
-      order,
-      orderRequested,
-      cartAfterOrder,
-      cartCleared,
-    ] = requestOrder(cart, products, OrderId.generate);
+    const [order, orderRequested, cartAfterOrder, cartCleared] = requestOrder(
+      cart,
+      products,
+      OrderId.generate,
+    );
 
     expect(order.items).toStrictEqual([
       {

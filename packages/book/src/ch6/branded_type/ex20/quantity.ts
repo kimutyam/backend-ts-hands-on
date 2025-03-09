@@ -1,10 +1,7 @@
 import assert from 'node:assert';
 import { InvariantsError } from 'ch6/branded_type/ex20/invariantsError.js';
 import type { Result } from 'ch6/branded_type/ex20/result.js';
-import {
-  Failure,
-  Success,
-} from 'ch6/branded_type/ex20/result.js';
+import { Failure, Success } from 'ch6/branded_type/ex20/result.js';
 import type { Brand } from 'ch6/branded_type/ex7/brand.js';
 import { pipe } from 'remeda';
 
@@ -13,9 +10,7 @@ export type Quantity = Brand<RawType, 'Quantity'>;
 
 type QuantityError = InvariantsError<RawType>;
 
-const validate = (
-  value: RawType,
-): QuantityError | undefined => {
+const validate = (value: RawType): QuantityError | undefined => {
   const issues: Array<string> = [];
   if (!Number.isInteger(value)) {
     issues.push('整数ではありません');
@@ -26,27 +21,18 @@ const validate = (
   if (value > 10) {
     issues.push('10個までしか含められません');
   }
-  return issues.length === 0
-    ? new InvariantsError(issues, value)
-    : undefined;
+  return issues.length === 0 ? new InvariantsError(issues, value) : undefined;
 };
 
 const build = (value: number): Quantity => {
   let issues: QuantityError | undefined;
-  assert(
-    (issues = validate(value)) === undefined,
-    issues?.message,
-  );
+  assert((issues = validate(value)) === undefined, issues?.message);
   return value as Quantity;
 };
 
-const safeBuild = (
-  value: number,
-): Result<QuantityError, Quantity> =>
+const safeBuild = (value: number): Result<QuantityError, Quantity> =>
   pipe(validate(value), (invariantsError) =>
-    invariantsError === undefined
-      ? Success(value as Quantity)
-      : Failure(invariantsError),
+    invariantsError === undefined ? Success(value as Quantity) : Failure(invariantsError),
   );
 
 export const Quantity = {

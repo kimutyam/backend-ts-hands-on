@@ -9,23 +9,15 @@ export type StudentId = Readonly<{
   attendanceNumber: number;
 }>;
 
-const equals: Eq<StudentId> = (
-  x: StudentId,
-  y: StudentId,
-): boolean =>
-  x.grade === y.grade &&
-  x.class === y.class &&
-  x.attendanceNumber === y.attendanceNumber;
+const equals: Eq<StudentId> = (x: StudentId, y: StudentId): boolean =>
+  x.grade === y.grade && x.class === y.class && x.attendanceNumber === y.attendanceNumber;
 
 export type Student = Readonly<{
   id: StudentId;
   name: string;
 }>;
 
-const isSameIdentity: Eq<Student> = (
-  x: Student,
-  y: Student,
-): boolean => equals(x.id, y.id);
+const isSameIdentity: Eq<Student> = (x: Student, y: Student): boolean => equals(x.id, y.id);
 
 export const Student = {
   isSameIdentity,

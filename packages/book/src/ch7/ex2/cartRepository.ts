@@ -4,9 +4,7 @@ import type { CustomerId } from 'ch7/ex1/customerId.js';
 import type { ResultAsync } from 'neverthrow';
 
 interface FindCartById {
-  (
-    aggregateId: CustomerId,
-  ): ResultAsync<Cart, CartNotFoundError>;
+  (aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError>;
 }
 
 interface SaveCart {

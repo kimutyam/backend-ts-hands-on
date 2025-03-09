@@ -1,9 +1,7 @@
 import type { GameResult } from 'ch1/ex64/gameResult.js';
 
 const assertNever = (x: never): never => {
-  throw new Error(
-    `${x} is Unexpected value. Should have been never.`,
-  );
+  throw new Error(`${x} is Unexpected value. Should have been never.`);
 };
 
 const calculateScore = (result: GameResult): number => {

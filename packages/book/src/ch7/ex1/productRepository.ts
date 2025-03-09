@@ -2,9 +2,7 @@ import type { Product } from 'ch7/ex1/product.js';
 import type { ProductId } from 'ch7/ex1/productId.js';
 
 interface IProductRepository {
-  findById: (
-    aggregateId: ProductId,
-  ) => Promise<Product | undefined>;
+  findById: (aggregateId: ProductId) => Promise<Product | undefined>;
 
   findAll: () => Promise<ReadonlyArray<Product>>;
 

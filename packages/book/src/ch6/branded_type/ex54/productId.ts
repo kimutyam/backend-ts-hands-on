@@ -8,10 +8,7 @@ const generate = () => zodType.parse(monotonicFactory());
 type Input = z.input<typeof zodType>;
 export type ProductId = z.infer<typeof zodType>;
 
-const equals: Eq<ProductId> = (
-  x: ProductId,
-  y: ProductId,
-): boolean => x === y;
+const equals: Eq<ProductId> = (x: ProductId, y: ProductId): boolean => x === y;
 
 const build = (a: Input): ProductId => zodType.parse(a);
 

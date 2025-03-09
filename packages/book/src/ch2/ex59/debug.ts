@@ -8,18 +8,14 @@ class Example {
   private static incrementSecretCount(): void {
     // eslint-disable-next-line no-plusplus
     Example.secretCount++;
-    console.log(
-      `Secret count incremented. Current secretCount: ${Example.secretCount}`,
-    );
+    console.log(`Secret count incremented. Current secretCount: ${Example.secretCount}`);
   }
 
   // public static メソッド
   static incrementPublicCount(): void {
     // eslint-disable-next-line no-plusplus
     Example.publicCount++;
-    console.log(
-      `Public count incremented. Current publicCount: ${Example.publicCount}`,
-    );
+    console.log(`Public count incremented. Current publicCount: ${Example.publicCount}`);
 
     // private static メソッドをクラス内で使用
     Example.incrementSecretCount();
@@ -32,9 +28,7 @@ class Example {
     this.instanceValue = value;
 
     // private インスタンスプロパティをクラス内で使用
-    console.log(
-      `Instance created with value: ${this.instanceValue}`,
-    );
+    console.log(`Instance created with value: ${this.instanceValue}`);
   }
 
   // public インスタンスメソッド
@@ -43,9 +37,7 @@ class Example {
 
     // private インスタンスメソッドをクラス内で使用
     this.updateInstanceValue(this.instanceValue * 2);
-    console.log(
-      `Updated instance value is: ${this.instanceValue}`,
-    );
+    console.log(`Updated instance value is: ${this.instanceValue}`);
   }
 
   // private インスタンスメソッド

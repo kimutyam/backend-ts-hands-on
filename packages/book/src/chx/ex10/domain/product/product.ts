@@ -18,10 +18,7 @@ const schema = Aggregate.makeSchema(
 
 export type Product = z.infer<typeof schema>;
 
-const isSameIdentity: Eq<Product> = (
-  x: Product,
-  y: Product,
-): boolean =>
+const isSameIdentity: Eq<Product> = (x: Product, y: Product): boolean =>
   ProductId.equals(x.aggregateId, y.aggregateId);
 
 const changePrice =

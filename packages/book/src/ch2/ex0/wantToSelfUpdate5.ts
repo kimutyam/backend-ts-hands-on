@@ -5,10 +5,7 @@ class Employee {
     public readonly age: number,
   ) {}
 
-  update<T extends Employee>(
-    target: T,
-    props: Partial<T>,
-  ): T {
+  update<T extends Employee>(target: T, props: Partial<T>): T {
     return { ...target, ...props };
   }
 }

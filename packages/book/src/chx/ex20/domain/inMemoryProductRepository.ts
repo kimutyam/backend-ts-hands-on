@@ -4,20 +4,13 @@ import { ProductNotFoundError } from 'chx/ex10/domain/product/productNotFoundErr
 import type { IProductRepository } from 'chx/ex20/domain/productRespository.js';
 import { err, ok, ResultAsync } from 'neverthrow';
 
-export class InMemoryProductRepository
-  implements IProductRepository
-{
-  private readonly aggregates: Record<ProductId, Product> =
-    {};
+export class InMemoryProductRepository implements IProductRepository {
+  private readonly aggregates: Record<ProductId, Product> = {};
 
-  findById(
-    aggregateId: ProductId,
-  ): ResultAsync<Product, ProductNotFoundError> {
+  findById(aggregateId: ProductId): ResultAsync<Product, ProductNotFoundError> {
     const aggregate = this.aggregates[aggregateId];
     const result =
-      aggregate === undefined
-        ? err(new ProductNotFoundError(aggregateId))
-        : ok(aggregate);
+      aggregate === undefined ? err(new ProductNotFoundError(aggregateId)) : ok(aggregate);
     const promise = Promise.resolve(result);
     return new ResultAsync(promise);
   }

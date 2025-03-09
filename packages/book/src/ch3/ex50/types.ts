@@ -9,11 +9,4 @@ declare function subRouting2(): Result<number, SomeError>;
 declare function calculate(a: number, b: number): number;
 declare function toMyError(a: SomeError): MyError;
 
-export {
-  type MyError,
-  type SomeError,
-  subRouting1,
-  subRouting2,
-  calculate,
-  toMyError,
-};
+export { type MyError, type SomeError, subRouting1, subRouting2, calculate, toMyError };

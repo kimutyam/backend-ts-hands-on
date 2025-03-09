@@ -21,20 +21,13 @@ const validate = (value: number): Array<string> => {
 
 const build = (value: number): Quantity => {
   let issues: Array<string>;
-  assert(
-    (issues = validate(value)).length === 0,
-    issues.join('\n'),
-  );
+  assert((issues = validate(value)).length === 0, issues.join('\n'));
   return value;
 };
 
-const safeBuild = (
-  value: number,
-): Result<Quantity, QuantityError> => {
+const safeBuild = (value: number): Result<Quantity, QuantityError> => {
   const issues = validate(value);
-  return issues.length
-    ? err(QuantityError.build(issues))
-    : ok(value);
+  return issues.length ? err(QuantityError.build(issues)) : ok(value);
 };
 
 export const Quantity = {

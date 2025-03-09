@@ -13,15 +13,9 @@ const add =
     quantity: Quantity.build(item.quantity + quantity),
   });
 
-const calculateTotal = ({
-  product,
-  quantity,
-}: Item): number => product.price * quantity;
+const calculateTotal = ({ product, quantity }: Item): number => product.price * quantity;
 
-const build = (
-  product: Product,
-  quantity: Quantity,
-): Item => ({
+const build = (product: Product, quantity: Quantity): Item => ({
   product,
   quantity: Quantity.build(quantity),
 });

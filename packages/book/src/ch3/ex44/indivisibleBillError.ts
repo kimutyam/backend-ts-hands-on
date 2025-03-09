@@ -1,9 +1,7 @@
 import { DiscriminatedError } from 'ch3/ex44/discriminatedError.js';
 
 const IndivisibleBillErrorKind = 'IndivisibleBillError';
-class IndivisibleBillError extends DiscriminatedError<
-  typeof IndivisibleBillErrorKind
-> {
+class IndivisibleBillError extends DiscriminatedError<typeof IndivisibleBillErrorKind> {
   constructor(
     message: string,
     public calculated: number,

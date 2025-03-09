@@ -6,16 +6,11 @@ import { errAsync, okAsync } from 'neverthrow';
 import type { ResultAsync } from 'neverthrow';
 
 class InMemoryCartRepository implements ICartRepository {
-  private readonly aggregates: Map<CustomerId, Cart> =
-    new Map<CustomerId, Cart>();
+  private readonly aggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>();
 
-  findById(
-    aggregateId: CustomerId,
-  ): ResultAsync<Cart, CartNotFoundError> {
+  findById(aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError> {
     const aggregate = this.aggregates.get(aggregateId);
-    return aggregate
-      ? okAsync(aggregate)
-      : errAsync(new CartNotFoundError(aggregateId));
+    return aggregate ? okAsync(aggregate) : errAsync(new CartNotFoundError(aggregateId));
   }
 
   save(aggregate: Cart): Promise<void> {

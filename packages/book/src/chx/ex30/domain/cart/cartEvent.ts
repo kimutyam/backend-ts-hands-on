@@ -8,21 +8,13 @@ export const CartClearedOnOrder = {
   name: 'CartClearedOnOrder' as const,
 } as const;
 
-export type CartClearedOnOrder = DomainEvent<
-  CustomerId,
-  typeof CartClearedOnOrder.name,
-  undefined
->;
+export type CartClearedOnOrder = DomainEvent<CustomerId, typeof CartClearedOnOrder.name, undefined>;
 
 export const CartItemAdded = {
   name: 'CartItemAdded' as const,
 } as const;
 
-export type CartItemAdded = DomainEvent<
-  CustomerId,
-  typeof CartItemAdded.name,
-  { item: Item }
->;
+export type CartItemAdded = DomainEvent<CustomerId, typeof CartItemAdded.name, { item: Item }>;
 
 export const CartItemRemoved = {
   name: 'CartItemRemoved' as const,

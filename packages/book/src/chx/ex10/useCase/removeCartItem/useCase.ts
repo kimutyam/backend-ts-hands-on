@@ -1,7 +1,4 @@
-import type {
-  Cart,
-  CartError,
-} from 'chx/ex10/domain/cart/cart.js';
+import type { Cart, CartError } from 'chx/ex10/domain/cart/cart.js';
 import { CustomerId } from 'chx/ex10/domain/customer/customerId.js';
 import { ProductId } from 'chx/ex10/domain/product/productId.js';
 import type { ProductNotFoundError } from 'chx/ex10/domain/product/productNotFoundError.js';
@@ -21,8 +18,4 @@ export type Output = Cart;
 
 export type UseCaseError = CartError | ProductNotFoundError;
 
-export type RemoveCartItemUseCase = UseCase<
-  Input,
-  Output,
-  UseCaseError
->;
+export type RemoveCartItemUseCase = UseCase<Input, Output, UseCaseError>;

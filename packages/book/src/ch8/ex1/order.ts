@@ -32,13 +32,7 @@ const generate = (
   customerId: CustomerId,
   items: ReadonlyArray<CartItem>,
   generateOrderId: () => OrderId,
-): Order =>
-  build(
-    generateOrderId(),
-    Aggregate.InitialSequenceNumber,
-    customerId,
-    items,
-  );
+): Order => build(generateOrderId(), Aggregate.InitialSequenceNumber, customerId, items);
 
 const Order = {
   name,

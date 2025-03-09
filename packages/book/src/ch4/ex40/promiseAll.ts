@@ -1,7 +1,4 @@
-const promises1: Array<Promise<number>> = [
-  Promise.resolve(1),
-  Promise.resolve(2),
-];
+const promises1: Array<Promise<number>> = [Promise.resolve(1), Promise.resolve(2)];
 
 const p1: Promise<Array<number>> = Promise.all(promises1);
 

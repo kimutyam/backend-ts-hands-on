@@ -4,10 +4,7 @@ interface Employee {
   age: number;
 }
 
-const modifyName = (
-  employee: Employee,
-  name: EmployeeName,
-): Employee => ({
+const modifyName = (employee: Employee, name: EmployeeName): Employee => ({
   ...employee,
   name,
 });
