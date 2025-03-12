@@ -53,6 +53,8 @@ export default [
       ],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      // TODO: 執筆を進めながら徐々に改修する
+      // 'no-inline-comments': 'error',
     },
   },
 ];
