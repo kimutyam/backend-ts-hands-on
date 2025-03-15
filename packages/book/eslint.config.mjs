@@ -28,10 +28,7 @@ export default [
         },
       ],
       'func-style': ['error', 'expression'],
-      '@typescript-eslint/method-signature-style': [
-        'error',
-        'property',
-      ],
+      '@typescript-eslint/method-signature-style': ['error', 'property'],
       'no-relative-import-paths/no-relative-import-paths': [
         'error',
         {
@@ -52,7 +49,7 @@ export default [
         },
       ],
       'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
+      // 'simple-import-sort/exports': 'error',
       // TODO: 執筆を進めながら徐々に改修する
       // 'no-inline-comments': 'error',
     },
