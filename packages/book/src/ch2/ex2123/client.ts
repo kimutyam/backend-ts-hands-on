@@ -1,5 +1,5 @@
-import type { Period } from 'ch2/ex14/period.js';
-import { isWithin, postpone } from 'ch2/ex14/period.js';
+import type { Period } from 'ch2/ex2123/period.js';
+import { isWithin, postpone } from 'ch2/ex2123/period.js';
 import { pipe } from 'remeda';
 
 const period: Period = {

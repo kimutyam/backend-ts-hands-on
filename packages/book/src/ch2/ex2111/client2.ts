@@ -1,5 +1,5 @@
-import type { Period } from 'ch2/ex10/period.js';
-import { extend, isWithin, postpone } from 'ch2/ex10/period.js';
+import type { Period } from 'ch2/ex2111/period.js';
+import { extend, isWithin, postpone } from 'ch2/ex2111/period.js';
 
 const period: Period = {
   start: new Date(2024, 0, 1, 0, 0, 0),
