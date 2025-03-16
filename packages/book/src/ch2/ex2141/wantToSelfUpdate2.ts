@@ -4,7 +4,6 @@ interface Employee {
   readonly update: (target: Employee, props: Partial<Employee>) => Employee;
 }
 
-// extendsしないで定義する必要がでてくる
 interface Manager {
   readonly name: string;
   readonly age: number;
