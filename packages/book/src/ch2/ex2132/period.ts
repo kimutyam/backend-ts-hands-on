@@ -6,14 +6,13 @@ interface Period {
   readonly end: Date;
 }
 
-// NOTE: 振る舞いの定義は割愛
-
 const Period = {
-  buildAt: (start: Date, periodDate: number): Period => ({
+  // 1
+  of: (start: Date, periodDate: number): Period => ({
     start,
     end: pipe(start, addDays(periodDate)),
   }),
-} as const;
+} as const; // 2
 
-// 型と値の両方を公開します
+// 3
 export { Period };
