@@ -3,6 +3,6 @@ interface Something {
   readonly name: string;
 }
 
-declare function buildAt(name: string): Something;
+declare function of(name: string): Something;
 
-export { buildAt };
+export { of };
