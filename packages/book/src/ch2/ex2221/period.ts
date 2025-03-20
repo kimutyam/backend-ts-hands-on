@@ -12,11 +12,13 @@ const isSameOrBefore =
     isBefore(date, dateToCompare) || isEqual(date, dateToCompare);
 
 class Period {
+  // 1
   constructor(
     public readonly start: Date,
     public readonly end: Date,
   ) {}
 
+  // 2
   isWithin(dateToCompare: Date): boolean {
     return (
       pipe(this.start, isSameOrAfter(dateToCompare)) &&
@@ -24,6 +26,7 @@ class Period {
     );
   }
 
+  // 2
   postpone(delayDays: number, delayHours: number): Period {
     return new Period(
       pipe(this.start, addDays(delayDays), addHours(delayHours)),
@@ -31,6 +34,7 @@ class Period {
     );
   }
 
+  // 2
   extend(extensionDays: number, extensionHours: number): Period {
     return new Period(
       this.start,
@@ -38,6 +42,7 @@ class Period {
     );
   }
 
+  // 3
   static build(start: Date, periodDate: number): Period {
     return new Period(start, pipe(start, addDays(periodDate)));
   }
