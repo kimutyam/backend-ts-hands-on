@@ -1,4 +1,4 @@
-import { Rational } from 'ch2/ex51/rational.js';
+import { Rational } from 'ch2/ex2222/rational.js';
 
 describe('Rational', () => {
   it('add', () => {
