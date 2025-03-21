@@ -3,23 +3,17 @@ import assert from 'node:assert';
 class Rational {
   private readonly gcd: number;
 
-  // 1
-  public readonly numerator: number;
+  public readonly numerator: number; // 1
 
-  // 1
-  public readonly denominator: number;
+  public readonly denominator: number; // 1
 
   constructor(initNumerator: number, initDenominator: number) {
-    // 2
-    assert(initDenominator !== 0);
-    // 2
-    assert(Number.isInteger(initNumerator));
-    // 2
-    assert(Number.isInteger(initDenominator));
-    // 3
-    this.gcd = this.calculateGcd(initNumerator, initDenominator);
-    this.numerator = initNumerator / this.gcd;
-    this.denominator = initDenominator / this.gcd;
+    assert(initDenominator !== 0); // 2
+    assert(Number.isInteger(initNumerator)); // 2
+    assert(Number.isInteger(initDenominator)); // 2
+    this.gcd = this.calculateGcd(initNumerator, initDenominator); // 3
+    this.numerator = initNumerator / this.gcd; // 3
+    this.denominator = initDenominator / this.gcd; // 3
   }
 
   // 4

@@ -1,5 +1,5 @@
 import { addDays, addHours, isAfter, isBefore, isEqual } from 'date-fns/fp';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 const isSameOrAfter =
   (dateToCompare: Date) =>
@@ -21,16 +21,16 @@ class Period {
   // 2
   isWithin(dateToCompare: Date): boolean {
     return (
-      pipe(this.start, isSameOrAfter(dateToCompare)) &&
-      pipe(this.end, isSameOrBefore(dateToCompare))
+      R.pipe(this.start, isSameOrAfter(dateToCompare)) &&
+      R.pipe(this.end, isSameOrBefore(dateToCompare))
     );
   }
 
   // 2
   postpone(delayDays: number, delayHours: number): Period {
     return new Period(
-      pipe(this.start, addDays(delayDays), addHours(delayHours)),
-      pipe(this.end, addDays(delayDays), addHours(delayHours)),
+      R.pipe(this.start, addDays(delayDays), addHours(delayHours)),
+      R.pipe(this.end, addDays(delayDays), addHours(delayHours)),
     );
   }
 
@@ -38,13 +38,13 @@ class Period {
   extend(extensionDays: number, extensionHours: number): Period {
     return new Period(
       this.start,
-      pipe(this.end, addDays(extensionDays), addHours(extensionHours)),
+      R.pipe(this.end, addDays(extensionDays), addHours(extensionHours)),
     );
   }
 
   // 3
   static build(start: Date, periodDate: number): Period {
-    return new Period(start, pipe(start, addDays(periodDate)));
+    return new Period(start, R.pipe(start, addDays(periodDate)));
   }
 }
 
