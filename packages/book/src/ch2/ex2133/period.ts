@@ -36,13 +36,13 @@ const extend =
     end: pipe(end, addDays(extensionDays), addHours(extensionHours)),
   });
 
-const of = (start: Date, periodDate: number): Period => ({
+const build = (start: Date, periodDate: number): Period => ({
   start,
   end: pipe(start, addDays(periodDate)),
 });
 
 const Period = {
-  of,
+  build,
   isWithin,
   extend,
   postpone,

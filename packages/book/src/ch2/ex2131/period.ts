@@ -7,10 +7,10 @@ interface Period {
 }
 
 // 1
-const of = (start: Date, periodDays: number): Period => ({
+const build = (start: Date, periodDays: number): Period => ({
   start,
   end: R.pipe(start, addDays(periodDays)),
 });
 
 // 2
-export { of, type Period };
+export { build, type Period };
