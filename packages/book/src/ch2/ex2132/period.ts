@@ -8,7 +8,7 @@ interface Period {
 
 const Period = {
   // 1
-  of: (start: Date, periodDate: number): Period => ({
+  build: (start: Date, periodDate: number): Period => ({
     start,
     end: pipe(start, addDays(periodDate)),
   }),

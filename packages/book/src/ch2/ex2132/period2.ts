@@ -6,14 +6,14 @@ interface Period {
   readonly end: Date;
 }
 
-const of = (start: Date, periodDays: number): Period => ({
+const build = (start: Date, periodDays: number): Period => ({
   start,
   end: R.pipe(start, addDays(periodDays)),
 });
 
 const Period = {
-  of,
-} as const; // 2
+  build, // 1
+} as const;
 
 // 3
 export { Period };
