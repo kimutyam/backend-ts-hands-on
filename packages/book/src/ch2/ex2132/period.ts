@@ -1,5 +1,5 @@
 import { addDays } from 'date-fns/fp';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 interface Period {
   readonly start: Date;
@@ -10,7 +10,7 @@ const Period = {
   // 1
   build: (start: Date, periodDate: number): Period => ({
     start,
-    end: pipe(start, addDays(periodDate)),
+    end: R.pipe(start, addDays(periodDate)),
   }),
 } as const; // 2
 
