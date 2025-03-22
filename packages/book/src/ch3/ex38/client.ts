@@ -1,5 +1,5 @@
-import { NumberOfMembersError } from 'ch3/ex26/numberOfMembersError.js';
 import { splitBillFloorAsync } from 'ch3/ex38/splitBillFloorAsync.js';
+import { NumberOfMembersError } from 'ch3/ex3225/numberOfMembersError.js';
 
 await splitBillFloorAsync(100, 1).catch((reason): Promise<number> => {
   if (reason instanceof NumberOfMembersError) {
