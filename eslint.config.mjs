@@ -1,43 +1,45 @@
 import js from '@eslint/js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { FlatCompat } from '@eslint/eslintrc';
-import typeScriptESLint from '@typescript-eslint/eslint-plugin';
-import typeScriptESLintParser from '@typescript-eslint/parser';
 import { fixupConfigRules } from '@eslint/compat';
+import globals from "globals"
 
 const compat = new FlatCompat();
 
 export default [
   {
-    ignores: ['**/*.js'],
+    ignores: ['**/*.js', '**/*.mjs'],
   },
   js.configs.recommended,
   eslintConfigPrettier,
-  ...fixupConfigRules(
-    compat.extends(
-      'airbnb-base',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:import/errors',
-      'plugin:import/warnings',
-      'prettier',
-    ),
-  ),
-  ...compat.env({
-    node: true,
-    jest: true,
-  }),
+  ...fixupConfigRules(compat.extends('airbnb-base')),
   {
+    name: 'prettier',
+    rules: {
+      ...eslintConfigPrettier.rules,
+    },
+  },
+  {
+    files: ['**/*.ts'],
     plugins: {
-      typeScriptESLint,
+      '@typescript-eslint': tsPlugin,
     },
     languageOptions: {
-      parser: typeScriptESLintParser,
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      },
+      parser: tsParser,
       parserOptions: {
         project: true,
         sourceType: 'module',
       },
     },
     rules: {
+      ...tsPlugin.configs.recommended.rules,
+      'no-const-assign': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-inferrable-types': 'error',
@@ -85,6 +87,12 @@ export default [
           },
         },
       ],
+      'import/no-extraneous-dependencies': [
+        'error',
+        {
+          devDependencies: ['**/test/**', '**/__tests__/**'],
+        },
+      ],
       'no-useless-constructor': 'off',
       '@typescript-eslint/no-useless-constructor': 'error',
       'no-empty-function': 'off',
@@ -92,12 +100,6 @@ export default [
       'class-methods-use-this': 'off',
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': ['error'],
-      'import/no-extraneous-dependencies': [
-        'error',
-        {
-          devDependencies: ['**/test/**', '**/__tests__/**'],
-        },
-      ],
       'arrow-body-style': ['error', 'as-needed'],
       // SEE: https://github.com/iamturns/eslint-config-airbnb-typescript/blob/91fd090f6fdd8d598a6ac6e9bb2c2ba33014e425/lib/shared.js#L84-L87
       'dot-notation': 'off',

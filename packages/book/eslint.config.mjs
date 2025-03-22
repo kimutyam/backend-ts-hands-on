@@ -1,7 +1,9 @@
 import { FlatCompat } from '@eslint/eslintrc';
 import baseConfig from '../../eslint.config.mjs';
-import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import stylisticJs from '@stylistic/eslint-plugin-js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import tsParser from '@typescript-eslint/parser';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 const compat = new FlatCompat();
@@ -9,10 +11,19 @@ const compat = new FlatCompat();
 export default [
   ...baseConfig,
   {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: true,
+        sourceType: 'module',
+      },
+    },
     plugins: {
       'no-relative-import-paths': noRelativeImportPaths,
       '@stylistic/js': stylisticJs,
       'simple-import-sort': simpleImportSort,
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
       'no-console': 'off',
