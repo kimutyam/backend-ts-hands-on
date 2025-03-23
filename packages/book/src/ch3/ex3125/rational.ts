@@ -16,17 +16,20 @@ class Rational {
     this.denominator = initDenominator / this.gcd;
   }
 
-  add = (that: Rational): Rational =>
-    new Rational(
+  add(that: Rational): Rational {
+    return new Rational(
       this.numerator * that.denominator + that.numerator * this.denominator,
       this.denominator * that.denominator,
     );
+  }
 
-  toString = (): string =>
-    `${this.numerator.toString()}/${this.denominator.toString()}`;
+  toString(): string {
+    return `${this.numerator.toString()}/${this.denominator.toString()}`;
+  }
 
-  private calculateGcd = (a: number, b: number): number =>
-    b === 0 ? a : this.calculateGcd(b, a % b);
+  private calculateGcd(a: number, b: number): number {
+    return b === 0 ? a : this.calculateGcd(b, a % b);
+  }
 }
 
 export { Rational };
