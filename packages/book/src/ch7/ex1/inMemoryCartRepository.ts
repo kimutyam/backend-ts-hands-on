@@ -11,22 +11,24 @@ class InMemoryCartRepository implements ICartRepository {
     Cart
   >();
 
-  findById(aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError> {
+  findById = (
+    aggregateId: CustomerId,
+  ): ResultAsync<Cart, CartNotFoundError> => {
     const aggregate = this.aggregates.get(aggregateId);
     return aggregate
       ? okAsync(aggregate)
       : errAsync(new CartNotFoundError(aggregateId));
-  }
+  };
 
-  save(aggregate: Cart): Promise<void> {
+  save = (aggregate: Cart): Promise<void> => {
     this.aggregates.set(aggregate.aggregateId, aggregate);
     return Promise.resolve();
-  }
+  };
 
-  deleteById(aggregateId: CustomerId): Promise<void> {
+  deleteById = (aggregateId: CustomerId): Promise<void> => {
     this.aggregates.delete(aggregateId);
     return Promise.resolve();
-  }
+  };
 }
 
 export { InMemoryCartRepository };

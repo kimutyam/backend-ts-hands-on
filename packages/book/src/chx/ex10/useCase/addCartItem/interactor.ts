@@ -19,12 +19,12 @@ export class AddItemCartInteractor implements AddCartItemUseCase {
     private readonly productResolver: ProductResolver,
   ) {}
 
-  run({
+  run = ({
     customerId,
     productId,
     quantity,
-  }: Input): ResultAsync<Output, UseCaseError> {
-    return this.productResolver
+  }: Input): ResultAsync<Output, UseCaseError> =>
+    this.productResolver
       .resolveBy(productId)
       .map((product) => ({
         productId: product.aggregateId,
@@ -37,5 +37,4 @@ export class AddItemCartInteractor implements AddCartItemUseCase {
         ).andThen(Cart.addItem(item)),
       )
       .map(this.cartStorer.store);
-  }
 }

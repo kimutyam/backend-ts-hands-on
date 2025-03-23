@@ -4,10 +4,9 @@ export class QuantityError extends Error {
     public descriptions: Array<string>,
   ) {
     super(message);
-    this.name = 'QuantityError';
+    this.name = this.constructor.name;
   }
 
-  static build(descriptions: Array<string>): QuantityError {
-    return new QuantityError(descriptions.join('\n'), descriptions);
-  }
+  static build = (descriptions: Array<string>): QuantityError =>
+    new QuantityError(descriptions.join('\n'), descriptions);
 }

@@ -7,7 +7,9 @@ import { err, ok, ResultAsync } from 'neverthrow';
 export class InMemoryProductRepository implements IProductRepository {
   private readonly aggregates: Record<ProductId, Product> = {};
 
-  findById(aggregateId: ProductId): ResultAsync<Product, ProductNotFoundError> {
+  findById = (
+    aggregateId: ProductId,
+  ): ResultAsync<Product, ProductNotFoundError> => {
     const aggregate = this.aggregates[aggregateId];
     const result =
       aggregate === undefined
@@ -15,20 +17,19 @@ export class InMemoryProductRepository implements IProductRepository {
         : ok(aggregate);
     const promise = Promise.resolve(result);
     return new ResultAsync(promise);
-  }
+  };
 
-  findAll(): Promise<ReadonlyArray<Product>> {
-    return Promise.resolve(Object.values(this.aggregates));
-  }
+  findAll = (): Promise<ReadonlyArray<Product>> =>
+    Promise.resolve(Object.values(this.aggregates));
 
-  save(aggregate: Product): Promise<void> {
+  save = (aggregate: Product): Promise<void> => {
     this.aggregates[aggregate.aggregateId] = aggregate;
     return Promise.resolve();
-  }
+  };
 
-  deleteById(aggregateId: ProductId): Promise<void> {
+  deleteById = (aggregateId: ProductId): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.aggregates[aggregateId];
     return Promise.resolve(undefined);
-  }
+  };
 }

@@ -5,6 +5,6 @@ export class InvariantsError<T> extends Error {
   ) {
     const message = issues.join('\n');
     super(message);
-    this.name = 'InvariantsError';
+    this.name = this.constructor.name;
   }
 }
