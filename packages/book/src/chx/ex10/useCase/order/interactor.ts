@@ -27,28 +27,27 @@ export class OrderInteractor implements OrderUseCase {
   ) {}
 
   // TODO: 集約をまたぐトランザクション
-  private async transactionOrder([order, cart]: [Order, Cart]): Promise<
+  private transactionOrder = async ([order, cart]: [Order, Cart]): Promise<
     [Order, Cart]
-  > {
+  > => {
     await this.orderStorer.store(order);
     await this.cartStorer.store(cart);
     return [order, cart];
-  }
+  };
 
-  private resolveCartProduct({
+  private resolveCartProduct = ({
     props,
-  }: Cart): ResultAsync<ReadonlyArray<Product>, ProductsNotFoundError> {
+  }: Cart): ResultAsync<ReadonlyArray<Product>, ProductsNotFoundError> => {
     const productIds = props.items.map(({ productId }) => productId);
     return this.productsResolver.resolveIn(productIds);
-  }
+  };
 
-  private submitOrder(
+  private submitOrder = (
     cart: Cart,
-  ): ResultAsync<[Order, Cart], ProductsNotFoundError> {
-    return this.resolveCartProduct(cart).map((products) =>
+  ): ResultAsync<[Order, Cart], ProductsNotFoundError> =>
+    this.resolveCartProduct(cart).map((products) =>
       OrderService(cart, products, OrderId.generate),
     );
-  }
 
   run({ customerId }: Input): ResultAsync<Output, UseCaseError> {
     return ResultAsync.fromSafePromise(

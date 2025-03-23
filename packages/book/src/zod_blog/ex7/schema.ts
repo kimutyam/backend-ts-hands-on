@@ -10,6 +10,6 @@ export const productSchema = z.object({
 });
 
 export const sortedStringSchema = z.string().refine(
-  (arg) => [...arg].sort().join('') === arg,
+  (arg) => Array.from(arg).sort().join('') === arg,
   (arg) => ({ message: `ソートされていません: ${arg}` }),
 );

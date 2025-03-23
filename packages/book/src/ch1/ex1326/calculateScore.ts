@@ -1,6 +1,7 @@
 import type { GameResult } from 'ch1/ex1327/gameResult.js';
 
 const assertNever = (x: never): never => {
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   throw new Error(`${x} is Unexpected value. Should have been never.`);
 };
 

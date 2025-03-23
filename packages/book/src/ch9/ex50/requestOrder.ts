@@ -15,7 +15,7 @@ const applyPrice = (
   { cartItems }: Cart,
   products: ReadonlyArray<Product>,
 ): ReadonlyArray<CartItem> =>
-  cartItems.reduce((acc, item) => {
+  cartItems.reduce<Array<CartItem>>((acc, item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
@@ -27,7 +27,7 @@ const applyPrice = (
       });
     }
     return acc;
-  }, [] as Array<CartItem>);
+  }, []);
 
 const assertExistsProduct = (
   cart: Cart,

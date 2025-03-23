@@ -56,19 +56,19 @@ const schemaWithRefinements = schema
   .refine(
     (cart) => withinItemsLimit(cart),
     () => ({
-      message: `カート項目数上限 ${ItemsLimit} を上回っています`,
+      message: `カート項目数上限 ${ItemsLimit.toString()} を上回っています`,
     }),
   )
   .refine(
     (cart) => withinTotalQuantityLimit(cart),
     () => ({
-      message: `合計数量上限 ${TotalQuantityLimit} を上回っています`,
+      message: `合計数量上限 ${TotalQuantityLimit.toString()} を上回っています`,
     }),
   )
   .refine(
     (cart) => withinTotalPriceLimit(cart),
     () => ({
-      message: `合計金額上限 ${TotalPriceLimit} を上回っています`,
+      message: `合計金額上限 ${TotalPriceLimit.toString()} を上回っています`,
     }),
   );
 

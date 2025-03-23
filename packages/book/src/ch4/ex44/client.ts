@@ -7,6 +7,10 @@ const r1: Result<number, string> = r
   .mapErr((a) => a.join(' '));
 
 r1.match(
-  (t) => console.log(`Sum is ${t}`),
-  (e) => console.error(e),
+  (t) => {
+    console.log(`Sum is ${t.toString()}`);
+  },
+  (e) => {
+    console.error(e);
+  },
 );
