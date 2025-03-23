@@ -4,7 +4,7 @@ import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { FlatCompat } from '@eslint/eslintrc';
 import { fixupConfigRules } from '@eslint/compat';
-import globals from "globals"
+import globals from 'globals';
 
 const compat = new FlatCompat();
 
@@ -29,7 +29,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest
+        ...globals.jest,
       },
       parser: tsParser,
       parserOptions: {
@@ -39,6 +39,7 @@ export default [
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
+      ...tsPlugin.configs['recommended-type-checked'].rules,
       'no-const-assign': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -103,6 +104,12 @@ export default [
       'arrow-body-style': ['error', 'as-needed'],
       // SEE: https://github.com/iamturns/eslint-config-airbnb-typescript/blob/91fd090f6fdd8d598a6ac6e9bb2c2ba33014e425/lib/shared.js#L84-L87
       'dot-notation': 'off',
+    },
+  },
+  {
+    files: ['**/*.test.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
     },
   },
 ];

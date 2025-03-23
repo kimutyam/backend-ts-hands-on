@@ -6,7 +6,10 @@ const splitBillFloorAsync = (bill: number, members: number): Promise<number> =>
     if (reason instanceof IndivisibleBillError) {
       return Promise.resolve(Math.floor(reason.calculated));
     }
-    return Promise.reject(reason);
+    if (reason instanceof Error) {
+      return Promise.reject(reason);
+    }
+    return Promise.reject(new Error(String(reason)));
   });
 
 export { splitBillFloorAsync };

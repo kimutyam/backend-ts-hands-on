@@ -7,8 +7,8 @@ const p1: Promise<Array<number>> = Promise.all(promises1);
 
 const promises2: Array<Promise<number>> = [
   Promise.resolve(1),
-  // eslint-disable-next-line prefer-promise-reject-errors
-  Promise.reject('Oh!'),
+
+  Promise.reject(new Error('Oh!')),
   Promise.resolve(2),
 ];
 

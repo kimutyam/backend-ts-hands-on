@@ -1,5 +1,5 @@
 try {
-  // eslint-disable-next-line no-throw-literal
+  // eslint-disable-next-line @typescript-eslint/only-throw-error
   throw 'example';
 } catch (e) {
   // exampleと出力される

@@ -4,7 +4,7 @@ import { Item } from 'chx/ex10/domain/item/item.js';
 import { OrderId } from 'chx/ex10/domain/order/orderId.js';
 import * as z from 'zod';
 
-const aggregateName = 'order' as const;
+const aggregateName = 'order';
 
 const schema = Aggregate.makeSchema(
   OrderId.schema,

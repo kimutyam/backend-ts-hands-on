@@ -4,7 +4,7 @@ import { ProductId } from 'chx/ex10/domain/product/productId.js';
 import type { Eq } from 'chx/ex10/util/eq.js';
 import * as z from 'zod';
 
-const aggregateName = 'product' as const;
+const aggregateName = 'product';
 
 const schema = Aggregate.makeSchema(
   ProductId.schema,

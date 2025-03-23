@@ -25,7 +25,7 @@ const generate =
     payload: Payload,
     generateEventId: () => DomainEventId = DomainEventId.generate,
   ) =>
-  <A extends Aggregate<any, any>>(
+  <A extends Aggregate<unknown, any>>(
     aggregate: A,
   ): DomainEvent<A['aggregateId'], EventName, Payload> => {
     const eventId = generateEventId();
