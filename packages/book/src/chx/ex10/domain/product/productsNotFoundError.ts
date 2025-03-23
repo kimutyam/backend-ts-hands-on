@@ -6,6 +6,6 @@ export class ProductsNotFoundError extends Error {
     public productIds: ReadonlyArray<ProductId>,
   ) {
     super(message);
-    this.name = 'ProductsNotFoundError';
+    this.name = this.constructor.name;
   }
 }
