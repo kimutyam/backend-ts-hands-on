@@ -26,7 +26,7 @@ class Rational {
 
   // 5
   toString(): string {
-    return `${this.numerator}/${this.denominator}`;
+    return `${this.numerator.toString()}/${this.denominator.toString()}`;
   }
 
   private calculateGcd(a: number, b: number): number {

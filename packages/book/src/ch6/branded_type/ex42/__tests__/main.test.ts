@@ -68,7 +68,7 @@ describe('ユーザー定義のRefinements', () => {
     .min(3)
     .max(10, '10文字以内で指定ください')
     .refine(
-      (arg) => [...arg].sort().join('') === arg,
+      (arg) => Array.from(arg).sort().join('') === arg,
       (arg) => ({
         message: `ソートされていません: ${arg}`,
       }),

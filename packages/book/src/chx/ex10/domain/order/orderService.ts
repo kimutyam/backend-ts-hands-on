@@ -9,7 +9,7 @@ import { ProductId } from 'chx/ex10/domain/product/productId.js';
 
 const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
   const { props } = cart;
-  const items = props.items.reduce((acc, item) => {
+  const items = props.items.reduce<Array<Item>>((acc, item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
@@ -21,7 +21,7 @@ const detectItems = (cart: Cart, products: ReadonlyArray<Product>) => {
       });
     }
     return acc;
-  }, [] as Array<Item>);
+  }, []);
   assert(props.items.length === items.length);
   return items;
 };

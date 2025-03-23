@@ -27,6 +27,7 @@ export class InMemoryProductRepository implements IProductRepository {
   }
 
   deleteById(aggregateId: ProductId): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.aggregates[aggregateId];
     return Promise.resolve(undefined);
   }

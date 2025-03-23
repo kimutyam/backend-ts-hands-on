@@ -17,7 +17,7 @@ const applyItems = (
   products: ReadonlyArray<Product>,
 ): ReadonlyArray<Item> => {
   const { props } = cart;
-  const items = props.items.reduce((acc, item) => {
+  const items = props.items.reduce<Array<Item>>((acc, item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
@@ -29,7 +29,7 @@ const applyItems = (
       });
     }
     return acc;
-  }, [] as Array<Item>);
+  }, []);
   assert(props.items.length === items.length);
   return items;
 };

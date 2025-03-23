@@ -12,9 +12,13 @@ const managerFn: EmployeeFn = {
   // 反変と評価されるためコンパイルエラーになります
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  printFn: (arg: Manager) => console.log(arg.grade),
+  printFn: (arg: Manager): void => {
+    console.log(arg.grade);
+  },
   // 双変になるため、コンパイルエラーになりません
-  printMethod: (arg: Manager) => console.log(arg.grade),
+  printMethod: (arg: Manager): void => {
+    console.log(arg.grade);
+  },
 };
 
 export { managerFn };

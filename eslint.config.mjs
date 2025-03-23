@@ -38,8 +38,7 @@ export default [
       },
     },
     rules: {
-      ...tsPlugin.configs.recommended.rules,
-      ...tsPlugin.configs['recommended-type-checked'].rules,
+      ...tsPlugin.configs['strict-type-checked'].rules,
       'no-const-assign': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -67,6 +66,7 @@ export default [
       ],
       '@typescript-eslint/no-misused-promises': 'error',
       '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
       'import/prefer-default-export': 'off',
       'import/no-unresolved': 'off',
       'import/export': 'off',
