@@ -21,15 +21,14 @@ export class UpdateCartItemQuantityInteractor
     private productResolver: ProductResolver,
   ) {}
 
-  run({
+  run = ({
     customerId,
     productId,
     quantity,
-  }: Input): ResultAsync<Output, UseCaseError> {
-    return this.productResolver
+  }: Input): ResultAsync<Output, UseCaseError> =>
+    this.productResolver
       .resolveBy(productId)
       .map(() => this.cartResolver.resolveById(customerId))
       .andThen(Cart.updateItemQuantity(productId, quantity))
       .map(this.cartStorer.store);
-  }
 }

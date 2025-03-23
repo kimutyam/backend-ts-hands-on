@@ -1,6 +1,6 @@
 class NumberOfMembersError extends Error {
   constructor(public readonly members: number) {
-    super('2 or more people required');
+    super('2人以上を指定してください');
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (Error.captureStackTrace) {

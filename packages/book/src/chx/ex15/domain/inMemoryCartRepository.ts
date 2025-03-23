@@ -5,22 +5,22 @@ import type { ICartRepository } from 'chx/ex15/domain/cartRepository.js';
 class InMemoryCartRepository implements ICartRepository {
   private readonly aggregates: Record<CustomerId, Cart> = {};
 
-  findById(aggregateId: CustomerId): Promise<Cart> {
+  findById = (aggregateId: CustomerId): Promise<Cart> => {
     const aggregate =
       this.aggregates[aggregateId] || Cart.initBuild(aggregateId);
     return Promise.resolve(aggregate);
-  }
+  };
 
-  save(aggregate: Cart): Promise<void> {
+  save = (aggregate: Cart): Promise<void> => {
     this.aggregates[aggregate.aggregateId] = aggregate;
     return Promise.resolve();
-  }
+  };
 
-  deleteById(aggregateId: CustomerId): Promise<void> {
+  deleteById = (aggregateId: CustomerId): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.aggregates[aggregateId];
     return Promise.resolve(undefined);
-  }
+  };
 }
 
 export { InMemoryCartRepository };

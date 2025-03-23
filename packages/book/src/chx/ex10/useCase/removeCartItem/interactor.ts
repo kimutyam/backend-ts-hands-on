@@ -19,11 +19,10 @@ export class RemoveCartItemInteractor implements RemoveCartItemUseCase {
     private productResolver: ProductResolver,
   ) {}
 
-  run({ customerId, productId }: Input): ResultAsync<Output, UseCaseError> {
-    return this.productResolver
+  run = ({ customerId, productId }: Input): ResultAsync<Output, UseCaseError> =>
+    this.productResolver
       .resolveBy(productId)
       .map(() => this.cartResolver.resolveById(customerId))
       .map(Cart.removeItem(productId))
       .map(this.cartStorer.store);
-  }
 }
