@@ -1,4 +1,4 @@
-import type { SomeError } from 'ch4/ex0/types.js';
+import type { SomeError } from 'ch3/ex3238/types.js';
 import type { ResultAsync } from 'neverthrow';
 
 declare function subRoutingAsync1(): ResultAsync<number, SomeError>;

@@ -1,5 +1,5 @@
-import type { Result } from 'ch3/ex40/result.js';
-import { Failure, Success } from 'ch3/ex40/result.js';
+import type { Result } from 'ch3/ex3231/result.js';
+import { Failure, Success } from 'ch3/ex3231/result.js';
 
 const fromPromise = async <T, E>(
   f: () => Promise<T>,

@@ -1,5 +1,5 @@
-import { printError } from 'ch3/ex42/printError.js';
-import { splitBillAsync } from 'ch3/ex46/splitBillAsync.js';
+import { printError } from 'ch3/ex3233/printError.js';
+import { splitBillAsync } from 'ch3/ex3235/splitBillAsync.js';
 
 const result = await splitBillAsync(100, 1);
 if (result.success) {

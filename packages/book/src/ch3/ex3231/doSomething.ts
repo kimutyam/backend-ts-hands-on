@@ -1,4 +1,4 @@
-import type { Result } from 'ch3/ex40/result.js';
+import type { Result } from 'ch3/ex3231/result.js';
 
 declare function doSomething(): Result<number, Error>;
 
