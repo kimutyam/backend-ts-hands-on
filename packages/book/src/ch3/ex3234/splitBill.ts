@@ -1,8 +1,8 @@
-import type { Result } from 'ch3/ex40/result.js';
-import { Failure, Success } from 'ch3/ex40/result.js';
-import { IndivisibleBillError } from 'ch3/ex44/indivisibleBillError.js';
-import { NumberOfMembersError } from 'ch3/ex44/numberOfMembersError.js';
-import type { SplitBillError } from 'ch3/ex44/splitBillError.js';
+import type { Result } from 'ch3/ex3231/result.js';
+import { Failure, Success } from 'ch3/ex3231/result.js';
+import { IndivisibleBillError } from 'ch3/ex3234/indivisibleBillError.js';
+import { NumberOfMembersError } from 'ch3/ex3234/numberOfMembersError.js';
+import type { SplitBillError } from 'ch3/ex3234/splitBillError.js';
 
 const splitBill = (
   bill: number,

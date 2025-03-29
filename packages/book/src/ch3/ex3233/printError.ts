@@ -1,7 +1,7 @@
-import { assertNever } from 'ch3/ex42/assertNever.js';
-import type { SplitBillError } from 'ch3/ex42/splitBillError.js';
 import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
 import { NumberOfMembersError } from 'ch3/ex3225/numberOfMembersError.js';
+import { assertNever } from 'ch3/ex3233/assertNever.js';
+import type { SplitBillError } from 'ch3/ex3233/splitBillError.js';
 
 const printError = (error: SplitBillError): void => {
   if (error instanceof NumberOfMembersError) {

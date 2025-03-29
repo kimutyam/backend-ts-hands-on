@@ -1,29 +1,29 @@
-import type { Result } from 'ch3/ex40/result.js';
-import { Failure, Success } from 'ch3/ex40/result.js';
-import type { MyError, SomeError } from 'ch3/ex50/types.js';
+import type { Result } from 'ch3/ex3231/result.js';
+import { Failure, Success } from 'ch3/ex3231/result.js';
+import type { MyError, SomeError } from 'ch3/ex3237/types.js';
 import {
   calculate,
   subRouting1,
   subRouting2,
   toMyError,
-} from 'ch3/ex50/types.js';
+} from 'ch3/ex3237/types.js';
 
 const doSomething = (): Result<number, SomeError | MyError> => {
   const result1 = subRouting1();
   const result2 = subRouting2();
 
-  // 型の絞り込みで、値をアンラップする
+  // 1
   if (result1.success) {
-    // 型の絞り込みで、値をアンラップする
+    // 2
     if (result2.success) {
-      // 関数を適用する
+      // 3
       const applied = calculate(result1.data, result2.data);
-      // 値をラップする
+      // 4
       return Success(applied);
     }
-    // 関数を適用する
+    // 5
     const myError = toMyError(result2.error);
-    // 値をラップする
+    // 6
     return Failure(myError);
   }
   return result1;
