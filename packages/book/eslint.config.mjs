@@ -5,6 +5,7 @@ import tsPlugin from '@typescript-eslint/eslint-plugin';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import tsParser from '@typescript-eslint/parser';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import neverthrow from 'eslint-plugin-neverthrow';
 
 const compat = new FlatCompat();
 
@@ -24,6 +25,7 @@ export default [
       '@stylistic/js': stylisticJs,
       'simple-import-sort': simpleImportSort,
       '@typescript-eslint': tsPlugin,
+      'neverthrow/must-use-result': neverthrow,
     },
     rules: {
       'no-console': 'off',
