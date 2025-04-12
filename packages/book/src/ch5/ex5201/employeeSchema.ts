@@ -1,9 +1,10 @@
 import { z } from 'zod';
 
-const nameSchema = z.string();
+const nameSchema = z.string(); // 1
 
+// 2
 const employeeSchema = z.object({
-  name: nameSchema,
+  name: nameSchema, // 3
   age: z.number(),
 });
 

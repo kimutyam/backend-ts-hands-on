@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// ユーザーの年齢と曜日のスキーマ定義
+// 1
 const ticketSchema = z
   .object({
     age: z.number().int().min(0),
@@ -15,7 +15,7 @@ const ticketSchema = z
     ]),
   })
   .superRefine((data, ctx) => {
-    // 未成年の場合、日曜日のみ許可
+    // 2
     if (data.age < 18) {
       if (data.dayOfWeek !== 'Sunday') {
         ctx.addIssue({
@@ -25,7 +25,7 @@ const ticketSchema = z
       }
     }
 
-    // 成人の場合、日曜日以外を許可
+    // 3
     if (data.age >= 18) {
       if (data.dayOfWeek === 'Sunday') {
         ctx.addIssue({

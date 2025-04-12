@@ -1,4 +1,4 @@
-import { employeeSchema } from 'ch5/ex42/employeeSchema.js';
+import { employeeSchema } from 'ch5/ex5201/employeeSchema.js';
 import { assert, expect } from 'vitest';
 import { z } from 'zod';
 
@@ -30,6 +30,7 @@ describe('safeParse', () => {
       name: '木村',
       age: 30,
     });
+    // 1
     assert(result.success);
     expect(result.data).toStrictEqual({
       name: '木村',
@@ -40,6 +41,7 @@ describe('safeParse', () => {
   it('エラー: オブジェクトではない', () => {
     const result = employeeSchema.safeParse('not an object');
     assert(!result.success);
+    // 2
     expect(result.error.format()).toStrictEqual({
       _errors: expect.arrayContaining(['Expected object, received string']),
     });
