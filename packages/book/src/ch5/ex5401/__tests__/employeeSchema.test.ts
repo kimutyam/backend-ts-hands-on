@@ -1,7 +1,8 @@
-import { employeeSchema } from 'ch5/ex44/employeeSchema.js';
+import { employeeSchema } from 'ch5/ex5401/employeeSchema.js';
 import { assert } from 'vitest';
 
 describe('safeParse', () => {
+  // 1
   it.each([
     {
       name: '',
@@ -24,6 +25,8 @@ describe('safeParse', () => {
       },
     });
   });
+
+  // 2
   it.each([
     {
       age: 10.4,

@@ -1,4 +1,4 @@
-import { employeeSchema } from 'ch5/ex46/employeeSchema.js';
+import { employeeSchema } from 'ch5/ex5501/employeeSchema.js';
 import { assert, expect } from 'vitest';
 
 describe('safeParse', () => {
