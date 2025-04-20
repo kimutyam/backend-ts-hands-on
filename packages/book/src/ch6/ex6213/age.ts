@@ -1,8 +1,10 @@
 type Age = number;
 
+type Generation = 'JUNIOR' | 'MIDDLE' | 'SENIOR';
+
 const equals = (a: Age, b: Age): boolean => a === b;
 
-const judgeGeneration = (age: Age): 'JUNIOR' | 'MIDDLE' | 'SENIOR' => {
+const judgeGeneration = (age: Age): Generation => {
   if (age <= 29) {
     return 'JUNIOR';
   }
