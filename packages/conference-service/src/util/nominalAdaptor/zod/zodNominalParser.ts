@@ -1,6 +1,6 @@
 import type { z, ZodType } from 'zod';
+import type { AnyNominal, Invariants, NominalName, NominalValue } from '../../nominal';
 import { Builder } from '../../nominal';
-import type { AnyNominal, NominalName, NominalValue, Invariants } from '../../nominal';
 import type { NNominal } from '../../nominal/nominal';
 
 export type ZodNominalParser<N extends AnyNominal> = Pick<
@@ -14,6 +14,7 @@ export const ZodNominalParser = <N extends AnyNominal>(
   invariants?: Invariants<N>,
 ): ZodNominalParser<N> => {
   const builder = Builder<N>(name, invariants);
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { safeParse } = zod.transform(builder.build);
   return { safeParse };
 };

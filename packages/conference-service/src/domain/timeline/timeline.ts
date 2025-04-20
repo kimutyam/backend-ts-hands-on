@@ -1,8 +1,8 @@
-import { isAfter, isBefore, isEqual, addDays } from 'date-fns';
+import { addDays, isAfter, isBefore, isEqual } from 'date-fns';
 import { assertNever } from '../../util/assertNever';
 import type { AtLeastOne } from '../../util/atLeastOnce';
 import type { InvariantsError, Nominal } from '../../util/nominal';
-import { SafeBuilder, Invariants, InvariantUnit } from '../../util/nominal';
+import { Invariants, InvariantUnit, SafeBuilder } from '../../util/nominal';
 import type { WithAggregateId } from '../../util/resolver';
 import type { Result } from '../../util/result';
 import { Failure, Success } from '../../util/result';
@@ -79,7 +79,7 @@ const getStatus =
       return TIMELINE_STATUS.WaitingForStart;
     }
 
-    if (Period.inPeriod(conferencePeriod.value)) {
+    if (Period.inPeriod(conferencePeriod.value)(now)) {
       return TIMELINE_STATUS.ConferenceIsInProgress;
     }
     if (Period.isBefore(conferencePeriod.value)(now)) {

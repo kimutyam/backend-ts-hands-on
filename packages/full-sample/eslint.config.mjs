@@ -15,6 +15,7 @@ export default [
       'jest/consistent-test-it': ['error', { fn: 'it' }],
       'jest/no-disabled-tests': 'off',
       'no-console': 'off',
+      '@typescript-eslint/no-extraneous-class': 'off',
     },
   },
 ];

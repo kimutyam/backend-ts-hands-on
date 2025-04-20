@@ -2,7 +2,7 @@ import { Invariants } from './invariants';
 import type { AnyNominal, NNominal, NominalName, NominalValue } from './nominal';
 
 export interface Builder<N extends AnyNominal> {
-  build(n: NominalValue<N>): NNominal<N>;
+  build: (n: NominalValue<N>) => NNominal<N>;
 }
 
 export const Builder = <N extends AnyNominal>(

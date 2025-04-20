@@ -6,6 +6,6 @@ export class HealthCheckController {
   @Get()
   @HttpCode(constants.HTTP_STATUS_OK)
   async index(): Promise<string> {
-    return 'ok';
+    return Promise.resolve('ok');
   }
 }
