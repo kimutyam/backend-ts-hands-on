@@ -10,10 +10,12 @@ interface Employee {
 const identify = (a: Employee, b: Employee): boolean =>
   a.employeeNumber === b.employeeNumber;
 
+// 1
 const changeName =
   (name: Name) =>
   (employee: Employee): Employee => ({ ...employee, name });
 
+// 2
 const changeTelephone =
   (telephone: Telephone) =>
   (employee: Employee): Employee => ({
