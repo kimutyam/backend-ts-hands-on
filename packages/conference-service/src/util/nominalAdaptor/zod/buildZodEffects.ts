@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Invariants, NominalValue, AnyNominal, NominalName } from '../../nominal';
+import type { AnyNominal, Invariants, NominalName, NominalValue } from '../../nominal';
 import { Builder } from '../../nominal';
 import type { NNominal } from '../../nominal/nominal';
 
@@ -7,7 +7,7 @@ export const buildZodEffects = <N extends AnyNominal>(
   name: NominalName<N>,
   zod: z.ZodType<NominalValue<N>>,
   invariants: Invariants<N>,
-  builder: Builder<N> = Builder<N>(name),
+  { build }: Builder<N> = Builder<N>(name),
 ): z.ZodEffects<
   z.ZodType<NominalValue<N>, z.ZodTypeDef, NominalValue<N>>,
   NNominal<N>,
@@ -23,5 +23,5 @@ export const buildZodEffects = <N extends AnyNominal>(
       }
     });
   });
-  return zodEffects.transform(builder.build);
+  return zodEffects.transform(build);
 };

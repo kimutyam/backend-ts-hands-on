@@ -2,7 +2,7 @@ import assert from 'assert';
 import { pipe } from 'remeda';
 import { Builder } from '../builder';
 import { Generator } from '../generator';
-import { InvariantUnit, Invariants } from '../invariants';
+import { Invariants, InvariantUnit } from '../invariants';
 import { Nominal } from '../nominal';
 import { SafeBuilder } from '../safeBuilder';
 
@@ -52,8 +52,7 @@ describe('公証型', () => {
 
   it('modify', () => {
     const modified = pipe(
-      'bar',
-      builder.build,
+      builder.build('bar'),
       Nominal.modify((v) => v + v, invariants),
     );
     expect(modified.value).toBe('barbar');
@@ -61,8 +60,7 @@ describe('公証型', () => {
 
   it('modify error', () => {
     const modified = pipe(
-      'bar',
-      builder.build,
+      builder.build('bar'),
       Nominal.safeModify((v) => v.slice(0, 1), invariants),
     );
     assert(!modified.success);

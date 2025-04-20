@@ -1,10 +1,10 @@
 import type { Cart } from '../../../../domain/cart';
-import type { Output, AddCartItemUseCase } from '../../../../useCase/addCartItemUseCase';
+import type { AddCartItemUseCase, Output } from '../../../../useCase/addCartItemUseCase';
 import { CartController } from '../cartController';
 
 const buildUseCase = (cart: Cart): AddCartItemUseCase => ({
-  async run(): Promise<Output> {
-    return { cart };
+  run(): Promise<Output> {
+    return Promise.resolve({ cart });
   },
 });
 
