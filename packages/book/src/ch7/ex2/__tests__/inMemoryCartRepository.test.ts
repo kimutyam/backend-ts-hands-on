@@ -23,7 +23,7 @@ const buildRepository = (
   };
 };
 
-const makeCart = (customerId: CustomerId): Cart =>
+const createCart = (customerId: CustomerId): Cart =>
   Cart.valueOf(customerId, [
     CartItem.createSingleQuantity(ProductId.generate(), Price.valueOf(1000)),
     CartItem.createSingleQuantity(ProductId.generate(), Price.valueOf(1000)),
@@ -33,7 +33,7 @@ describe('InMemoryCartRepository', () => {
   it('保存できる', async () => {
     const repository = buildRepository();
     const customerId = CustomerId.generate();
-    const cart = makeCart(customerId);
+    const cart = createCart(customerId);
     await repository.save(cart);
     const foundCart = await repository.findById(customerId);
     assert(foundCart.isOk());
@@ -42,7 +42,7 @@ describe('InMemoryCartRepository', () => {
 
   it('削除できる', async () => {
     const customerId = CustomerId.generate();
-    const cart = makeCart(customerId);
+    const cart = createCart(customerId);
     const repository = buildRepository(new Map([[customerId, cart]]));
     await repository.deleteById(customerId);
     const foundCart = await repository.findById(customerId);
