@@ -13,11 +13,11 @@ describe('extractCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(1),
-        price: Price.build(1_000),
+        quantity: Quantity.valueOf(1),
+        price: Price.valueOf(1_000),
       },
     ];
-    const cart = Cart.build(customerId, cartItems);
+    const cart = Cart.valueOf(customerId, cartItems);
     const findCartById = () => okAsync(cart);
     const extractCartItems = buildExtractCartItems(findCartById);
     const result = await extractCartItems(customerId);

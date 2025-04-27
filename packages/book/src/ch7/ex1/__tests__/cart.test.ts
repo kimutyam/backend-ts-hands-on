@@ -11,8 +11,8 @@ describe('addCartItem', () => {
     const productId = ProductId.generate();
     const cartItem = {
       productId,
-      quantity: Quantity.build(1),
-      price: Price.build(1_000),
+      quantity: Quantity.valueOf(1),
+      price: Price.valueOf(1_000),
     };
 
     const addedCart = pipe(
@@ -26,20 +26,20 @@ describe('addCartItem', () => {
     const customId = CustomerId.generate();
     const cartItem = {
       productId: ProductId.generate(),
-      quantity: Quantity.build(6),
-      price: Price.build(1_000),
+      quantity: Quantity.valueOf(6),
+      price: Price.valueOf(1_000),
     };
 
     const targetCartItem = {
       productId: ProductId.generate(),
-      quantity: Quantity.build(3),
-      price: Price.build(2_222),
+      quantity: Quantity.valueOf(3),
+      price: Price.valueOf(2_222),
     };
     const addedCart = pipe(
-      Cart.build(customId, [cartItem]),
+      Cart.valueOf(customId, [cartItem]),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.build(customId, [cartItem, targetCartItem]);
+    const expectation = Cart.valueOf(customId, [cartItem, targetCartItem]);
     expect(addedCart).toStrictEqual(expectation);
   });
 
@@ -48,30 +48,30 @@ describe('addCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(6),
-        price: Price.build(1_000),
+        quantity: Quantity.valueOf(6),
+        price: Price.valueOf(1_000),
       },
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(5),
-        price: Price.build(2_000),
+        quantity: Quantity.valueOf(5),
+        price: Price.valueOf(2_000),
       },
     ];
     const targetCartItem = {
       productId: cartItems[1]!.productId,
-      quantity: Quantity.build(3),
-      price: Price.build(2_222),
+      quantity: Quantity.valueOf(3),
+      price: Price.valueOf(2_222),
     };
     const addedCart = pipe(
-      Cart.build(customId, cartItems),
+      Cart.valueOf(customId, cartItems),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.build(customId, [
+    const expectation = Cart.valueOf(customId, [
       cartItems[0]!,
       {
         ...cartItems[1]!,
-        quantity: Quantity.build(8),
-        price: Price.build(2_222),
+        quantity: Quantity.valueOf(8),
+        price: Price.valueOf(2_222),
       },
     ]);
     expect(addedCart).toStrictEqual(expectation);
@@ -84,20 +84,20 @@ describe('removeCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(6),
-        price: Price.build(1_000),
+        quantity: Quantity.valueOf(6),
+        price: Price.valueOf(1_000),
       },
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(5),
-        price: Price.build(2_000),
+        quantity: Quantity.valueOf(5),
+        price: Price.valueOf(2_000),
       },
     ];
     const removedCart = pipe(
-      Cart.build(customId, cartItems),
+      Cart.valueOf(customId, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
-    const expectation = Cart.build(customId, [cartItems[1]!]);
+    const expectation = Cart.valueOf(customId, [cartItems[1]!]);
     expect(removedCart).toStrictEqual(expectation);
   });
 });

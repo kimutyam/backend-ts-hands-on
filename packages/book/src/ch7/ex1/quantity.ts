@@ -10,14 +10,14 @@ const assertQuantity = (value: Quantity): void => {
   assert(value <= 10, '数量は10以下にしてください');
 };
 
-const build = (value: number): Quantity => {
+const valueOf = (value: number): Quantity => {
   const v = value as Quantity;
   assertQuantity(v);
   return v;
 };
 
 const Quantity = {
-  build,
+  valueOf,
 } as const;
 
 export { Quantity };

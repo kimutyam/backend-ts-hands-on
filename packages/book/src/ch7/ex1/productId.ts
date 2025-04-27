@@ -11,7 +11,7 @@ const assertProductId = (value: ProductId): void => {
   assert(isValid(value), 'ULIDで指定ください');
 };
 
-const build = (value: string): ProductId => {
+const valueOf = (value: string): ProductId => {
   const v = value as ProductId;
   assertProductId(v);
   return v;
@@ -19,10 +19,10 @@ const build = (value: string): ProductId => {
 
 // 乱数生成器のシード
 const SEED = 123;
-const generate = (): ProductId => build(ulid(SEED));
+const generate = (): ProductId => valueOf(ulid(SEED));
 
 const ProductId = {
-  build,
+  valueOf,
   equals,
   generate,
 } as const;
