@@ -10,14 +10,14 @@ const assertPrice = (value: Price): void => {
   assert(value <= 10_000, '値段は10000円以下にしてください');
 };
 
-const build = (value: number): Price => {
+const valueOf = (value: number): Price => {
   const v = value as Price;
   assertPrice(v);
   return v;
 };
 
 const Price = {
-  build,
+  valueOf,
 } as const;
 
 export { Price };

@@ -49,7 +49,7 @@ const assertCart = (cart: Cart): void => {
   );
 };
 
-const build = (
+const valueOf = (
   aggregateId: CustomerId,
   cartItems: ReadonlyArray<CartItem>,
 ): Cart => {
@@ -62,7 +62,7 @@ const build = (
   return cart;
 };
 
-const initBuild = (aggregateId: CustomerId): Cart => build(aggregateId, []);
+const initBuild = (aggregateId: CustomerId): Cart => valueOf(aggregateId, []);
 
 const addCartItem =
   (targetCartItem: CartItem) =>
@@ -72,7 +72,7 @@ const addCartItem =
     );
 
     if (updateTargetIndex === -1) {
-      return build(aggregateId, [...cartItems, targetCartItem]);
+      return valueOf(aggregateId, [...cartItems, targetCartItem]);
     }
 
     const updated = cartItems.map((cartItem, index) =>
@@ -83,7 +83,7 @@ const addCartItem =
           )
         : cartItem,
     );
-    return build(aggregateId, updated);
+    return valueOf(aggregateId, updated);
   };
 
 const removeCartItem =
@@ -92,14 +92,14 @@ const removeCartItem =
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
-    return build(aggregateId, removedCartItems);
+    return valueOf(aggregateId, removedCartItems);
   };
 
-const clear = ({ aggregateId }: Cart): Cart => build(aggregateId, []);
+const clear = ({ aggregateId }: Cart): Cart => valueOf(aggregateId, []);
 
 const Cart = {
   initBuild,
-  build,
+  valueOf,
   addCartItem,
   removeCartItem,
   clear,

@@ -24,9 +24,9 @@ const buildRepository = (
 };
 
 const makeCart = (customerId: CustomerId): Cart =>
-  Cart.build(customerId, [
-    CartItem.buildSingle(ProductId.generate(), Price.build(1000)),
-    CartItem.buildSingle(ProductId.generate(), Price.build(1000)),
+  Cart.valueOf(customerId, [
+    CartItem.createSingleQuantity(ProductId.generate(), Price.valueOf(1000)),
+    CartItem.createSingleQuantity(ProductId.generate(), Price.valueOf(1000)),
   ]);
 
 describe('InMemoryCartRepository', () => {
