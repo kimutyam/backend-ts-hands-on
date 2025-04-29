@@ -127,7 +127,7 @@ const addCartItem =
               cartItem,
               CartItem.add(targetCartItem.quantity, targetCartItem.price),
             )
-          : R.pipe(cartItem, ok),
+          : ok(cartItem),
       ),
     );
 
