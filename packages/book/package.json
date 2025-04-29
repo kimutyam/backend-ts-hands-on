@@ -20,7 +20,7 @@
     "@hono/node-server": "^1.13.2",
     "date-fns": "4.1.0",
     "hono": "^4.6.7",
-    "neverthrow": "8.1.1",
+    "neverthrow": "8.2.0",
     "remeda": "2.21.3",
     "tozod": "3.0.0",
     "ulidx": "2.4.1",
