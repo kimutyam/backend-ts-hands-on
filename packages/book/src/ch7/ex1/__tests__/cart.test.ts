@@ -15,10 +15,7 @@ describe('addCartItem', () => {
       price: Price.valueOf(1_000),
     };
 
-    const addedCart = pipe(
-      Cart.initBuild(customId),
-      Cart.addCartItem(cartItem),
-    );
+    const addedCart = pipe(Cart.init(customId), Cart.addCartItem(cartItem));
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
   });
 

@@ -37,15 +37,15 @@ const withinTotalPriceLimit = (cart: Cart): boolean =>
 const assertCart = (cart: Cart): void => {
   assert(
     withinItemsLimit(cart),
-    `カート項目数上限 ${ItemsLimit.toString()} を上回っています`,
+    `カート項目数が ${ItemsLimit.toString()} を上回っています`,
   );
   assert(
     withinTotalQuantityLimit(cart),
-    `合計数量上限 ${TotalQuantityLimit.toString()} を上回っています`,
+    `総数が ${TotalQuantityLimit.toString()} を上回っています`,
   );
   assert(
     withinTotalPriceLimit(cart),
-    `合計金額上限 ${TotalPriceLimit.toString()} を上回っています`,
+    `総額が ${TotalPriceLimit.toString()} を上回っています`,
   );
 };
 
@@ -62,7 +62,7 @@ const valueOf = (
   return cart;
 };
 
-const initBuild = (aggregateId: CustomerId): Cart => valueOf(aggregateId, []);
+const init = (aggregateId: CustomerId): Cart => valueOf(aggregateId, []);
 
 const addCartItem =
   (targetCartItem: CartItem) =>
@@ -98,7 +98,7 @@ const removeCartItem =
 const clear = ({ aggregateId }: Cart): Cart => valueOf(aggregateId, []);
 
 const Cart = {
-  initBuild,
+  init,
   valueOf,
   addCartItem,
   removeCartItem,
