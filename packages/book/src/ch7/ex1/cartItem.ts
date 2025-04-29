@@ -32,9 +32,9 @@ const identify = (x: CartItem, y: CartItem): boolean =>
   x.productId === y.productId;
 
 const CartItem = {
+  createSingleQuantity,
   add,
   calculateTotal,
-  createSingleQuantity,
   identify,
 } as const;
 
