@@ -1,5 +1,5 @@
 ---
-name: full-sample
+name: nest-sample
 on:
   # SEE: https://github.com/actions/checkout/issues/15
   push:
@@ -7,27 +7,27 @@ on:
       - main
     paths:
       - '.github/workflows/build.yml'
-      - '.github/workflows/full-sample.yml'
+      - '.github/workflows/nest-sample.yml'
       - '.github/actions/**'
       - '.*'
       - 'Makefile'
       - 'package.json'
       - 'tsconfig.json'
-      - 'packages/full-sample/**'
+      - '../../packages/nest-sample/**'
   pull_request:
     paths:
       - '.github/workflows/build.yml'
-      - '.github/workflows/example-book.yml'
+      - '.github/workflows/nest-sample.yml'
       - '.github/actions/**'
       - '.*'
       - 'Makefile'
       - 'package.json'
       - 'tsconfig.json'
-      - 'packages/full-sample/**'
+      - '../../packages/nest-sample/**'
 
 jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      workspace-name: 'full-sample'
+      workspace-name: 'nest-sample'
       node-version-file: '.node-version'
