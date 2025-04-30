@@ -31,4 +31,6 @@ const buildDeleteCartById =
     return Promise.resolve();
   };
 
+buildFindCartById.inject = ['aggregates'] as const;
+
 export { buildDeleteCartById, buildFindCartById, buildSaveCart };

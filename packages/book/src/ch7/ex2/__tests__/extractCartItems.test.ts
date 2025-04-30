@@ -4,7 +4,7 @@ import { CustomerId } from 'ch7/ex1/customerId.js';
 import { Price } from 'ch7/ex1/price.js';
 import { ProductId } from 'ch7/ex1/productId.js';
 import { Quantity } from 'ch7/ex1/quantity.js';
-import { buildExtractCartItems } from 'ch7/ex2/extractCartItems.js';
+import { ExtractCartItems } from 'ch7/ex2/extractCartItems.js';
 import { errAsync, okAsync } from 'neverthrow';
 
 describe('extractCartItem', () => {
@@ -19,7 +19,7 @@ describe('extractCartItem', () => {
     ];
     const cart = Cart.valueOf(customerId, cartItems);
     const findCartById = () => okAsync(cart);
-    const extractCartItems = buildExtractCartItems(findCartById);
+    const extractCartItems = ExtractCartItems.build(findCartById);
     const result = await extractCartItems(customerId);
     expect(result).toStrictEqual(cartItems);
   });
@@ -27,7 +27,7 @@ describe('extractCartItem', () => {
   it('カートが存在しない場合は、抽出するカート項目は空になる', async () => {
     const customerId = CustomerId.generate();
     const findCartById = () => errAsync(new CartNotFoundError(customerId));
-    const extractCartItems = buildExtractCartItems(findCartById);
+    const extractCartItems = ExtractCartItems.build(findCartById);
     const result = await extractCartItems(customerId);
     expect(result).toStrictEqual([]);
   });
