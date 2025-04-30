@@ -6,11 +6,17 @@ type ExtractCartItems = (
   customerId: CustomerId,
 ) => Promise<ReadonlyArray<CartItem>>;
 
-const buildExtractCartItems =
+const build =
   (findCartById: FindCartById): ExtractCartItems =>
-  async (customerId: CustomerId): Promise<ReadonlyArray<CartItem>> =>
+  async (customerId: CustomerId): ReturnType<ExtractCartItems> =>
     findCartById(customerId)
       .map((cart) => cart.cartItems)
       .unwrapOr([]);
 
-export { buildExtractCartItems, type ExtractCartItems };
+const ExtractCartItems = {
+  build,
+} as const;
+
+export { ExtractCartItems };
+
+build.inject = ['findCartById'] as const;
