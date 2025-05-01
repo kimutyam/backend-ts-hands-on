@@ -16,29 +16,29 @@ describe('requestOrder', () => {
         ProductId.generate(),
         Aggregate.InitialSequenceNumber,
         'product1',
-        Price.build(1_001),
+        Price.valueOf(1_001),
       ),
       Product.build(
         ProductId.generate(),
         Aggregate.InitialSequenceNumber,
         'product2',
-        Price.build(2_001),
+        Price.valueOf(2_001),
       ),
     ];
 
-    const cart = Cart.build(
+    const cart = Cart.valueOf(
       CustomerId.generate(),
       Aggregate.InitialSequenceNumber,
       [
         {
           productId: products[0]!.aggregateId,
           quantity: Quantity.build(1),
-          price: Price.build(1_000),
+          price: Price.valueOf(1_000),
         },
         {
           productId: products[1]!.aggregateId,
           quantity: Quantity.build(1),
-          price: Price.build(2_000),
+          price: Price.valueOf(2_000),
         },
       ],
     );
@@ -53,12 +53,12 @@ describe('requestOrder', () => {
       {
         productId: products[0]!.aggregateId,
         quantity: Quantity.build(1),
-        price: Price.build(1_001),
+        price: Price.valueOf(1_001),
       },
       {
         productId: products[1]!.aggregateId,
         quantity: Quantity.build(1),
-        price: Price.build(2_001),
+        price: Price.valueOf(2_001),
       },
     ]);
     expect(orderRequested.sequenceNumber).toEqual(1);
@@ -68,12 +68,12 @@ describe('requestOrder', () => {
         {
           productId: products[0]!.aggregateId,
           quantity: Quantity.build(1),
-          price: Price.build(1_001),
+          price: Price.valueOf(1_001),
         },
         {
           productId: products[1]!.aggregateId,
           quantity: Quantity.build(1),
-          price: Price.build(2_001),
+          price: Price.valueOf(2_001),
         },
       ],
     });

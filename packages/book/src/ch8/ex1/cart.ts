@@ -60,7 +60,7 @@ const assertCart = (cart: Cart): void => {
   );
 };
 
-const build = (
+const valueOf = (
   aggregateId: CustomerId,
   sequenceNumber: number,
   cartItems: ReadonlyArray<CartItem>,
@@ -75,8 +75,8 @@ const build = (
   return cart;
 };
 
-const initBuild = (aggregateId: CustomerId): Cart =>
-  build(aggregateId, Aggregate.InitialSequenceNumber, []);
+const init = (aggregateId: CustomerId): Cart =>
+  valueOf(aggregateId, Aggregate.InitialSequenceNumber, []);
 
 const addCartItem =
   (targetCartItem: CartItem) =>
@@ -90,7 +90,7 @@ const addCartItem =
     );
 
     if (updateTargetIndex === -1) {
-      const aggregate = build(
+      const aggregate = valueOf(
         aggregateId,
         Aggregate.incrementSequenceNumber(sequenceNumber),
         [...cartItems, targetCartItem],
@@ -112,7 +112,7 @@ const addCartItem =
           )
         : cartItem,
     );
-    const aggregate = build(
+    const aggregate = valueOf(
       aggregateId,
       Aggregate.incrementSequenceNumber(sequenceNumber),
       updated,
@@ -137,7 +137,7 @@ const removeCartItem =
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
-    const aggregate = build(
+    const aggregate = valueOf(
       aggregateId,
       Aggregate.incrementSequenceNumber(sequenceNumber),
       removedCartItems,
@@ -152,7 +152,7 @@ const removeCartItem =
 const clear =
   (reason: CartClearReason) =>
   ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
-    const aggregate = build(
+    const aggregate = valueOf(
       aggregateId,
       Aggregate.incrementSequenceNumber(sequenceNumber),
       [],
@@ -169,8 +169,8 @@ const clear =
 
 const Cart = {
   name,
-  initBuild,
-  build,
+  init,
+  valueOf,
   addCartItem,
   removeCartItem,
   clear,
