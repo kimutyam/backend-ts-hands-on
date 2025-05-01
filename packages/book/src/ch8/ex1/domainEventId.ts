@@ -11,20 +11,19 @@ const assertDomainEventId = (value: DomainEventId): void => {
   assert(isValid(value), 'ULIDで指定ください');
 };
 
-const build = (value: string): DomainEventId => {
+const valueOf = (value: string): DomainEventId => {
   const v = value as DomainEventId;
   assertDomainEventId(v);
   return v;
 };
 
-// 乱数生成器のシード
 const SEED = 123;
-const generate = (): DomainEventId => build(ulid(SEED));
+const generate = (): DomainEventId => valueOf(ulid(SEED));
 
 const getTimestamp = (id: DomainEventId): number => decodeTime(id);
 
 const DomainEventId = {
-  build,
+  valueOf,
   generate,
   equals,
   getTimestamp,
