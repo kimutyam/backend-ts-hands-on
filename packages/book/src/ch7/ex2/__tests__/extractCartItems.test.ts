@@ -17,7 +17,7 @@ describe('extractCartItem', () => {
         price: Price.valueOf(1_000),
       },
     ];
-    const cart = Cart.valueOf(customerId, cartItems);
+    const cart = Cart.create(customerId, cartItems);
     const findCartById = () => okAsync(cart);
     const extractCartItems = ExtractCartItems.build(findCartById);
     const result = await extractCartItems(customerId);

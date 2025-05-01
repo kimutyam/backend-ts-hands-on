@@ -33,10 +33,10 @@ describe('addCartItem', () => {
       price: Price.valueOf(2_222),
     };
     const addedCart = pipe(
-      Cart.valueOf(customId, [cartItem]),
+      Cart.create(customId, [cartItem]),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.valueOf(customId, [cartItem, targetCartItem]);
+    const expectation = Cart.create(customId, [cartItem, targetCartItem]);
     expect(addedCart).toStrictEqual(expectation);
   });
 
@@ -60,10 +60,10 @@ describe('addCartItem', () => {
       price: Price.valueOf(2_222),
     };
     const addedCart = pipe(
-      Cart.valueOf(customId, cartItems),
+      Cart.create(customId, cartItems),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.valueOf(customId, [
+    const expectation = Cart.create(customId, [
       cartItems[0]!,
       {
         ...cartItems[1]!,
@@ -91,10 +91,10 @@ describe('removeCartItem', () => {
       },
     ];
     const removedCart = pipe(
-      Cart.valueOf(customId, cartItems),
+      Cart.create(customId, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
-    const expectation = Cart.valueOf(customId, [cartItems[1]!]);
+    const expectation = Cart.create(customId, [cartItems[1]!]);
     expect(removedCart).toStrictEqual(expectation);
   });
 });

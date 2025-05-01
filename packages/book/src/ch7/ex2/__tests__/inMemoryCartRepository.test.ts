@@ -24,7 +24,7 @@ const buildRepository = (
 };
 
 const createCart = (customerId: CustomerId): Cart =>
-  Cart.valueOf(customerId, [
+  Cart.create(customerId, [
     CartItem.createSingleQuantity(ProductId.generate(), Price.valueOf(1000)),
     CartItem.createSingleQuantity(ProductId.generate(), Price.valueOf(1000)),
   ]);

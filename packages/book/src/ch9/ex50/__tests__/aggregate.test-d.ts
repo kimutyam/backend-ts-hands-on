@@ -25,8 +25,8 @@ it('集約のスキーマを生成できる', () => {
     cartItems: [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(1),
-        price: Price.build(1_000),
+        quantity: Quantity.parse(1),
+        price: Price.parse(1_000),
       },
     ],
   });

@@ -12,13 +12,13 @@ import { describe, expect } from 'vitest';
 describe('requestOrder', () => {
   it('should place an order', () => {
     const products: Array<Product> = [
-      Product.build(
+      Product.create(
         ProductId.generate(),
         Aggregate.InitialSequenceNumber,
         'product1',
         Price.valueOf(1_001),
       ),
-      Product.build(
+      Product.create(
         ProductId.generate(),
         Aggregate.InitialSequenceNumber,
         'product2',
@@ -26,18 +26,18 @@ describe('requestOrder', () => {
       ),
     ];
 
-    const cart = Cart.valueOf(
+    const cart = Cart.create(
       CustomerId.generate(),
       Aggregate.InitialSequenceNumber,
       [
         {
           productId: products[0]!.aggregateId,
-          quantity: Quantity.build(1),
+          quantity: Quantity.valueOf(1),
           price: Price.valueOf(1_000),
         },
         {
           productId: products[1]!.aggregateId,
-          quantity: Quantity.build(1),
+          quantity: Quantity.valueOf(1),
           price: Price.valueOf(2_000),
         },
       ],
@@ -52,12 +52,12 @@ describe('requestOrder', () => {
     expect(order.items).toStrictEqual([
       {
         productId: products[0]!.aggregateId,
-        quantity: Quantity.build(1),
+        quantity: Quantity.valueOf(1),
         price: Price.valueOf(1_001),
       },
       {
         productId: products[1]!.aggregateId,
-        quantity: Quantity.build(1),
+        quantity: Quantity.valueOf(1),
         price: Price.valueOf(2_001),
       },
     ]);
@@ -67,12 +67,12 @@ describe('requestOrder', () => {
       items: [
         {
           productId: products[0]!.aggregateId,
-          quantity: Quantity.build(1),
+          quantity: Quantity.valueOf(1),
           price: Price.valueOf(1_001),
         },
         {
           productId: products[1]!.aggregateId,
-          quantity: Quantity.build(1),
+          quantity: Quantity.valueOf(1),
           price: Price.valueOf(2_001),
         },
       ],

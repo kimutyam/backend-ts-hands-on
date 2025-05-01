@@ -15,7 +15,7 @@ it('構造の異なる入力値からカート項目を組み立てる', () => {
 
   const orderItem: CartItem = R.pipe(
     result.data,
-    ModifyCartQuantityRequest.toCartItem(Price.build(100)),
+    ModifyCartQuantityRequest.toCartItem(Price.parse(100)),
   );
   expect(orderItem.productId).toBe('01JMVNZTTTV8T0PC0GK7FBKFPD');
   expect(orderItem.price).toBe(100);

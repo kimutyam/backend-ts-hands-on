@@ -18,14 +18,14 @@ const schema = Aggregate.makeBrandedSchema(
 type Input = z.input<typeof schema>;
 type Order = z.infer<typeof schema>;
 
-const build = (value: Input): Order => schema.parse(value);
+const parse = (value: Input): Order => schema.parse(value);
 
 const generate = (
   customerId: CustomerId,
   items: ReadonlyArray<CartItem>,
   generateOrderId: () => OrderId,
 ): Order =>
-  build({
+  parse({
     aggregateId: generateOrderId(),
     sequenceNumber: Aggregate.InitialSequenceNumber,
     customerId,
@@ -34,7 +34,7 @@ const generate = (
 
 const Order = {
   name,
-  build,
+  parse,
   generate,
 } as const;
 

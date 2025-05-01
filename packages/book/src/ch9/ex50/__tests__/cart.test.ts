@@ -14,11 +14,11 @@ describe('addCartItem', () => {
     const productId = ProductId.generate();
     const cartItem = {
       productId,
-      quantity: Quantity.build(1),
-      price: Price.build(1_000),
+      quantity: Quantity.parse(1),
+      price: Price.parse(1_000),
     };
 
-    const result = pipe(Cart.initBuild(customId), Cart.addCartItem(cartItem));
+    const result = pipe(Cart.init(customId), Cart.addCartItem(cartItem));
     assert(result.isOk());
     const [addedCart, event] = result.value;
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
@@ -30,17 +30,17 @@ describe('addCartItem', () => {
     const customId = CustomerId.generate();
     const cartItem = {
       productId: ProductId.generate(),
-      quantity: Quantity.build(6),
-      price: Price.build(1_000),
+      quantity: Quantity.parse(6),
+      price: Price.parse(1_000),
     };
 
     const targetCartItem = {
       productId: ProductId.generate(),
-      quantity: Quantity.build(3),
-      price: Price.build(2_222),
+      quantity: Quantity.parse(3),
+      price: Price.parse(2_222),
     };
     const result = pipe(
-      Cart.build({
+      Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
         cartItems: [cartItem],
@@ -49,7 +49,7 @@ describe('addCartItem', () => {
     );
     assert(result.isOk());
     const [addedCart, event] = result.value;
-    const expectation = Cart.build({
+    const expectation = Cart.parse({
       aggregateId: customId,
       sequenceNumber: 2,
       cartItems: [cartItem, targetCartItem],
@@ -64,22 +64,22 @@ describe('addCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(6),
-        price: Price.build(1_000),
+        quantity: Quantity.parse(6),
+        price: Price.parse(1_000),
       },
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(5),
-        price: Price.build(2_000),
+        quantity: Quantity.parse(5),
+        price: Price.parse(2_000),
       },
     ];
     const targetCartItem = {
       productId: cartItems[1]!.productId,
-      quantity: Quantity.build(3),
-      price: Price.build(2_222),
+      quantity: Quantity.parse(3),
+      price: Price.parse(2_222),
     };
     const result = pipe(
-      Cart.build({
+      Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
         cartItems,
@@ -88,15 +88,15 @@ describe('addCartItem', () => {
     );
     assert(result.isOk());
     const [addedCart, event] = result.value;
-    const expectation = Cart.build({
+    const expectation = Cart.parse({
       aggregateId: customId,
       sequenceNumber: 2,
       cartItems: [
         cartItems[0]!,
         {
           ...cartItems[1]!,
-          quantity: Quantity.build(8),
-          price: Price.build(2_222),
+          quantity: Quantity.parse(8),
+          price: Price.parse(2_222),
         },
       ],
     });
@@ -112,24 +112,24 @@ describe('removeCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(6),
-        price: Price.build(1_000),
+        quantity: Quantity.parse(6),
+        price: Price.parse(1_000),
       },
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(5),
-        price: Price.build(2_000),
+        quantity: Quantity.parse(5),
+        price: Price.parse(2_000),
       },
     ];
     const [removedCart, event] = pipe(
-      Cart.build({
+      Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
         cartItems,
       }),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
-    const expectation = Cart.build({
+    const expectation = Cart.parse({
       aggregateId: customId,
       sequenceNumber: 2,
       cartItems: [cartItems[1]!],

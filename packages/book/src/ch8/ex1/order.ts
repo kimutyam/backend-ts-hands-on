@@ -13,7 +13,7 @@ interface OrderNotBranded extends Aggregate<OrderId> {
 
 type Order = OrderNotBranded & Brand<typeof name>;
 
-const valueOf = (
+const create = (
   aggregateId: OrderId,
   sequenceNumber: number,
   customerId: CustomerId,
@@ -33,16 +33,11 @@ const generate = (
   items: ReadonlyArray<CartItem>,
   generateOrderId: () => OrderId,
 ): Order =>
-  valueOf(
-    generateOrderId(),
-    Aggregate.InitialSequenceNumber,
-    customerId,
-    items,
-  );
+  create(generateOrderId(), Aggregate.InitialSequenceNumber, customerId, items);
 
 const Order = {
   name,
-  valueOf,
+  create,
   generate,
 } as const;
 
