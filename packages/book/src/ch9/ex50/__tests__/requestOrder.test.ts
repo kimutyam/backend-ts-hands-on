@@ -12,33 +12,33 @@ import { describe, expect } from 'vitest';
 describe('requestOrder', () => {
   it('should place an order', () => {
     const products: Array<Product> = [
-      Product.build({
+      Product.parse({
         aggregateId: ProductId.generate(),
         sequenceNumber: Aggregate.InitialSequenceNumber,
         name: 'product1',
-        price: Price.build(1_001),
+        price: Price.parse(1_001),
       }),
-      Product.build({
+      Product.parse({
         aggregateId: ProductId.generate(),
         sequenceNumber: Aggregate.InitialSequenceNumber,
         name: 'product2',
-        price: Price.build(2_001),
+        price: Price.parse(2_001),
       }),
     ];
 
-    const cart = Cart.build({
+    const cart = Cart.parse({
       aggregateId: CustomerId.generate(),
       sequenceNumber: Aggregate.InitialSequenceNumber,
       cartItems: [
         {
           productId: products[0]!.aggregateId,
-          quantity: Quantity.build(1),
-          price: Price.build(1_000),
+          quantity: Quantity.parse(1),
+          price: Price.parse(1_000),
         },
         {
           productId: products[1]!.aggregateId,
-          quantity: Quantity.build(1),
-          price: Price.build(2_000),
+          quantity: Quantity.parse(1),
+          price: Price.parse(2_000),
         },
       ],
     });
@@ -52,13 +52,13 @@ describe('requestOrder', () => {
     expect(order.items).toStrictEqual([
       {
         productId: products[0]!.aggregateId,
-        quantity: Quantity.build(1),
-        price: Price.build(1_001),
+        quantity: Quantity.parse(1),
+        price: Price.parse(1_001),
       },
       {
         productId: products[1]!.aggregateId,
-        quantity: Quantity.build(1),
-        price: Price.build(2_001),
+        quantity: Quantity.parse(1),
+        price: Price.parse(2_001),
       },
     ]);
     expect(orderRequested.sequenceNumber).toEqual(1);
@@ -67,13 +67,13 @@ describe('requestOrder', () => {
       items: [
         {
           productId: products[0]!.aggregateId,
-          quantity: Quantity.build(1),
-          price: Price.build(1_001),
+          quantity: Quantity.parse(1),
+          price: Price.parse(1_001),
         },
         {
           productId: products[1]!.aggregateId,
-          quantity: Quantity.build(1),
-          price: Price.build(2_001),
+          quantity: Quantity.parse(1),
+          price: Price.parse(2_001),
         },
       ],
     });

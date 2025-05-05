@@ -13,7 +13,7 @@ describe('addCartItem', () => {
     const productId = ProductId.generate();
     const cartItem = {
       productId,
-      quantity: Quantity.build(1),
+      quantity: Quantity.valueOf(1),
       price: Price.valueOf(1_000),
     };
 
@@ -30,20 +30,20 @@ describe('addCartItem', () => {
     const customId = CustomerId.generate();
     const cartItem = {
       productId: ProductId.generate(),
-      quantity: Quantity.build(6),
+      quantity: Quantity.valueOf(6),
       price: Price.valueOf(1_000),
     };
 
     const targetCartItem = {
       productId: ProductId.generate(),
-      quantity: Quantity.build(3),
+      quantity: Quantity.valueOf(3),
       price: Price.valueOf(2_222),
     };
     const [addedCart, event] = pipe(
-      Cart.valueOf(customId, 0, [cartItem]),
+      Cart.create(customId, 0, [cartItem]),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.valueOf(customId, 1, [cartItem, targetCartItem]);
+    const expectation = Cart.create(customId, 1, [cartItem, targetCartItem]);
     expect(addedCart).toStrictEqual(expectation);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(targetCartItem);
@@ -54,29 +54,29 @@ describe('addCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(6),
+        quantity: Quantity.valueOf(6),
         price: Price.valueOf(1_000),
       },
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(5),
+        quantity: Quantity.valueOf(5),
         price: Price.valueOf(2_000),
       },
     ];
     const targetCartItem = {
       productId: cartItems[1]!.productId,
-      quantity: Quantity.build(3),
+      quantity: Quantity.valueOf(3),
       price: Price.valueOf(2_222),
     };
     const [addedCart, event] = pipe(
-      Cart.valueOf(customId, 0, cartItems),
+      Cart.create(customId, 0, cartItems),
       Cart.addCartItem(targetCartItem),
     );
-    const expectation = Cart.valueOf(customId, 1, [
+    const expectation = Cart.create(customId, 1, [
       cartItems[0]!,
       {
         ...cartItems[1]!,
-        quantity: Quantity.build(8),
+        quantity: Quantity.valueOf(8),
         price: Price.valueOf(2_222),
       },
     ]);
@@ -92,20 +92,20 @@ describe('removeCartItem', () => {
     const cartItems = [
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(6),
+        quantity: Quantity.valueOf(6),
         price: Price.valueOf(1_000),
       },
       {
         productId: ProductId.generate(),
-        quantity: Quantity.build(5),
+        quantity: Quantity.valueOf(5),
         price: Price.valueOf(2_000),
       },
     ];
     const [removedCart, event] = pipe(
-      Cart.valueOf(customId, 0, cartItems),
+      Cart.create(customId, 0, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
-    const expectation = Cart.valueOf(customId, 1, [cartItems[1]!]);
+    const expectation = Cart.create(customId, 1, [cartItems[1]!]);
     expect(removedCart).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
     expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);

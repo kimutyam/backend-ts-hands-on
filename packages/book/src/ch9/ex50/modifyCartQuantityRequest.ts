@@ -20,7 +20,7 @@ const toCartItem =
   ({ productId, quantity }: ModifyCartQuantityRequest): CartItem => ({
     productId,
     price,
-    quantity: Quantity.build(quantity),
+    quantity: Quantity.parse(quantity),
   });
 
 const ModifyCartQuantityRequest = {

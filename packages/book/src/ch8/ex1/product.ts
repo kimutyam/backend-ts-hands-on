@@ -12,7 +12,7 @@ interface ProductNotBranded extends Aggregate<ProductId> {
 
 type Product = ProductNotBranded & Brand<typeof name>;
 
-const build = (
+const create = (
   aggregateId: ProductId,
   sequenceNumber: number,
   productName: string,
@@ -29,7 +29,7 @@ const build = (
 
 const Product = {
   name,
-  build,
+  create,
 } as const;
 
 export { Product };

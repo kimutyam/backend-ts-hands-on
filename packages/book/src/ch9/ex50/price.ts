@@ -12,8 +12,8 @@ type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
 type PriceZodError = z.ZodError<PriceInput>;
 
-const build = (value: PriceInput): Price => schema.parse(value);
-const safeBuild = (value: PriceInput): Result<Price, PriceRefinementsError> =>
+const parse = (value: PriceInput): Price => schema.parse(value);
+const safeParse = (value: PriceInput): Result<Price, PriceRefinementsError> =>
   R.pipe(
     schema.safeParse(value),
     buildFromZod((zodError) => ({
@@ -25,8 +25,8 @@ const safeBuild = (value: PriceInput): Result<Price, PriceRefinementsError> =>
 const Price = {
   name,
   schema,
-  build,
-  safeBuild,
+  parse,
+  safeParse,
 } as const;
 
 export { Price, type PriceZodError };

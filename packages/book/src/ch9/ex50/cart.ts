@@ -72,9 +72,9 @@ const schemaWithRefinements = schema
     }),
   );
 
-const build = (value: CartInput): Cart => schemaWithRefinements.parse(value);
+const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeBuild = (value: CartInput): Result<Cart, AddCartError> =>
+const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({
@@ -83,8 +83,8 @@ const safeBuild = (value: CartInput): Result<Cart, AddCartError> =>
     })),
   );
 
-const initBuild = (aggregateId: CustomerId): Cart =>
-  build({
+const init = (aggregateId: CustomerId): Cart =>
+  parse({
     aggregateId,
     sequenceNumber: Aggregate.InitialSequenceNumber,
     cartItems: [],
@@ -104,7 +104,7 @@ const addCartItem =
 
     if (updateTargetIndex === -1) {
       // (2)
-      return safeBuild({
+      return safeParse({
         aggregateId,
         sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
         cartItems: [...cartItems, targetCartItem],
@@ -134,7 +134,7 @@ const addCartItem =
     // (4)
     return cartItemsResult
       .andThen((updated) =>
-        safeBuild({
+        safeParse({
           aggregateId,
           sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
           cartItems: updated,
@@ -161,7 +161,7 @@ const removeCartItem =
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
-    const aggregate = build({
+    const aggregate = parse({
       aggregateId,
       sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: removedCartItems,
@@ -176,7 +176,7 @@ const removeCartItem =
 const clear =
   (reason: CartClearReason) =>
   ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
-    const aggregate = build({
+    const aggregate = parse({
       aggregateId,
       sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: [],
@@ -194,8 +194,9 @@ const clear =
 const Cart = {
   name,
   schema: schemaWithRefinements,
-  initBuild,
-  build,
+  init,
+  parse,
+  safeParse,
   addCartItem,
   removeCartItem,
   clear,

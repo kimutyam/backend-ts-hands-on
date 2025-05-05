@@ -15,7 +15,7 @@ describe('extractCartItem', () => {
       quantity: Quantity.valueOf(10),
       price: Price.valueOf(1_000),
     };
-    const cart = Cart.valueOf(customerId1, [cartItem]);
+    const cart = Cart.create(customerId1, [cartItem]);
     const aggregates = new Map([[customerId1, cart]]);
 
     const injector = createInjector()

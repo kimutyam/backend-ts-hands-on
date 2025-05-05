@@ -11,16 +11,16 @@ const schema = z
 type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
 
-const build = (value: PriceInput): Price => schema.parse(value);
-const safeBuild = (
+const parse = (value: PriceInput): Price => schema.parse(value);
+const safeParse = (
   value: PriceInput,
 ): z.SafeParseReturnType<PriceInput, Price> => schema.safeParse(value);
 
 const Price = {
   name,
   schema,
-  build,
-  safeBuild,
+  parse,
+  safeParse,
 } as const;
 
 export { Price };

@@ -7,15 +7,15 @@ type CustomerId = z.infer<typeof schema>;
 
 const equals = (a: CustomerId, b: CustomerId): boolean => a === b;
 
-const build = (value: Input): CustomerId => schema.parse(value);
+const valueOf = (value: Input): CustomerId => schema.parse(value);
 
 // 乱数生成器のシード
 const SEED = 123;
-const generate = (): CustomerId => build(ulid(SEED));
+const generate = (): CustomerId => valueOf(ulid(SEED));
 
 const CustomerId = {
   schema,
-  build,
+  build: valueOf,
   equals,
   generate,
 } as const;

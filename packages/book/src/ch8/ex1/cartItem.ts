@@ -8,9 +8,12 @@ interface CartItem {
   readonly price: Price;
 }
 
-const buildSingle = (productId: ProductId, price: Price): CartItem => ({
+const createSingleQuantity = (
+  productId: ProductId,
+  price: Price,
+): CartItem => ({
   productId,
-  quantity: Quantity.build(1),
+  quantity: Quantity.valueOf(1),
   price,
 });
 
@@ -18,7 +21,7 @@ const add =
   (quantity: Quantity, price: Price) =>
   (item: CartItem): CartItem => ({
     ...item,
-    quantity: Quantity.build(item.quantity + quantity),
+    quantity: Quantity.valueOf(item.quantity + quantity),
     price,
   });
 
@@ -31,7 +34,7 @@ const identify = (x: CartItem, y: CartItem): boolean =>
 const CartItem = {
   add,
   calculateTotal,
-  buildSingle,
+  createSingleQuantity,
   identify,
 } as const;
 
