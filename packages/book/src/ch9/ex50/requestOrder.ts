@@ -11,6 +11,18 @@ import type { Product } from 'ch9/ex50/product.js';
 import { ProductId } from 'ch9/ex50/productId.js';
 import { pipe } from 'remeda';
 
+const assertExistsProduct = (
+  cart: Cart,
+  products: ReadonlyArray<Product>,
+): void => {
+  cart.cartItems.forEach((item) => {
+    const maybeProduct = products.find((product) =>
+      ProductId.equals(product.aggregateId, item.productId),
+    );
+    assert(maybeProduct !== undefined, `価格を適用する商品が見つかりません`);
+  });
+};
+
 const applyPrice = (
   { cartItems }: Cart,
   products: ReadonlyArray<Product>,
@@ -28,18 +40,6 @@ const applyPrice = (
     }
     return acc;
   }, []);
-
-const assertExistsProduct = (
-  cart: Cart,
-  products: ReadonlyArray<Product>,
-): void => {
-  cart.cartItems.forEach((item) => {
-    const maybeProduct = products.find((product) =>
-      ProductId.equals(product.aggregateId, item.productId),
-    );
-    assert(maybeProduct !== undefined, `価格を適用する商品が見つかりません`);
-  });
-};
 
 const requestOrder = (
   cart: Cart,

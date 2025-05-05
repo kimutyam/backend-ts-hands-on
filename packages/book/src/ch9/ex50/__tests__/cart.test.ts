@@ -102,7 +102,7 @@ describe('addCartItem', () => {
     });
     expect(addedCart).toEqual(expectation);
     assert(event.eventName === 'CartItemUpdated');
-    expect(event.payload.cartItem).toStrictEqual(expectation.cartItems[1]!);
+    expect(event.payload.cartItem).toStrictEqual(expectation.cartItems[1]);
   });
 });
 

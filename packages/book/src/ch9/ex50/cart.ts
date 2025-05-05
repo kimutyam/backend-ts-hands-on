@@ -56,19 +56,19 @@ const schemaWithRefinements = schema
   .refine(
     (cart) => withinItemsLimit(cart),
     () => ({
-      message: `カート項目数上限 ${ItemsLimit.toString()} を上回っています`,
+      message: `カート項目数が ${ItemsLimit.toString()} を上回っています`,
     }),
   )
   .refine(
     (cart) => withinTotalQuantityLimit(cart),
     () => ({
-      message: `合計数量上限 ${TotalQuantityLimit.toString()} を上回っています`,
+      message: `総数が ${TotalQuantityLimit.toString()} を上回っています`,
     }),
   )
   .refine(
     (cart) => withinTotalPriceLimit(cart),
     () => ({
-      message: `合計金額上限 ${TotalPriceLimit.toString()} を上回っています`,
+      message: `総額が ${TotalPriceLimit.toString()} を上回っています`,
     }),
   );
 
@@ -96,14 +96,14 @@ const addCartItem =
     aggregateId,
     sequenceNumber,
     cartItems,
-    // (1)
+    // 1
   }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
 
     if (updateTargetIndex === -1) {
-      // (2)
+      // 2
       return safeParse({
         aggregateId,
         sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
@@ -119,7 +119,7 @@ const addCartItem =
       });
     }
 
-    // (3)
+    // 3
     const cartItemsResult = Result.combine(
       cartItems.map((cartItem) =>
         ProductId.equals(cartItem.productId, targetCartItem.productId)
@@ -131,7 +131,7 @@ const addCartItem =
       ),
     );
 
-    // (4)
+    // 4
     return cartItemsResult
       .andThen((updated) =>
         safeParse({

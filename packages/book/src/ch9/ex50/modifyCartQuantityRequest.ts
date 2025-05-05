@@ -4,7 +4,7 @@ import { ProductId } from 'ch9/ex50/productId.js';
 import { Quantity } from 'ch9/ex50/quantity.js';
 import { z } from 'zod';
 
-// (1)
+// 1
 const schema = z
   .object({
     productId: ProductId.schema,
@@ -14,7 +14,7 @@ const schema = z
 
 type ModifyCartQuantityRequest = z.infer<typeof schema>;
 
-// (2)
+// 2
 const toCartItem =
   (price: Price) =>
   ({ productId, quantity }: ModifyCartQuantityRequest): CartItem => ({
