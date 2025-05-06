@@ -1,7 +1,6 @@
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
 import * as R from 'remeda';
-import { identity } from 'remeda';
 import type { z } from 'zod';
 
 const buildFromZod =
@@ -12,6 +11,6 @@ const buildFromZod =
 const buildFromZodDefault = <Input, Output>(
   result: z.SafeParseReturnType<Input, Output>,
 ): Result<Output, z.ZodError<Input>> =>
-  R.pipe(result, buildFromZod(identity()));
+  R.pipe(result, buildFromZod(R.identity()));
 
 export { buildFromZod, buildFromZodDefault };

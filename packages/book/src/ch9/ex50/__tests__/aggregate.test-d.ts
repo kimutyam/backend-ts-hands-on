@@ -7,7 +7,7 @@ import { Quantity } from 'ch9/ex50/quantity.js';
 import { expectTypeOf } from 'vitest';
 import { z } from 'zod';
 
-interface Cart extends Aggregate<CustomerId> {
+interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;
 }
 
@@ -31,5 +31,5 @@ it('集約のスキーマを生成できる', () => {
     ],
   });
 
-  expectTypeOf<typeof cart>().toEqualTypeOf<Cart>();
+  expectTypeOf<typeof cart>().toEqualTypeOf<CartNotBranded>();
 });
