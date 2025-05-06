@@ -7,17 +7,19 @@ import * as R from 'remeda';
 
 it('構造の異なる入力値からカート項目を組み立てる', () => {
   const data: unknown = {
+    customerId: '01JTJ0MG3X8FD7PESQSP7TJBXM',
     productId: '01JMVNZTTTV8T0PC0GK7FBKFPD',
     quantity: 1,
   };
   const result = ModifyCartQuantityRequest.schema.safeParse(data);
   assert(result.success);
 
-  const orderItem: CartItem = R.pipe(
+  const cartItem: CartItem = R.pipe(
     result.data,
     ModifyCartQuantityRequest.toCartItem(Price.parse(100)),
   );
-  expect(orderItem.productId).toBe('01JMVNZTTTV8T0PC0GK7FBKFPD');
-  expect(orderItem.price).toBe(100);
-  expect(orderItem.quantity).toBe(1);
+
+  expect(cartItem.productId).toBe('01JMVNZTTTV8T0PC0GK7FBKFPD');
+  expect(cartItem.price).toBe(100);
+  expect(cartItem.quantity).toBe(1);
 });

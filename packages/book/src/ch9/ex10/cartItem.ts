@@ -4,11 +4,10 @@ import type { QuantityInput } from 'ch9/ex10/quantity.js';
 import { Quantity } from 'ch9/ex10/quantity.js';
 import * as z from 'zod';
 
+// 1
 const schema = z
   .object({
-    // NOTE: Quantity.schemaと類似した定義になるため実装例は割愛
     productId: ProductId.schema,
-    // NOTE: Quantity.schemaと類似した定義になるため実装例は割愛
     price: Price.schema,
     quantity: Quantity.schema,
   })
@@ -21,6 +20,7 @@ const createSingleQuantity = (
   price: Price,
 ): CartItem => ({
   productId,
+  // 2
   quantity: Quantity.parse(1),
   price,
 });
@@ -28,6 +28,7 @@ const createSingleQuantity = (
 const add =
   (quantity: Quantity, price: Price) =>
   (item: CartItem): CartItem | z.ZodError<QuantityInput> => {
+    // 3
     const result = Quantity.safeParse(item.quantity + quantity);
     return result.success
       ? {
