@@ -5,7 +5,7 @@ import { CustomerId } from 'ch8/ex1/customerId.js';
 import { Price } from 'ch8/ex1/price.js';
 import { ProductId } from 'ch8/ex1/productId.js';
 import { Quantity } from 'ch8/ex1/quantity.js';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {
@@ -17,7 +17,7 @@ describe('addCartItem', () => {
       price: Price.valueOf(1_000),
     };
 
-    const [addedCart, event] = pipe(
+    const [addedCart, event] = R.pipe(
       Cart.init(customId),
       Cart.addCartItem(cartItem),
     );
@@ -39,7 +39,7 @@ describe('addCartItem', () => {
       quantity: Quantity.valueOf(3),
       price: Price.valueOf(2_222),
     };
-    const [addedCart, event] = pipe(
+    const [addedCart, event] = R.pipe(
       Cart.create(customId, 0, [cartItem]),
       Cart.addCartItem(targetCartItem),
     );
@@ -68,7 +68,7 @@ describe('addCartItem', () => {
       quantity: Quantity.valueOf(3),
       price: Price.valueOf(2_222),
     };
-    const [addedCart, event] = pipe(
+    const [addedCart, event] = R.pipe(
       Cart.create(customId, 0, cartItems),
       Cart.addCartItem(targetCartItem),
     );
@@ -101,7 +101,7 @@ describe('removeCartItem', () => {
         price: Price.valueOf(2_000),
       },
     ];
-    const [removedCart, event] = pipe(
+    const [removedCart, event] = R.pipe(
       Cart.create(customId, 0, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );

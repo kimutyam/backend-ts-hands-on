@@ -6,7 +6,7 @@ import { CustomerId } from 'ch9/ex50/customerId.js';
 import { Price } from 'ch9/ex50/price.js';
 import { ProductId } from 'ch9/ex50/productId.js';
 import { Quantity } from 'ch9/ex50/quantity.js';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {
@@ -18,7 +18,7 @@ describe('addCartItem', () => {
       price: Price.parse(1_000),
     };
 
-    const result = pipe(Cart.init(customId), Cart.addCartItem(cartItem));
+    const result = R.pipe(Cart.init(customId), Cart.addCartItem(cartItem));
     assert(result.isOk());
     const [addedCart, event] = result.value;
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
@@ -39,7 +39,7 @@ describe('addCartItem', () => {
       quantity: Quantity.parse(3),
       price: Price.parse(2_222),
     };
-    const result = pipe(
+    const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
@@ -78,7 +78,7 @@ describe('addCartItem', () => {
       quantity: Quantity.parse(3),
       price: Price.parse(2_222),
     };
-    const result = pipe(
+    const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
@@ -121,7 +121,7 @@ describe('removeCartItem', () => {
         price: Price.parse(2_000),
       },
     ];
-    const [removedCart, event] = pipe(
+    const [removedCart, event] = R.pipe(
       Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,

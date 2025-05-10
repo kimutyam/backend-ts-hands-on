@@ -14,7 +14,6 @@ import type { CustomerId } from 'ch8/ex1/customerId.js';
 import { DomainEvent } from 'ch8/ex1/domainEvent.js';
 import { ProductId } from 'ch8/ex1/productId.js';
 import * as R from 'remeda';
-import { pipe } from 'remeda';
 
 const name = 'Cart';
 
@@ -95,7 +94,7 @@ const addCartItem =
         Aggregate.incrementSequenceNumber(sequenceNumber),
         [...cartItems, targetCartItem],
       );
-      const event = pipe(
+      const event = R.pipe(
         aggregate,
         DomainEvent.generate(name, CartItemAdded.eventName, {
           cartItem: targetCartItem,
@@ -142,7 +141,7 @@ const removeCartItem =
       Aggregate.incrementSequenceNumber(sequenceNumber),
       removedCartItems,
     );
-    const event = pipe(
+    const event = R.pipe(
       aggregate,
       DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
     );
@@ -157,7 +156,7 @@ const clear =
       Aggregate.incrementSequenceNumber(sequenceNumber),
       [],
     );
-    const event = pipe(
+    const event = R.pipe(
       aggregate,
       DomainEvent.generate(name, CartCleared.eventName, {
         aggregateId,

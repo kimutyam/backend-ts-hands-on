@@ -10,7 +10,7 @@ import { Cart } from 'chx/ex30/domain/cart/cart.js';
 import type { CartClearedOnOrder } from 'chx/ex30/domain/cart/cartEvent.js';
 import { DomainEvent } from 'chx/ex30/domain/domainEvent.js';
 import { OrderRequested } from 'chx/ex30/domain/order/orderEvent.js';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 const applyItems = (
   cart: Cart,
@@ -47,7 +47,7 @@ export const OrderService = (
       items: applyItems(cart, products),
     },
   };
-  const orderRequested = pipe(
+  const orderRequested = R.pipe(
     order,
     DomainEvent.generate(OrderRequested.name, Order.aggregateName, {
       customerId: order.props.customerId,
