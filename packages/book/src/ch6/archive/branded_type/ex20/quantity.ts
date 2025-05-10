@@ -4,7 +4,7 @@ import type { Brand } from 'ch6/archive/branded_type/ex7/brand.js';
 import { InvariantsError } from 'ch6/archive/branded_type/ex20/invariantsError.js';
 import type { Result } from 'ch6/archive/branded_type/ex20/result.js';
 import { Failure, Success } from 'ch6/archive/branded_type/ex20/result.js';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 type RawType = number;
 export type Quantity = Brand<RawType, 'Quantity'>;
@@ -32,7 +32,7 @@ const build = (value: number): Quantity => {
 };
 
 const safeBuild = (value: number): Result<QuantityError, Quantity> =>
-  pipe(validate(value), (invariantsError) =>
+  R.pipe(validate(value), (invariantsError) =>
     invariantsError === undefined
       ? Success(value as Quantity)
       : Failure(invariantsError),

@@ -12,7 +12,7 @@ import {
 } from 'chx/ex30/domain/cart/cartEvent.js';
 import { DomainEvent } from 'chx/ex30/domain/domainEvent.js';
 import { ok, Result } from 'neverthrow';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 import { z } from 'zod';
 
 const aggregateName = 'Cart';
@@ -63,7 +63,7 @@ const addItem =
         }),
       )
       .map((newCart) => {
-        const event = pipe(
+        const event = R.pipe(
           newCart,
           DomainEvent.generate(CartItemAdded.name, aggregateName, {
             item: targetItem,
@@ -83,7 +83,7 @@ const removeItem =
       sequenceNumber: cart.sequenceNumber + 1,
       props: { items },
     });
-    const event = pipe(
+    const event = R.pipe(
       newCart,
       DomainEvent.generate(CartItemRemoved.name, aggregateName, { productId }),
     );
@@ -104,7 +104,7 @@ const updateItemQuantity =
       sequenceNumber: cart.sequenceNumber + 1,
       props: { items },
     }).map((newCart) => {
-      const event = pipe(
+      const event = R.pipe(
         newCart,
         DomainEvent.generate(CartItemQuantityUpdated.name, aggregateName, {
           productId,
@@ -121,7 +121,7 @@ const clearOnOrder = (cart: Cart): [Cart, CartClearedOnOrder] => {
     sequenceNumber: cart.sequenceNumber + 1,
     props: { items: [] },
   });
-  const event = pipe(
+  const event = R.pipe(
     newCart,
     DomainEvent.generate(CartClearedOnOrder.name, aggregateName, undefined),
   );

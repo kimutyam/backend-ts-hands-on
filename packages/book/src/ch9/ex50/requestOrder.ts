@@ -9,7 +9,7 @@ import { OrderRequested } from 'ch9/ex50/orderEvent.js';
 import { OrderId } from 'ch9/ex50/orderId.js';
 import type { Product } from 'ch9/ex50/product.js';
 import { ProductId } from 'ch9/ex50/productId.js';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 const assertExistsProduct = (
   cart: Cart,
@@ -49,14 +49,14 @@ const requestOrder = (
   assertExistsProduct(cart, products);
   const items = applyPrice(cart, products);
   const order = Order.generate(cart.aggregateId, items, generateOrderId);
-  const orderRequested = pipe(
+  const orderRequested = R.pipe(
     order,
     DomainEvent.generate(Order.name, OrderRequested.eventName, {
       customerId: cart.aggregateId,
       items: order.items,
     }),
   );
-  const [newCart, cartClearedOnOrder] = pipe(cart, Cart.clear('OnOrder'));
+  const [newCart, cartClearedOnOrder] = R.pipe(cart, Cart.clear('OnOrder'));
   return [order, orderRequested, newCart, cartClearedOnOrder];
 };
 

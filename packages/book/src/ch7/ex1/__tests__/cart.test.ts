@@ -3,7 +3,7 @@ import { CustomerId } from 'ch7/ex1/customerId.js';
 import { Price } from 'ch7/ex1/price.js';
 import { ProductId } from 'ch7/ex1/productId.js';
 import { Quantity } from 'ch7/ex1/quantity.js';
-import { pipe } from 'remeda';
+import * as R from 'remeda';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {
@@ -15,7 +15,7 @@ describe('addCartItem', () => {
       price: Price.valueOf(1_000),
     };
 
-    const addedCart = pipe(Cart.init(customId), Cart.addCartItem(cartItem));
+    const addedCart = R.pipe(Cart.init(customId), Cart.addCartItem(cartItem));
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
   });
 
@@ -32,7 +32,7 @@ describe('addCartItem', () => {
       quantity: Quantity.valueOf(3),
       price: Price.valueOf(2_222),
     };
-    const addedCart = pipe(
+    const addedCart = R.pipe(
       Cart.create(customId, [cartItem]),
       Cart.addCartItem(targetCartItem),
     );
@@ -59,7 +59,7 @@ describe('addCartItem', () => {
       quantity: Quantity.valueOf(3),
       price: Price.valueOf(2_222),
     };
-    const addedCart = pipe(
+    const addedCart = R.pipe(
       Cart.create(customId, cartItems),
       Cart.addCartItem(targetCartItem),
     );
@@ -90,7 +90,7 @@ describe('removeCartItem', () => {
         price: Price.valueOf(2_000),
       },
     ];
-    const removedCart = pipe(
+    const removedCart = R.pipe(
       Cart.create(customId, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );

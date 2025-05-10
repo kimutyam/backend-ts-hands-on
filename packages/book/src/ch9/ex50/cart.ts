@@ -14,7 +14,6 @@ import { ProductId } from 'ch9/ex50/productId.js';
 import { buildFromZod } from 'ch9/ex50/result.js';
 import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
-import { pipe } from 'remeda';
 import { z } from 'zod';
 
 const name = 'Cart';
@@ -109,7 +108,7 @@ const addCartItem =
         sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
         cartItems: [...cartItems, targetCartItem],
       }).map((aggregate) => {
-        const event = pipe(
+        const event = R.pipe(
           aggregate,
           DomainEvent.generate(name, CartItemAdded.eventName, {
             cartItem: targetCartItem,
@@ -166,7 +165,7 @@ const removeCartItem =
       sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: removedCartItems,
     });
-    const event = pipe(
+    const event = R.pipe(
       aggregate,
       DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
     );
@@ -181,7 +180,7 @@ const clear =
       sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
       cartItems: [],
     });
-    const event = pipe(
+    const event = R.pipe(
       aggregate,
       DomainEvent.generate(name, CartCleared.eventName, {
         aggregateId,
