@@ -29,7 +29,7 @@
     "tozod": "3.0.0",
     "typed-inject": "5.0.0",
     "ulidx": "2.4.1",
-    "zod": "3.24.3"
+    "zod": "3.24.4"
   },
   "devDependencies": {
     "@eslint/compat": "1.2.9",
