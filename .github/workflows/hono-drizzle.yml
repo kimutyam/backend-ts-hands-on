@@ -1,0 +1,35 @@
+---
+name: hono-drizzle
+on:
+  # SEE: https://github.com/actions/checkout/issues/15
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build.yml'
+      - '.github/workflows/hono-drizzle.yml'
+      - '.github/actions/**'
+      - '.*'
+      - 'Makefile'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'packages/hono-drizzle/**'
+  pull_request:
+    paths:
+      - '.github/workflows/build.yml'
+      - '.github/workflows/hono-drizzle.yml'
+      - '.github/actions/**'
+      - '.*'
+      - 'Makefile'
+      - 'package.json'
+      - 'tsconfig.json'
+      - 'packages/hono-drizzle/**'
+      - 'packages/libs/**'
+
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      workspace-name: 'hono-drizzle'
+      node-version-file: '.node-version'
