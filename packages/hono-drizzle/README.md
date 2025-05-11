@@ -20,6 +20,8 @@ eval "$(direnv hook zsh)"
 
 - generate / migrate / push のワークロード
 - ショッピングカートのロジックを移植
+  - ch7/ex2/__tests__/extractCartItems.di.test.ts (移植後にtyped-injectの依存を消す)
+  - chx
 - migrate で insert
   - https://orm.drizzle.team/docs/kit-custom-migrations
 - RLS
