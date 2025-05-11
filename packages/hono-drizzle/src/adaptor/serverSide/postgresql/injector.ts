@@ -1,7 +1,8 @@
-import { Db } from 'sample/adaptor/serverSide/postgresql/db.js';
-import { buildFindUserAccount } from 'sample/adaptor/serverSide/postgresql/findUserAccount.js';
-import { FindUserAccount } from 'sample/domain/userAccountRepository.js';
 import { createInjector } from 'typed-inject';
+
+import { FindUserAccount } from '../../../domain/userAccountRepository.js';
+import { Db } from './db.js';
+import { buildFindUserAccount } from './findUserAccount.js';
 
 const create = () =>
   createInjector()

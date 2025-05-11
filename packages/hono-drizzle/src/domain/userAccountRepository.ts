@@ -1,6 +1,6 @@
 import type { ResultAsync } from 'neverthrow';
-import type { UserAccount } from 'sample/domain/userAccount.js';
-import type { UserAccountNotFoundError } from 'sample/domain/userAccountNotFound.js';
+import type { UserAccount } from 'domain/userAccount.js';
+import type { UserAccountNotFoundError } from 'domain/userAccountNotFound.js';
 
 interface FindUserAccount {
   (id: string): ResultAsync<UserAccount, UserAccountNotFoundError>;

@@ -16,6 +16,5 @@ indent_style = tab
 [*.md]
 trim_trailing_whitespace = false
 
-# 自動生成コードは対象外とする
-[migration_lock.toml]
-insert_final_newline = false
+[*.sql]
+indent_style = tab

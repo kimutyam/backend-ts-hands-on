@@ -1,5 +1,5 @@
-import { PostgreSQLInjector } from 'sample/adaptor/serverSide/postgresql/injector.js';
-import { GetUserAccount } from 'sample/useCase/getUserAccount.js';
+import { PostgreSQLInjector } from '../adaptor/serverSide/postgresql/injector.js';
+import { GetUserAccount } from '../useCase/getUserAccount.js';
 
 const create = () =>
   PostgreSQLInjector.create().provideFactory(

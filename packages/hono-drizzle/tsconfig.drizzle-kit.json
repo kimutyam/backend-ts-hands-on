@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "dist-drizzle-kit"
+  },
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/adaptor/serverSide/postgresql/schema/*.ts"
+  ]
+}

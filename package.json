@@ -11,7 +11,8 @@
       "packages/fp-zod",
       "packages/pure",
       "packages/conference-service",
-      "packages/nest-sample"
+      "packages/nest-sample",
+      "packages/hono-drizzle"
     ],
     "nohoist": [
       "**/prisma",
