@@ -16,6 +16,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Init env
+        run: cp .env.example .env.dev
+        working-directory: ./packages/${{ inputs.workspace-name }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: ${{ inputs.node-version-file }}
