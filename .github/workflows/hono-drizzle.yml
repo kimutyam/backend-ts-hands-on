@@ -26,10 +26,38 @@ on:
       - 'packages/hono-drizzle/**'
       - 'packages/libs/**'
 
-
 jobs:
   build:
-    uses: ./.github/workflows/build.yml
-    with:
-      workspace-name: 'hono-drizzle'
-      node-version-file: '.node-version'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      WORKSPACE_NAME: 'hono-drizzle'
+      NODE_VERSION_FILE: '.node-version'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+          cache: yarn
+      - name: yarn install
+        uses: borales/actions-yarn@v5
+        with:
+          cmd: workspace ${{ env.WORKSPACE_NAME }} install --production=false --frozen-lockfile
+      - name: yarn lint
+        uses: borales/actions-yarn@v5
+        with:
+          cmd: workspace ${{ env.WORKSPACE_NAME }} lint
+      - name: yarn build
+        uses: borales/actions-yarn@v5
+        with:
+          cmd: workspace ${{ env.WORKSPACE_NAME }} build
+      - name: Init env
+        run: cp .env.example .env.dev
+        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+      - name: Start Docker Compose
+        run: docker compose up -d
+        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+      - name: yarn test
+        uses: borales/actions-yarn@v5
+        with:
+          cmd: workspace ${{ env.WORKSPACE_NAME }} test
