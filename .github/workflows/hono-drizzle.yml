@@ -61,7 +61,7 @@ jobs:
         run: docker compose up -d
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: Migrate database
-        run: yarn migrate
+        run: yarn db:migrate
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: yarn test
         uses: borales/actions-yarn@v5
