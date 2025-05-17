@@ -1,5 +1,5 @@
-import type { UserAccount } from 'domain/userAccount.js';
-import type { UserAccountNotFoundError } from 'domain/userAccountNotFound.js';
+import type { UserAccount } from 'domain/userAccount/userAccount.js';
+import type { UserAccountNotFoundError } from 'domain/userAccount/userAccountNotFound.js';
 import type { ResultAsync } from 'neverthrow';
 
 interface FindUserAccount {

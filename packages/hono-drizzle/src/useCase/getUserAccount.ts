@@ -1,5 +1,5 @@
-import type { UserAccount } from '../domain/userAccount.js';
-import { FindUserAccount } from '../domain/userAccountRepository.js';
+import type { UserAccount } from '../domain/userAccount/userAccount.js';
+import { FindUserAccount } from '../domain/userAccount/userAccountRepository.js';
 
 type GetUserAccount = (
   userAccountId: string,
