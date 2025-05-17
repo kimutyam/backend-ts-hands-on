@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist"
+  },
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ]
+}
