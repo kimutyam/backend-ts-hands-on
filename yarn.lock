@@ -1477,13 +1477,6 @@
   dependencies:
     undici-types "~6.21.0"
 
-"@types/node@22.15.14":
-  version "22.15.14"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.15.14.tgz#889fd356a04d003a6d5650ccc003ef4d712430d7"
-  integrity sha512-BL1eyu/XWsFGTtDWOYULQEs4KR0qdtYfCxYAUYRoB7JP7h9ETYLgQTww6kH8Sj2C0pFGgrpM0XKv6/kbIzYJ1g==
-  dependencies:
-    undici-types "~6.21.0"
-
 "@types/pg@8.11.14":
   version "8.11.14"
   resolved "https://registry.yarnpkg.com/@types/pg/-/pg-8.11.14.tgz#1762612081ce0984365b0ff1a6ffd59c8fcf7738"
