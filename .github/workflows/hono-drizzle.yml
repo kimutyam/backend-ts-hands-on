@@ -35,6 +35,12 @@ jobs:
       NODE_VERSION_FILE: '.node-version'
     steps:
       - uses: actions/checkout@v4
+      - name: Init env
+        run: cp .env.example .env.dev
+        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+      - name: Import environment variables from a file
+        run: cat .env.dev | awk '!(/^#/ || /^$/)' >> $GITHUB_ENV
+        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
@@ -51,9 +57,6 @@ jobs:
         uses: borales/actions-yarn@v5
         with:
           cmd: workspace ${{ env.WORKSPACE_NAME }} build
-      - name: Init env
-        run: cp .env.example .env.dev
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: Start Docker Compose
         run: docker compose up -d
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
