@@ -1,6 +1,6 @@
 import { createInjector } from 'typed-inject';
 
-import { FindUserAccount } from '../../../domain/userAccountRepository.js';
+import { FindUserAccount } from '../../../domain/userAccount/userAccountRepository.js';
 import { Db } from './db.js';
 import { buildFindUserAccount } from './findUserAccount.js';
 

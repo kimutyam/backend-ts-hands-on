@@ -2,8 +2,8 @@ import { eq } from 'drizzle-orm';
 import type { drizzle } from 'drizzle-orm/node-postgres';
 import { errAsync, okAsync, ResultAsync } from 'neverthrow';
 
-import { UserAccountNotFoundError } from '../../../domain/userAccountNotFound.js';
-import type { FindUserAccount } from '../../../domain/userAccountRepository.js';
+import { UserAccountNotFoundError } from '../../../domain/userAccount/userAccountNotFound.js';
+import type { FindUserAccount } from '../../../domain/userAccount/userAccountRepository.js';
 import { Db } from './db.js';
 import { userAccountTable } from './schema/userAccount.sql.js';
 
