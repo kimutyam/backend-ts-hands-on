@@ -10,13 +10,12 @@ import { userAccountTable } from '../schema/userAccount.sql.js';
 describe('buildFindUserAccount', () => {
   const pool = PgPool.build();
   const db = drizzle(pool);
+  const findUserAccount = buildFindUserAccount(db);
 
   beforeAll(async () => {
     await db.insert(userAccountTable).values({
       id: 'test-id',
       name: 'Test User',
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
   });
 
@@ -26,7 +25,6 @@ describe('buildFindUserAccount', () => {
   });
 
   it('登録済みのユーザーアカウントで索引できる', async () => {
-    const findUserAccount = buildFindUserAccount(db);
     const result = await findUserAccount('test-id');
 
     assert(result.isOk());
@@ -35,7 +33,6 @@ describe('buildFindUserAccount', () => {
 
   it('ユーザーアカウントが存在しない場合', async () => {
     const userAccountId = 'non-existent-id';
-    const findUserAccount = buildFindUserAccount(db);
     const result = await findUserAccount(userAccountId);
 
     assert(result.isErr());
