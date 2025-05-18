@@ -1,16 +1,16 @@
 import type { UserAccount } from '../domain/userAccount/userAccount.js';
-import { FindUserAccount } from '../domain/userAccount/userAccountRepository.js';
+import { FindUserAccountById } from '../domain/userAccount/userAccountRepository.js';
 
 type GetUserAccount = (
   userAccountId: string,
 ) => Promise<UserAccount | undefined>;
 
 const build =
-  (findUserAccount: FindUserAccount): GetUserAccount =>
+  (findUserAccountById: FindUserAccountById): GetUserAccount =>
   (userAccountId: string): ReturnType<GetUserAccount> =>
-    findUserAccount(userAccountId).unwrapOr(undefined);
+    findUserAccountById(userAccountId).unwrapOr(undefined);
 
-build.inject = [FindUserAccount.token] as const;
+build.inject = [FindUserAccountById.token] as const;
 
 const GetUserAccount = {
   token: 'GetUserAccount' as const,
