@@ -7,9 +7,11 @@ import { buildCartEventStore } from './cartEventStore.js';
 import { Db } from './db.js';
 import { buildFindCartById } from './findCartById.js';
 import { buildFindUserAccount } from './findUserAccount.js';
+import { PgPool } from './pgPool.js';
 
 const create = () =>
   createInjector()
+    .provideFactory(PgPool.token, PgPool.build)
     .provideFactory(Db.token, Db.build)
     .provideFactory(FindUserAccount.token, buildFindUserAccount)
     .provideFactory(FindCartById.token, buildFindCartById)

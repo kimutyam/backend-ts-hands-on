@@ -1,18 +1,15 @@
 import 'dotenv/config';
 
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
+import type { Pool } from 'pg';
 
-const build = () => {
-  const url = process.env['DATABASE_URL'];
-  if (url === undefined) {
-    throw new Error('DATABASE_URL is not defined');
-  }
-  const pool = new Pool({ connectionString: url });
-  return drizzle({ client: pool, casing: 'snake_case' });
-};
+import { PgPool } from './pgPool.js';
+
+const build = (pool: Pool) => drizzle({ client: pool, casing: 'snake_case' });
 
 type Db = ReturnType<typeof build>;
+
+build.inject = [PgPool.token] as const;
 
 const Db = {
   token: 'db' as const,

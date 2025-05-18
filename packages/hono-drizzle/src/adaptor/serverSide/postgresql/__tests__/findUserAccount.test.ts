@@ -2,15 +2,13 @@ import assert from 'node:assert';
 
 import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
 
 import { buildFindUserAccount } from '../findUserAccount.js';
+import { PgPool } from '../pgPool.js';
 import { userAccountTable } from '../schema/userAccount.sql.js';
 
 describe('buildFindUserAccount', () => {
-  const pool = new Pool({
-    connectionString: process.env['DATABASE_URL'],
-  });
+  const pool = PgPool.build();
   const db = drizzle(pool);
 
   beforeAll(async () => {
