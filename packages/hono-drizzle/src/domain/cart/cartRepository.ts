@@ -4,4 +4,8 @@ import type { CartNotFoundError } from './cartNotFoundError.js';
 
 type FindCartById = FindById<Cart, CartNotFoundError>;
 
-export type { FindCartById };
+const FindCartById = {
+  token: 'FindCartById' as const,
+} as const;
+
+export { FindCartById };
