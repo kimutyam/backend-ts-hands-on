@@ -7,7 +7,7 @@ if (DATABASE_URL === undefined) {
 
 export default defineConfig({
   dialect: 'postgresql',
-  schema: './dist-drizzle-kit/*.sql.js',
+  schema: './dist-drizzle-kit/adaptor/serverSide/postgresql/schema/*.sql.js',
   out: './drizzle',
   dbCredentials: {
     url: DATABASE_URL,

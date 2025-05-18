@@ -83,10 +83,13 @@ const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
     })),
   );
 
-const init = (aggregateId: CustomerId): Cart =>
+const init = (
+  aggregateId: CustomerId,
+  sequenceNumber: number = Aggregate.InitialSequenceNumber,
+): Cart =>
   parse({
     aggregateId,
-    sequenceNumber: Aggregate.InitialSequenceNumber,
+    sequenceNumber,
     cartItems: [],
   });
 

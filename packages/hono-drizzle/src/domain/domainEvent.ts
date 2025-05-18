@@ -5,7 +5,7 @@ interface DomainEvent<
   AggregateId,
   AggregateName extends string,
   EventName extends string,
-  Payload extends { [k: string]: unknown },
+  Payload extends Record<string, unknown>,
 > {
   readonly eventId: DomainEventId;
   readonly occurredAt: Date;
@@ -20,7 +20,7 @@ const generate =
   <
     AggregateName extends string,
     EventName extends string,
-    Payload extends { [k: string]: unknown },
+    Payload extends Record<string, unknown>,
   >(
     aggregateName: AggregateName,
     eventName: EventName,
