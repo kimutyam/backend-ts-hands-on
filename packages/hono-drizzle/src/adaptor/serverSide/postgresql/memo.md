@@ -4,6 +4,15 @@
 - スキーマを利用して実装上で型を利用できる
 - リポジトリのテスト
 
+# TODO
+
+- 行レベルセキュリティ
+- seed
+- ロガーの設定 drizzle-orm/logger
+- すべてのテーブルを取得してからtruncateするhelperを作る
+- snake
+  - https://orm.drizzle.team/docs/sql-schema-declaration#camel-and-snake-casing
+
 # 楽観ロック
 
 
