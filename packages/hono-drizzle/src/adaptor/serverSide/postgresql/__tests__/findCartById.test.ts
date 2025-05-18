@@ -1,6 +1,5 @@
 import assert from 'node:assert';
 
-import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { Aggregate } from '../../../../domain/aggregate.js';
@@ -14,6 +13,7 @@ import { cartTable } from '../schema/cart.sql.js';
 import { cartItemTable } from '../schema/cartItem.sql.js';
 import { customerTable } from '../schema/customer.sql.js';
 import { productTable } from '../schema/product.sql.js';
+import { truncateTables } from './helpers.js';
 
 describe('FindCartById', () => {
   const pool = PgPool.build();
@@ -26,11 +26,7 @@ describe('FindCartById', () => {
   const productId1 = ProductId.generate();
 
   beforeAll(async () => {
-    await db.execute(sql`TRUNCATE TABLE domain_event CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE cart_item CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE cart CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE product CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE customer CASCADE`);
+    await truncateTables(db);
     await db.insert(productTable).values({
       productId: productId1,
       sequenceNumber: Aggregate.InitialSequenceNumber,
@@ -66,11 +62,7 @@ describe('FindCartById', () => {
   });
 
   afterAll(async () => {
-    await db.execute(sql`TRUNCATE TABLE domain_event CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE cart_item CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE cart CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE product CASCADE`);
-    await db.execute(sql`TRUNCATE TABLE customer CASCADE`);
+    await truncateTables(db);
     await pool.end();
   });
   // カートアイテムが空の場合
