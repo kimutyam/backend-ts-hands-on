@@ -2,19 +2,19 @@ import assert from 'node:assert';
 
 import { drizzle } from 'drizzle-orm/node-postgres';
 
-import { Aggregate } from '../../../../domain/aggregate.js';
-import { CartNotFoundError } from '../../../../domain/cart/cartNotFoundError.js';
-import { Quantity } from '../../../../domain/cart/quantity.js';
-import { CustomerId } from '../../../../domain/customer/customerId.js';
-import { Price } from '../../../../domain/product/price.js';
-import { ProductId } from '../../../../domain/product/productId.js';
+import { Aggregate } from '../../../../../domain/aggregate.js';
+import { CartNotFoundError } from '../../../../../domain/cart/cartNotFoundError.js';
+import { Quantity } from '../../../../../domain/cart/quantity.js';
+import { CustomerId } from '../../../../../domain/customer/customerId.js';
+import { Price } from '../../../../../domain/product/price.js';
+import { ProductId } from '../../../../../domain/product/productId.js';
+import { truncateTables } from '../../__tests__/helpers.js';
+import { PgPool } from '../../pgPool.js';
+import { cartTable } from '../../schema/cart.sql.js';
+import { cartItemTable } from '../../schema/cartItem.sql.js';
+import { customerTable } from '../../schema/customer.sql.js';
+import { productTable } from '../../schema/product.sql.js';
 import { buildFindCartById } from '../findCartById.js';
-import { PgPool } from '../pgPool.js';
-import { cartTable } from '../schema/cart.sql.js';
-import { cartItemTable } from '../schema/cartItem.sql.js';
-import { customerTable } from '../schema/customer.sql.js';
-import { productTable } from '../schema/product.sql.js';
-import { truncateTables } from './helpers.js';
 
 describe('FindCartById', () => {
   const pool = PgPool.build();

@@ -2,10 +2,10 @@ import assert from 'node:assert';
 
 import { drizzle } from 'drizzle-orm/node-postgres';
 
+import { truncateTables } from '../../__tests__/helpers.js';
+import { PgPool } from '../../pgPool.js';
+import { userAccountTable } from '../../schema/userAccount.sql.js';
 import { buildFindUserAccountById } from '../findUserAccountById.js';
-import { PgPool } from '../pgPool.js';
-import { userAccountTable } from '../schema/userAccount.sql.js';
-import { truncateTables } from './helpers.js';
 
 describe('buildFindUserAccountById', () => {
   const pool = PgPool.build();
