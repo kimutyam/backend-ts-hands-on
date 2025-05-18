@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { describe } from 'vitest';
 
 import { Aggregate } from '../../../../../domain/aggregate.js';
 import { CartNotFoundError } from '../../../../../domain/cart/cartNotFoundError.js';
@@ -9,6 +9,7 @@ import { CustomerId } from '../../../../../domain/customer/customerId.js';
 import { Price } from '../../../../../domain/product/price.js';
 import { ProductId } from '../../../../../domain/product/productId.js';
 import { truncateTables } from '../../__tests__/helpers.js';
+import { Db } from '../../db.js';
 import { PgPool } from '../../pgPool.js';
 import { cartTable } from '../../schema/cart.sql.js';
 import { cartItemTable } from '../../schema/cartItem.sql.js';
@@ -16,9 +17,9 @@ import { customerTable } from '../../schema/customer.sql.js';
 import { productTable } from '../../schema/product.sql.js';
 import { buildFindCartById } from '../findCartById.js';
 
-describe('FindCartById', () => {
+describe.sequential('FindCartById', () => {
   const pool = PgPool.build();
-  const db = drizzle(pool);
+  const db = Db.build(pool);
   const findCartById = buildFindCartById(db);
 
   const customerId1 = CustomerId.generate();

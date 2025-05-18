@@ -1,15 +1,16 @@
 import assert from 'node:assert';
 
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { describe } from 'vitest';
 
 import { truncateTables } from '../../__tests__/helpers.js';
+import { Db } from '../../db.js';
 import { PgPool } from '../../pgPool.js';
 import { userAccountTable } from '../../schema/userAccount.sql.js';
 import { buildFindUserAccountById } from '../findUserAccountById.js';
 
-describe('buildFindUserAccountById', () => {
+describe.sequential('buildFindUserAccountById', () => {
   const pool = PgPool.build();
-  const db = drizzle(pool);
+  const db = Db.build(pool);
   const findUserAccountById = buildFindUserAccountById(db);
 
   beforeAll(async () => {

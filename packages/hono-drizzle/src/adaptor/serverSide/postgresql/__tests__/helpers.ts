@@ -21,7 +21,7 @@ const getAllTableNames = async (db: Db): Promise<ReadonlyArray<string>> => {
 
 const truncateTables = async (db: Db) => {
   const tables = await getAllTableNames(db);
-  const targetTableString = tables.join(',');
+  const targetTableString = tables.join(', ');
   await db.execute(`TRUNCATE TABLE ${targetTableString} CASCADE`);
 };
 
