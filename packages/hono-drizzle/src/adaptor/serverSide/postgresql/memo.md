@@ -9,13 +9,14 @@
   - vitestで直列にするには、Vitest はデフォルトでファイル単位では並列実行されますが、テスト関数 (test(...)) は直列で実行されます。 一方、test.concurrent(...) を使うと同一ファイル内でも並列になります。まず、次の点を確認してください。
 - すべてのテーブルを取得してからtruncateするhelperを作る
 - ロガーの設定 drizzle-orm/logger
+- drizzle-kit
 
 # TODO
 
 - 行レベルセキュリティ
-- 
 - seed
-
+- 構造化ログ
+- テスト用と本番用のDBを分ける
 - snake
   - https://orm.drizzle.team/docs/sql-schema-declaration#camel-and-snake-casing
 

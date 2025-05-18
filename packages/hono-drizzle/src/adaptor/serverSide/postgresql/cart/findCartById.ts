@@ -19,7 +19,6 @@ interface Select {
   cart_item: CartItemSelect | null;
 }
 
-// https://orm.drizzle.team/docs/joins#aggregating-results をさんこうに改善
 const toCart =
   (aggregateId: CustomerId) =>
   (selects: ReadonlyArray<Select>): Result<Cart, CartNotFoundError> => {
