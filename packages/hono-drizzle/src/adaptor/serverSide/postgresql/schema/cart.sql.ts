@@ -1,12 +1,12 @@
 import { integer, pgTable, varchar } from 'drizzle-orm/pg-core';
 
-import type { CustomerId } from '../../../../domain/customer/customerId.js';
+import type { Cart } from '../../../../domain/cart/cart.js';
 import { timestamps } from './columns.helpers.js';
 import { customerTable } from './customer.sql.js';
 
 const cartTable = pgTable('cart', {
   customerId: varchar('customer_id', { length: 26 })
-    .$type<CustomerId>()
+    .$type<Cart['aggregateId']>()
     .primaryKey()
     .references(() => customerTable.customerId, {
       onDelete: 'restrict',

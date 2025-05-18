@@ -1,7 +1,7 @@
 import { integer, pgTable, primaryKey, varchar } from 'drizzle-orm/pg-core';
 
 import type { Quantity } from '../../../../domain/cart/quantity.js';
-import type { OrderId } from '../../../../domain/order/orderId.js';
+import type { Order } from '../../../../domain/order/order.js';
 import type { Price } from '../../../../domain/product/price.js';
 import type { ProductId } from '../../../../domain/product/productId.js';
 import { timestamps } from './columns.helpers.js';
@@ -12,7 +12,7 @@ const orderItemTable = pgTable(
   'order_item',
   {
     orderId: varchar('order_id', { length: 26 })
-      .$type<OrderId>()
+      .$type<Order['aggregateId']>()
       .notNull()
       .references(() => orderTable.orderId, {
         onDelete: 'cascade',

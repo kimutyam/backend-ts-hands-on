@@ -1,14 +1,15 @@
 import { integer, pgTable, varchar } from 'drizzle-orm/pg-core';
 
-import type { CustomerId } from '../../../../domain/customer/customerId.js';
-import type { OrderId } from '../../../../domain/order/orderId.js';
+import type { Order } from '../../../../domain/order/order.js';
 import { timestamps } from './columns.helpers.js';
 import { customerTable } from './customer.sql.js';
 
 const orderTable = pgTable('order', {
-  orderId: varchar('order_id', { length: 26 }).$type<OrderId>().primaryKey(),
+  orderId: varchar('order_id', { length: 26 })
+    .$type<Order['aggregateId']>()
+    .primaryKey(),
   customerId: varchar('customer_id', { length: 26 })
-    .$type<CustomerId>()
+    .$type<Order['customerId']>()
     .notNull()
     .references(() => customerTable.customerId, {
       onDelete: 'restrict',
