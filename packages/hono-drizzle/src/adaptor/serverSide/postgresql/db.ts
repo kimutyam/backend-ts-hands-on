@@ -5,7 +5,8 @@ import type { Pool } from 'pg';
 
 import { PgPool } from './pgPool.js';
 
-const build = (pool: Pool) => drizzle({ client: pool, casing: 'snake_case' });
+const build = (pool: Pool) =>
+  drizzle({ client: pool, casing: 'snake_case', logger: true });
 
 type Db = ReturnType<typeof build>;
 
