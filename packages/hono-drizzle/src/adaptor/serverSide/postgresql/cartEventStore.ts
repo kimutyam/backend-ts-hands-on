@@ -8,34 +8,33 @@ import { cartTable } from './schema/cart.sql.js';
 import { cartItemTable } from './schema/cartItem.sql.js';
 import { domainEventTable } from './schema/domainEvent.sql.js';
 
-const toCartValues = (cart: Cart) => ({
+type CartInsert = typeof cartTable.$inferInsert;
+type CartItemInsert = typeof cartItemTable.$inferInsert;
+
+const toCartInsert = (cart: Cart): CartInsert => ({
   customerId: cart.aggregateId,
   sequenceNumber: cart.sequenceNumber,
 });
 
-const toCartItemValues = (cart: Cart) =>
-  cart.cartItems.map((cartItem) => ({
+const toCartItemInserts = (cart: Cart): Array<CartItemInsert> =>
+  cart.cartItems.map(({ productId, price, quantity }) => ({
     customerId: cart.aggregateId,
-    productId: cartItem.productId,
-    price: cartItem.price,
-    quantity: cartItem.quantity,
+    productId,
+    price,
+    quantity,
   }));
 
 const buildCartEventStore =
   (db: Db): CartEventStore<CartEvent> =>
   async (event: CartEvent, aggregate: Cart) => {
     await db.transaction(async (tx) => {
-      const values = toCartItemValues(aggregate);
+      const cartItemInserts = toCartItemInserts(aggregate);
       await tx
         .delete(cartTable)
         .where(eq(cartTable.customerId, aggregate.aggregateId));
-      if (values.length > 0) {
-        await tx.insert(cartTable).values(toCartValues(aggregate));
-        await tx.insert(cartItemTable).values(toCartItemValues(aggregate));
-      }
-      // payloadがunknownになってしまう
-      if (event.eventName === 'CartItemAdded') {
-        await tx.insert(domainEventTable).values(event);
+      if (cartItemInserts.length > 0) {
+        await tx.insert(cartTable).values(toCartInsert(aggregate));
+        await tx.insert(cartItemTable).values(cartItemInserts);
       }
       await tx.insert(domainEventTable).values(event);
     });

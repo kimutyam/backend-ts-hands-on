@@ -6,39 +6,30 @@ import { Cart } from '../../../domain/cart/cart.js';
 import type { CartItem } from '../../../domain/cart/cartItem.js';
 import { CartNotFoundError } from '../../../domain/cart/cartNotFoundError.js';
 import type { FindCartById } from '../../../domain/cart/cartRepository.js';
-import type { Quantity } from '../../../domain/cart/quantity.js';
 import type { CustomerId } from '../../../domain/customer/customerId.js';
-import type { Price } from '../../../domain/product/price.js';
-import type { ProductId } from '../../../domain/product/productId.js';
 import { Db } from './db.js';
 import { cartTable } from './schema/cart.sql.js';
 import { cartItemTable } from './schema/cartItem.sql.js';
 
-interface Row {
-  cart: {
-    createdAt: Date;
-    updatedAt: Date;
-    customerId: CustomerId;
-    sequenceNumber: number;
-  };
-  cart_item: {
-    createdAt: Date;
-    updatedAt: Date;
-    customerId: CustomerId;
-    productId: ProductId;
-    price: Price;
-    quantity: Quantity;
-  } | null;
+type CartSelect = typeof cartTable.$inferSelect;
+type CartItemSelect = typeof cartItemTable.$inferSelect;
+
+interface Select {
+  cart: CartSelect;
+  cart_item: CartItemSelect | null;
 }
 
+// https://orm.drizzle.team/docs/joins#aggregating-results をさんこうに改善
 const toCart =
   (aggregateId: CustomerId) =>
-  (rows: ReadonlyArray<Row>): Result<Cart, CartNotFoundError> => {
-    if (rows.length === 0) {
+  (selects: ReadonlyArray<Select>): Result<Cart, CartNotFoundError> => {
+    if (selects.length === 0) {
       return err(new CartNotFoundError(aggregateId));
     }
 
-    const cartItems = rows.reduce<Array<CartItem>>((acc, { cart_item }) => {
+    const { sequenceNumber } = selects[0]!.cart;
+
+    const cartItems = selects.reduce<Array<CartItem>>((acc, { cart_item }) => {
       if (cart_item === null) {
         return acc;
       }
@@ -49,7 +40,7 @@ const toCart =
     return ok(
       Cart.parse({
         aggregateId,
-        sequenceNumber: rows[0]!.cart.sequenceNumber,
+        sequenceNumber,
         cartItems,
       }),
     );
