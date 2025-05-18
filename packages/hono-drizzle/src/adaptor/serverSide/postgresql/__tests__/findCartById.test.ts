@@ -65,10 +65,14 @@ describe('FindCartById', () => {
     await truncateTables(db);
     await pool.end();
   });
-  // カートアイテムが空の場合
-  it('カートアイテムが空の場合', async () => {
+
+  test('カートアイテムが空の場合', async () => {
     const result = await findCartById(customerId2);
     assert(result.isOk());
-    console.log(result.value);
+    expect(result.value).toStrictEqual({
+      aggregateId: customerId2,
+      sequenceNumber: 5,
+      cartItems: [],
+    });
   });
 });

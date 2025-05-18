@@ -1,11 +1,11 @@
 import assert from 'node:assert';
 
-import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { buildFindUserAccount } from '../findUserAccount.js';
 import { PgPool } from '../pgPool.js';
 import { userAccountTable } from '../schema/userAccount.sql.js';
+import { truncateTables } from './helpers.js';
 
 describe('buildFindUserAccount', () => {
   const pool = PgPool.build();
@@ -13,6 +13,7 @@ describe('buildFindUserAccount', () => {
   const findUserAccount = buildFindUserAccount(db);
 
   beforeAll(async () => {
+    await truncateTables(db);
     await db.insert(userAccountTable).values({
       id: 'test-id',
       name: 'Test User',
@@ -20,18 +21,17 @@ describe('buildFindUserAccount', () => {
   });
 
   afterAll(async () => {
-    await db.delete(userAccountTable).where(eq(userAccountTable.id, 'test-id'));
+    await truncateTables(db);
     await pool.end();
   });
 
-  it('登録済みのユーザーアカウントで索引できる', async () => {
+  test('登録済みのユーザーアカウントで索引できる', async () => {
     const result = await findUserAccount('test-id');
-
     assert(result.isOk());
     expect(result.value).toEqual({ id: 'test-id', name: 'Test User' });
   });
 
-  it('ユーザーアカウントが存在しない場合', async () => {
+  test('ユーザーアカウントが存在しない場合', async () => {
     const userAccountId = 'non-existent-id';
     const result = await findUserAccount(userAccountId);
 

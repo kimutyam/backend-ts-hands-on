@@ -3,13 +3,17 @@
 - `$type` で独自型を指定できる。Branded Typesも可能
 - スキーマを利用して実装上で型を利用できる
 - リポジトリのテスト
+- $infer
+- vitestで直列にするには、Vitest はデフォルトでファイル単位では並列実行されますが、テスト関数 (test(...)) は直列で実行されます。
+  一方、test.concurrent(...) を使うと同一ファイル内でも並列になります。まず、次の点を確認してください。
+- すべてのテーブルを取得してからtruncateするhelperを作る
+
 
 # TODO
 
 - 行レベルセキュリティ
 - seed
 - ロガーの設定 drizzle-orm/logger
-- すべてのテーブルを取得してからtruncateするhelperを作る
 - snake
   - https://orm.drizzle.team/docs/sql-schema-declaration#camel-and-snake-casing
 
