@@ -6000,9 +6000,9 @@ remeda@2.21.8:
     type-fest "^4.40.1"
 
 remeda@^2.0.0:
-  version "2.21.6"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.21.6.tgz#04459aa86318847a99251432969e12467647dcb6"
-  integrity sha512-W8G06/lTo6RzCBuMnjzsAi5UwN21+/Ff29HvpnBecvERP5qGw2dOdiXsgzv4jWT2n02mF+HMsmeoOjm5VRK3lw==
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.1.tgz#3821d91bef197ec28287d2ddef15fe49eb116922"
+  integrity sha512-7bcggqt1D7sEmkpzuGowcsAfkO5Ae03+HFt6zA+AfJ/r5+wVJMq8DEHBAitbKWsdyeUX7qqjfi/jnH9HmdU3uA==
   dependencies:
     type-fest "^4.40.1"
 
