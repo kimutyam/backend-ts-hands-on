@@ -28,7 +28,7 @@
     "reflect-metadata": "0.2.2",
     "remeda": "2.21.8",
     "rxjs": "7.8.2",
-    "zod": "3.25.17"
+    "zod": "3.25.20"
   },
   "devDependencies": {
     "@nestjs/cli": "10.4.9",
