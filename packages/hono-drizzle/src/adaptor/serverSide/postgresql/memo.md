@@ -10,6 +10,9 @@
 - すべてのテーブルを取得してからtruncateするhelperを作る
 - ロガーの設定 drizzle-orm/logger
 - drizzle-kit
+- vitestのdb用を分ける
+  - describe.sequential or test 
+  - vitest.config.tsでdbを分ける
 
 # TODO
 
@@ -19,6 +22,11 @@
 - テスト用と本番用のDBを分ける
 - snake
   - https://orm.drizzle.team/docs/sql-schema-declaration#camel-and-snake-casing
+  - スキーマにエイリアスは不要になるかも
+
+# 各章に反映
+
+- Cart.initでsequnceNumberを指定
 
 # 楽観ロック
 

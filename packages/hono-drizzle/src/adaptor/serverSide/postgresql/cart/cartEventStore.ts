@@ -29,14 +29,23 @@ const buildCartEventStore =
   async (event: CartEvent, aggregate: Cart) => {
     await db.transaction(async (tx) => {
       const cartItemInserts = toCartItemInserts(aggregate);
+      await tx.insert(domainEventTable).values(event);
       await tx
-        .delete(cartTable)
-        .where(eq(cartTable.customerId, aggregate.aggregateId));
+        .insert(cartTable)
+        .values(toCartInsert(aggregate))
+        .onConflictDoUpdate({
+          target: [cartTable.customerId],
+          set: {
+            sequenceNumber: aggregate.sequenceNumber,
+            updatedAt: new Date(),
+          },
+        });
+      await tx
+        .delete(cartItemTable)
+        .where(eq(cartItemTable.customerId, aggregate.aggregateId));
       if (cartItemInserts.length > 0) {
-        await tx.insert(cartTable).values(toCartInsert(aggregate));
         await tx.insert(cartItemTable).values(cartItemInserts);
       }
-      await tx.insert(domainEventTable).values(event);
     });
   };
 
