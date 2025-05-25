@@ -60,10 +60,13 @@ jobs:
       - name: Start Docker Compose
         run: docker compose up -d
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
-      - name: Migrate database
-        run: yarn db:migrate
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
-      - name: yarn test
+      - name: unit test
         uses: borales/actions-yarn@v5
         with:
           cmd: workspace ${{ env.WORKSPACE_NAME }} test
+      - name: Migrate database
+        run: yarn db:migrate
+        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+      - name: db test
+        run: yarn test:db
+        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
