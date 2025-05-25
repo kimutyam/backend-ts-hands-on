@@ -17,7 +17,7 @@ import { customerTable } from '../../schema/customer.sql.js';
 import { productTable } from '../../schema/product.sql.js';
 import { buildFindCartById } from '../findCartById.js';
 
-describe.sequential('FindCartById', () => {
+describe('FindCartById', () => {
   const pool = PgPool.build();
   const db = Db.build(pool);
   const findCartById = buildFindCartById(db);
@@ -47,7 +47,7 @@ describe.sequential('FindCartById', () => {
       },
       {
         customerId: customerId3,
-        name: 'Customer2',
+        name: 'Customer3',
       },
     ]);
     await db.insert(cartTable).values([
@@ -73,7 +73,7 @@ describe.sequential('FindCartById', () => {
     await pool.end();
   });
 
-  test('登録済みのカートで索引できる', async () => {
+  it('登録済みのカートで索引できる', async () => {
     const result = await findCartById(customerId1);
     assert(result.isOk());
     expect(result.value).toStrictEqual({
@@ -89,7 +89,7 @@ describe.sequential('FindCartById', () => {
     });
   });
 
-  test('カートアイテムが空の場合でも索引できる', async () => {
+  it('カートアイテムが空の場合でも索引できる', async () => {
     const result = await findCartById(customerId2);
     assert(result.isOk());
     expect(result.value).toStrictEqual({
@@ -98,7 +98,7 @@ describe.sequential('FindCartById', () => {
       cartItems: [],
     });
   });
-  test('カートが存在しない場合はエラーとなる', async () => {
+  it('カートが存在しない場合はエラーとなる', async () => {
     const result = await findCartById(customerId3);
     assert(result.isErr());
     expect(result.error).toBeInstanceOf(CartNotFoundError);

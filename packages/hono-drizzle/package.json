@@ -14,6 +14,7 @@
     "lint": "eslint --cache \"{src,test}/**/*.ts\"",
     "lint:fix": "eslint --cache \"{src,test}/**/*.ts\" --fix",
     "test": "vitest --typecheck",
+    "test:db": "TEST_TYPE=db vitest --no-file-parallelism",
     "test:cov": "vitest --coverage",
     "prebuild:drizzle-kit": "rimraf dist-drizzle-kit",
     "build:drizzle-kit": "tsc -p tsconfig.drizzle-kit.json",
