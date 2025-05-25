@@ -4,11 +4,9 @@ import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 import { beforeEach, describe } from 'vitest';
 
-import { Aggregate } from '../../../../../domain/aggregate.js';
 import { Cart } from '../../../../../domain/cart/cart.js';
 import {
   CartCleared,
-  type CartEvent,
   CartItemAdded,
   CartItemRemoved,
   CartItemUpdated,
@@ -17,17 +15,14 @@ import type { CartItem } from '../../../../../domain/cart/cartItem.js';
 import { Quantity } from '../../../../../domain/cart/quantity.js';
 import { CustomerId } from '../../../../../domain/customer/customerId.js';
 import { DomainEvent } from '../../../../../domain/domainEvent.js';
-import type { DomainEventId } from '../../../../../domain/domainEventId.js';
 import { Price } from '../../../../../domain/product/price.js';
 import { ProductId } from '../../../../../domain/product/productId.js';
-import { truncateTables } from '../../__tests__/helpers.js';
+import { buildSelectDomainEvent } from '../../__tests__/helper/domainEvent.js';
+import { truncateTables } from '../../__tests__/helper/table.js';
 import { Db } from '../../db.js';
 import { PgPool } from '../../pgPool.js';
-import { cartTable } from '../../schema/cart.sql.js';
-import { cartItemTable } from '../../schema/cartItem.sql.js';
-import { customerTable } from '../../schema/customer.sql.js';
-import { productTable } from '../../schema/product.sql.js';
 import { buildCartEventStore } from '../cartEventStore.js';
+import { buildSetup } from './helper/cart.js';
 
 const buildSelectCart =
   (db: Db) =>
@@ -60,22 +55,6 @@ const buildSelectCartItem =
           customer_id = ${customerId}`,
     );
 
-const buildSelectDomainEvent =
-  (db: Db) =>
-  <T extends CartEvent>(
-    eventId: DomainEventId,
-  ): PgRaw<QueryResult<Pick<T, 'sequenceNumber' | 'payload'>>> =>
-    db.execute<Pick<T, 'sequenceNumber' | 'payload'>>(
-      sql`
-        SELECT
-          sequence_number "sequenceNumber",
-          payload
-        FROM
-          domain_event
-        WHERE
-          event_id = ${eventId}`,
-    );
-
 describe.sequential('CartEventStore', () => {
   const pool = PgPool.build();
   const db = Db.build(pool);
@@ -86,55 +65,14 @@ describe.sequential('CartEventStore', () => {
 
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();
-
+  const customerId3 = CustomerId.generate();
   const productId1 = ProductId.generate();
   const productId2 = ProductId.generate();
 
   beforeEach(async () => {
     await truncateTables(db);
-    await db.insert(productTable).values([
-      {
-        productId: productId1,
-        sequenceNumber: Aggregate.InitialSequenceNumber,
-        name: 'Product1',
-        price: Price.parse(1_000),
-      },
-      {
-        productId: productId2,
-        sequenceNumber: Aggregate.InitialSequenceNumber,
-        name: 'Product2',
-        price: Price.parse(2_000),
-      },
-    ]);
-
-    await db.insert(customerTable).values([
-      {
-        customerId: customerId1,
-        name: 'Customer1',
-      },
-      {
-        customerId: customerId2,
-        name: 'Customer2',
-      },
-    ]);
-
-    await db.insert(cartTable).values([
-      {
-        customerId: customerId1,
-        sequenceNumber: Aggregate.InitialSequenceNumber,
-      },
-      {
-        customerId: customerId2,
-        sequenceNumber: 5,
-      },
-    ]);
-
-    await db.insert(cartItemTable).values({
-      customerId: customerId1,
-      productId: productId1,
-      price: Price.parse(1_000),
-      quantity: Quantity.parse(2),
-    });
+    const setup = buildSetup(db);
+    await setup(productId1, productId2, customerId1, customerId2, customerId3);
   });
 
   afterAll(async () => {

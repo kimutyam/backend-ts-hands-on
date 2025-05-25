@@ -2,7 +2,7 @@ import assert from 'node:assert';
 
 import { describe } from 'vitest';
 
-import { truncateTables } from '../../__tests__/helpers.js';
+import { truncateTables } from '../../__tests__/helper/table.js';
 import { Db } from '../../db.js';
 import { PgPool } from '../../pgPool.js';
 import { userAccountTable } from '../../schema/userAccount.sql.js';
