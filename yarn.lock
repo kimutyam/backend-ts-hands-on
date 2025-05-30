@@ -706,10 +706,10 @@
     path-to-regexp "^6.3.0"
     reusify "^1.0.4"
 
-"@hono/node-server@1.14.2":
-  version "1.14.2"
-  resolved "https://registry.yarnpkg.com/@hono/node-server/-/node-server-1.14.2.tgz#b9974d0322dd7b3467001ab371e28597c205b897"
-  integrity sha512-GHjpOeHYbr9d1vkID2sNUYkl5IxumyhDrUJB7wBp7jvqYwPFt+oNKsAPBRcdSbV7kIrXhouLE199ks1QcK4r7A==
+"@hono/node-server@1.14.3":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@hono/node-server/-/node-server-1.14.3.tgz#171d1974bd7b5db24eae0509fb229dedf790f192"
+  integrity sha512-KuDMwwghtFYSmIpr4WrKs1VpelTrptvJ+6x6mbUcZnFcc213cumTF5BdqfHyW93B19TNI4Vaev14vOI2a0Ie3w==
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"
