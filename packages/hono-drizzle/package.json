@@ -27,7 +27,7 @@
     "@hono/node-server": "1.14.3",
     "date-fns": "4.1.0",
     "dotenv": "16.5.0",
-    "drizzle-orm": "^0.43.1",
+    "drizzle-orm": "^0.44.0",
     "hono": "4.7.10",
     "neverthrow": "8.2.0",
     "pg": "8.15.6",
