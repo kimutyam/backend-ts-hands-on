@@ -18,7 +18,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "date-fns": "^4.0.0",
     "remeda": "^2.0.0",
     "ulidx": "^2.1.0",
