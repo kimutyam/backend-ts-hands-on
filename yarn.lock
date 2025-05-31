@@ -5741,10 +5741,10 @@ regexp.prototype.flags@^1.5.3:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.21.8:
-  version "2.21.8"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.21.8.tgz#df41b82398bffc6c21b93d16a4b59abd188ecdb0"
-  integrity sha512-l920D7Dap/ZZoH7pY3ZML+uqemZoUc+PmIDf5BrwtXPN3iP2vQK0T62ioN9ZJnD3ON8PmEi6y7YDtc2zW3i7oQ==
+remeda@2.22.3:
+  version "2.22.3"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.3.tgz#5bb5306d049b8e7570ea0d7b8b16bcb71669bee3"
+  integrity sha512-Ka6965m9Zu9OLsysWxVf3jdJKmp6+PKzDv7HWHinEevf0JOJ9y02YpjiC/sKxRpCqGhVyvm1U+0YIj+E6DMgKw==
   dependencies:
     type-fest "^4.40.1"
 
