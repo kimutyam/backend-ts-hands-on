@@ -5,11 +5,11 @@ interface ApiEntityResponse<T extends { id: number }> {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 type NoBodyResponse = ApiEntityResponse<undefined>;
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 type PayloadResponse = ApiEntityResponse<string>;
 
 type UserResponse = ApiEntityResponse<{

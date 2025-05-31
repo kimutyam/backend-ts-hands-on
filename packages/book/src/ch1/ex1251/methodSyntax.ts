@@ -11,7 +11,7 @@ interface EmployeeFn {
 const managerFn: EmployeeFn = {
   // 1
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   printFn: (arg: Manager): void => {
     console.log(arg.grade);
   },

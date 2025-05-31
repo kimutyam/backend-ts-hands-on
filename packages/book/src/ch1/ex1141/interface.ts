@@ -7,7 +7,7 @@ interface Employee {
 let employee: Employee = {
   name: '木村',
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   age: 'Secret', // 1
 };
 

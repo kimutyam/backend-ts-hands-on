@@ -5,7 +5,7 @@ const rational: Rational = new Rational(5, 6);
 // NG: 型エラー
 // インスタンスメソッドのaddは、Rationalのインスタンス型のサブタイプをを引数に渡す必要があります。
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 const added = rational.add({
   numerator: 7,
   denominator: 10,

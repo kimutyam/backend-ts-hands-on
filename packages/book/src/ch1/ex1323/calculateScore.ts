@@ -6,7 +6,7 @@ const calculateScore = (result: GameResult): number => {
   }
   // drawからpenaltyを取得するとエラーになる
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   return -result.penalty;
 };
 
