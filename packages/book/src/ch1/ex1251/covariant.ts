@@ -12,7 +12,7 @@ type CreateManagerFn = () => Manager;
 
 const createEmployee: CreateEmployeeFn = () => manager;
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 const createManager: CreateManagerFn = () => employee;
 
 export { createEmployee, createManager };

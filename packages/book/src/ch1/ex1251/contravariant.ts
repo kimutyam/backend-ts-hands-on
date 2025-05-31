@@ -11,7 +11,7 @@ let printManager: PrintManagerFn = (arg: Manager) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 printEmployee = printManager;
 
 printManager = printEmployee;

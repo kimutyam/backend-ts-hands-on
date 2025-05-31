@@ -5,7 +5,7 @@ interface Employee {
 
 const modifyName = (employee: Employee, name: string): Employee => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  // @ts-expect-error
   // eslint-disable-next-line no-param-reassign
   employee.name = name; // 1
   return employee;
