@@ -5749,9 +5749,9 @@ remeda@2.21.8:
     type-fest "^4.40.1"
 
 remeda@^2.0.0:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.1.tgz#3821d91bef197ec28287d2ddef15fe49eb116922"
-  integrity sha512-7bcggqt1D7sEmkpzuGowcsAfkO5Ae03+HFt6zA+AfJ/r5+wVJMq8DEHBAitbKWsdyeUX7qqjfi/jnH9HmdU3uA==
+  version "2.22.4"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.4.tgz#69988ba6ed0e94526e867ccdde44a706c4ea4de4"
+  integrity sha512-BDQhIgs3baVyxOUb6IRm+HnT7NqbIPOq3FiBFPEqmzkJqN3AS3RwbGH+DVi6MKnZcIcKO7mSN9gsbwBor4YVVw==
   dependencies:
     type-fest "^4.40.1"
 
