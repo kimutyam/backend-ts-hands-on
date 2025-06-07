@@ -5653,10 +5653,10 @@ regexp.prototype.flags@^1.5.3:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.22.3:
-  version "2.22.3"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.3.tgz#5bb5306d049b8e7570ea0d7b8b16bcb71669bee3"
-  integrity sha512-Ka6965m9Zu9OLsysWxVf3jdJKmp6+PKzDv7HWHinEevf0JOJ9y02YpjiC/sKxRpCqGhVyvm1U+0YIj+E6DMgKw==
+remeda@2.22.5:
+  version "2.22.5"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.5.tgz#ce1bd378098fc0fb0f07d55583b19fbbc06f138a"
+  integrity sha512-xeoKTXOrgjB+nZH9HhB4sRmJH1DGNithpkyfATC6dZbn3kCShHDdmbd0kNhYyzJcbBFRQJD80pVvNVLL9YoTgw==
   dependencies:
     type-fest "^4.40.1"
 
