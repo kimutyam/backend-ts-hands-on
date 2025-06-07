@@ -5661,11 +5661,11 @@ remeda@2.22.5:
     type-fest "^4.40.1"
 
 remeda@^2.0.0:
-  version "2.22.4"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.4.tgz#69988ba6ed0e94526e867ccdde44a706c4ea4de4"
-  integrity sha512-BDQhIgs3baVyxOUb6IRm+HnT7NqbIPOq3FiBFPEqmzkJqN3AS3RwbGH+DVi6MKnZcIcKO7mSN9gsbwBor4YVVw==
+  version "2.22.6"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.22.6.tgz#21e786bb6a06c5621ea13160660c2b50fb37f4f8"
+  integrity sha512-Uc5x8dYtojNXcaPRdJ+nr5NHoM5yEYMBRALy405176+eNCqzsCa6OqYZ7ZK+ZeCdbW3t5Rdu6kjBBElaB/B0YQ==
   dependencies:
-    type-fest "^4.40.1"
+    type-fest "^4.41.0"
 
 repeat-string@^1.6.1:
   version "1.6.1"
