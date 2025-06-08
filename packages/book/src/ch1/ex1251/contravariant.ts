@@ -3,19 +3,20 @@ import type { Employee, Manager } from 'ch1/ex1251/types.js';
 type PrintEmployeeFn = (arg: Employee) => void;
 type PrintManagerFn = (arg: Manager) => void;
 
-let printEmployee: PrintEmployeeFn = (arg: Employee) => {
-  console.log(arg.name);
-};
-let printManager: PrintManagerFn = (arg: Manager) => {
+// 1
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+const printEmployee: PrintEmployeeFn = (arg: Manager) => {
   console.log(arg.grade);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-printEmployee = printManager;
-
-printManager = printEmployee;
+// 2
+const printManager: PrintManagerFn = (arg: Employee) => {
+  console.log(arg.name);
+};
 
 printEmployee({ name: '佐藤', age: 25 });
+
+console.log(printEmployee, printManager);
 
 export { type PrintEmployeeFn, type PrintManagerFn };

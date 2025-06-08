@@ -1,14 +1,10 @@
-const isObject = (value: unknown) =>
-  typeof value === 'object' && value !== null && !Array.isArray(value);
-
-const debugNarrowing = (value: object | null | Array<number>): void => {
-  if (isObject(value)) {
-    console.log('object (excluding null and Array)');
-  } else if (value === null) {
+const printValue = (value: string | null): void => {
+  // 1
+  if (value === null) {
     console.log('null');
   } else {
-    console.log('Array');
+    console.log(value);
   }
 };
 
-export { debugNarrowing };
+export { printValue };
