@@ -34,7 +34,7 @@
     "remeda": "2.22.5",
     "typed-inject": "5.0.0",
     "ulidx": "2.4.1",
-    "zod": "3.25.61"
+    "zod": "3.25.62"
   },
   "devDependencies": {
     "@eslint/compat": "1.2.9",
