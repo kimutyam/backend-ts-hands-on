@@ -1044,20 +1044,20 @@
     webpack "5.97.1"
     webpack-node-externals "3.0.0"
 
-"@nestjs/common@10.4.18":
-  version "10.4.18"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-10.4.18.tgz#e77328218812ad520f3d9ab6e4f294f5cd59c9ab"
-  integrity sha512-9SrTth6YJJ9CjVnekw9WP8kaiwh+tSgR0KIrPYV/aWgF9D0175uDJUglzbiCfUbkPyHN8jcKXUXd3EVPDY6BNA==
+"@nestjs/common@10.4.19":
+  version "10.4.19"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-10.4.19.tgz#4780522f2b45f8aa3e61bfe88bb63a81083ea213"
+  integrity sha512-0TZJ8H+7qtaqZt6YfZJkDRp0e+v6jjo5/pevPAjUy0WYxaTy16bNNQxFPRKLMe/v1hUr2oGV9imvL2477zNt5g==
   dependencies:
     uid "2.0.2"
     file-type "20.4.1"
     iterare "1.2.1"
     tslib "2.8.1"
 
-"@nestjs/core@10.4.18":
-  version "10.4.18"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-10.4.18.tgz#b665263d013bd756960e8f1f4fb20c4dd0b91a03"
-  integrity sha512-+cs96rnpHIfkn9o0DLZFKuE1RZ3FFQkpkzz+DY2U8C3Wn3VX5fQaO4YuabweLIhUKTLr9DMxPycA5qk5rAPFBw==
+"@nestjs/core@10.4.19":
+  version "10.4.19"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-10.4.19.tgz#1a7a0eed2883d0ecee3a6f3774b18c5706b553c1"
+  integrity sha512-gahghu0y4Rn4gn/xPjTgNHFMpUM8TxfhdeMowVWTGVnYMZtGeEGbIXMFhJS0Dce3E4VKyqAglzgO9ecAZd4Ong==
   dependencies:
     uid "2.0.2"
     "@nuxtjs/opencollective" "0.3.2"
@@ -1066,10 +1066,10 @@
     path-to-regexp "3.3.0"
     tslib "2.8.1"
 
-"@nestjs/platform-fastify@10.4.18":
-  version "10.4.18"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-fastify/-/platform-fastify-10.4.18.tgz#3643a1616b6aeaa9c3812da69a1e2e92f725575f"
-  integrity sha512-2Ps17h3/snDjk9Vs4aXF+ZsEBXA2u02wPKxM+15ijM22r0aegpkqSqladP0Rv90MNubEblgHYD5NWXHKndQi1A==
+"@nestjs/platform-fastify@10.4.19":
+  version "10.4.19"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-fastify/-/platform-fastify-10.4.19.tgz#63dcce740941a33f341b9911975184d39d2a7b29"
+  integrity sha512-Esl4ruphwh7sfa8JSpi1gSZS/qfD3kX7wBl6kMI2RRRj86sLWfAIbXoG0I0zm0hMQrpfboC06zPkOsnvFzIOPQ==
   dependencies:
     "@fastify/cors" "9.0.1"
     "@fastify/formbody" "7.4.0"
@@ -1090,10 +1090,10 @@
     jsonc-parser "3.3.1"
     pluralize "8.0.0"
 
-"@nestjs/testing@10.4.18":
-  version "10.4.18"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.4.18.tgz#cfcb9ae2e339ca64bc8ca8b6b1b5f4e36627be9b"
-  integrity sha512-oTeGjnh1qeSZMFqze1Rz5lEtAOBRDApulWDoLYSyzh+8/jFflhCYAGeOHncItkGq9wBRe1R1Ct2GyRFdTmpcjg==
+"@nestjs/testing@10.4.19":
+  version "10.4.19"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.4.19.tgz#ab86372656a98fbb92124436806775a547f41658"
+  integrity sha512-YfzkjTmwEcoWqo8xr8YiTZMC4FjBEOg4uRTAPI2p6iGLWu+27tYau1CtAKFHY0uSAK3FzgtsAuYoxBSlfr9mWA==
   dependencies:
     tslib "2.8.1"
 
