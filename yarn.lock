@@ -5812,9 +5812,9 @@ remeda@2.23.1:
     type-fest "^4.41.0"
 
 remeda@^2.0.0:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.23.0.tgz#540b4a1196437e7b7350ccf0e801600d7d8e7ae9"
-  integrity sha512-0mPy6q4ZMkAyrmucV6U6RaQ4GaJ7PLy9kTCNzC4k99DY6kQZXQIU8lxUVV4ocCWcjPvl7PSpOa42oPJWQiGouA==
+  version "2.23.2"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.23.2.tgz#8a9a51d1e47885a39ea0c3b49e7407efbc01009d"
+  integrity sha512-4W75s4Ii5SDncp1TRLYRspJ+skm/FEHK7NLYk+q8Zy18mFeypXhGPdahmPvHkmqo38KfTTCjAqXRHMkmcQIEGA==
   dependencies:
     type-fest "^4.41.0"
 
