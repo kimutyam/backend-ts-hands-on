@@ -27,19 +27,29 @@ const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
 const TotalPriceLimit = 100_000;
 
-const countItems = ({ cartItems }: Cart): number => cartItems.length;
+const countItems = (cart: Cart): number => {
+  const { cartItems } = cart;
+  return cartItems.length;
+};
 
 const withinItemsLimit = (cart: Cart): boolean =>
   countItems(cart) <= ItemsLimit;
 
-const calculateTotalQuantity = ({ cartItems }: Cart): number =>
-  cartItems.reduce((acc, item) => acc + item.quantity, 0);
+const calculateTotalQuantity = (cart: Cart): number => {
+  const { cartItems } = cart;
+  return cartItems.reduce((acc, item) => acc + item.quantity, 0);
+};
 
 const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
 
-const calculateTotalPrice = ({ cartItems }: Cart): number =>
-  cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
+const calculateTotalPrice = (cart: Cart): number => {
+  const { cartItems } = cart;
+  return cartItems.reduce(
+    (acc, item) => acc + CartItem.calculateTotal(item),
+    0,
+  );
+};
 
 const withinTotalPriceLimit = (cart: Cart): boolean =>
   calculateTotalPrice(cart) <= TotalPriceLimit;
@@ -79,11 +89,8 @@ const init = (aggregateId: CustomerId): Cart =>
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({
-    aggregateId,
-    sequenceNumber,
-    cartItems,
-  }: Cart): [Cart, CartItemAdded | CartItemUpdated] => {
+  (cart: Cart): [Cart, CartItemAdded | CartItemUpdated] => {
+    const { aggregateId, sequenceNumber, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
@@ -128,11 +135,8 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  ({
-    aggregateId,
-    sequenceNumber,
-    cartItems,
-  }: Cart): [Cart, CartItemRemoved] => {
+  (cart: Cart): [Cart, CartItemRemoved] => {
+    const { aggregateId, sequenceNumber, cartItems } = cart;
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
@@ -150,7 +154,8 @@ const removeCartItem =
 
 const clear =
   (reason: CartClearReason) =>
-  ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
+  (cart: Cart): [Cart, CartCleared] => {
+    const { aggregateId, sequenceNumber } = cart;
     const aggregate = create(
       aggregateId,
       Aggregate.incrementSequenceNumber(sequenceNumber),

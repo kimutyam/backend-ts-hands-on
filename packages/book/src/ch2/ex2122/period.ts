@@ -20,22 +20,32 @@ const isSameOrBefore =
 
 const isWithin =
   (dateToCompare: Date) =>
-  ({ start, end }: Period): boolean =>
-    R.pipe(start, isSameOrAfter(dateToCompare)) &&
-    R.pipe(end, isSameOrBefore(dateToCompare)); // 1
+  (period: Period): boolean => {
+    const { start, end } = period;
+    return (
+      R.pipe(start, isSameOrAfter(dateToCompare)) &&
+      R.pipe(end, isSameOrBefore(dateToCompare)) // 1
+    );
+  };
 
 const postpone =
   (delayDays: number, delayHours: number) =>
-  (period: Period): Period => ({
-    start: addHours(addDays(period.start, delayDays), delayHours), // 2
-    end: addHours(addDays(period.end, delayDays), delayHours), // 2
-  });
+  (period: Period): Period => {
+    const { start, end } = period;
+    return {
+      start: addHours(addDays(start, delayDays), delayHours), // 2
+      end: addHours(addDays(end, delayDays), delayHours), // 2
+    };
+  };
 
 const extend =
   (extensionDays: number, extensionHours: number) =>
-  ({ start, end }: Period): Period => ({
-    start,
-    end: addHours(addDays(end, extensionDays), extensionHours), // 2
-  });
+  (period: Period): Period => {
+    const { start, end } = period;
+    return {
+      start,
+      end: addHours(addDays(end, extensionDays), extensionHours), // 2
+    };
+  };
 
 export { extend, isWithin, postpone, type Period };

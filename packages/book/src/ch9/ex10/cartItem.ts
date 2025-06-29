@@ -39,8 +39,10 @@ const add =
       : result.error;
   };
 
-const calculateTotal = ({ price, quantity }: CartItem): number =>
-  price * quantity;
+const calculateTotal = (item: CartItem): number => {
+  const { price, quantity } = item;
+  return price * quantity;
+};
 
 const identify = (x: CartItem, y: CartItem): boolean =>
   x.productId === y.productId;

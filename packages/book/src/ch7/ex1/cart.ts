@@ -17,19 +17,29 @@ const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
 const TotalPriceLimit = 100_000;
 
-const countItems = ({ cartItems }: Cart): number => cartItems.length;
+const countItems = (cart: Cart): number => {
+  const { cartItems } = cart;
+  return cartItems.length;
+};
 
 const withinItemsLimit = (cart: Cart): boolean =>
   countItems(cart) <= ItemsLimit;
 
-const calculateTotalQuantity = ({ cartItems }: Cart): number =>
-  cartItems.reduce((acc, item) => acc + item.quantity, 0);
+const calculateTotalQuantity = (cart: Cart): number => {
+  const { cartItems } = cart;
+  return cartItems.reduce((acc, item) => acc + item.quantity, 0);
+};
 
 const withinTotalQuantityLimit = (cart: Cart): boolean =>
   calculateTotalQuantity(cart) <= TotalQuantityLimit;
 
-const calculateTotalPrice = ({ cartItems }: Cart): number =>
-  cartItems.reduce((acc, item) => acc + CartItem.calculateTotal(item), 0);
+const calculateTotalPrice = (cart: Cart): number => {
+  const { cartItems } = cart;
+  return cartItems.reduce(
+    (acc, item) => acc + CartItem.calculateTotal(item),
+    0,
+  );
+};
 
 const withinTotalPriceLimit = (cart: Cart): boolean =>
   calculateTotalPrice(cart) <= TotalPriceLimit;
@@ -66,7 +76,8 @@ const init = (aggregateId: CustomerId): Cart => create(aggregateId, []);
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({ aggregateId, cartItems }: Cart): Cart => {
+  (cart: Cart): Cart => {
+    const { aggregateId, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
@@ -88,14 +99,18 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  ({ aggregateId, cartItems }: Cart): Cart => {
+  (cart: Cart): Cart => {
+    const { aggregateId, cartItems } = cart;
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
     return create(aggregateId, removedCartItems);
   };
 
-const clear = ({ aggregateId }: Cart): Cart => create(aggregateId, []);
+const clear = (cart: Cart): Cart => {
+  const { aggregateId } = cart;
+  return create(aggregateId, []);
+};
 
 const Cart = {
   init,

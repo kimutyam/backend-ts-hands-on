@@ -24,10 +24,11 @@ const assertExistsProduct = (
 };
 
 const applyPrice = (
-  { cartItems }: Cart,
+  cart: Cart,
   products: ReadonlyArray<Product>,
-): ReadonlyArray<CartItem> =>
-  cartItems.reduce<Array<CartItem>>((acc, item) => {
+): ReadonlyArray<CartItem> => {
+  const { cartItems } = cart;
+  return cartItems.reduce<Array<CartItem>>((acc, item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
@@ -40,6 +41,7 @@ const applyPrice = (
     }
     return acc;
   }, []);
+};
 
 // 1
 const requestOrder = (
