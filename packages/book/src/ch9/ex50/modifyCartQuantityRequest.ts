@@ -19,11 +19,14 @@ type ModifyCartQuantityRequest = z.infer<typeof schema>;
 // 2
 const toCartItem =
   (price: Price) =>
-  ({ productId, quantity }: ModifyCartQuantityRequest): CartItem => ({
-    productId,
-    price,
-    quantity: Quantity.parse(quantity),
-  });
+  (req: ModifyCartQuantityRequest): CartItem => {
+    const { productId, quantity } = req;
+    return {
+      productId,
+      price,
+      quantity: Quantity.parse(quantity),
+    };
+  };
 
 const ModifyCartQuantityRequest = {
   schema,

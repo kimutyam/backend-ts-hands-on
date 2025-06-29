@@ -23,13 +23,15 @@ const isSameOrBefore =
     isBefore(date, dateToCompare) || isEqual(date, dateToCompare);
 
 // 1
-const satisfiesMin = ({ start, end }: Period) => {
+const satisfiesMin = (period: Period) => {
+  const { start, end } = period;
   const addedStart = R.pipe(start, addDays(3));
   return R.pipe(end, isSameOrAfter(addedStart));
 };
 
 // 2
-const satisfiesMax = ({ start, end }: Period) => {
+const satisfiesMax = (period: Period) => {
+  const { start, end } = period;
   const addedStart = R.pipe(start, addDays(10));
   return R.pipe(end, isSameOrBefore(addedStart));
 };
@@ -53,25 +55,33 @@ const buildAt = (start: Date, periodDate: number): Period =>
 
 const isWithin =
   (dateToCompare: Date) =>
-  ({ start, end }: Period): boolean =>
-    R.pipe(start, isSameOrAfter(dateToCompare)) &&
-    R.pipe(end, isSameOrBefore(dateToCompare));
+  (period: Period): boolean => {
+    const { start, end } = period;
+    return (
+      R.pipe(start, isSameOrAfter(dateToCompare)) &&
+      R.pipe(end, isSameOrBefore(dateToCompare))
+    );
+  };
 
 const postpone =
   (delayDays: number, delayHours: number) =>
-  ({ start, end }: Period): Period =>
-    valueOf(
+  (period: Period): Period => {
+    const { start, end } = period;
+    return valueOf(
       R.pipe(start, addDays(delayDays), addHours(delayHours)),
       R.pipe(end, addDays(delayDays), addHours(delayHours)),
     );
+  };
 
 const extend =
   (extensionDays: number, extensionHours: number) =>
-  ({ start, end }: Period): Period =>
-    valueOf(
+  (period: Period): Period => {
+    const { start, end } = period;
+    return valueOf(
       start,
       R.pipe(end, addDays(extensionDays), addHours(extensionHours)),
     );
+  };
 
 const Period = {
   valueOf,
