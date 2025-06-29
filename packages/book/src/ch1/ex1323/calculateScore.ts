@@ -1,7 +1,7 @@
 import type { GameResult } from 'ch1/ex1323/gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
-  if (result.result === 'win') {
+  if (result.tag === 'win') {
     return result.points;
   }
   // drawからpenaltyを取得するとエラーになる
