@@ -1,7 +1,7 @@
 import type { GameResult } from 'ch1/ex1327/gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
-  switch (result.result) {
+  switch (result.tag) {
     case 'win':
       return result.points;
     case 'lose':

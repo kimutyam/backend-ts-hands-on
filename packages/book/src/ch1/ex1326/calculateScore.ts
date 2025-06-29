@@ -6,7 +6,7 @@ const assertNever = (x: never): never => {
 };
 
 const calculateScore = (result: GameResult): number => {
-  switch (result.result) {
+  switch (result.tag) {
     case 'win':
       return result.points;
     case 'lose':
@@ -19,14 +19,14 @@ const calculateScore = (result: GameResult): number => {
 };
 
 const winResult: GameResult = {
-  result: 'win',
+  tag: 'win',
   points: 100,
 };
 const loseResult: GameResult = {
-  result: 'lose',
+  tag: 'lose',
   penalty: 50,
 };
-const drawResult: GameResult = { result: 'draw' };
+const drawResult: GameResult = { tag: 'draw' };
 
 console.log(calculateScore(winResult)); // 100
 console.log(calculateScore(loseResult)); // -50

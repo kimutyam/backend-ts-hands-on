@@ -1,15 +1,15 @@
 interface Win {
-  result: 'win';
+  tag: 'win';
   points: number;
 }
 
 interface Lose {
-  result: 'lose';
+  tag: 'lose';
   penalty: number;
 }
 
 interface Draw {
-  result: 'draw';
+  tag: 'draw';
 }
 
 type GameResult = Win | Lose | Draw;

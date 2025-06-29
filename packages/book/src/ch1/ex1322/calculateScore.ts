@@ -1,18 +1,18 @@
 import type { GameResult } from 'ch1/ex1322/gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
-  if (result.result === 'win') {
+  if (result.tag === 'win') {
     return result.points;
   }
   return -result.penalty;
 };
 
 const winResult: GameResult = {
-  result: 'win',
+  tag: 'win',
   points: 100,
 };
 const loseResult: GameResult = {
-  result: 'lose',
+  tag: 'lose',
   penalty: 50,
 };
 

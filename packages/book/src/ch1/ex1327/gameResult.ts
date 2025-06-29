@@ -1,5 +1,5 @@
 interface GameResultLike<T extends string> {
-  result: T;
+  tag: T;
 }
 
 interface Win extends GameResultLike<'win'> {
