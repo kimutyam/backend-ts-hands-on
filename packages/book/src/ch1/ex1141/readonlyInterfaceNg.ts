@@ -9,16 +9,18 @@ const modifyName = (employee: Employee, name: string): Employee => {
   return employee;
 };
 
-{
-  const employee = {
-    name: '木村',
-    age: 10,
-  };
+const employee = {
+  name: '木村',
+  age: 10,
+};
 
-  console.log(employee); // 2
+console.log(employee);
+// { 'name': '木村', 'age': 10 }
 
-  const updatedPerson = modifyName(employee, '佐藤');
+const updatedEmployee = modifyName(employee, '佐藤');
 
-  console.log(employee); // 3
-  console.log(updatedPerson); // 4
-}
+console.log(employee); // 2
+// { 'name': '佐藤', 'age': 10 }
+
+console.log(updatedEmployee);
+// { 'name': '佐藤', 'age': 10 }
