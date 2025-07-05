@@ -22,7 +22,7 @@
     "monocle-ts": "2.3.13",
     "newtype-ts": "0.3.5",
     "uuid": "11.1.0",
-    "zod": "3.25.67"
+    "zod": "3.25.69"
   },
   "devDependencies": {
     "@types/jest": "29.5.14",
