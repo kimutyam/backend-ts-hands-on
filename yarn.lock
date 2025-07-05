@@ -5871,14 +5871,7 @@ regexp.prototype.flags@^1.5.3, regexp.prototype.flags@^1.5.4:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.23.1:
-  version "2.23.1"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.23.1.tgz#707c8ac45c72378e1ead5196804156513d55335e"
-  integrity sha512-sFaGllLOpecOnk9J5arEY/ihoRGsuLRDgudiOTv73YlR3wPEDiDfPzx7cpU/n3No9qE534D/Du09/mXeb5ff0g==
-  dependencies:
-    type-fest "^4.41.0"
-
-remeda@^2.0.0:
+remeda@2.23.2, remeda@^2.0.0:
   version "2.23.2"
   resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.23.2.tgz#8a9a51d1e47885a39ea0c3b49e7407efbc01009d"
   integrity sha512-4W75s4Ii5SDncp1TRLYRspJ+skm/FEHK7NLYk+q8Zy18mFeypXhGPdahmPvHkmqo38KfTTCjAqXRHMkmcQIEGA==
