@@ -103,6 +103,7 @@ const addCartItem =
   (targetCartItem: CartItem) =>
   (
     cart: Cart,
+    // 1
   ): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
     const { aggregateId, sequenceNumber, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
