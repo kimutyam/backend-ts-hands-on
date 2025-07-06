@@ -8,7 +8,8 @@ const equals = (a: Age, b: Age): boolean => a.value === b.value;
 
 const valueOf = (value: number): Age => ({ value });
 
-const judgeGeneration = ({ value }: Age): Generation => {
+const judgeGeneration = (age: Age): Generation => {
+  const { value } = age;
   if (value <= 29) {
     return 'JUNIOR';
   }
