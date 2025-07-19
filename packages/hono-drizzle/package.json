@@ -24,7 +24,7 @@
     "start": "node dist/adaptor/userSide/web/app.js"
   },
   "dependencies": {
-    "@hono/node-server": "1.15.0",
+    "@hono/node-server": "1.16.0",
     "date-fns": "4.1.0",
     "dotenv": "17.2.0",
     "drizzle-orm": "^0.44.0",
