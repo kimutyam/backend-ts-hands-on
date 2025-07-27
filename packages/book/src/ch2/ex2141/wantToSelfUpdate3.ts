@@ -1,7 +1,7 @@
 interface Employee {
   readonly name: string;
   readonly age: number;
-  readonly update: <T extends Employee>(target: T, props: Partial<T>) => T;
+  readonly modifyName: <T extends Employee>(emp: T, name: string) => T;
 }
 
 interface Manager extends Employee {
@@ -11,9 +11,9 @@ interface Manager extends Employee {
 const employee: Employee = {
   name: '木村',
   age: 20,
-  update: <T extends Employee>(target: T, props: Partial<T>): T => ({
-    ...target,
-    ...props,
+  modifyName: <T extends Employee>(emp: T, name: string): T => ({
+    ...emp,
+    name,
   }),
 };
 
@@ -21,17 +21,15 @@ const manager: Manager = {
   name: '佐藤',
   age: 20,
   grade: 1,
-  update: <T extends Employee>(target: T, props: Partial<T>): T => ({
-    ...target,
-    ...props,
+  modifyName: <T extends Employee>(emp: T, name: string): T => ({
+    ...emp,
+    name,
   }),
 };
 
-employee.update(employee, { age: 30 }); // { name: '木村', age: 30 }
-manager.update(manager, { grade: 2 }); // { name: '佐藤', age: 20, grade: 2 }
+employee.modifyName(employee, '高橋'); // { name: '高橋', age: 20 }
+manager.modifyName(manager, '斎藤'); // { name: '斎藤', age: 20, grade: 1 }
 
-const updatedManager = manager.update(manager, { age: 21 });
+type X = Manager extends Employee ? true : false;
 
-console.log(updatedManager);
-
-export type { Employee, Manager };
+export type { Employee, Manager, X };

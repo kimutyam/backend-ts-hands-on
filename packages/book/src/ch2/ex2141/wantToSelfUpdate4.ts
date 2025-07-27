@@ -9,15 +9,15 @@ interface Manager {
   grade: number;
 }
 
-const update = <T extends Employee>(target: T, props: Partial<T>): T => ({
-  ...target,
-  ...props,
+const modifyName = <T extends Employee>(emp: T, name: string): T => ({
+  ...emp,
+  name,
 });
 
 const employee = { name: '木村', age: 20 };
 const manager = { name: '佐藤', age: 20, grade: 1 };
 
-update(employee, { age: 30 }); // 1
-update(manager, { grade: 2 }); // 2
+modifyName(employee, '高橋'); // { name: '高橋', age: 20 }
+modifyName(manager, '斎藤'); // { name: '斎藤', age: 20, grade: 1 }
 
 export type { Employee, Manager };
