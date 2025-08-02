@@ -4035,10 +4035,10 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-hono@4.8.5:
-  version "4.8.5"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.8.5.tgz#a3b7703649a86f608c148e9aa1ca9ea41266cf8e"
-  integrity sha512-Up2cQbtNz1s111qpnnECdTGqSIUIhZJMLikdKkshebQSEBcoUKq6XJayLGqSZWidiH0zfHRCJqFu062Mz5UuRA==
+hono@4.8.10:
+  version "4.8.10"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.8.10.tgz#0e3a8c2077e9142f54b2b34499f45f67ed4c9821"
+  integrity sha512-DRMYbR3aFk6YET1FCSAFbgF2cWYTz5j0YAFYPECx9fmrbKBDAYnWU+YCgRTpOaatxMYN6e68U/2IG39zRP4W/A==
 
 html-escaper@^2.0.0:
   version "2.0.2"
