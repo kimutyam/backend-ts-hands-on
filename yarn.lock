@@ -5875,10 +5875,10 @@ regexp.prototype.flags@^1.5.3, regexp.prototype.flags@^1.5.4:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.28.0:
-  version "2.28.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.28.0.tgz#13d01b4f44b4d0fb066947166207cbf02bd4990b"
-  integrity sha512-943nIauNk4xBh/2DNcsZCc3DRpKncNXnNjtWlqfhM72FvD4bKuOXWSfuY0+k7yf8/Ob3+QzXtxLeobLoMn/INA==
+remeda@2.29.0:
+  version "2.29.0"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.29.0.tgz#718a1b335a43ab09d9a3ad0ba15af4a05acab216"
+  integrity sha512-+Izkt+G9OS0cZLJ7Ca3Yd0OYs+/mASCow8GnsEu3KHm22/bvV4WLzbH3ohDRk2/cWCELb3eSrc36wdAJolV5rw==
   dependencies:
     type-fest "^4.41.0"
 
