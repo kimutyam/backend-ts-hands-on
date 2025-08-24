@@ -34,7 +34,7 @@ jobs:
       WORKSPACE_NAME: 'hono-drizzle'
       NODE_VERSION_FILE: '.node-version'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Init env
         run: cp .env.example .env.dev
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
