@@ -15,22 +15,24 @@ const equals = (a: Period, b: Period): boolean =>
 const isSameOrAfter =
   (dateToCompare: Date) =>
   (date: Date): boolean =>
-    isAfter(date, dateToCompare) || isEqual(date, dateToCompare);
+    R.pipe(date, isAfter(dateToCompare)) ||
+    R.pipe(date, isEqual(dateToCompare));
 
 const isSameOrBefore =
   (dateToCompare: Date) =>
   (date: Date): boolean =>
-    isBefore(date, dateToCompare) || isEqual(date, dateToCompare);
+    R.pipe(date, isBefore(dateToCompare)) ||
+    R.pipe(date, isEqual(dateToCompare));
 
 // 1
-const satisfiesMin = (period: Period) => {
+const satisfiesMin = (period: Period): boolean => {
   const { start, end } = period;
   const addedStart = R.pipe(start, addDays(3));
   return R.pipe(end, isSameOrAfter(addedStart));
 };
 
 // 2
-const satisfiesMax = (period: Period) => {
+const satisfiesMax = (period: Period): boolean => {
   const { start, end } = period;
   const addedStart = R.pipe(start, addDays(10));
   return R.pipe(end, isSameOrBefore(addedStart));
@@ -39,7 +41,7 @@ const satisfiesMax = (period: Period) => {
 // 3
 const assertPeriod = (period: Period): void => {
   assert(satisfiesMin(period), '期間を3日以上設けてください');
-  assert(satisfiesMax(period), '期間を10日未満にしてください');
+  assert(satisfiesMax(period), '期間を10日以下にしてください');
 };
 
 // 4
