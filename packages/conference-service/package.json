@@ -25,7 +25,7 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
+    "@types/bcrypt": "^6.0.0",
     "@types/jest": "29.5.14",
     "@types/node": "22.15.32",
     "eslint-plugin-jest": "29.0.1",
