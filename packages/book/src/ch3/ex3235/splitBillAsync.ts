@@ -9,14 +9,16 @@ const splitBillAsync = (
   members: number,
 ): Promise<Result<number, SplitBillError>> =>
   new Promise((resolve) => {
+    let result: Result<number, SplitBillError>;
     if (members < 2) {
-      resolve(Failure(new NumberOfMembersError(members)));
+      result = Failure(new NumberOfMembersError(members));
+    } else {
+      const calculated = bill / members;
+      result = Number.isInteger(calculated)
+        ? Success(calculated)
+        : Failure(new IndivisibleBillError(bill, members, calculated));
     }
-    const calculated = bill / members;
-    if (!Number.isInteger(calculated)) {
-      resolve(Failure(new IndivisibleBillError(bill, members, calculated)));
-    }
-    resolve(Success(calculated));
+    resolve(result);
   });
 
 export { splitBillAsync };

@@ -2,14 +2,14 @@ import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
 import { splitBillAsync } from 'ch3/ex3229/splitBillAsync.js';
 
 const splitBillFloorAsync = (bill: number, members: number): Promise<number> =>
-  splitBillAsync(bill, members).catch((reason: unknown) => {
+  splitBillAsync(bill, members).catch((reason: unknown): number => {
     if (reason instanceof IndivisibleBillError) {
-      return Promise.resolve(Math.floor(reason.calculated));
+      return Math.floor(reason.calculated);
     }
     if (reason instanceof Error) {
-      return Promise.reject(reason);
+      throw reason;
     }
-    return Promise.reject(new Error(String(reason)));
+    throw new Error(String(reason));
   });
 
 export { splitBillFloorAsync };
