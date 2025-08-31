@@ -39,7 +39,7 @@
     "eslint-plugin-no-relative-import-paths": "1.6.1",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "rimraf": "6.0.1",
-    "tsx": "4.20.4",
+    "tsx": "4.20.5",
     "typescript": "5.9.2",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4"
