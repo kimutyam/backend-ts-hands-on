@@ -1,14 +1,15 @@
 import { DiscriminatedError } from 'ch3/ex3234/discriminatedError.js';
 
-const NumberOfMembersErrorKind = 'NumberOfMemberError';
+const NumberOfMembersErrorKind = 'NumberOfMembersError';
 class NumberOfMembersError extends DiscriminatedError<
   typeof NumberOfMembersErrorKind
 > {
   constructor(
     message: string,
-    public members: number,
+    public readonly members: number,
+    options?: ErrorOptions,
   ) {
-    super(message, NumberOfMembersErrorKind);
+    super(message, NumberOfMembersErrorKind, options);
   }
 }
 

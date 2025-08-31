@@ -1,10 +1,11 @@
-abstract class DiscriminatedError<Kind extends string> extends Error {
+abstract class DiscriminatedError<K extends string> extends Error {
   protected constructor(
     message: string,
-    public kind: Kind,
+    public readonly kind: K,
+    options?: ErrorOptions,
   ) {
-    super(message);
-    this.name = kind;
+    super(message, options);
+    this.name = this.constructor.name;
   }
 }
 

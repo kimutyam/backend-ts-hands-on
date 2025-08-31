@@ -6,12 +6,10 @@ import type { SplitBillError } from 'ch3/ex3234/splitBillError.js';
 const printError = (error: SplitBillError): void => {
   switch (error.kind) {
     case NumberOfMembersErrorKind:
-      console.log(error.members);
-      console.error(error.message);
+      console.log(error.message, error.members);
       break;
     case IndivisibleBillErrorKind:
-      console.log(error.calculated);
-      console.error(error.message);
+      console.log(error.message, error.bill, error.members, error.calculated);
       break;
     default:
       assertNever(error);

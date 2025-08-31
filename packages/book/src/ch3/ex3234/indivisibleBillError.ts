@@ -6,9 +6,12 @@ class IndivisibleBillError extends DiscriminatedError<
 > {
   constructor(
     message: string,
-    public calculated: number,
+    public readonly bill: number,
+    public readonly members: number,
+    public readonly calculated: number,
+    options?: ErrorOptions,
   ) {
-    super(message, IndivisibleBillErrorKind);
+    super(message, IndivisibleBillErrorKind, options);
   }
 }
 
