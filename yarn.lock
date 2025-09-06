@@ -4405,10 +4405,10 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-hono@4.9.2:
-  version "4.9.2"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.9.2.tgz#ac45a41707da1966134df11cc0b43389098e29d8"
-  integrity sha512-UG2jXGS/gkLH42l/1uROnwXpkjvvxkl3kpopL3LBo27NuaDPI6xHNfuUSilIHcrBkPfl4y0z6y2ByI455TjNRw==
+hono@4.9.6:
+  version "4.9.6"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.9.6.tgz#fe1f37ec78f574b9ddcffa1d79d399b3a8a12d31"
+  integrity sha512-doVjXhSFvYZ7y0dNokjwwSahcrAfdz+/BCLvAMa/vHLzjj8+CFyV5xteThGUsKdkaasgN+gF2mUxao+SGLpUeA==
 
 html-escaper@^2.0.0:
   version "2.0.2"
