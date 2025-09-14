@@ -1,4 +1,4 @@
-import { UserAccountApi } from '../../adaptors/primary/web/userAccountApi.js';
+import { UserAccountApi } from '../../adapter/primary/web/userAccountApi.js';
 import { UseCaseInjector } from './useCase.js';
 
 const create = () =>

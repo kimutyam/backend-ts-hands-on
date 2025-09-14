@@ -1,13 +1,13 @@
 import { createInjector } from 'typed-inject';
 
-import { CartEventStore } from '../../adaptors/secondary/rdb/cartEventStore.js';
-import { CartRepository } from '../../adaptors/secondary/rdb/cartRepository.js';
-import { Db } from '../../adaptors/secondary/rdb/db.js';
-import { PgPool } from '../../adaptors/secondary/rdb/pgPool.js';
-import { UserAccountRepository } from '../../adaptors/secondary/rdb/userAccountRepository.js';
-import { StoreCartEvent } from '../../ports/secondary/cartEventStore.js';
-import { FindCartById } from '../../ports/secondary/cartRepository.js';
-import { FindUserAccountById } from '../../ports/secondary/userAccountRepository.js';
+import { CartEventStore } from '../../adapter/secondary/rdb/cartEventStore.js';
+import { CartRepository } from '../../adapter/secondary/rdb/cartRepository.js';
+import { Db } from '../../adapter/secondary/rdb/db.js';
+import { PgPool } from '../../adapter/secondary/rdb/pgPool.js';
+import { UserAccountRepository } from '../../adapter/secondary/rdb/userAccountRepository.js';
+import { StoreCartEvent } from '../../app/port/secondary/cartEventStore.js';
+import { FindCartById } from '../../app/port/secondary/cartRepository.js';
+import { FindUserAccountById } from '../../app/port/secondary/userAccountRepository.js';
 
 const create = () =>
   createInjector()
@@ -20,9 +20,9 @@ const create = () =>
     .provideFactory(FindCartById.token, CartRepository.buildFindById)
     .provideFactory(StoreCartEvent.token, CartEventStore.buildStore);
 
-type PostgreSQLInjector = ReturnType<typeof create>;
-const PostgreSQLInjector = {
+type RdbInjector = ReturnType<typeof create>;
+const RdbInjector = {
   create,
 } as const;
 
-export { PostgreSQLInjector };
+export { RdbInjector };

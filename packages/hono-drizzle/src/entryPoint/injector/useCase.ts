@@ -1,10 +1,9 @@
-import { GetUserAccount } from '../../ports/primary/getUserAccount.js';
-import { buildGetUserAccount } from '../../useCase/getUserAccount.js';
-import { PostgreSQLInjector } from './rdb.js';
+import { GetUserAccount } from '../../app/port/primary/getUserAccount.js';
+import { buildGetUserAccount } from '../../app/useCase/getUserAccount.js';
+import { RdbInjector } from './rdb.js';
 
-// injectorを組み立てるのはAdaptorだけにする？
 const create = () =>
-  PostgreSQLInjector.create().provideFactory(
+  RdbInjector.create().provideFactory(
     GetUserAccount.token,
     buildGetUserAccount,
   );

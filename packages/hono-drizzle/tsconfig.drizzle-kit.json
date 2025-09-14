@@ -6,6 +6,6 @@
   },
   "extends": "./tsconfig.json",
   "include": [
-    "src/adaptors/secondary/rdb/schema/*.ts"
+    "src/adapter/secondary/rdb/schema/*.ts"
   ]
 }
