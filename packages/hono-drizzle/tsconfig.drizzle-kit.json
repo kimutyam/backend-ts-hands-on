@@ -6,6 +6,6 @@
   },
   "extends": "./tsconfig.json",
   "include": [
-    "src/adaptor/serverSide/postgresql/schema/*.ts"
+    "src/adaptors/secondary/rdb/schema/*.ts"
   ]
 }

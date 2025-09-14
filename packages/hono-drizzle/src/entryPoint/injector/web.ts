@@ -1,5 +1,5 @@
-import { UseCaseInjector } from '../../../useCase/injector.js';
-import { UserAccountApi } from './userAccountApi.js';
+import { UserAccountApi } from '../../adaptors/primary/web/userAccountApi.js';
+import { UseCaseInjector } from './useCase.js';
 
 const create = () =>
   UseCaseInjector.create().provideFactory(

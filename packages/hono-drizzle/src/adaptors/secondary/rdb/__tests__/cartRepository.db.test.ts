@@ -2,22 +2,22 @@ import assert from 'node:assert';
 
 import { describe } from 'vitest';
 
-import { Aggregate } from '../../../../../domain/aggregate.js';
-import { CartNotFoundError } from '../../../../../domain/cart/cartNotFoundError.js';
-import { Quantity } from '../../../../../domain/cart/quantity.js';
-import { CustomerId } from '../../../../../domain/customer/customerId.js';
-import { Price } from '../../../../../domain/product/price.js';
-import { ProductId } from '../../../../../domain/product/productId.js';
-import { truncateTables } from '../../__tests__/helper/table.js';
-import { Db } from '../../db.js';
-import { PgPool } from '../../pgPool.js';
-import { buildFindCartById } from '../findCartById.js';
+import { Aggregate } from '../../../../domain/aggregate.js';
+import { CartNotFoundError } from '../../../../domain/cart/cartNotFoundError.js';
+import { Quantity } from '../../../../domain/cart/quantity.js';
+import { CustomerId } from '../../../../domain/customer/customerId.js';
+import { Price } from '../../../../domain/product/price.js';
+import { ProductId } from '../../../../domain/product/productId.js';
+import { CartRepository } from '../cartRepository.js';
+import { Db } from '../db.js';
+import { PgPool } from '../pgPool.js';
 import { buildSetup } from './helper/cart.js';
+import { truncateTables } from './helper/table.js';
 
 describe('FindCartById', () => {
   const pool = PgPool.build();
   const db = Db.build(pool);
-  const findCartById = buildFindCartById(db);
+  const findCartById = CartRepository.buildFindById(db);
 
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();

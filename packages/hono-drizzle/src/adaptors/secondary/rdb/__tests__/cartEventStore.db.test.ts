@@ -4,25 +4,25 @@ import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 import { beforeEach, describe } from 'vitest';
 
-import { Cart } from '../../../../../domain/cart/cart.js';
+import { Cart } from '../../../../domain/cart/cart.js';
 import {
   CartCleared,
   CartItemAdded,
   CartItemRemoved,
   CartItemUpdated,
-} from '../../../../../domain/cart/cartEvent.js';
-import type { CartItem } from '../../../../../domain/cart/cartItem.js';
-import { Quantity } from '../../../../../domain/cart/quantity.js';
-import { CustomerId } from '../../../../../domain/customer/customerId.js';
-import { DomainEvent } from '../../../../../domain/domainEvent.js';
-import { Price } from '../../../../../domain/product/price.js';
-import { ProductId } from '../../../../../domain/product/productId.js';
-import { buildSelectDomainEvent } from '../../__tests__/helper/domainEvent.js';
-import { truncateTables } from '../../__tests__/helper/table.js';
-import { Db } from '../../db.js';
-import { PgPool } from '../../pgPool.js';
-import { buildCartEventStore } from '../cartEventStore.js';
+} from '../../../../domain/cart/cartEvent.js';
+import type { CartItem } from '../../../../domain/cart/cartItem.js';
+import { Quantity } from '../../../../domain/cart/quantity.js';
+import { CustomerId } from '../../../../domain/customer/customerId.js';
+import { DomainEvent } from '../../../../domain/domainEvent.js';
+import { Price } from '../../../../domain/product/price.js';
+import { ProductId } from '../../../../domain/product/productId.js';
+import { CartEventStore } from '../cartEventStore.js';
+import { Db } from '../db.js';
+import { PgPool } from '../pgPool.js';
 import { buildSetup } from './helper/cart.js';
+import { buildSelectDomainEvent } from './helper/domainEvent.js';
+import { truncateTables } from './helper/table.js';
 
 const buildSelectCart =
   (db: Db) =>
@@ -58,7 +58,7 @@ const buildSelectCartItem =
 describe.sequential('CartEventStore', () => {
   const pool = PgPool.build();
   const db = Db.build(pool);
-  const cartEventStore = buildCartEventStore(db);
+  const cartEventStore = CartEventStore.buildStore(db);
   const selectCart = buildSelectCart(db);
   const selectCartItem = buildSelectCartItem(db);
   const selectDomainEvent = buildSelectDomainEvent(db);

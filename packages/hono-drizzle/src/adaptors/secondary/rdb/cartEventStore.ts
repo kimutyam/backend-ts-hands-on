@@ -1,12 +1,12 @@
 import { eq } from 'drizzle-orm';
 
-import type { Cart } from '../../../../domain/cart/cart.js';
-import type { CartEvent } from '../../../../domain/cart/cartEvent.js';
-import type { CartEventStore } from '../../../../domain/cart/cartEventStore.js';
-import { Db } from '../db.js';
-import { cartTable } from '../schema/cart.sql.js';
-import { cartItemTable } from '../schema/cartItem.sql.js';
-import { domainEventTable } from '../schema/domainEvent.sql.js';
+import type { Cart } from '../../../domain/cart/cart.js';
+import type { CartEvent } from '../../../domain/cart/cartEvent.js';
+import type { StoreCartEvent } from '../../../ports/secondary/cartEventStore.js';
+import { Db } from './db.js';
+import { cartTable } from './schema/cart.sql.js';
+import { cartItemTable } from './schema/cartItem.sql.js';
+import { domainEventTable } from './schema/domainEvent.sql.js';
 
 type CartInsert = typeof cartTable.$inferInsert;
 type CartItemInsert = typeof cartItemTable.$inferInsert;
@@ -24,8 +24,8 @@ const toCartItemInserts = (cart: Cart): Array<CartItemInsert> =>
     quantity,
   }));
 
-const buildCartEventStore =
-  (db: Db): CartEventStore<CartEvent> =>
+const buildStore =
+  (db: Db): StoreCartEvent<CartEvent> =>
   async (event: CartEvent, aggregate: Cart) => {
     await db.transaction(async (tx) => {
       const cartItemInserts = toCartItemInserts(aggregate);
@@ -49,6 +49,10 @@ const buildCartEventStore =
     });
   };
 
-buildCartEventStore.inject = [Db.token] as const;
+buildStore.inject = [Db.token] as const;
 
-export { buildCartEventStore };
+const CartEventStore = {
+  buildStore,
+} as const;
+
+export { CartEventStore };

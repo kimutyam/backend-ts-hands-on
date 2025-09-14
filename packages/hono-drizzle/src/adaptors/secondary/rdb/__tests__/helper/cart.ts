@@ -1,13 +1,13 @@
-import { Aggregate } from '../../../../../../domain/aggregate.js';
-import { Quantity } from '../../../../../../domain/cart/quantity.js';
-import type { CustomerId } from '../../../../../../domain/customer/customerId.js';
-import { Price } from '../../../../../../domain/product/price.js';
-import type { ProductId } from '../../../../../../domain/product/productId.js';
-import type { Db } from '../../../db.js';
-import { cartTable } from '../../../schema/cart.sql.js';
-import { cartItemTable } from '../../../schema/cartItem.sql.js';
-import { customerTable } from '../../../schema/customer.sql.js';
-import { productTable } from '../../../schema/product.sql.js';
+import { Aggregate } from '../../../../../domain/aggregate.js';
+import { Quantity } from '../../../../../domain/cart/quantity.js';
+import type { CustomerId } from '../../../../../domain/customer/customerId.js';
+import { Price } from '../../../../../domain/product/price.js';
+import type { ProductId } from '../../../../../domain/product/productId.js';
+import type { Db } from '../../db.js';
+import { cartTable } from '../../schema/cart.sql.js';
+import { cartItemTable } from '../../schema/cartItem.sql.js';
+import { customerTable } from '../../schema/customer.sql.js';
+import { productTable } from '../../schema/product.sql.js';
 
 const buildSetup =
   (db: Db) =>

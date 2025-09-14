@@ -1,20 +1,11 @@
-import type { UserAccount } from '../domain/userAccount/userAccount.js';
-import { FindUserAccountById } from '../domain/userAccount/userAccountRepository.js';
+import type { GetUserAccount } from '../ports/primary/getUserAccount.js';
+import { FindUserAccountById } from '../ports/secondary/userAccountRepository.js';
 
-type GetUserAccount = (
-  userAccountId: string,
-) => Promise<UserAccount | undefined>;
-
-const build =
+const buildGetUserAccount =
   (findUserAccountById: FindUserAccountById): GetUserAccount =>
-  (userAccountId: string): ReturnType<GetUserAccount> =>
+  (userAccountId: string) =>
     findUserAccountById(userAccountId).unwrapOr(undefined);
 
-build.inject = [FindUserAccountById.token] as const;
+buildGetUserAccount.inject = [FindUserAccountById.token] as const;
 
-const GetUserAccount = {
-  token: 'GetUserAccount' as const,
-  build,
-} as const;
-
-export { GetUserAccount };
+export { buildGetUserAccount };

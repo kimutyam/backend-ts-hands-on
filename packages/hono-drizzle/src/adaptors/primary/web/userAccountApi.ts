@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 
-import { GetUserAccount } from '../../../useCase/getUserAccount.js';
+import { GetUserAccount } from '../../../ports/primary/getUserAccount.js';
 
-export const build = (getUserAccount: GetUserAccount) => {
+const build = (getUserAccount: GetUserAccount) => {
   const app = new Hono();
   app.get('/:id', async (c) => {
     const user = await getUserAccount(c.req.param('id'));

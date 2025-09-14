@@ -2,14 +2,14 @@ import { eq } from 'drizzle-orm';
 import type { Result } from 'neverthrow';
 import { err, ok, ResultAsync } from 'neverthrow';
 
-import { Cart } from '../../../../domain/cart/cart.js';
-import type { CartItem } from '../../../../domain/cart/cartItem.js';
-import { CartNotFoundError } from '../../../../domain/cart/cartNotFoundError.js';
-import type { FindCartById } from '../../../../domain/cart/cartRepository.js';
-import type { CustomerId } from '../../../../domain/customer/customerId.js';
-import { Db } from '../db.js';
-import { cartTable } from '../schema/cart.sql.js';
-import { cartItemTable } from '../schema/cartItem.sql.js';
+import { Cart } from '../../../domain/cart/cart.js';
+import type { CartItem } from '../../../domain/cart/cartItem.js';
+import { CartNotFoundError } from '../../../domain/cart/cartNotFoundError.js';
+import type { CustomerId } from '../../../domain/customer/customerId.js';
+import type { FindCartById } from '../../../ports/secondary/cartRepository.js';
+import { Db } from './db.js';
+import { cartTable } from './schema/cart.sql.js';
+import { cartItemTable } from './schema/cartItem.sql.js';
 
 type CartSelect = typeof cartTable.$inferSelect;
 type CartItemSelect = typeof cartItemTable.$inferSelect;
@@ -45,7 +45,7 @@ const toCart =
     );
   };
 
-const buildFindCartById =
+const buildFindById =
   (db: Db): FindCartById =>
   (aggregateId) =>
     ResultAsync.fromSafePromise(
@@ -59,6 +59,10 @@ const buildFindCartById =
         .where(eq(cartTable.customerId, aggregateId)),
     ).andThen(toCart(aggregateId));
 
-buildFindCartById.inject = [Db.token] as const;
+buildFindById.inject = [Db.token] as const;
 
-export { buildFindCartById };
+const CartRepository = {
+  buildFindById,
+} as const;
+
+export { CartRepository };

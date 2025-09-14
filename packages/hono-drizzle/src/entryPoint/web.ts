@@ -1,8 +1,8 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 
-import { WebInjector } from './injector.js';
-import { UserAccountApi } from './userAccountApi.js';
+import { UserAccountApi } from '../adaptors/primary/web/userAccountApi.js';
+import { WebInjector } from './injector/web.js';
 
 const app = new Hono();
 const injector = WebInjector.create();
