@@ -6131,17 +6131,10 @@ regexp.prototype.flags@^1.5.3, regexp.prototype.flags@^1.5.4:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.31.1:
+remeda@2.31.1, remeda@^2.0.0:
   version "2.31.1"
   resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.31.1.tgz#21125382d2835b09a58177feee35ab310ca108d1"
   integrity sha512-FRZefcuXbmCoYt8hAITAzW4t8i/RERaGk/+GtRN90eV3NHxsnRKCDIOJVrwrQ6zz77TG/Xyi9mGRfiJWT7DK1g==
-  dependencies:
-    type-fest "^4.41.0"
-
-remeda@^2.0.0:
-  version "2.30.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.30.0.tgz#b4f10b24f32ed84ad9e5cc49ebb0a650f34da6e0"
-  integrity sha512-TcRpI1ecqnMer3jHhFtMerGvHFCDlCHljUp0/9A4HxHOh5bSY3kP1l8nQDFMnWYJKl3MSarDNY1tb0Bs/bCmvw==
   dependencies:
     type-fest "^4.41.0"
 
