@@ -1,12 +1,12 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 
-import { UserAccountApi } from '../adapter/primary/web/userAccountApi.js';
+import { UserAccountController } from '../adapter/primary/web/userAccountController.js';
 import { WebInjector } from './injector/web.js';
 
 const app = new Hono();
 const injector = WebInjector.create();
-app.route('/userAccounts', injector.resolve(UserAccountApi.token));
+app.route('/userAccounts', injector.resolve(UserAccountController.token));
 
 // TODO: 諸々のエラーハンドリング
 

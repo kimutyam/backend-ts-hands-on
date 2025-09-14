@@ -45,7 +45,7 @@ const toCart =
     );
   };
 
-const buildFindById =
+const findById =
   (db: Db): FindCartById =>
   (aggregateId) =>
     ResultAsync.fromSafePromise(
@@ -59,10 +59,10 @@ const buildFindById =
         .where(eq(cartTable.customerId, aggregateId)),
     ).andThen(toCart(aggregateId));
 
-buildFindById.inject = [Db.token] as const;
+findById.inject = [Db.token] as const;
 
 const CartRepository = {
-  buildFindById,
+  findById,
 } as const;
 
 export { CartRepository };

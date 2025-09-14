@@ -1,10 +1,10 @@
-import { UserAccountApi } from '../../adapter/primary/web/userAccountApi.js';
+import { UserAccountController } from '../../adapter/primary/web/userAccountController.js';
 import { UseCaseInjector } from './useCase.js';
 
 const create = () =>
   UseCaseInjector.create().provideFactory(
-    UserAccountApi.token,
-    UserAccountApi.build,
+    UserAccountController.token,
+    UserAccountController.build,
   );
 
 type WebInjector = ReturnType<typeof create>;

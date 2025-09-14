@@ -11,7 +11,7 @@ import { truncateTables } from './helper/table.js';
 describe('buildFindUserAccountById', () => {
   const pool = PgPool.build();
   const db = Db.build(pool);
-  const findUserAccountById = UserAccountRepository.buildFindById(db);
+  const findUserAccountById = UserAccountRepository.findById(db);
 
   beforeAll(async () => {
     await truncateTables(db);

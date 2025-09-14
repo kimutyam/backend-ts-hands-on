@@ -13,12 +13,9 @@ const create = () =>
   createInjector()
     .provideFactory(PgPool.token, PgPool.build)
     .provideFactory(Db.token, Db.build)
-    .provideFactory(
-      FindUserAccountById.token,
-      UserAccountRepository.buildFindById,
-    )
-    .provideFactory(FindCartById.token, CartRepository.buildFindById)
-    .provideFactory(StoreCartEvent.token, CartEventStore.buildStore);
+    .provideFactory(FindUserAccountById.token, UserAccountRepository.findById)
+    .provideFactory(FindCartById.token, CartRepository.findById)
+    .provideFactory(StoreCartEvent.token, CartEventStore.store);
 
 type RdbInjector = ReturnType<typeof create>;
 const RdbInjector = {

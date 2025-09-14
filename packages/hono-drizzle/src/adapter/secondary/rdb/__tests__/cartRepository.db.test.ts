@@ -17,7 +17,7 @@ import { truncateTables } from './helper/table.js';
 describe('FindCartById', () => {
   const pool = PgPool.build();
   const db = Db.build(pool);
-  const findCartById = CartRepository.buildFindById(db);
+  const findCartById = CartRepository.findById(db);
 
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();

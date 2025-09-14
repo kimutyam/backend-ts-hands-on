@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 
 import { GetUserAccount } from '../../../app/port/primary/getUserAccount.js';
 
+// Note: `/userAccounts` 階層に複数のメソッドを設ける想定
 const build = (getUserAccount: GetUserAccount) => {
   const app = new Hono();
   app.get('/:id', async (c) => {
@@ -13,9 +14,9 @@ const build = (getUserAccount: GetUserAccount) => {
 
 build.inject = [GetUserAccount.token] as const;
 
-const UserAccountApi = {
-  token: 'UserAccountApi' as const,
+const UserAccountController = {
+  token: 'UserAccountController' as const,
   build,
 } as const;
 
-export { UserAccountApi };
+export { UserAccountController };

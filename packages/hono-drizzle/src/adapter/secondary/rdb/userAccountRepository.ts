@@ -6,7 +6,7 @@ import type { FindUserAccountById } from '../../../app/port/secondary/userAccoun
 import { Db } from './db.js';
 import { userAccountTable } from './schema/userAccount.sql.js';
 
-const buildFindById =
+const findById =
   (db: Db): FindUserAccountById =>
   (id: string) =>
     ResultAsync.fromSafePromise(
@@ -18,10 +18,10 @@ const buildFindById =
         : errAsync(new UserAccountNotFoundError(id));
     });
 
-buildFindById.inject = [Db.token] as const;
+findById.inject = [Db.token] as const;
 
 const UserAccountRepository = {
-  buildFindById,
+  findById,
 } as const;
 
 export { UserAccountRepository };
