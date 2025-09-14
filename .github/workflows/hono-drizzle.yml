@@ -41,7 +41,7 @@ jobs:
       - name: Import environment variables from a file
         run: cat .env.dev | awk '!(/^#/ || /^$/)' >> $GITHUB_ENV
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
           cache: yarn
