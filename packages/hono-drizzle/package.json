@@ -21,7 +21,7 @@
     "db:generate": "yarn build:drizzle-kit && drizzle-kit generate",
     "db:migrate": "yarn build:drizzle-kit && drizzle-kit migrate",
     "db:push": "yarn build:drizzle-kit && drizzle-kit push",
-    "start": "node dist/adaptor/userSide/web/app.js"
+    "start": "node dist/entryPoint/web.js"
   },
   "dependencies": {
     "@hono/node-server": "1.19.1",

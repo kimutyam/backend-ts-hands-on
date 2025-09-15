@@ -14,9 +14,9 @@ const build = (getUserAccount: GetUserAccount) => {
 
 build.inject = [GetUserAccount.token] as const;
 
-const UserAccountController = {
-  token: 'UserAccountController' as const,
+const UserAccountHandler = {
+  token: 'UserAccountHandler' as const,
   build,
 } as const;
 
-export { UserAccountController };
+export { UserAccountHandler };
