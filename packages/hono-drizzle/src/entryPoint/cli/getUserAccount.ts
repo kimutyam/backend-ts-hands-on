@@ -4,7 +4,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { GetUserAccountHandler } from '../../adapter/primary/cli/getUserAccountHandler.js';
 import { GetUserAccount } from '../../app/port/primary/getUserAccount.js';
-import { buildInjector } from '../injector/cliBuilder.js';
+import { UseCaseInjector } from '../injector/useCase.js';
 import { execute } from './helper/execute.js';
 
 const argv = yargs(hideBin(process.argv))
@@ -13,7 +13,8 @@ const argv = yargs(hideBin(process.argv))
   .demandOption('id')
   .parseSync();
 
-const [injector, useCaseInjector] = buildInjector();
+// TODO: switch to env var
+const [injector, useCaseInjector] = UseCaseInjector.build(true);
 const getUserAccount = useCaseInjector.resolve(GetUserAccount.token);
 const handler = GetUserAccountHandler.build(getUserAccount);
 
