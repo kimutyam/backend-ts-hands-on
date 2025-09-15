@@ -1,3 +1,4 @@
+import type { CartEvent } from 'app/domain/cart/cartEvent.js';
 import type { Injector } from 'typed-inject';
 
 import { CartEventStore } from '../../adapter/secondary/rdb/cartEventStore.js';
@@ -9,7 +10,13 @@ import { StoreCartEvent } from '../../app/port/secondary/cartEventStore.js';
 import { FindCartById } from '../../app/port/secondary/cartRepository.js';
 import { FindUserAccountById } from '../../app/port/secondary/userAccountRepository.js';
 
-const create = (rootInjector: Injector) =>
+type SecondaryPortInjector = Injector<{
+  [FindUserAccountById.token]: FindUserAccountById;
+  [FindCartById.token]: FindCartById;
+  [StoreCartEvent.token]: StoreCartEvent<CartEvent>;
+}>;
+
+const createOnRdb = (rootInjector: Injector): SecondaryPortInjector =>
   rootInjector
     .provideFactory(PgPool.token, PgPool.build)
     .provideFactory(Db.token, Db.build)
@@ -17,9 +24,8 @@ const create = (rootInjector: Injector) =>
     .provideFactory(FindCartById.token, CartRepository.findById)
     .provideFactory(StoreCartEvent.token, CartEventStore.store);
 
-type RdbInjector = ReturnType<typeof create>;
-const RdbInjector = {
-  create,
+const SecondaryPortInjector = {
+  createOnRdb,
 } as const;
 
-export { RdbInjector };
+export { SecondaryPortInjector };

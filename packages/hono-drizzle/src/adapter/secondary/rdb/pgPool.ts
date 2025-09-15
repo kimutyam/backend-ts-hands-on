@@ -12,7 +12,7 @@ const build = (): PgPool => {
   }
   const pool = new Pool({ connectionString: url });
   const dispose = async () => {
-    console.log('pgPool dispose');
+    console.log('Pool dispose');
     await pool.end();
   };
   return Object.assign(pool, { dispose });

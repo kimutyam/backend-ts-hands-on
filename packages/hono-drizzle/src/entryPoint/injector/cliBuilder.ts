@@ -1,13 +1,13 @@
 import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
-import { RdbInjector } from './rdb.js';
+import { SecondaryPortInjector } from './secondaryPort.js';
 import { UseCaseInjector } from './useCase.js';
 
 const buildInjector = (): [Injector, UseCaseInjector] => {
   const rootInjector = createInjector();
-  const rdbInjector = RdbInjector.create(rootInjector);
-  const useCaseInjector = UseCaseInjector.create(rdbInjector);
+  const secondaryPortInjector = SecondaryPortInjector.createOnRdb(rootInjector);
+  const useCaseInjector = UseCaseInjector.create(secondaryPortInjector);
   return [rootInjector, useCaseInjector];
 };
 

@@ -4,8 +4,8 @@ import { hideBin } from 'yargs/helpers';
 
 import { GetUserAccountHandler } from '../../adapter/primary/cli/getUserAccountHandler.js';
 import { GetUserAccount } from '../../app/port/primary/getUserAccount.js';
-import { buildInjector } from '../injector/cli.js';
-import { execute } from './execute.js';
+import { buildInjector } from '../injector/cliBuilder.js';
+import { execute } from './helper/execute.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
