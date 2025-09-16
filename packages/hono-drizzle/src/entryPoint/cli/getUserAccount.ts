@@ -2,9 +2,9 @@ import * as R from 'remeda';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { GetUserAccountHandler } from '../../adapter/primary/cli/getUserAccountHandler.js';
-import { GetUserAccount } from '../../app/port/primary/getUserAccount.js';
-import { UseCaseInjector } from '../injector/useCase.js';
+import { GetUserAccountHandler } from '../../adapter/primary/management/cli/getUserAccountHandler.js';
+import { GetUserAccount } from '../../app/port/primary/management/getUserAccount.js';
+import { ManagementPortInjector } from '../injector/primary/management/port.js';
 import { execute } from './helper/execute.js';
 
 const argv = yargs(hideBin(process.argv))
@@ -14,8 +14,9 @@ const argv = yargs(hideBin(process.argv))
   .parseSync();
 
 // TODO: switch to env var
-const [injector, useCaseInjector] = UseCaseInjector.build(true);
-const getUserAccount = useCaseInjector.resolve(GetUserAccount.token);
+const [rootInjector, managementPortInjector] =
+  ManagementPortInjector.build(true);
+const getUserAccount = managementPortInjector.resolve(GetUserAccount.token);
 const handler = GetUserAccountHandler.build(getUserAccount);
 
-await R.pipe(argv, execute(handler, injector));
+await R.pipe(argv, execute(handler, rootInjector));

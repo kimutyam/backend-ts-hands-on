@@ -1,10 +1,10 @@
-import { WebInjector } from '../injector/webAdapter.js';
+import { WebInjector } from '../injector/primary/management/webAdapter.js';
 import { makeApp } from './helper/app.js';
 import { Server } from './helper/server.js';
 
 // TODO: switch to env var
-const [rootInjector, webInjector] = WebInjector.build(true);
-const app = makeApp(webInjector);
+const [rootInjector, webAdaptorInjector] = WebInjector.build();
+const app = makeApp(webAdaptorInjector);
 const server = Server.run(app);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
