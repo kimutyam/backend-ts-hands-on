@@ -2,9 +2,9 @@ import * as R from 'remeda';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { GetUserAccountHandler } from '../../adapter/primary/management/cli/getUserAccountHandler.js';
-import { GetUserAccount } from '../../app/port/primary/management/getUserAccount.js';
-import { ManagementPortInjector } from '../injector/primary/management/port.js';
+import { GetUserAccountHandler } from '../../../../adapter/primary/management/cli/getUserAccountHandler.js';
+import { GetUserAccount } from '../../../../app/port/primary/management/getUserAccount.js';
+import { ManagementPortInjector } from '../injector/port.js';
 import { execute } from './helper/execute.js';
 
 const argv = yargs(hideBin(process.argv))

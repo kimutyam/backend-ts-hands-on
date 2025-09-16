@@ -3,7 +3,7 @@ import { createInjector } from 'typed-inject';
 
 import { GetUserAccount } from '../../../../app/port/primary/management/getUserAccount.js';
 import { buildGetUserAccount } from '../../../../app/useCase/getUserAccount.js';
-import { DbPortInjector } from '../../secondary/db/port.js';
+import { DbPortInjector } from '../../../secondary/db/injector/port.js';
 
 const create = (injector: DbPortInjector) =>
   injector.provideFactory(GetUserAccount.token, buildGetUserAccount);

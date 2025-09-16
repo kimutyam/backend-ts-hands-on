@@ -1,4 +1,4 @@
-import { WebInjector } from '../injector/primary/management/webAdapter.js';
+import { WebInjector } from '../injector/webAdapter.js';
 import { makeApp } from './helper/app.js';
 import { Server } from './helper/server.js';
 

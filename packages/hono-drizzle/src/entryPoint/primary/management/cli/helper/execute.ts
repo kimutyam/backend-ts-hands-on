@@ -1,6 +1,6 @@
 import type { Injector } from 'typed-inject';
 
-import type { CommandHandler } from '../../../adapter/primary/management/cli/commandHandler.js';
+import type { CommandHandler } from '../../../../../adapter/primary/management/cli/commandHandler.js';
 
 const execute =
   <Args>(handler: CommandHandler<Args>, injector: Injector) =>
