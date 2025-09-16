@@ -1,5 +1,5 @@
-import type { GetUserAccount } from '../port/primary/getUserAccount.js';
-import { FindUserAccountById } from '../port/secondary/userAccountRepository.js';
+import type { GetUserAccount } from '../port/primary/management/getUserAccount.js';
+import { FindUserAccountById } from '../port/secondary/db/userAccountRepository.js';
 
 const buildGetUserAccount =
   (findUserAccountById: FindUserAccountById): GetUserAccount =>
