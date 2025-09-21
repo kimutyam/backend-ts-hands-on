@@ -33,8 +33,8 @@ const buildRepository = (
   };
 };
 
-const ProductRepositoryOnMemory = {
+const ProductRepository = {
   build: buildRepository,
 } as const;
 
-export { ProductRepositoryOnMemory };
+export { ProductRepository };

@@ -33,8 +33,8 @@ const buildRepository = (
   };
 };
 
-const CartRepositoryOnMemory = {
+const CartRepository = {
   build: buildRepository,
 } as const;
 
-export { CartRepositoryOnMemory };
+export { CartRepository };
