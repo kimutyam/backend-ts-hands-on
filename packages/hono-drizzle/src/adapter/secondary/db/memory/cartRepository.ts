@@ -1,6 +1,7 @@
 import { errAsync, okAsync } from 'neverthrow';
 
 import type { Cart } from '../../../../app/domain/cart/cart.js';
+import type { CartEvent } from '../../../../app/domain/cart/cartEvent.js';
 import { CartNotFoundError } from '../../../../app/domain/cart/cartNotFoundError.js';
 import type { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import type { StoreCartEvent } from '../../../../app/port/secondary/db/cartEventStore.js';
@@ -16,20 +17,25 @@ const buildFindById =
   };
 
 const buildStore =
-  (aggregates: Map<CustomerId, Cart>): StoreCartEvent =>
+  (
+    events: Array<CartEvent>,
+    aggregates: Map<CustomerId, Cart>,
+  ): StoreCartEvent =>
   async (event, aggregate) => {
-    console.log(event);
+    events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
     return Promise.resolve();
   };
 
 const buildRepository = (
+  initialEvents: Array<CartEvent> = [],
   initialAggregates: Map<CustomerId, Cart> = new Map(),
 ) => {
+  const events = [...initialEvents];
   const aggregates = new Map(initialAggregates);
   return {
-    findById: buildFindById(aggregates),
-    store: buildStore(aggregates),
+    findById: buildFindById(initialAggregates),
+    store: buildStore(events, aggregates),
   };
 };
 
