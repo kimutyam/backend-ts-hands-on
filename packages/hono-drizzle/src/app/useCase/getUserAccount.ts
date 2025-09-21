@@ -3,7 +3,7 @@ import { FindUserAccountById } from '../port/secondary/db/userAccountRepository.
 
 const buildGetUserAccount =
   (findUserAccountById: FindUserAccountById): GetUserAccount =>
-  (userAccountId: string) =>
+  (userAccountId) =>
     findUserAccountById(userAccountId).unwrapOr(undefined);
 
 buildGetUserAccount.inject = [FindUserAccountById.token] as const;

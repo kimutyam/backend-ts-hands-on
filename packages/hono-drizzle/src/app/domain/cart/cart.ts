@@ -17,14 +17,14 @@ import {
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 
-const name = 'Cart';
+const AGGREGATE_NAME = 'Cart';
 
 const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
   }),
-  name,
+  AGGREGATE_NAME,
 );
 
 type Cart = z.infer<typeof schema>;
@@ -78,7 +78,7 @@ const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({
-      kind: name,
+      kind: AGGREGATE_NAME,
       error: zodError,
     })),
   );
@@ -114,7 +114,7 @@ const addCartItem =
       }).map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(name, CartItemAdded.eventName, {
+          DomainEvent.generate(AGGREGATE_NAME, CartItemAdded.eventName, {
             cartItem: targetCartItem,
           }),
         );
@@ -146,7 +146,7 @@ const addCartItem =
       .map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(name, CartItemUpdated.eventName, {
+          DomainEvent.generate(AGGREGATE_NAME, CartItemUpdated.eventName, {
             cartItem: aggregate.cartItems[updateTargetIndex]!,
           }),
         );
@@ -171,7 +171,9 @@ const removeCartItem =
     });
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
+      DomainEvent.generate(AGGREGATE_NAME, CartItemRemoved.eventName, {
+        productId,
+      }),
     );
     return [aggregate, event];
   };
@@ -186,7 +188,7 @@ const clear =
     });
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(name, CartCleared.eventName, {
+      DomainEvent.generate(AGGREGATE_NAME, CartCleared.eventName, {
         aggregateId,
         reason,
       }),
@@ -195,7 +197,7 @@ const clear =
   };
 
 const Cart = {
-  name,
+  name: AGGREGATE_NAME,
   schema: schemaWithRefinements,
   init,
   parse,

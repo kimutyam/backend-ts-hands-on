@@ -25,7 +25,7 @@ const toCartItemInserts = (cart: Cart): Array<CartItemInsert> =>
   }));
 
 const store =
-  (db: Db): StoreCartEvent<CartEvent> =>
+  (db: Db): StoreCartEvent =>
   async (event: CartEvent, aggregate: Cart) => {
     await db.transaction(async (tx) => {
       const cartItemInserts = toCartItemInserts(aggregate);
