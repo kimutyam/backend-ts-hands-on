@@ -20,4 +20,8 @@ type AddCartItem = (
   ProductNotFoundError | CartNotFoundError | AddCartError
 >;
 
-export type { AddCartItem };
+const AddCartItem = {
+  token: 'AddCartItem' as const,
+} as const;
+
+export { AddCartItem };

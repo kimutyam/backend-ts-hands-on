@@ -2,21 +2,23 @@ import * as R from 'remeda';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { GetUserAccountHandler } from '../../../../adapter/primary/management/cli/getUserAccountHandler.js';
-import { GetUserAccount } from '../../../../app/port/primary/management/getUserAccount.js';
+import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
+import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
 import { ManagementPortInjector } from '../injector/port.js';
 import { execute } from './helper/execute.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
-  .string('id')
-  .demandOption('id')
+  .string('name')
+  .number('price')
+  .demandOption('name')
+  .demandOption('price')
   .parseSync();
 
 // TODO: switch to env var
 const [rootInjector, managementPortInjector] =
   ManagementPortInjector.build(true);
-const getUserAccount = managementPortInjector.resolve(GetUserAccount.token);
-const handler = GetUserAccountHandler.build(getUserAccount);
+const registerProduct = managementPortInjector.resolve(RegisterProduct.token);
+const handler = RegisterProductHandler.build(registerProduct);
 
 await R.pipe(argv, execute(handler, rootInjector));

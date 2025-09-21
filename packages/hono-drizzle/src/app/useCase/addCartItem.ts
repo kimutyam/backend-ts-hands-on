@@ -4,9 +4,9 @@ import type {
   CartItemUpdated,
 } from '../domain/cart/cartEvent.js';
 import type { AddCartItem } from '../port/primary/shopping/addCartItem.js';
-import type { StoreCartEvent } from '../port/secondary/db/cartEventStore.js';
-import type { FindCartById } from '../port/secondary/db/cartRepository.js';
-import type { FindProductById } from '../port/secondary/db/productRepository.js';
+import { StoreCartEvent } from '../port/secondary/db/cartEventStore.js';
+import { FindCartById } from '../port/secondary/db/cartRepository.js';
+import { FindProductById } from '../port/secondary/db/productRepository.js';
 
 const buildAddCartItem =
   (
@@ -30,5 +30,11 @@ const buildAddCartItem =
         await storeCartEvent(cartEvent, cart);
         return cartEvent;
       });
+
+buildAddCartItem.inject = [
+  FindProductById.token,
+  FindCartById.token,
+  StoreCartEvent.token,
+] as const;
 
 export { buildAddCartItem };
