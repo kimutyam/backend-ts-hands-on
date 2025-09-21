@@ -52,7 +52,7 @@ const requestOrder = (
   const order = Order.generate(cart.aggregateId, items, generateOrderId);
   const orderRequested = R.pipe(
     order,
-    DomainEvent.generate(Order.name, OrderRequested.eventName, {
+    DomainEvent.generate(Order.aggregateName, OrderRequested.eventName, {
       customerId: cart.aggregateId,
       items: order.items,
     }),

@@ -14,7 +14,8 @@ interface PriceRefinementsError extends CartErrorLike<typeof Price.name> {
   error: PriceZodError;
 }
 
-interface CartRefinementsError extends CartErrorLike<typeof Cart.name> {
+interface CartRefinementsError
+  extends CartErrorLike<typeof Cart.aggregateName> {
   error: CartZodError;
 }
 

@@ -93,7 +93,7 @@ describe.sequential('CartEventStore', () => {
     });
     const event: CartItemAdded = R.pipe(
       aggregate,
-      DomainEvent.generate(Cart.name, CartItemAdded.eventName, {
+      DomainEvent.generate(Cart.aggregateName, CartItemAdded.eventName, {
         cartItem,
       }),
     );
@@ -137,7 +137,7 @@ describe.sequential('CartEventStore', () => {
     });
     const event: CartItemUpdated = R.pipe(
       aggregate,
-      DomainEvent.generate(Cart.name, CartItemUpdated.eventName, {
+      DomainEvent.generate(Cart.aggregateName, CartItemUpdated.eventName, {
         cartItem,
       }),
     );
@@ -177,7 +177,7 @@ describe.sequential('CartEventStore', () => {
 
     const event: CartItemRemoved = R.pipe(
       aggregate,
-      DomainEvent.generate(Cart.name, CartItemRemoved.eventName, {
+      DomainEvent.generate(Cart.aggregateName, CartItemRemoved.eventName, {
         productId: productId1,
       }),
     );
@@ -211,7 +211,7 @@ describe.sequential('CartEventStore', () => {
 
     const event: CartCleared = R.pipe(
       aggregate,
-      DomainEvent.generate(Cart.name, CartCleared.eventName, {
+      DomainEvent.generate(Cart.aggregateName, CartCleared.eventName, {
         aggregateId: customerId1,
         reason: 'OnManual',
       }),

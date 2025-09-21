@@ -8,7 +8,7 @@ const ProductRegistered = {
 
 type ProductRegistered = DomainEvent<
   ProductId,
-  typeof Product.name,
+  typeof Product.aggregateName,
   typeof ProductRegistered.eventName,
   { product: Product }
 >;

@@ -17,14 +17,14 @@ import {
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 
-const AGGREGATE_NAME = 'Cart';
+const aggregateName = 'Cart';
 
 const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
   }),
-  AGGREGATE_NAME,
+  aggregateName,
 );
 
 type Cart = z.infer<typeof schema>;
@@ -78,7 +78,7 @@ const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({
-      kind: AGGREGATE_NAME,
+      kind: aggregateName,
       error: zodError,
     })),
   );
@@ -114,7 +114,7 @@ const addCartItem =
       }).map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(AGGREGATE_NAME, CartItemAdded.eventName, {
+          DomainEvent.generate(aggregateName, CartItemAdded.eventName, {
             cartItem: targetCartItem,
           }),
         );
@@ -146,7 +146,7 @@ const addCartItem =
       .map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(AGGREGATE_NAME, CartItemUpdated.eventName, {
+          DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
             cartItem: aggregate.cartItems[updateTargetIndex]!,
           }),
         );
@@ -171,7 +171,7 @@ const removeCartItem =
     });
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(AGGREGATE_NAME, CartItemRemoved.eventName, {
+      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, {
         productId,
       }),
     );
@@ -188,7 +188,7 @@ const clear =
     });
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(AGGREGATE_NAME, CartCleared.eventName, {
+      DomainEvent.generate(aggregateName, CartCleared.eventName, {
         aggregateId,
         reason,
       }),
@@ -197,7 +197,7 @@ const clear =
   };
 
 const Cart = {
-  name: AGGREGATE_NAME,
+  aggregateName,
   schema: schemaWithRefinements,
   init,
   parse,

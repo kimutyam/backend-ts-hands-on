@@ -9,7 +9,7 @@ import { Price } from './price.js';
 import { ProductRegistered } from './productEvent.js';
 import { ProductId } from './productId.js';
 
-const AGGREGATE_NAME = 'Product';
+const aggregateName = 'Product';
 
 const schema = Aggregate.makeBrandedSchema(
   ProductId.schema,
@@ -17,7 +17,7 @@ const schema = Aggregate.makeBrandedSchema(
     name: z.string(),
     price: Price.schema,
   }),
-  AGGREGATE_NAME,
+  aggregateName,
 );
 
 type Input = z.input<typeof schema>;
@@ -32,7 +32,7 @@ const safeParse = (value: Input): Result<Product, ProductError> =>
 const register = (aggregate: Product): ProductRegistered =>
   R.pipe(
     aggregate,
-    DomainEvent.generate(AGGREGATE_NAME, ProductRegistered.eventName, {
+    DomainEvent.generate(aggregateName, ProductRegistered.eventName, {
       product: aggregate,
     }),
   );
@@ -43,7 +43,7 @@ const init = (aggregateId: ProductId, name: string, price: Price): Product => {
 };
 
 const Product = {
-  name: AGGREGATE_NAME,
+  aggregateName,
   schema,
   parse,
   safeParse,
