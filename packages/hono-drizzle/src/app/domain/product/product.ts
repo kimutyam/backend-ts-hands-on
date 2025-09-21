@@ -2,7 +2,7 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { buildFromZodDefault } from '../../../util/result.js';
+import { buildFromZodDefault } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { DomainEvent } from '../domainEvent.js';
 import { Price } from './price.js';

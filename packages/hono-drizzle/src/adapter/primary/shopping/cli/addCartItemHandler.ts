@@ -6,8 +6,8 @@ import { Quantity } from '../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import { ProductId } from '../../../../app/domain/product/productId.js';
 import type { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
-import type { ApplicationError } from '../../../../util/applicationError.js';
-import { buildFromZod } from '../../../../util/result.js';
+import type { ApplicationError } from '../../../../app/util/applicationError.js';
+import { buildFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
 const name = 'AddCartItemHandler';

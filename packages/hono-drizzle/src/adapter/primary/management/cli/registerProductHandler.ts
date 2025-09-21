@@ -5,8 +5,8 @@ import { z } from 'zod';
 
 import { Price } from '../../../../app/domain/product/price.js';
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
-import type { ApplicationError } from '../../../../util/applicationError.js';
-import { buildFromZod } from '../../../../util/result.js';
+import type { ApplicationError } from '../../../../app/util/applicationError.js';
+import { buildFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
 const handlerName = 'RegisterProductHandler';
