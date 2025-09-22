@@ -9,6 +9,8 @@ const equals = (a: CustomerId, b: CustomerId): boolean => a === b;
 
 const valueOf = (value: Input): CustomerId => schema.parse(value);
 
+const generate = (): CustomerId => valueOf(ulid());
+
 const CustomerId = {
   schema,
   build: valueOf,
