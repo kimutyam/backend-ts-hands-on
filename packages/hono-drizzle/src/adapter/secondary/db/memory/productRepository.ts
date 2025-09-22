@@ -21,10 +21,10 @@ const buildStore =
     events: Array<ProductEvent>,
     aggregates: Map<ProductId, Product>,
   ): StoreProductEvent =>
-  async (event, aggregate) => {
+  (event, aggregate) => {
     events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
-    return Promise.resolve();
+    return okAsync();
   };
 
 const buildRepository = (

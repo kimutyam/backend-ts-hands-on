@@ -1,5 +1,4 @@
 import type { Result } from 'neverthrow';
-import { ResultAsync } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
@@ -44,17 +43,14 @@ const build =
   (registerProduct: RegisterProduct): RegisterProductHandler =>
   async (args: Args) => {
     await safeParse(args)
-      .asyncAndThen(({ name, price }) =>
-        ResultAsync.fromSafePromise(registerProduct(name, price)),
-      )
+      .asyncAndThen(({ name, price }) => registerProduct(name, price))
       .andTee((event) => {
         // TODO:
         console.log(`Product registered`);
         console.log(event);
       })
       .orTee((error) => {
-        console.error(`Error: ${error.kind}`);
-        console.error(`Error: ${error.error}`);
+        console.error(`Error: ${error}`);
       });
   };
 
