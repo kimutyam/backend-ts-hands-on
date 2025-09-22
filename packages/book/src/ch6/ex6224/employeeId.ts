@@ -19,9 +19,7 @@ const valueOf = (value: string): EmployeeId => {
 };
 
 // 2
-const SEED = 123;
-// 3
-const generate = (): EmployeeId => valueOf(ulid(SEED));
+const generate = (): EmployeeId => valueOf(ulid());
 
 const EmployeeId = {
   valueOf,

@@ -18,9 +18,7 @@ const valueOf = (value: string): ProductId => {
   return v;
 };
 
-// 乱数生成器のシード
-const SEED = 123;
-const generate = (): ProductId => valueOf(ulid(SEED));
+const generate = (): ProductId => valueOf(ulid());
 
 const ProductId = {
   name,

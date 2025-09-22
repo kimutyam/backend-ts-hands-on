@@ -17,8 +17,7 @@ const valueOf = (value: string): DomainEventId => {
   return v;
 };
 
-const SEED = 123;
-const generate = (): DomainEventId => valueOf(ulid(SEED));
+const generate = (): DomainEventId => valueOf(ulid());
 
 // 1
 const getTimestamp = (id: DomainEventId): number => decodeTime(id);

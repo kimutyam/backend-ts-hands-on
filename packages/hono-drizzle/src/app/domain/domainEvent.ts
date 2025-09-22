@@ -32,6 +32,7 @@ const generate =
     sequenceNumber,
   }: A): DomainEvent<A['aggregateId'], AggregateName, EventName, Payload> => {
     const eventId = generateEventId();
+    console.log(DomainEventId.getTimestamp(eventId));
     return {
       eventId,
       occurredAt: new Date(DomainEventId.getTimestamp(eventId)),

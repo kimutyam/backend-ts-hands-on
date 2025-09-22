@@ -26,6 +26,9 @@ export default [
       '@typescript-eslint': tsPlugin,
       'neverthrow/must-use-result': neverthrow,
     },
+    env: {
+      'node': true,
+    },
     rules: {
       'no-console': 'off',
       'import/order': 'off',

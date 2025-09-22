@@ -47,12 +47,14 @@ const build =
       .asyncAndThen(({ name, price }) =>
         ResultAsync.fromSafePromise(registerProduct(name, price)),
       )
-      .andTee(() => {
+      .andTee((event) => {
         // TODO:
         console.log(`Product registered`);
+        console.log(event);
       })
       .orTee((error) => {
         console.error(`Error: ${error.kind}`);
+        console.error(`Error: ${error.error}`);
       });
   };
 
