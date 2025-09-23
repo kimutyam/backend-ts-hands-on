@@ -6,17 +6,19 @@ import { RegisterProduct } from '../../../../app/port/primary/management/registe
 import { buildGetUserAccount } from '../../../../app/useCase/getUserAccount.js';
 import { buildRegisterProduct } from '../../../../app/useCase/registerProduct.js';
 import { DbPortInjector } from '../../../secondary/db/injector/port.js';
+import { AppEnv } from '../../helper/env.js';
 
 const create = (injector: DbPortInjector) =>
   injector
     .provideFactory(GetUserAccount.token, buildGetUserAccount)
     .provideFactory(RegisterProduct.token, buildRegisterProduct);
 
-const build = (onMemoryStore = false): [Injector, ManagementPortInjector] => {
+const build = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
-  const dbPortInjector = onMemoryStore
-    ? DbPortInjector.createOnMemory(rootInjector)
-    : DbPortInjector.createOnRdb(rootInjector);
+  const dbPortInjector =
+    env.DATABASE_URL === undefined
+      ? DbPortInjector.createOnMemory(rootInjector)
+      : DbPortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
   const useCaseInjector = create(dbPortInjector);
   return [rootInjector, useCaseInjector];
 };

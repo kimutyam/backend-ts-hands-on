@@ -2,28 +2,25 @@ import assert from 'node:assert';
 
 import { describe } from 'vitest';
 
-import { Db } from '../db.js';
-import { PgPool } from '../pgPool.js';
 import { userAccountTable } from '../schema/userAccount.sql.js';
 import { UserAccountRepository } from '../userAccountRepository.js';
 import { truncateTables } from './helper/table.js';
+import { testDb } from './helper/db.js';
 
 describe('buildFindUserAccountById', () => {
-  const pool = PgPool.build();
-  const db = Db.build(pool);
-  const findUserAccountById = UserAccountRepository.findById(db);
+  const findUserAccountById = UserAccountRepository.findById(testDb);
 
   beforeAll(async () => {
-    await truncateTables(db);
-    await db.insert(userAccountTable).values({
+    await truncateTables(testDb);
+    await testDb.insert(userAccountTable).values({
       id: 'test-id',
       name: 'Test User',
     });
   });
 
   afterAll(async () => {
-    await truncateTables(db);
-    await pool.end();
+    await truncateTables(testDb);
+    await testDb.$client.end();
   });
 
   it('登録済みのユーザーアカウントで索引できる', async () => {

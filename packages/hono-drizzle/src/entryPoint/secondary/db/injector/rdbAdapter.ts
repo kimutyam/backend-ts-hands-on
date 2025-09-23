@@ -3,7 +3,6 @@ import type { Injector } from 'typed-inject';
 import { CartEventStore } from '../../../../adapter/secondary/db/rdb/cartEventStore.js';
 import { CartRepository } from '../../../../adapter/secondary/db/rdb/cartRepository.js';
 import { Db } from '../../../../adapter/secondary/db/rdb/db.js';
-import { PgPool } from '../../../../adapter/secondary/db/rdb/pgPool.js';
 import { ProductEventStore } from '../../../../adapter/secondary/db/rdb/productEventStore.js';
 import { ProductRepository } from '../../../../adapter/secondary/db/rdb/productRepository.js';
 import { UserAccountRepository } from '../../../../adapter/secondary/db/rdb/userAccountRepository.js';
@@ -13,10 +12,11 @@ import { StoreProductEvent } from '../../../../app/port/secondary/db/productEven
 import { FindProductById } from '../../../../app/port/secondary/db/productRepository.js';
 import { FindUserAccountById } from '../../../../app/port/secondary/db/userAccountRepository.js';
 import type { DbPortInjector } from './port.js';
+import { DatabaseUrl } from '../../../../adapter/secondary/db/rdb/databaseUrl.js';
 
-const create = (rootInjector: Injector): DbPortInjector =>
+const create = (rootInjector: Injector, databaseUrl: string): DbPortInjector =>
   rootInjector
-    .provideFactory(PgPool.token, PgPool.build)
+    .provideValue(DatabaseUrl.token, databaseUrl)
     .provideFactory(Db.token, Db.build)
     .provideFactory(FindUserAccountById.token, UserAccountRepository.findById)
     .provideFactory(FindCartById.token, CartRepository.findById)

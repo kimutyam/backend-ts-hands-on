@@ -35,12 +35,6 @@ jobs:
       NODE_VERSION_FILE: '.node-version'
     steps:
       - uses: actions/checkout@v5
-      - name: Init env
-        run: cp .env.example .env.dev
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
-      - name: Import environment variables from a file
-        run: cat .env.dev | awk '!(/^#/ || /^$/)' >> $GITHUB_ENV
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - uses: actions/setup-node@v5
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
@@ -65,7 +59,7 @@ jobs:
         with:
           cmd: workspace ${{ env.WORKSPACE_NAME }} test
       - name: Migrate database
-        run: yarn db:migrate
+        run: yarn test:db:migrate
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: db test
         run: yarn test:db

@@ -1,9 +1,10 @@
 import { WebInjector } from '../injector/webAdapter.js';
 import { makeApp } from './helper/app.js';
 import { Server } from './helper/server.js';
+import { AppEnv } from '../../helper/env.js';
 
-// TODO: switch to env var
-const [rootInjector, webAdaptorInjector] = WebInjector.build();
+const appEnv = AppEnv.parse(process.env);
+const [rootInjector, webAdaptorInjector] = WebInjector.build(appEnv);
 const app = makeApp(webAdaptorInjector);
 const server = Server.run(app);
 

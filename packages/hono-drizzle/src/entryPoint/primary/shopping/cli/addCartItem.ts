@@ -6,6 +6,7 @@ import { AddCartItemHandler } from '../../../../adapter/primary/shopping/cli/add
 import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
 import { ManagementPortInjector } from '../injector/port.js';
 import { execute } from './helper/execute.js';
+import { AppEnv } from '../../helper/env.js';
 
 // TODO: web api
 const argv = yargs(hideBin(process.argv))
@@ -18,9 +19,9 @@ const argv = yargs(hideBin(process.argv))
   .demandOption('quantity')
   .parseSync();
 
-// TODO: switch to env var
+const appEnv = AppEnv.parse(process.env);
 const [rootInjector, managementPortInjector] =
-  ManagementPortInjector.build(true);
+  ManagementPortInjector.build(appEnv);
 const addCartItem = managementPortInjector.resolve(AddCartItem.token);
 const handler = AddCartItemHandler.build(addCartItem);
 

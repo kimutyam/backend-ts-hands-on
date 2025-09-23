@@ -6,7 +6,7 @@ import { RegisterProductHandler } from '../../../../adapter/primary/management/c
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
 import { ManagementPortInjector } from '../injector/port.js';
 import { execute } from './helper/execute.js';
-import { AppEnv } from './helper/env.js';
+import { AppEnv } from '../../helper/env.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
@@ -18,9 +18,8 @@ const argv = yargs(hideBin(process.argv))
 
 const appEnv = AppEnv.parse(process.env);
 
-const [rootInjector, managementPortInjector] = ManagementPortInjector.build(
-  AppEnv.onMemoryDB(appEnv),
-);
+const [rootInjector, managementPortInjector] =
+  ManagementPortInjector.build(appEnv);
 const registerProduct = managementPortInjector.resolve(RegisterProduct.token);
 const handler = RegisterProductHandler.build(registerProduct);
 

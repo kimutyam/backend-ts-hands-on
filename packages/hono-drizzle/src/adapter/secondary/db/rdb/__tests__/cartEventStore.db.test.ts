@@ -19,10 +19,10 @@ import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
 import { Db } from '../db.js';
-import { PgPool } from '../pgPool.js';
 import { buildSetup } from './helper/cart.js';
 import { buildSelectDomainEvent } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
+import { testDb } from './helper/db.js';
 
 const buildSelectCart =
   (db: Db) =>
@@ -56,12 +56,10 @@ const buildSelectCartItem =
     );
 
 describe.sequential('CartEventStore', () => {
-  const pool = PgPool.build();
-  const db = Db.build(pool);
-  const cartEventStore = CartEventStore.store(db);
-  const selectCart = buildSelectCart(db);
-  const selectCartItem = buildSelectCartItem(db);
-  const selectDomainEvent = buildSelectDomainEvent(db);
+  const cartEventStore = CartEventStore.store(testDb);
+  const selectCart = buildSelectCart(testDb);
+  const selectCartItem = buildSelectCartItem(testDb);
+  const selectDomainEvent = buildSelectDomainEvent(testDb);
 
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();
@@ -70,14 +68,14 @@ describe.sequential('CartEventStore', () => {
   const productId2 = ProductId.generate();
 
   beforeEach(async () => {
-    await truncateTables(db);
-    const setup = buildSetup(db);
+    await truncateTables(testDb);
+    const setup = buildSetup(testDb);
     await setup(productId1, productId2, customerId1, customerId2, customerId3);
   });
 
   afterAll(async () => {
-    await truncateTables(db);
-    await pool.end();
+    await truncateTables(testDb);
+    await testDb.$client.end();
   });
 
   it('カート項目を追加できる (新規追加)', async () => {
