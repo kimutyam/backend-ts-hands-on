@@ -4,8 +4,8 @@ import { describe } from 'vitest';
 
 import { userAccountTable } from '../schema/userAccount.sql.js';
 import { UserAccountRepository } from '../userAccountRepository.js';
-import { truncateTables } from './helper/table.js';
 import { testDb } from './helper/db.js';
+import { truncateTables } from './helper/table.js';
 
 describe('buildFindUserAccountById', () => {
   const findUserAccountById = UserAccountRepository.findById(testDb);

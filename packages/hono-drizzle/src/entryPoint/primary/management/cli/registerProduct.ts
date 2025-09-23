@@ -4,9 +4,9 @@ import { hideBin } from 'yargs/helpers';
 
 import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
+import { AppEnv } from '../../helper/env.js';
 import { ManagementPortInjector } from '../injector/port.js';
 import { execute } from './helper/execute.js';
-import { AppEnv } from '../../helper/env.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()

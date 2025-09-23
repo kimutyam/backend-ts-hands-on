@@ -26,9 +26,6 @@ export default [
       '@typescript-eslint': tsPlugin,
       'neverthrow/must-use-result': neverthrow,
     },
-    env: {
-      'node': true,
-    },
     rules: {
       'no-console': 'off',
       'import/order': 'off',
@@ -61,7 +58,7 @@ export default [
       // 'simple-import-sort/exports': 'error',
       // TODO: 執筆を進めながら徐々に改修する
       // 'no-inline-comments': 'error',
-      'camelcase': 'off',
+      camelcase: 'off',
     },
   },
 ];

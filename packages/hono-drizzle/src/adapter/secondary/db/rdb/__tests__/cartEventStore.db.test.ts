@@ -18,11 +18,11 @@ import { DomainEvent } from '../../../../../app/domain/domainEvent.js';
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
-import { Db } from '../db.js';
+import type { Db } from '../db.js';
 import { buildSetup } from './helper/cart.js';
+import { testDb } from './helper/db.js';
 import { buildSelectDomainEvent } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
-import { testDb } from './helper/db.js';
 
 const buildSelectCart =
   (db: Db) =>

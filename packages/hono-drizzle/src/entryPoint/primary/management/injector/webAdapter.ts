@@ -2,8 +2,8 @@ import type { Injector } from 'typed-inject';
 
 import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
 import { UserAccountHandler } from '../../../../adapter/primary/management/web/userAccountHandler.js';
+import type { AppEnv } from '../../helper/env.js';
 import { ManagementPortInjector } from './port.js';
-import { AppEnv } from '../../helper/env.js';
 
 const create = (injector: ManagementPortInjector) =>
   injector

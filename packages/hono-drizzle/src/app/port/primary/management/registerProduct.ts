@@ -1,7 +1,8 @@
+import type { ResultAsync } from 'neverthrow';
+
 import type { Price } from '../../../domain/product/price.js';
 import type { ProductRegistered } from '../../../domain/product/productEvent.js';
-import { ResultAsync } from 'neverthrow';
-import { ProductNameDuplicatedError } from '../../../domain/product/productNameDuplicatedError.js';
+import type { ProductNameDuplicatedError } from '../../../domain/product/productNameDuplicatedError.js';
 
 type RegisterProduct = (
   name: string,

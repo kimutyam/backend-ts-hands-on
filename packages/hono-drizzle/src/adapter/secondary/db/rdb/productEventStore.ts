@@ -1,11 +1,12 @@
+import { ResultAsync } from 'neverthrow';
+
 import type { Product } from '../../../../app/domain/product/product.js';
+import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
 import type { StoreProductEvent } from '../../../../app/port/secondary/db/productEventStore.js';
 import { Db } from './db.js';
+import { toConstraintError } from './helper/toConstraintError.js';
 import { domainEventTable } from './schema/domainEvent.sql.js';
 import { productTable } from './schema/product.sql.js';
-import { ResultAsync } from 'neverthrow';
-import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
-import { toConstraintError } from './helper/toConstraintError.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 
@@ -25,13 +26,15 @@ const store =
         await tx.insert(productTable).values(toProductInsert(aggregate));
       });
     };
-    const errorFn = toConstraintError('product_name_unique', () => {
-      return new ProductNameDuplicatedError(
-        'Product name duplicated',
-        aggregate.aggregateId,
-        aggregate.name,
-      );
-    });
+    const errorFn = toConstraintError(
+      'product_name_unique',
+      () =>
+        new ProductNameDuplicatedError(
+          'Product name duplicated',
+          aggregate.aggregateId,
+          aggregate.name,
+        ),
+    );
     return ResultAsync.fromThrowable(fn, errorFn)();
   };
 

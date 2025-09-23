@@ -6,7 +6,7 @@ import { RegisterProduct } from '../../../../app/port/primary/management/registe
 import { buildGetUserAccount } from '../../../../app/useCase/getUserAccount.js';
 import { buildRegisterProduct } from '../../../../app/useCase/registerProduct.js';
 import { DbPortInjector } from '../../../secondary/db/injector/port.js';
-import { AppEnv } from '../../helper/env.js';
+import type { AppEnv } from '../../helper/env.js';
 
 const create = (injector: DbPortInjector) =>
   injector

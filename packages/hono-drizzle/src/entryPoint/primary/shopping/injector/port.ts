@@ -4,7 +4,7 @@ import { createInjector } from 'typed-inject';
 import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
 import { buildAddCartItem } from '../../../../app/useCase/addCartItem.js';
 import { DbPortInjector } from '../../../secondary/db/injector/port.js';
-import { AppEnv } from '../../helper/env.js';
+import type { AppEnv } from '../../helper/env.js';
 
 const create = (injector: DbPortInjector) =>
   injector.provideFactory(AddCartItem.token, buildAddCartItem);

@@ -2,6 +2,7 @@ import type { Injector } from 'typed-inject';
 
 import { CartEventStore } from '../../../../adapter/secondary/db/rdb/cartEventStore.js';
 import { CartRepository } from '../../../../adapter/secondary/db/rdb/cartRepository.js';
+import { DatabaseUrl } from '../../../../adapter/secondary/db/rdb/databaseUrl.js';
 import { Db } from '../../../../adapter/secondary/db/rdb/db.js';
 import { ProductEventStore } from '../../../../adapter/secondary/db/rdb/productEventStore.js';
 import { ProductRepository } from '../../../../adapter/secondary/db/rdb/productRepository.js';
@@ -12,7 +13,6 @@ import { StoreProductEvent } from '../../../../app/port/secondary/db/productEven
 import { FindProductById } from '../../../../app/port/secondary/db/productRepository.js';
 import { FindUserAccountById } from '../../../../app/port/secondary/db/userAccountRepository.js';
 import type { DbPortInjector } from './port.js';
-import { DatabaseUrl } from '../../../../adapter/secondary/db/rdb/databaseUrl.js';
 
 const create = (rootInjector: Injector, databaseUrl: string): DbPortInjector =>
   rootInjector

@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
 import { drizzle } from 'drizzle-orm/node-postgres';
+
 import { DatabaseUrl } from './databaseUrl.js';
 
 const build = (url: DatabaseUrl) => {

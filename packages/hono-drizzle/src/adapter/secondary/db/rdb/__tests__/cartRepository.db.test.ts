@@ -10,8 +10,8 @@ import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartRepository } from '../cartRepository.js';
 import { buildSetup } from './helper/cart.js';
-import { truncateTables } from './helper/table.js';
 import { testDb } from './helper/db.js';
+import { truncateTables } from './helper/table.js';
 
 describe('FindCartById', () => {
   const findCartById = CartRepository.findById(testDb);

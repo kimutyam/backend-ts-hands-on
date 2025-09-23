@@ -1,5 +1,5 @@
-import { DatabaseError } from 'pg';
 import { DrizzleQueryError } from 'drizzle-orm/errors';
+import { DatabaseError } from 'pg';
 
 const toConstraintError =
   <E>(constraint: string, f: (a: DatabaseError) => E | undefined) =>
