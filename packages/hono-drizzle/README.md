@@ -1,20 +1,8 @@
 # README
 
-dotenv/direnvを利用して環境変数を管理します。
-
-```schell
-cp .env.example .env.dev
-cp .envrc.example .envrc
-```
-
-```zsh
-eval "$(direnv hook zsh)"
-```
-
 # エッセンス
 
 - (コラム) drizzle-kitでcommonjs
-
 
 # TODO
 
