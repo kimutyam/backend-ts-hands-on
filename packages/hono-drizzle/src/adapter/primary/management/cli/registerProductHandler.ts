@@ -50,7 +50,12 @@ const build =
         console.log(event);
       })
       .orTee((error) => {
-        console.error(`Error: ${error}`);
+        if (error === undefined) {
+          console.error('Unknown error');
+        } else {
+          // TODO:
+          console.error(`Error`);
+        }
       });
   };
 
