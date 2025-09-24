@@ -7,8 +7,7 @@ const assertUlid = (value: string): void => {
   assert(isValid(value));
 };
 
-const SEED = 123;
-const generateUlid = (): string => ulid(SEED);
+const generateUlid = (): string => ulid();
 const generateT = <T>(f: (value: string) => T): T => R.pipe(generateUlid(), f);
 
 export { assertUlid, generateUlid, generateT };

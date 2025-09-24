@@ -14,9 +14,7 @@ const equals = (a: ProductId, b: ProductId): boolean => a === b;
 
 const parse = (value: ProductInput): ProductId => schema.parse(value);
 
-// 乱数生成器のシード
-const SEED = 123;
-const generate = (): ProductId => parse(ulid(SEED));
+const generate = (): ProductId => parse(ulid());
 
 const ProductId = {
   name,

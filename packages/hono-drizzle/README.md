@@ -1,24 +1,11 @@
 # README
 
-dotenv/direnvを利用して環境変数を管理します。
-
-```schell
-cp .env.example .env.dev
-cp .envrc.example .envrc
-```
-
-```zsh
-eval "$(direnv hook zsh)"
-```
-
 # エッセンス
 
 - (コラム) drizzle-kitでcommonjs
 
-
 # TODO
 
-- Controllerの実装
 - generate / migrate / push のワークロード
 - ショッピングカートのロジックを移植
   - ch7/ex2/__tests__/extractCartItems.di.test.ts (移植後にtyped-injectの依存を消す)

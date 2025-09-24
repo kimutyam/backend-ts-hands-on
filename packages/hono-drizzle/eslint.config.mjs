@@ -6,6 +6,7 @@ import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import tsParser from '@typescript-eslint/parser';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import neverthrow from 'eslint-plugin-neverthrow';
+import globals from 'globals';
 
 const compat = new FlatCompat();
 
@@ -14,6 +15,9 @@ export default [
   {
     files: ['**/*.ts'],
     languageOptions: {
+      globals: {
+        ...globals.node,
+      },
       parser: tsParser,
       parserOptions: {
         project: true,
@@ -58,7 +62,7 @@ export default [
       // 'simple-import-sort/exports': 'error',
       // TODO: 執筆を進めながら徐々に改修する
       // 'no-inline-comments': 'error',
-      'camelcase': 'off',
+      camelcase: 'off',
     },
   },
 ];

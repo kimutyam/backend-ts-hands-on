@@ -17,8 +17,7 @@ const valueOf = (value: string): CustomerId => {
   return v;
 };
 
-const SEED = 123;
-const generate = (): CustomerId => valueOf(ulid(SEED));
+const generate = (): CustomerId => valueOf(ulid());
 
 const CustomerId = {
   valueOf,

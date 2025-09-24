@@ -2,7 +2,7 @@ import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { buildFromZod } from '../../../util/result.js';
+import { buildFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { CustomerId } from '../customer/customerId.js';
 import { DomainEvent } from '../domainEvent.js';
@@ -17,14 +17,14 @@ import {
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
 
-const name = 'Cart';
+const aggregateName = 'Cart';
 
 const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
   }),
-  name,
+  aggregateName,
 );
 
 type Cart = z.infer<typeof schema>;
@@ -78,7 +78,7 @@ const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
     buildFromZod((zodError) => ({
-      kind: name,
+      kind: aggregateName,
       error: zodError,
     })),
   );
@@ -114,7 +114,7 @@ const addCartItem =
       }).map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(name, CartItemAdded.eventName, {
+          DomainEvent.generate(aggregateName, CartItemAdded.eventName, {
             cartItem: targetCartItem,
           }),
         );
@@ -146,7 +146,7 @@ const addCartItem =
       .map((aggregate) => {
         const event = R.pipe(
           aggregate,
-          DomainEvent.generate(name, CartItemUpdated.eventName, {
+          DomainEvent.generate(aggregateName, CartItemUpdated.eventName, {
             cartItem: aggregate.cartItems[updateTargetIndex]!,
           }),
         );
@@ -171,7 +171,9 @@ const removeCartItem =
     });
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(name, CartItemRemoved.eventName, { productId }),
+      DomainEvent.generate(aggregateName, CartItemRemoved.eventName, {
+        productId,
+      }),
     );
     return [aggregate, event];
   };
@@ -186,7 +188,7 @@ const clear =
     });
     const event = R.pipe(
       aggregate,
-      DomainEvent.generate(name, CartCleared.eventName, {
+      DomainEvent.generate(aggregateName, CartCleared.eventName, {
         aggregateId,
         reason,
       }),
@@ -195,7 +197,7 @@ const clear =
   };
 
 const Cart = {
-  name,
+  aggregateName,
   schema: schemaWithRefinements,
   init,
   parse,

@@ -12,8 +12,7 @@ const equals = (a: ProductId, b: ProductId): boolean => a === b;
 
 const parse = (value: ProductIdInput): ProductId => schema.parse(value);
 
-const SEED = 123;
-const generate = (): ProductId => parse(ulid(SEED));
+const generate = (): ProductId => parse(ulid());
 
 const ProductId = {
   name,

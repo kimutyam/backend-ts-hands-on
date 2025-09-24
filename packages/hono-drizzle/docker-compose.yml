@@ -1,16 +1,28 @@
 ---
 services:
-  db:
+  app_db:
     image: postgres:17.6
-    container_name: example_db
+    container_name: app_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: example_db
+      POSTGRES_DB: app_db
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+  test_db:
+    image: postgres:17.6
+    container_name: test_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - test_db_data:/var/lib/postgresql/data
 
 volumes:
   db_data:
+  test_db_data:

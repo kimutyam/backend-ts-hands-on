@@ -17,25 +17,30 @@ const buildFindById =
   };
 
 const buildStore =
-  (aggregates: Map<CustomerId, Cart>): StoreCartEvent<CartEvent> =>
-  async (event: CartEvent, aggregate: Cart) => {
-    console.log(event);
+  (
+    events: Array<CartEvent>,
+    aggregates: Map<CustomerId, Cart>,
+  ): StoreCartEvent =>
+  async (event, aggregate) => {
+    events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
     return Promise.resolve();
   };
 
 const buildRepository = (
-  initialAggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>(),
+  initialEvents: Array<CartEvent> = [],
+  initialAggregates: Map<CustomerId, Cart> = new Map(),
 ) => {
+  const events = [...initialEvents];
   const aggregates = new Map(initialAggregates);
   return {
-    findById: buildFindById(aggregates),
-    store: buildStore(aggregates),
+    findById: buildFindById(initialAggregates),
+    store: buildStore(events, aggregates),
   };
 };
 
-const CartRepositoryOnMemory = {
+const CartRepository = {
   build: buildRepository,
 } as const;
 
-export { CartRepositoryOnMemory };
+export { CartRepository };

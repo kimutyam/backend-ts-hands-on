@@ -1,16 +1,25 @@
 import 'dotenv/config';
 
 import { drizzle } from 'drizzle-orm/node-postgres';
-import type { Pool } from 'pg';
 
-import { PgPool } from './pgPool.js';
+import { DatabaseUrl } from './databaseUrl.js';
 
-const build = (pool: Pool) =>
-  drizzle({ client: pool, casing: 'snake_case', logger: true });
+const build = (url: DatabaseUrl) => {
+  const db = drizzle({
+    connection: url,
+    casing: 'snake_case',
+    logger: true,
+  });
+  const dispose = async () => {
+    await db.$client.end();
+    console.log('Pool Ended');
+  };
+  return Object.assign(db, { dispose });
+};
 
 type Db = ReturnType<typeof build>;
 
-build.inject = [PgPool.token] as const;
+build.inject = [DatabaseUrl.token] as const;
 
 const Db = {
   token: 'db' as const,

@@ -9,8 +9,7 @@ const equals = (a: DomainEventId, b: DomainEventId): boolean => a === b;
 
 const valueOf = (value: Input): DomainEventId => schema.parse(value);
 
-const SEED = 123;
-const generate = (): DomainEventId => valueOf(ulid(SEED));
+const generate = (): DomainEventId => valueOf(ulid());
 
 const getTimestamp = (id: DomainEventId): number => decodeTime(id);
 

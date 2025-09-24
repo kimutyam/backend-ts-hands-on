@@ -2,7 +2,7 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { buildFromZod } from '../../../util/result.js';
+import { buildFromZod } from '../../util/result.js';
 import type { QuantityRefinementsError } from './cartError.js';
 
 const name = 'Quantity';

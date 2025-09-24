@@ -22,8 +22,8 @@ const buildRepository = (
   };
 };
 
-const UserAccountRepositoryOnMemory = {
+const UserAccountRepository = {
   build: buildRepository,
 } as const;
 
-export { UserAccountRepositoryOnMemory };
+export { UserAccountRepository };
