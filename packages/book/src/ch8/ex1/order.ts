@@ -4,14 +4,14 @@ import type { CartItem } from 'ch8/ex1/cartItem.js';
 import type { CustomerId } from 'ch8/ex1/customerId.js';
 import type { OrderId } from 'ch8/ex1/orderId.js';
 
-const name = 'Order';
+const aggregateName = 'Order';
 
 interface OrderNotBranded extends Aggregate<OrderId> {
   readonly customerId: CustomerId;
   readonly items: ReadonlyArray<CartItem>;
 }
 
-type Order = OrderNotBranded & Brand<typeof name>;
+type Order = OrderNotBranded & Brand<typeof aggregateName>;
 
 const create = (
   aggregateId: OrderId,
@@ -36,7 +36,7 @@ const generate = (
   create(generateOrderId(), Aggregate.InitialSequenceNumber, customerId, items);
 
 const Order = {
-  name,
+  aggregateName,
   create,
   generate,
 } as const;
