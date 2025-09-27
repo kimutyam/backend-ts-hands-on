@@ -49,11 +49,7 @@ const build =
         console.log(`Product registered (ID: ${event.aggregateId})`);
       })
       .orTee((error) => {
-        if (error === undefined) {
-          console.error('Unknown error');
-        } else {
-          console.error(error.message);
-        }
+        console.error(error.message);
       });
   };
 
