@@ -32,6 +32,7 @@ const safeParse = (value: ArgsInput): Result<Args, ArgsValidateError> =>
     schema.safeParse(value),
     buildFromZod((zodError) => ({
       kind: name,
+      message: zodError.message,
       error: zodError,
     })),
   );

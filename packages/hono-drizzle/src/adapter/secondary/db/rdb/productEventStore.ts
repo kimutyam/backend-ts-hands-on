@@ -26,14 +26,8 @@ const store =
         await tx.insert(productTable).values(toProductInsert(aggregate));
       });
     };
-    const errorFn = toConstraintError(
-      'product_name_unique',
-      () =>
-        new ProductNameDuplicatedError(
-          'Product name duplicated',
-          aggregate.aggregateId,
-          aggregate.name,
-        ),
+    const errorFn = toConstraintError('product_name_unique', () =>
+      ProductNameDuplicatedError.create(aggregate.aggregateId, aggregate.name),
     );
     return ResultAsync.fromThrowable(fn, errorFn)();
   };

@@ -1,11 +1,22 @@
+import type { ApplicationError } from '../../util/applicationError.js';
 import type { ProductId } from './productId.js';
 
-export class ProductsNotFoundError extends Error {
-  constructor(
-    message: string,
-    public productIds: ReadonlyArray<ProductId>,
-  ) {
-    super(message);
-    this.name = this.constructor.name;
-  }
+const kind = 'ProductsNotFound';
+
+interface ProductsNotFoundError extends ApplicationError<typeof kind> {
+  readonly productIds: ReadonlyArray<ProductId>;
 }
+
+const create = (
+  productIds: ReadonlyArray<ProductId>,
+): ProductsNotFoundError => ({
+  kind,
+  message: `商品ID: ${productIds.join(', ')} の商品が見つかりませんでした`,
+  productIds,
+});
+
+const ProductsNotFoundError = {
+  create,
+} as const;
+
+export { ProductsNotFoundError };

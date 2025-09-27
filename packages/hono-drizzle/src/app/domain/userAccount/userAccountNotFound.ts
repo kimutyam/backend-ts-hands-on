@@ -1,8 +1,19 @@
-class UserAccountNotFoundError extends Error {
-  constructor(public readonly userAccountId: string) {
-    super(`カートが見つかりませんでした: ${userAccountId}`);
-    this.name = this.constructor.name;
-  }
+import type { ApplicationError } from '../../util/applicationError.js';
+
+const kind = 'UserAccountNotFound';
+
+interface UserAccountNotFoundError extends ApplicationError<typeof kind> {
+  readonly userAccountId: string;
 }
+
+const create = (userAccountId: string): UserAccountNotFoundError => ({
+  kind,
+  message: `カートが見つかりませんでした: ${userAccountId}`,
+  userAccountId,
+});
+
+const UserAccountNotFoundError = {
+  create,
+} as const;
 
 export { UserAccountNotFoundError };

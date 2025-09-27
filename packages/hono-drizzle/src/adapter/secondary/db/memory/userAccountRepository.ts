@@ -10,7 +10,7 @@ const buildFindById =
     const aggregate = aggregates.get(aggregateId);
     return aggregate
       ? okAsync(aggregate)
-      : errAsync(new UserAccountNotFoundError(aggregateId));
+      : errAsync(UserAccountNotFoundError.create(aggregateId));
   };
 
 const buildRepository = (

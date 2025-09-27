@@ -35,6 +35,7 @@ const safeParse = (
     schema.safeParse(value),
     buildFromZod((zodError) => ({
       kind: handlerName,
+      message: zodError.message,
       error: zodError,
     })),
   );
@@ -45,16 +46,13 @@ const build =
     await safeParse(args)
       .asyncAndThen(({ name, price }) => registerProduct(name, price))
       .andTee((event) => {
-        // TODO:
-        console.log(`Product registered`);
-        console.log(event);
+        console.log(`Product registered (ID: ${event.aggregateId})`);
       })
       .orTee((error) => {
         if (error === undefined) {
           console.error('Unknown error');
         } else {
-          // TODO:
-          console.error(`Error`);
+          console.error(error.message);
         }
       });
   };
