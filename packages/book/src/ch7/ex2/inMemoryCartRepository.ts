@@ -14,7 +14,7 @@ const buildFindCartById =
     const aggregate = aggregates.get(aggregateId);
     return aggregate
       ? okAsync(aggregate)
-      : errAsync(new CartNotFoundError(aggregateId));
+      : errAsync(CartNotFoundError.create(aggregateId));
   };
 
 const buildSaveCart =

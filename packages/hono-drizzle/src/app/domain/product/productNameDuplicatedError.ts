@@ -19,6 +19,7 @@ const create = (
 });
 
 const ProductNameDuplicatedError = {
+  kind,
   create,
 } as const;
 

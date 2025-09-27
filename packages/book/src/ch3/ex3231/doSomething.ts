@@ -1,6 +1,7 @@
 import type { Result } from 'ch3/ex3231/result.js';
+import type { SomethingError } from 'ch3/ex3231/somethingError.js';
 
-declare function doSomething(): Result<number, Error>;
+declare function doSomething(): Result<number, SomethingError>;
 
 const result = doSomething();
 

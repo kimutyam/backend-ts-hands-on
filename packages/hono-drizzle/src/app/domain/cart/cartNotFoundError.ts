@@ -13,6 +13,7 @@ const create = (customerId: CustomerId): CartNotFoundError => ({
 });
 
 const CartNotFoundError = {
+  kind,
   create,
 } as const;
 

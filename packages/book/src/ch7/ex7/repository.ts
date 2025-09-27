@@ -1,7 +1,7 @@
 import type { Aggregate } from 'ch7/ex1/aggregate.js';
 import type { ResultAsync } from 'neverthrow';
 
-interface FindById<A extends Aggregate<unknown>, out E extends Error> {
+interface FindById<A extends Aggregate<unknown>, out E> {
   (aggregateId: A['aggregateId']): ResultAsync<A, E>;
 }
 
