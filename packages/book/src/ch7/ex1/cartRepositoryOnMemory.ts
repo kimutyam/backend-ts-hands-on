@@ -17,7 +17,7 @@ class CartRepositoryOnMemory implements CartRepository {
     const aggregate = this.aggregates.get(aggregateId);
     return aggregate
       ? okAsync(aggregate)
-      : errAsync(new CartNotFoundError(aggregateId));
+      : errAsync(CartNotFoundError.create(aggregateId));
   };
 
   save = (aggregate: Cart): Promise<void> => {

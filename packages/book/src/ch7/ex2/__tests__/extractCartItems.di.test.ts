@@ -3,8 +3,8 @@ import { CustomerId } from 'ch7/ex1/customerId.js';
 import { Price } from 'ch7/ex1/price.js';
 import { ProductId } from 'ch7/ex1/productId.js';
 import { Quantity } from 'ch7/ex1/quantity.js';
+import { buildFindCartById } from 'ch7/ex2/cartRepositoryOnMemory.js';
 import { ExtractCartItems } from 'ch7/ex2/extractCartItems.js';
-import { buildFindCartById } from 'ch7/ex2/inMemoryCartRepository.js';
 import { createInjector } from 'typed-inject';
 
 describe('extractCartItem', () => {

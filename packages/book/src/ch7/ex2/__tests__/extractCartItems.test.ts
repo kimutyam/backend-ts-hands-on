@@ -26,7 +26,7 @@ describe('extractCartItem', () => {
 
   it('カートが存在しない場合は、抽出するカート項目は空になる', async () => {
     const customerId = CustomerId.generate();
-    const findCartById = () => errAsync(new CartNotFoundError(customerId));
+    const findCartById = () => errAsync(CartNotFoundError.create(customerId));
     const extractCartItems = ExtractCartItems.build(findCartById);
     const result = await extractCartItems(customerId);
     expect(result).toStrictEqual([]);

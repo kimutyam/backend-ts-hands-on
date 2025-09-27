@@ -16,6 +16,7 @@ const create = (
 });
 
 const ProductsNotFoundError = {
+  kind,
   create,
 } as const;
 

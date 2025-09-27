@@ -35,7 +35,7 @@ const reserveStock = (
     );
   }
   // 4
-  return err(new StockReservationError(order.orderId, outOfStocks));
+  return err(StockReservationError.create(order.orderId, outOfStocks));
 };
 
 export { reserveStock };

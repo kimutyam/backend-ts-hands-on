@@ -14,6 +14,7 @@ const create = (productId: ProductId): ProductNotFoundError => ({
 });
 
 const ProductNotFoundError = {
+  kind,
   create,
 } as const;
 

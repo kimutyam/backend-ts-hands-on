@@ -13,6 +13,7 @@ const create = (userAccountId: string): UserAccountNotFoundError => ({
 });
 
 const UserAccountNotFoundError = {
+  kind,
   create,
 } as const;
 

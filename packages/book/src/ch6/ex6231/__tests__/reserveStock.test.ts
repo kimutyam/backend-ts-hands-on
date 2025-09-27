@@ -64,7 +64,7 @@ describe('reserveStock', () => {
     const result = reserveStock(order, stocks);
     assert(result.isErr());
     expect(result.error).toStrictEqual(
-      new StockReservationError('order-1', [
+      StockReservationError.create('order-1', [
         { productId: 'product-2', shortage: 1 },
         { productId: 'product-3', shortage: 10 },
       ]),
