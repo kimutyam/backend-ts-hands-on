@@ -10,7 +10,7 @@ import {
   buildDeleteCartById,
   buildFindCartById,
   buildSaveCart,
-} from 'ch7/ex2/inMemoryCartRepository.js';
+} from 'ch7/ex2/cartRepositoryOnMemory.js';
 
 const buildRepository = (
   initialAggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>(),
