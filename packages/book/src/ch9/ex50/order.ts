@@ -4,7 +4,7 @@ import { CustomerId } from 'ch9/ex50/customerId.js';
 import { OrderId } from 'ch9/ex50/orderId.js';
 import { z } from 'zod';
 
-const name = 'Order';
+const aggregateName = 'Order';
 
 const schema = Aggregate.makeBrandedSchema(
   OrderId.schema,
@@ -12,7 +12,7 @@ const schema = Aggregate.makeBrandedSchema(
     customerId: CustomerId.schema,
     items: z.array(CartItem.schema).readonly(),
   }),
-  name,
+  aggregateName,
 );
 
 type Input = z.input<typeof schema>;
@@ -33,7 +33,7 @@ const generate = (
   });
 
 const Order = {
-  name,
+  aggregateName,
   parse,
   generate,
 } as const;
