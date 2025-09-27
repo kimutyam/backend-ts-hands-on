@@ -1,10 +1,19 @@
+import type { ApplicationError } from '../../util/applicationError.js';
 import type { CustomerId } from '../customer/customerId.js';
 
-class CartNotFoundError extends Error {
-  constructor(public customerId: CustomerId) {
-    super(`カートが見つかりませんでした: ${customerId}`);
-    this.name = this.constructor.name;
-  }
+const kind = 'CartNotFound';
+interface CartNotFoundError extends ApplicationError<typeof kind> {
+  readonly customerId: CustomerId;
 }
+
+const create = (customerId: CustomerId): CartNotFoundError => ({
+  kind,
+  message: `カートが見つかりませんでした: ${customerId}`,
+  customerId,
+});
+
+const CartNotFoundError = {
+  create,
+} as const;
 
 export { CartNotFoundError };

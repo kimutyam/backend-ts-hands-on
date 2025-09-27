@@ -16,7 +16,7 @@ const toProduct =
     selects: ReadonlyArray<ProductSelect>,
   ): Result<Product, ProductNotFoundError> => {
     if (selects.length === 0) {
-      return err(new ProductNotFoundError(aggregateId));
+      return err(ProductNotFoundError.create(aggregateId));
     }
 
     const { name, price, sequenceNumber } = selects[0]!;

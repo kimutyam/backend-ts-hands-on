@@ -1,14 +1,25 @@
+import type { ApplicationError } from '../../util/applicationError.js';
 import type { ProductId } from './productId.js';
 
-class ProductNameDuplicatedError extends Error {
-  constructor(
-    message: string,
-    public readonly productId: ProductId,
-    public readonly productName: string,
-  ) {
-    super(message);
-    this.name = this.constructor.name;
-  }
+const kind = 'ProductNameDuplicated';
+
+interface ProductNameDuplicatedError extends ApplicationError<typeof kind> {
+  readonly productId: ProductId;
+  readonly productName: string;
 }
+
+const create = (
+  productId: ProductId,
+  productName: string,
+): ProductNameDuplicatedError => ({
+  kind,
+  message: `同じ名前の商品が既に存在します: ${productName} (ID: ${productId})`,
+  productId,
+  productName,
+});
+
+const ProductNameDuplicatedError = {
+  create,
+} as const;
 
 export { ProductNameDuplicatedError };

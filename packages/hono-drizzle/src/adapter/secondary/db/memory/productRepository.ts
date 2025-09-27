@@ -13,7 +13,7 @@ const buildFindById =
     const aggregate = aggregates.get(aggregateId);
     return aggregate
       ? okAsync(aggregate)
-      : errAsync(new ProductNotFoundError(aggregateId));
+      : errAsync(ProductNotFoundError.create(aggregateId));
   };
 
 const buildStore =

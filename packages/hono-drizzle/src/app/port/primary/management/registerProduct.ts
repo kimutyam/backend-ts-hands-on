@@ -7,7 +7,7 @@ import type { ProductNameDuplicatedError } from '../../../domain/product/product
 type RegisterProduct = (
   name: string,
   price: Price,
-) => ResultAsync<ProductRegistered, ProductNameDuplicatedError | undefined>;
+) => ResultAsync<ProductRegistered, ProductNameDuplicatedError>;
 
 const RegisterProduct = {
   token: 'RegisterProduct' as const,

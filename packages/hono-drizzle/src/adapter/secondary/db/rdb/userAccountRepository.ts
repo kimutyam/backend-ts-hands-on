@@ -15,7 +15,7 @@ const findById =
       const user = users[0];
       return user
         ? okAsync({ id: user.id, name: user.name })
-        : errAsync(new UserAccountNotFoundError(id));
+        : errAsync(UserAccountNotFoundError.create(id));
     });
 
 findById.inject = [Db.token] as const;

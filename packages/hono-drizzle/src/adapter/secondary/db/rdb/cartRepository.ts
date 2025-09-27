@@ -23,7 +23,7 @@ const toCart =
   (aggregateId: CustomerId) =>
   (selects: ReadonlyArray<Select>): Result<Cart, CartNotFoundError> => {
     if (selects.length === 0) {
-      return err(new CartNotFoundError(aggregateId));
+      return err(CartNotFoundError.create(aggregateId));
     }
 
     const { sequenceNumber } = selects[0]!.cart;

@@ -8,7 +8,7 @@ interface StoreProductEvent<DE extends ProductEvent = ProductEvent> {
   (
     event: DE,
     aggregate: Product,
-  ): ResultAsync<void, ProductNameDuplicatedError | undefined>;
+  ): ResultAsync<void, ProductNameDuplicatedError>;
 }
 const StoreProductEvent = {
   token: 'StoreProductEvent' as const,
