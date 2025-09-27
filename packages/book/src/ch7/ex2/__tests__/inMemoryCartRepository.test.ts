@@ -2,7 +2,6 @@ import assert from 'node:assert';
 
 import { Cart } from 'ch7/ex1/cart.js';
 import { CartItem } from 'ch7/ex1/cartItem.js';
-import { CartNotFoundError } from 'ch7/ex1/cartNotFoundError.js';
 import { CustomerId } from 'ch7/ex1/customerId.js';
 import { Price } from 'ch7/ex1/price.js';
 import { ProductId } from 'ch7/ex1/productId.js';
@@ -47,6 +46,6 @@ describe('InMemoryCartRepository', () => {
     await repository.deleteById(customerId);
     const foundCart = await repository.findById(customerId);
     assert(foundCart.isErr());
-    expect(foundCart.error).toBeInstanceOf(CartNotFoundError);
+    expect(foundCart.error.customerId).toBe(customerId);
   });
 });
