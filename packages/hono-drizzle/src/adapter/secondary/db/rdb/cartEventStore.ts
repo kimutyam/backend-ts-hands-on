@@ -1,7 +1,6 @@
 import { eq } from 'drizzle-orm';
 
 import type { Cart } from '../../../../app/domain/cart/cart.js';
-import type { CartEvent } from '../../../../app/domain/cart/cartEvent.js';
 import type { StoreCartEvent } from '../../../../app/port/secondary/db/cartEventStore.js';
 import { Db } from './db.js';
 import { cartTable } from './schema/cart.sql.js';
@@ -26,7 +25,7 @@ const toCartItemInserts = (cart: Cart): Array<CartItemInsert> =>
 
 const store =
   (db: Db): StoreCartEvent =>
-  async (event: CartEvent, aggregate: Cart) => {
+  async (event, aggregate) => {
     await db.transaction(async (tx) => {
       const cartItemInserts = toCartItemInserts(aggregate);
       await tx.insert(domainEventTable).values(event);

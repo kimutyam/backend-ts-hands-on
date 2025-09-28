@@ -42,7 +42,7 @@ const safeParse = (
 
 const build =
   (registerProduct: RegisterProduct): RegisterProductHandler =>
-  async (args: Args) => {
+  async (args) => {
     await safeParse(args)
       .asyncAndThen(({ name, price }) => registerProduct(name, price))
       .andTee((event) => {
