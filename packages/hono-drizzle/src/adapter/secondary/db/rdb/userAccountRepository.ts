@@ -8,7 +8,7 @@ import { userAccountTable } from './schema/userAccount.sql.js';
 
 const findById =
   (db: Db): FindUserAccountById =>
-  (id: string) =>
+  (id) =>
     ResultAsync.fromSafePromise(
       db.select().from(userAccountTable).where(eq(userAccountTable.id, id)),
     ).andThen((users) => {

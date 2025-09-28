@@ -9,7 +9,7 @@ type GetUserAccountHandler = CommandHandler<Args>;
 
 const build =
   (getUserAccount: GetUserAccount): GetUserAccountHandler =>
-  async (args: Args) => {
+  async (args) => {
     const { id } = args;
     const userAccount = await getUserAccount(id);
     if (userAccount === undefined) {

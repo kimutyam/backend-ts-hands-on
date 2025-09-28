@@ -39,7 +39,7 @@ const safeParse = (value: ArgsInput): Result<Args, ArgsValidateError> =>
 
 const build =
   (addCartItem: AddCartItem): AddCartItemHandler =>
-  async (args: ArgsInput) => {
+  async (args) => {
     await safeParse(args)
       .asyncAndThen(({ customerId, productId, quantity }) =>
         addCartItem(customerId, productId, quantity),

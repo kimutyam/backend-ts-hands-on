@@ -8,10 +8,10 @@ type ExtractCartItems = (
 
 const build =
   (findCartById: FindCartById): ExtractCartItems =>
-  async (customerId: CustomerId): ReturnType<ExtractCartItems> =>
+  async (customerId) =>
     findCartById(customerId)
       .map((cart) => cart.cartItems)
-      .unwrapOr([]);
+      .unwrapOr<ReadonlyArray<CartItem>>([]);
 
 const ExtractCartItems = {
   build,

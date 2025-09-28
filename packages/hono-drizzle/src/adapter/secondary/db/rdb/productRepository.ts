@@ -33,7 +33,7 @@ const toProduct =
 
 const findById =
   (db: Db): FindProductById =>
-  (aggregateId: ProductId) =>
+  (aggregateId) =>
     ResultAsync.fromSafePromise(
       db
         .select()
