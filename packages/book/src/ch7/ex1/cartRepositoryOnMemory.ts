@@ -11,24 +11,22 @@ class CartRepositoryOnMemory implements CartRepository {
     Cart
   >();
 
-  findById = (
-    aggregateId: CustomerId,
-  ): ResultAsync<Cart, CartNotFoundError> => {
+  findById(aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError> {
     const aggregate = this.aggregates.get(aggregateId);
     return aggregate
       ? okAsync(aggregate)
       : errAsync(CartNotFoundError.create(aggregateId));
-  };
+  }
 
-  save = (aggregate: Cart): Promise<void> => {
+  save(aggregate: Cart): Promise<void> {
     this.aggregates.set(aggregate.aggregateId, aggregate);
     return Promise.resolve();
-  };
+  }
 
-  deleteById = (aggregateId: CustomerId): Promise<void> => {
+  deleteById(aggregateId: CustomerId): Promise<void> {
     this.aggregates.delete(aggregateId);
     return Promise.resolve();
-  };
+  }
 }
 
 export { CartRepositoryOnMemory };
