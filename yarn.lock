@@ -765,10 +765,10 @@
     "@fastify/forwarded" "^3.0.0"
     ipaddr.js "^2.1.0"
 
-"@hono/node-server@1.19.4":
-  version "1.19.4"
-  resolved "https://registry.yarnpkg.com/@hono/node-server/-/node-server-1.19.4.tgz#2721cda094f7c080ee985494ac3e074f16c503eb"
-  integrity sha512-AWKQZ/YkHUBSHeL/5Ld8FWgUs6wFf4TxGYxqp9wLZxRdFuHBpXmgOq+CuDoL4vllkZLzovCf5HBJnypiy3EtHA==
+"@hono/node-server@1.19.5":
+  version "1.19.5"
+  resolved "https://registry.yarnpkg.com/@hono/node-server/-/node-server-1.19.5.tgz#6e9a991e2a5843b33aee8b93a11ff68b5fdc7712"
+  integrity sha512-iBuhh+uaaggeAuf+TftcjZyWh2GEgZcVGXkNtskLVoWaXhnJtC5HLHrU8W1KHDoucqO1MswwglmkWLFyiDn4WQ==
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"
