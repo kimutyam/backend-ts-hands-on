@@ -2,13 +2,13 @@ import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
+import type { ApplicationError } from '../../util/applicationError.js';
 import { buildFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { CustomerId } from '../customer/customerId.js';
 import { DomainEvent } from '../domainEvent.js';
 import { ProductId } from '../product/productId.js';
 import type { CartClearReason } from './cartClearReason.js';
-import type { AddCartError } from './cartError.js';
 import {
   CartCleared,
   CartItemAdded,
@@ -16,6 +16,7 @@ import {
   CartItemUpdated,
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
+import type { QuantityRefinementsError } from './quantity.js';
 
 const aggregateName = 'Cart';
 
@@ -30,6 +31,23 @@ const schema = Aggregate.makeBrandedSchema(
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
 type CartZodError = z.ZodError<CartInput>;
+
+const errorKind = 'CartRefinementsError';
+
+interface CartRefinementsError extends ApplicationError<typeof errorKind> {
+  error: CartZodError;
+}
+
+const createError = (error: CartZodError): CartRefinementsError => ({
+  kind: errorKind,
+  message: error.message,
+  error,
+});
+
+const CartRefinementsError = {
+  kind: errorKind,
+  create: createError,
+} as const;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -74,14 +92,8 @@ const schemaWithRefinements = schema
 
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
-  R.pipe(
-    schemaWithRefinements.safeParse(value),
-    buildFromZod((zodError) => ({
-      kind: aggregateName,
-      error: zodError,
-    })),
-  );
+const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
+  R.pipe(schemaWithRefinements.safeParse(value), buildFromZod(createError));
 
 const init = (
   aggregateId: CustomerId,
@@ -100,7 +112,10 @@ const addCartItem =
     sequenceNumber,
     cartItems,
     // 1
-  }: Cart): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
+  }: Cart): Result<
+    [Cart, CartItemAdded | CartItemUpdated],
+    QuantityRefinementsError | CartRefinementsError
+  > => {
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
@@ -207,4 +222,4 @@ const Cart = {
   clear,
 } as const;
 
-export { Cart, type CartZodError };
+export { Cart, CartRefinementsError };

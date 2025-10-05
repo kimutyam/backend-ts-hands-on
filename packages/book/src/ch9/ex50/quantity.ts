@@ -1,4 +1,4 @@
-import type { QuantityRefinementsError } from 'ch9/ex50/cartError.js';
+import type { ApplicationError } from 'ch9/ex50/applicationError.js';
 import { buildFromZod } from 'ch9/ex50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
@@ -12,17 +12,28 @@ type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
 type QuantityZodError = z.ZodError<QuantityInput>;
 
+const errorKind = 'QuantityRefinementsError';
+
+interface QuantityRefinementsError extends ApplicationError<typeof errorKind> {
+  error: QuantityZodError;
+}
+
+const createError = (error: QuantityZodError): QuantityRefinementsError => ({
+  kind: errorKind,
+  message: error.message,
+  error,
+});
+
+const QuantityRefinementsError = {
+  kind: errorKind,
+  create: createError,
+} as const;
+
 const parse = (value: QuantityInput): Quantity => schema.parse(value);
 const safeParse = (
   value: QuantityInput,
 ): Result<Quantity, QuantityRefinementsError> =>
-  R.pipe(
-    schema.safeParse(value),
-    buildFromZod((zodError) => ({
-      kind: name,
-      error: zodError,
-    })),
-  );
+  R.pipe(schema.safeParse(value), buildFromZod(createError));
 
 const Quantity = {
   name,
@@ -31,4 +42,4 @@ const Quantity = {
   safeParse,
 } as const;
 
-export { Quantity, type QuantityZodError };
+export { Quantity, QuantityRefinementsError };

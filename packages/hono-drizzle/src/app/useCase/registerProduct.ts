@@ -7,9 +7,11 @@ const buildRegisterProduct =
   (storeProductEvent: StoreProductEvent): RegisterProduct =>
   (name, price) => {
     const aggregateId = ProductId.generate();
-    const product = Product.init(aggregateId, name, price);
-    const event = Product.register(product);
-    return storeProductEvent(event, product).map(() => event);
+    return Product.init(aggregateId, name, price)
+      .map(Product.register)
+      .asyncAndThen(([aggregate, event]) =>
+        storeProductEvent(event, aggregate).map(() => event),
+      );
   };
 
 buildRegisterProduct.inject = [StoreProductEvent.token] as const;

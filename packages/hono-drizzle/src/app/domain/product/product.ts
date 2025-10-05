@@ -2,7 +2,8 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { buildFromZodDefault } from '../../util/result.js';
+import type { ApplicationError } from '../../util/applicationError.js';
+import { buildFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { DomainEvent } from '../domainEvent.js';
 import { Price } from './price.js';
@@ -24,22 +25,45 @@ type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
 type ProductError = z.ZodError<Input>;
 
+const errorKind = 'ProductRefinementsError';
+
+interface ProductRefinementsError extends ApplicationError<typeof errorKind> {
+  error: ProductError;
+}
+
+const createError = (error: ProductError): ProductRefinementsError => ({
+  kind: errorKind,
+  message: error.message,
+  error,
+});
+
+const ProductRefinementsError = {
+  kind: errorKind,
+  create: createError,
+} as const;
+
 const parse = (value: Input): Product => schema.parse(value);
 
-const safeParse = (value: Input): Result<Product, ProductError> =>
-  R.pipe(schema.safeParse(value), buildFromZodDefault);
+const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
+  R.pipe(schema.safeParse(value), buildFromZod(createError));
 
-const register = (aggregate: Product): ProductRegistered =>
-  R.pipe(
+const register = (aggregate: Product): [Product, ProductRegistered] => {
+  const event = R.pipe(
     aggregate,
     DomainEvent.generate(aggregateName, ProductRegistered.eventName, {
       product: aggregate,
     }),
   );
+  return [aggregate, event];
+};
 
-const init = (aggregateId: ProductId, name: string, price: Price): Product => {
+const init = (
+  aggregateId: ProductId,
+  name: string,
+  price: Price,
+): Result<Product, ProductRefinementsError> => {
   const sequenceNumber = Aggregate.InitialSequenceNumber;
-  return parse({ aggregateId, sequenceNumber, name, price });
+  return safeParse({ aggregateId, sequenceNumber, name, price });
 };
 
 const Product = {
@@ -51,4 +75,4 @@ const Product = {
   register,
 } as const;
 
-export { Product };
+export { Product, ProductRefinementsError };
