@@ -10,10 +10,10 @@ const schema = z.number().int().min(1).max(10).brand('Quantity');
 
 type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
-type QuantityZodError = z.ZodError<QuantityInput>;
 
 const errorKind = 'QuantityRefinementsError';
 
+type QuantityZodError = z.ZodError<QuantityInput>;
 interface QuantityRefinementsError extends ApplicationError<typeof errorKind> {
   error: QuantityZodError;
 }

@@ -29,10 +29,9 @@ const schema = Aggregate.makeBrandedSchema(
 
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
-type CartZodError = z.ZodError<CartInput>;
 
 const errorKind = 'CartRefinementsError';
-
+type CartZodError = z.ZodError<CartInput>;
 interface CartRefinementsError extends ApplicationError<typeof errorKind> {
   error: CartZodError;
 }
@@ -118,10 +117,9 @@ const addCartItem =
   (targetCartItem: CartItem) =>
   (
     cart: Cart,
-    // 1
   ): Result<
     [Cart, CartItemAdded | CartItemUpdated],
-    QuantityRefinementsError | CartRefinementsError
+    QuantityRefinementsError | CartRefinementsError // 1
   > => {
     const { aggregateId, sequenceNumber, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>

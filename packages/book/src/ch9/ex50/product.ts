@@ -20,10 +20,10 @@ const schema = Aggregate.makeBrandedSchema(
 
 type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
-type ProductZodError = z.ZodError<Input>;
 
 const errorKind = 'ProductRefinementsError';
 
+type ProductZodError = z.ZodError<Input>;
 interface ProductRefinementsError extends ApplicationError<typeof errorKind> {
   error: ProductZodError;
 }
