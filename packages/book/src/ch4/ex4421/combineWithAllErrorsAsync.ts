@@ -1,11 +1,12 @@
+import { SomethingError } from 'ch4/common/somethingError.js';
 import { errAsync, okAsync, ResultAsync } from 'neverthrow';
 
-const results: Array<ResultAsync<number, Error>> = [
+const results: Array<ResultAsync<number, SomethingError>> = [
   okAsync(1),
-  errAsync(new Error('oh')),
+  errAsync(SomethingError.create('oh')),
   okAsync(2),
-  errAsync(new Error('my')),
-  errAsync(new Error('god')),
+  errAsync(SomethingError.create('my')),
+  errAsync(SomethingError.create('god')),
 ];
 
 // 1

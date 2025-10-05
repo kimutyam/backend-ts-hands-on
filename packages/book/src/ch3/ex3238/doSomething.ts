@@ -1,4 +1,4 @@
-import type { MyError, SomeError } from 'ch3/ex3238/types.js';
+import type { MyError, SomethingError } from 'ch3/ex3238/types.js';
 import {
   calculate,
   subRouting1,
@@ -7,7 +7,7 @@ import {
 } from 'ch3/ex3238/types.js';
 import type { Result } from 'neverthrow';
 
-const doSomething = (): Result<number, SomeError | MyError> =>
+const doSomething = (): Result<number, SomethingError | MyError> =>
   subRouting1()
     .map((r1) =>
       subRouting2()
