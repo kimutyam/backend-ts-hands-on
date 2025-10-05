@@ -2,7 +2,7 @@ import { Aggregate } from 'ch9/ex50/aggregate.js';
 import type { ApplicationError } from 'ch9/ex50/applicationError.js';
 import { Price } from 'ch9/ex50/price.js';
 import { ProductId } from 'ch9/ex50/productId.js';
-import { buildFromZod } from 'ch9/ex50/result.js';
+import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
@@ -42,7 +42,7 @@ const ProductRefinementsError = {
 const parse = (value: Input): Product => schema.parse(value);
 
 const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
-  R.pipe(schema.safeParse(value), buildFromZod(createError));
+  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
 
 const Product = {
   aggregateName,

@@ -12,7 +12,7 @@ import { CustomerId } from 'ch9/ex50/customerId.js';
 import { DomainEvent } from 'ch9/ex50/domainEvent.js';
 import { ProductId } from 'ch9/ex50/productId.js';
 import type { QuantityRefinementsError } from 'ch9/ex50/quantity.js';
-import { buildFromZod } from 'ch9/ex50/result.js';
+import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
@@ -102,7 +102,10 @@ const schemaWithRefinements = schema
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
 const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
-  R.pipe(schemaWithRefinements.safeParse(value), buildFromZod(createError));
+  R.pipe(
+    schemaWithRefinements.safeParse(value),
+    createWithErrorFromZod(createError),
+  );
 
 const init = (aggregateId: CustomerId): Cart =>
   parse({

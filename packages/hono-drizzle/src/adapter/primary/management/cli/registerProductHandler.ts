@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { Price } from '../../../../app/domain/product/price.js';
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
 import type { ApplicationError } from '../../../../app/util/applicationError.js';
-import { buildFromZod } from '../../../../app/util/result.js';
+import { createWithErrorFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
 const errorKind = 'RegisterProductHandlerError';
@@ -38,7 +38,7 @@ type RegisterProductHandler = CommandHandler<Args>;
 const safeParse = (
   value: Args,
 ): Result<ValidatedArgs, RegisterProductValidateError> =>
-  R.pipe(schema.safeParse(value), buildFromZod(createError));
+  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
 
 const build =
   (registerProduct: RegisterProduct): RegisterProductHandler =>

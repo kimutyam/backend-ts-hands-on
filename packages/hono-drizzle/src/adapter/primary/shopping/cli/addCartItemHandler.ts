@@ -7,7 +7,7 @@ import { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import { ProductId } from '../../../../app/domain/product/productId.js';
 import type { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
 import type { ApplicationError } from '../../../../app/util/applicationError.js';
-import { buildFromZod } from '../../../../app/util/result.js';
+import { createWithErrorFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
 const handlerName = 'AddCartItemHandler';
@@ -30,7 +30,7 @@ type AddCartItemHandler = CommandHandler<Args>;
 const safeParse = (value: Args): Result<ValidatedArgs, ArgsValidateError> =>
   R.pipe(
     schema.safeParse(value),
-    buildFromZod((zodError) => ({
+    createWithErrorFromZod((zodError) => ({
       kind: handlerName,
       message: zodError.message,
       error: zodError,

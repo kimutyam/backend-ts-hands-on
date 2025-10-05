@@ -3,7 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import type { ApplicationError } from '../../util/applicationError.js';
-import { buildFromZod } from '../../util/result.js';
+import { createWithErrorFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { DomainEvent } from '../domainEvent.js';
 import { Price } from './price.js';
@@ -45,7 +45,7 @@ const ProductRefinementsError = {
 const parse = (value: Input): Product => schema.parse(value);
 
 const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
-  R.pipe(schema.safeParse(value), buildFromZod(createError));
+  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
 
 const register = (aggregate: Product): [Product, ProductRegistered] => {
   const event = R.pipe(

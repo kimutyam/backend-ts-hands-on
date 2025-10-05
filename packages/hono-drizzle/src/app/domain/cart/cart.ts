@@ -3,7 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import type { ApplicationError } from '../../util/applicationError.js';
-import { buildFromZod } from '../../util/result.js';
+import { createWithErrorFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { CustomerId } from '../customer/customerId.js';
 import { DomainEvent } from '../domainEvent.js';
@@ -93,7 +93,10 @@ const schemaWithRefinements = schema
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
 const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
-  R.pipe(schemaWithRefinements.safeParse(value), buildFromZod(createError));
+  R.pipe(
+    schemaWithRefinements.safeParse(value),
+    createWithErrorFromZod(createError),
+  );
 
 const init = (
   aggregateId: CustomerId,
