@@ -5,10 +5,10 @@ import { z } from 'zod';
 import { Price } from '../../../../app/domain/product/price.js';
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
 import type { ApplicationError } from '../../../../app/util/applicationError.js';
-import { buildFromZod } from '../../../../app/util/result.js';
+import { createWithErrorFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
-const handlerName = 'RegisterProductHandler';
+const errorKind = 'RegisterProductHandlerError';
 
 const schema = z
   .object({
@@ -21,24 +21,24 @@ type ValidatedArgs = z.infer<typeof schema>;
 type Args = z.input<typeof schema>;
 
 interface RegisterProductValidateError
-  extends ApplicationError<typeof handlerName> {
-  kind: typeof handlerName;
+  extends ApplicationError<typeof errorKind> {
   error: z.ZodError<Args>;
 }
+
+const createError = (
+  error: z.ZodError<Args>,
+): RegisterProductValidateError => ({
+  kind: errorKind,
+  message: error.message,
+  error,
+});
 
 type RegisterProductHandler = CommandHandler<Args>;
 
 const safeParse = (
   value: Args,
 ): Result<ValidatedArgs, RegisterProductValidateError> =>
-  R.pipe(
-    schema.safeParse(value),
-    buildFromZod((zodError) => ({
-      kind: handlerName,
-      message: zodError.message,
-      error: zodError,
-    })),
-  );
+  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
 
 const build =
   (registerProduct: RegisterProduct): RegisterProductHandler =>
@@ -56,7 +56,7 @@ const build =
 build.inject = [RegisterProduct.token] as const;
 
 const RegisterProductHandler = {
-  token: handlerName,
+  token: errorKind,
   build,
 } as const;
 

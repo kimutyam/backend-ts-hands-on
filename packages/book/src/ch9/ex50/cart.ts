@@ -1,6 +1,6 @@
 import { Aggregate } from 'ch9/ex50/aggregate.js';
+import type { ApplicationError } from 'ch9/ex50/applicationError.js';
 import type { CartClearReason } from 'ch9/ex50/cartClearReason.js';
-import type { AddCartError } from 'ch9/ex50/cartError.js';
 import {
   CartCleared,
   CartItemAdded,
@@ -11,7 +11,8 @@ import { CartItem } from 'ch9/ex50/cartItem.js';
 import { CustomerId } from 'ch9/ex50/customerId.js';
 import { DomainEvent } from 'ch9/ex50/domainEvent.js';
 import { ProductId } from 'ch9/ex50/productId.js';
-import { buildFromZod } from 'ch9/ex50/result.js';
+import type { QuantityRefinementsError } from 'ch9/ex50/quantity.js';
+import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
@@ -28,7 +29,23 @@ const schema = Aggregate.makeBrandedSchema(
 
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
+
+const errorKind = 'CartRefinementsError';
 type CartZodError = z.ZodError<CartInput>;
+interface CartRefinementsError extends ApplicationError<typeof errorKind> {
+  error: CartZodError;
+}
+
+const createError = (error: CartZodError): CartRefinementsError => ({
+  kind: errorKind,
+  message: error.message,
+  error,
+});
+
+const CartRefinementsError = {
+  kind: errorKind,
+  create: createError,
+} as const;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -83,13 +100,10 @@ const schemaWithRefinements = schema
 
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeParse = (value: CartInput): Result<Cart, AddCartError> =>
+const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
-    buildFromZod((zodError) => ({
-      kind: aggregateName,
-      error: zodError,
-    })),
+    createWithErrorFromZod(createError),
   );
 
 const init = (aggregateId: CustomerId): Cart =>
@@ -103,8 +117,10 @@ const addCartItem =
   (targetCartItem: CartItem) =>
   (
     cart: Cart,
-    // 1
-  ): Result<[Cart, CartItemAdded | CartItemUpdated], AddCartError> => {
+  ): Result<
+    [Cart, CartItemAdded | CartItemUpdated],
+    QuantityRefinementsError | CartRefinementsError // 1
+  > => {
     const { aggregateId, sequenceNumber, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),

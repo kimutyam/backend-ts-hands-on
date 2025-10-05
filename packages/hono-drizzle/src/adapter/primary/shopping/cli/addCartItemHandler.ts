@@ -7,10 +7,10 @@ import { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import { ProductId } from '../../../../app/domain/product/productId.js';
 import type { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
 import type { ApplicationError } from '../../../../app/util/applicationError.js';
-import { buildFromZod } from '../../../../app/util/result.js';
+import { createWithErrorFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
-const name = 'AddCartItemHandler';
+const handlerName = 'AddCartItemHandler';
 
 const schema = z.object({
   customerId: CustomerId.schema,
@@ -18,20 +18,20 @@ const schema = z.object({
   quantity: Quantity.schema,
 });
 
-type Args = z.infer<typeof schema>;
-type ArgsInput = z.input<typeof schema>;
+type ValidatedArgs = z.infer<typeof schema>;
+type Args = z.input<typeof schema>;
 
-interface ArgsValidateError extends ApplicationError<typeof name> {
-  error: z.ZodError<ArgsInput>;
+interface ArgsValidateError extends ApplicationError<typeof handlerName> {
+  error: z.ZodError<Args>;
 }
 
-type AddCartItemHandler = CommandHandler<ArgsInput>;
+type AddCartItemHandler = CommandHandler<Args>;
 
-const safeParse = (value: ArgsInput): Result<Args, ArgsValidateError> =>
+const safeParse = (value: Args): Result<ValidatedArgs, ArgsValidateError> =>
   R.pipe(
     schema.safeParse(value),
-    buildFromZod((zodError) => ({
-      kind: name,
+    createWithErrorFromZod((zodError) => ({
+      kind: handlerName,
       message: zodError.message,
       error: zodError,
     })),
@@ -47,16 +47,13 @@ const build =
       .andTee((event) => {
         console.log(event);
       })
-      .orTee(
-        // TODO: Error由来のProductNotFoundなどはkindがない..
-        () => {
-          console.error(`Error`);
-        },
-      );
+      .orTee((error) => {
+        console.error(error.message);
+      });
   };
 
 const AddCartItemHandler = {
-  token: name,
+  token: handlerName,
   build,
 } as const;
 
