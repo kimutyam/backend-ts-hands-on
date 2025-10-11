@@ -1,8 +1,10 @@
+import type { SomethingError } from 'ch4/common/somethingError.js';
 import type { Result, ResultAsync } from 'neverthrow';
 import { errAsync, ok, okAsync } from 'neverthrow';
 
-const f1 = (n: number): Result<number, Error> => ok(n * 2);
-const f2 = (n: number): ResultAsync<string, Error> => okAsync(n.toString());
+const f1 = (n: number): Result<number, SomethingError> => ok(n * 2);
+const f2 = (n: number): ResultAsync<string, SomethingError> =>
+  okAsync(n.toString());
 const f3 = (s: string): ResultAsync<string, undefined> =>
   s === 'NaN' ? errAsync(undefined) : okAsync(s);
 

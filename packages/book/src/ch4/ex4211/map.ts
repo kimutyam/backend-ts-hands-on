@@ -1,6 +1,7 @@
+import type { SomethingError } from 'ch4/common/somethingError.js';
 import type { Result } from 'neverthrow';
 
-declare const r: Result<number, Error>;
+declare const r: Result<number, SomethingError>;
 
 // 1
 const f = (a: number): string => a.toString();

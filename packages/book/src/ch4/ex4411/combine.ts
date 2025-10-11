@@ -1,3 +1,4 @@
+import { SomethingError } from 'ch4/common/somethingError.js';
 import { err, ok, Result } from 'neverthrow';
 
 const results1: Array<Result<number, never>> = [ok(1), ok(2)];
@@ -5,9 +6,9 @@ const results1: Array<Result<number, never>> = [ok(1), ok(2)];
 // 1
 const r1 = Result.combine(results1);
 
-const results2: Array<Result<number, Error>> = [
+const results2: Array<Result<number, SomethingError>> = [
   ok(1),
-  err(new Error('err!')),
+  err(SomethingError.create('err!')),
   ok(2),
 ];
 

@@ -1,6 +1,6 @@
 import type { Result } from 'ch3/ex3231/result.js';
 import { Failure, Success } from 'ch3/ex3231/result.js';
-import type { MyError, SomeError } from 'ch3/ex3237/types.js';
+import type { MyError, SomethingError } from 'ch3/ex3237/types.js';
 import {
   calculate,
   subRouting1,
@@ -8,7 +8,7 @@ import {
   toMyError,
 } from 'ch3/ex3237/types.js';
 
-const doSomething = (): Result<number, SomeError | MyError> => {
+const doSomething = (): Result<number, SomethingError | MyError> => {
   const result1 = subRouting1();
   const result2 = subRouting2();
 
