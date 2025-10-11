@@ -2,7 +2,7 @@ import { ResultAsync } from 'neverthrow';
 
 import type { Product } from '../../../../app/domain/product/product.js';
 import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
-import type { StoreProductEvent } from '../../../../app/port/secondary/db/productEventStore.js';
+import type { StoreProductEvent } from '../../../../app/port/secondary/persistence/productEventStore.js';
 import { Db } from './db.js';
 import { toConstraintError } from './helper/toConstraintError.js';
 import { domainEventTable } from './schema/domainEvent.sql.js';

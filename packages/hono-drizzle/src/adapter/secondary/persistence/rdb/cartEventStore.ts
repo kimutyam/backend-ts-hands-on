@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 
 import type { Cart } from '../../../../app/domain/cart/cart.js';
-import type { StoreCartEvent } from '../../../../app/port/secondary/db/cartEventStore.js';
+import type { StoreCartEvent } from '../../../../app/port/secondary/persistence/cartEventStore.js';
 import { Db } from './db.js';
 import { cartTable } from './schema/cart.sql.js';
 import { cartItemTable } from './schema/cartItem.sql.js';
