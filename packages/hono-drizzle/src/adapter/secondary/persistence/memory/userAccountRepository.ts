@@ -2,7 +2,7 @@ import { errAsync, okAsync } from 'neverthrow';
 
 import type { UserAccount } from '../../../../app/domain/userAccount/userAccount.js';
 import { UserAccountNotFoundError } from '../../../../app/domain/userAccount/userAccountNotFound.js';
-import type { FindUserAccountById } from '../../../../app/port/secondary/db/userAccountRepository.js';
+import type { FindUserAccountById } from '../../../../app/port/secondary/persistence/userAccountRepository.js';
 
 const buildFindById =
   (aggregates: Map<string, UserAccount>): FindUserAccountById =>

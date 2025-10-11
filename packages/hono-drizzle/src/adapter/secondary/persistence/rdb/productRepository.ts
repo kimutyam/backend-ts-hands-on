@@ -4,7 +4,7 @@ import { err, ok, type Result, ResultAsync } from 'neverthrow';
 import { Product } from '../../../../app/domain/product/product.js';
 import type { ProductId } from '../../../../app/domain/product/productId.js';
 import { ProductNotFoundError } from '../../../../app/domain/product/productNotFoundError.js';
-import type { FindProductById } from '../../../../app/port/secondary/db/productRepository.js';
+import type { FindProductById } from '../../../../app/port/secondary/persistence/productRepository.js';
 import { Db } from './db.js';
 import { productTable } from './schema/product.sql.js';
 

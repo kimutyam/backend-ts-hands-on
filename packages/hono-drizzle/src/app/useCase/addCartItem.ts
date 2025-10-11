@@ -4,9 +4,9 @@ import type {
   CartItemUpdated,
 } from '../domain/cart/cartEvent.js';
 import type { AddCartItem } from '../port/primary/shopping/addCartItem.js';
-import { StoreCartEvent } from '../port/secondary/db/cartEventStore.js';
-import { FindCartById } from '../port/secondary/db/cartRepository.js';
-import { FindProductById } from '../port/secondary/db/productRepository.js';
+import { StoreCartEvent } from '../port/secondary/persistence/cartEventStore.js';
+import { FindCartById } from '../port/secondary/persistence/cartRepository.js';
+import { FindProductById } from '../port/secondary/persistence/productRepository.js';
 
 const buildAddCartItem =
   (

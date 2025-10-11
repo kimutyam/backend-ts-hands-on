@@ -1,7 +1,7 @@
 import { Product } from '../domain/product/product.js';
 import { ProductId } from '../domain/product/productId.js';
 import type { RegisterProduct } from '../port/primary/management/registerProduct.js';
-import { StoreProductEvent } from '../port/secondary/db/productEventStore.js';
+import { StoreProductEvent } from '../port/secondary/persistence/productEventStore.js';
 
 const buildRegisterProduct =
   (storeProductEvent: StoreProductEvent): RegisterProduct =>

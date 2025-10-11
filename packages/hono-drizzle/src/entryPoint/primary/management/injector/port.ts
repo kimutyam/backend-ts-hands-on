@@ -5,22 +5,22 @@ import { GetUserAccount } from '../../../../app/port/primary/management/getUserA
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
 import { buildGetUserAccount } from '../../../../app/useCase/getUserAccount.js';
 import { buildRegisterProduct } from '../../../../app/useCase/registerProduct.js';
-import { DbPortInjector } from '../../../secondary/db/injector/port.js';
+import { PersistencePortInjector } from '../../../secondary/persistence/injector/port.js';
 import type { AppEnv } from '../../helper/env.js';
 
-const create = (injector: DbPortInjector) =>
+const create = (injector: PersistencePortInjector) =>
   injector
     .provideFactory(GetUserAccount.token, buildGetUserAccount)
     .provideFactory(RegisterProduct.token, buildRegisterProduct);
 
 const build = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
-  const dbPortInjector =
+  const persistencePortInjector =
     env.DATABASE_URL === undefined
-      ? DbPortInjector.createOnMemory(rootInjector)
-      : DbPortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
-  const useCaseInjector = create(dbPortInjector);
-  return [rootInjector, useCaseInjector];
+      ? PersistencePortInjector.createOnMemory(rootInjector)
+      : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
+  const managementPortInjector = create(persistencePortInjector);
+  return [rootInjector, managementPortInjector];
 };
 
 type ManagementPortInjector = ReturnType<typeof create>;

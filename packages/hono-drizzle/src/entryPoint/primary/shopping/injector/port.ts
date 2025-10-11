@@ -3,20 +3,20 @@ import { createInjector } from 'typed-inject';
 
 import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
 import { buildAddCartItem } from '../../../../app/useCase/addCartItem.js';
-import { DbPortInjector } from '../../../secondary/db/injector/port.js';
+import { PersistencePortInjector } from '../../../secondary/persistence/injector/port.js';
 import type { AppEnv } from '../../helper/env.js';
 
-const create = (injector: DbPortInjector) =>
+const create = (injector: PersistencePortInjector) =>
   injector.provideFactory(AddCartItem.token, buildAddCartItem);
 
 const build = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
-  const dbPortInjector =
+  const persistencePortInjector =
     env.DATABASE_URL === undefined
-      ? DbPortInjector.createOnMemory(rootInjector)
-      : DbPortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
-  const useCaseInjector = create(dbPortInjector);
-  return [rootInjector, useCaseInjector];
+      ? PersistencePortInjector.createOnMemory(rootInjector)
+      : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
+  const managementPortInjector = create(persistencePortInjector);
+  return [rootInjector, managementPortInjector];
 };
 
 type ManagementPortInjector = ReturnType<typeof create>;
