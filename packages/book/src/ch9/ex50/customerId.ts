@@ -13,7 +13,7 @@ const generate = (): CustomerId => valueOf(ulid());
 
 const CustomerId = {
   schema,
-  build: valueOf,
+  valueOf,
   equals,
   generate,
 } as const;
