@@ -1,13 +1,17 @@
 import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
-import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
-import { buildAddCartItem } from '../../../../app/useCase/addCartItem.js';
-import { PersistencePortInjector } from '../../../secondary/persistence/injector/port.js';
-import type { AppEnv } from '../../helper/env.js';
+import { GetUserAccount } from '../../../app/port/primary/management/getUserAccount.js';
+import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
+import { buildGetUserAccount } from '../../../app/useCase/getUserAccount.js';
+import { buildRegisterProduct } from '../../../app/useCase/registerProduct.js';
+import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
+import type { AppEnv } from '../env.js';
 
 const create = (injector: PersistencePortInjector) =>
-  injector.provideFactory(AddCartItem.token, buildAddCartItem);
+  injector
+    .provideFactory(GetUserAccount.token, buildGetUserAccount)
+    .provideFactory(RegisterProduct.token, buildRegisterProduct);
 
 const build = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();

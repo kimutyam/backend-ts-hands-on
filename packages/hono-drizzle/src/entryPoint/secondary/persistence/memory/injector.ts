@@ -8,7 +8,7 @@ import { FindCartById } from '../../../../app/port/secondary/persistence/cartRep
 import { StoreProductEvent } from '../../../../app/port/secondary/persistence/productEventStore.js';
 import { FindProductById } from '../../../../app/port/secondary/persistence/productRepository.js';
 import { FindUserAccountById } from '../../../../app/port/secondary/persistence/userAccountRepository.js';
-import type { PersistencePortInjector } from './port.js';
+import type { PersistencePortInjector } from '../injector.js';
 
 const create = (rootInjector: Injector): PersistencePortInjector => {
   const userAccountRepository = UserAccountRepository.build();
