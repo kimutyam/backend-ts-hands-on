@@ -3,7 +3,7 @@ import { ProductId } from '../domain/product/productId.js';
 import type { RegisterProduct } from '../port/primary/management/registerProduct.js';
 import { StoreProductEvent } from '../port/secondary/persistence/productEventStore.js';
 
-const build =
+const create =
   (storeProductEvent: StoreProductEvent): RegisterProduct =>
   (name, price) => {
     const aggregateId = ProductId.generate();
@@ -14,10 +14,10 @@ const build =
       );
   };
 
-build.inject = [StoreProductEvent.token] as const;
+create.inject = [StoreProductEvent.token] as const;
 
 const RegisterProductUseCase = {
-  build,
+  create,
 } as const;
 
 export { RegisterProductUseCase };

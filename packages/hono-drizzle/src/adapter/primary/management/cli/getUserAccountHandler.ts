@@ -7,7 +7,7 @@ interface Args {
 
 type GetUserAccountHandler = CommandHandler<Args>;
 
-const build =
+const create =
   (getUserAccount: GetUserAccount): GetUserAccountHandler =>
   async (args) => {
     const { id } = args;
@@ -20,7 +20,7 @@ const build =
   };
 
 const GetUserAccountHandler = {
-  build,
+  create,
 } as const;
 
 export { GetUserAccountHandler };

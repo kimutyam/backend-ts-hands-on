@@ -7,7 +7,7 @@ import { ProductNotFoundError } from '../../../../app/domain/product/productNotF
 import type { StoreProductEvent } from '../../../../app/port/secondary/persistence/productEventStore.js';
 import type { FindProductById } from '../../../../app/port/secondary/persistence/productRepository.js';
 
-const buildFindById =
+const createFindByIdFn =
   (aggregates: Map<ProductId, Product>): FindProductById =>
   (aggregateId) => {
     const aggregate = aggregates.get(aggregateId);
@@ -16,7 +16,7 @@ const buildFindById =
       : errAsync(ProductNotFoundError.create(aggregateId));
   };
 
-const buildStore =
+const createStoreFn =
   (
     events: Array<ProductEvent>,
     aggregates: Map<ProductId, Product>,
@@ -27,20 +27,20 @@ const buildStore =
     return okAsync();
   };
 
-const buildRepository = (
+const createRepository = (
   initialEvents: Array<ProductEvent> = [],
   initialAggregates: Map<ProductId, Product> = new Map(),
 ) => {
   const events = [...initialEvents];
   const aggregates = new Map(initialAggregates);
   return {
-    findById: buildFindById(aggregates),
-    store: buildStore(events, aggregates),
+    findById: createFindByIdFn(aggregates),
+    store: createStoreFn(events, aggregates),
   };
 };
 
 const ProductRepository = {
-  build: buildRepository,
+  create: createRepository,
 } as const;
 
 export { ProductRepository };

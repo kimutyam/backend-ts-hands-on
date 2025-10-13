@@ -6,7 +6,7 @@ import type { FindUserAccountById } from '../../../../app/port/secondary/persist
 import { Db } from './db.js';
 import { userAccountTable } from './schema/userAccount.sql.js';
 
-const findById =
+const createFindByIdFn =
   (db: Db): FindUserAccountById =>
   (id) =>
     ResultAsync.fromSafePromise(
@@ -18,10 +18,10 @@ const findById =
         : errAsync(UserAccountNotFoundError.create(id));
     });
 
-findById.inject = [Db.token] as const;
+createFindByIdFn.inject = [Db.token] as const;
 
 const UserAccountRepository = {
-  findById,
+  createFindByIdFn,
 } as const;
 
 export { UserAccountRepository };

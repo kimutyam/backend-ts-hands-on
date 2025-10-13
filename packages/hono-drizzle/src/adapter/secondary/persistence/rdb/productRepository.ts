@@ -31,7 +31,7 @@ const toProduct =
     );
   };
 
-const findById =
+const createFindByIdFn =
   (db: Db): FindProductById =>
   (aggregateId) =>
     ResultAsync.fromSafePromise(
@@ -41,10 +41,10 @@ const findById =
         .where(eq(productTable.productId, aggregateId)),
     ).andThen(toProduct(aggregateId));
 
-findById.inject = [Db.token] as const;
+createFindByIdFn.inject = [Db.token] as const;
 
 const ProductRepository = {
-  findById,
+  createFindByIdFn,
 } as const;
 
 export { ProductRepository };

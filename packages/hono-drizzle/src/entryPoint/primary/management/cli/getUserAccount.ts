@@ -16,8 +16,8 @@ const argv = yargs(hideBin(process.argv))
 
 const appEnv = AppEnv.parse(process.env);
 const [rootInjector, managementPortInjector] =
-  ManagementPortInjector.build(appEnv);
+  ManagementPortInjector.create(appEnv);
 const getUserAccount = managementPortInjector.resolve(GetUserAccount.token);
-const handler = GetUserAccountHandler.build(getUserAccount);
+const handler = GetUserAccountHandler.create(getUserAccount);
 
 await R.pipe(argv, execute(handler, rootInjector));

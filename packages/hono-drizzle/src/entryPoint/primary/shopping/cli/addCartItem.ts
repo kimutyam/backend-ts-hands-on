@@ -21,8 +21,8 @@ const argv = yargs(hideBin(process.argv))
 
 const appEnv = AppEnv.parse(process.env);
 const [rootInjector, managementPortInjector] =
-  ManagementPortInjector.build(appEnv);
+  ManagementPortInjector.create(appEnv);
 const addCartItem = managementPortInjector.resolve(AddCartItem.token);
-const handler = AddCartItemHandler.build(addCartItem);
+const handler = AddCartItemHandler.create(addCartItem);
 
 await R.pipe(argv, execute(handler, rootInjector));
