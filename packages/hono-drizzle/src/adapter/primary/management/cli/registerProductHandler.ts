@@ -9,7 +9,7 @@ import type { ApplicationError } from '../../../../app/util/applicationError.js'
 import { createWithErrorFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 
-const errorKind = 'RegisterProductHandlerError';
+const handlerName = 'RegisterProductHandler';
 
 const schema = z
   .object({
@@ -22,14 +22,14 @@ type ValidatedArgs = z.infer<typeof schema>;
 type Args = z.input<typeof schema>;
 
 interface RegisterProductValidateError
-  extends ApplicationError<typeof errorKind> {
+  extends ApplicationError<typeof handlerName> {
   error: z.ZodError<Args>;
 }
 
 const createError = (
   error: z.ZodError<Args>,
 ): RegisterProductValidateError => ({
-  kind: errorKind,
+  kind: handlerName,
   message: error.message,
   error,
 });
@@ -57,7 +57,7 @@ const build =
 build.inject = [RegisterProduct.token] as const;
 
 const RegisterProductHandler = {
-  token: errorKind,
+  token: handlerName,
   build,
 } as const;
 
