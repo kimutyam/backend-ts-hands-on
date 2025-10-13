@@ -56,7 +56,7 @@ const buildSelectCartItem =
     );
 
 describe.sequential('CartEventStore', () => {
-  const cartEventStore = CartEventStore.store(testDb);
+  const cartEventStore = CartEventStore.createStoreFn(testDb);
   const selectCart = buildSelectCart(testDb);
   const selectCartItem = buildSelectCartItem(testDb);
   const selectDomainEvent = buildSelectDomainEvent(testDb);

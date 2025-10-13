@@ -14,7 +14,7 @@ import { testDb } from './helper/db.js';
 import { truncateTables } from './helper/table.js';
 
 describe('FindCartById', () => {
-  const findCartById = CartRepository.findById(testDb);
+  const findCartById = CartRepository.createFindByIdFn(testDb);
 
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();

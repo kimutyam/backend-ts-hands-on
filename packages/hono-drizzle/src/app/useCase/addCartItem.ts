@@ -8,7 +8,7 @@ import { StoreCartEvent } from '../port/secondary/persistence/cartEventStore.js'
 import { FindCartById } from '../port/secondary/persistence/cartRepository.js';
 import { FindProductById } from '../port/secondary/persistence/productRepository.js';
 
-const buildAddCartItem =
+const create =
   (
     findProductById: FindProductById,
     findCartById: FindCartById,
@@ -31,10 +31,14 @@ const buildAddCartItem =
         return cartEvent;
       });
 
-buildAddCartItem.inject = [
+create.inject = [
   FindProductById.token,
   FindCartById.token,
   StoreCartEvent.token,
 ] as const;
 
-export { buildAddCartItem };
+const AddCartItemUseCase = {
+  create,
+} as const;
+
+export { AddCartItemUseCase };

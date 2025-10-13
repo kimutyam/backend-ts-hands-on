@@ -11,9 +11,9 @@ import { FindUserAccountById } from '../../../../app/port/secondary/persistence/
 import type { PersistencePortInjector } from '../injector.js';
 
 const create = (rootInjector: Injector): PersistencePortInjector => {
-  const userAccountRepository = UserAccountRepository.build();
-  const cartRepository = CartRepository.build();
-  const productRepository = ProductRepository.build();
+  const userAccountRepository = UserAccountRepository.create();
+  const cartRepository = CartRepository.create();
+  const productRepository = ProductRepository.create();
   return rootInjector
     .provideValue(FindUserAccountById.token, userAccountRepository.findById)
     .provideValue(FindCartById.token, cartRepository.findById)

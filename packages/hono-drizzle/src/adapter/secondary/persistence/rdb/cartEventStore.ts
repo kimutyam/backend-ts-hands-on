@@ -23,7 +23,7 @@ const toCartItemInserts = (cart: Cart): Array<CartItemInsert> =>
     quantity,
   }));
 
-const store =
+const createStoreFn =
   (db: Db): StoreCartEvent =>
   async (event, aggregate) => {
     await db.transaction(async (tx) => {
@@ -48,10 +48,10 @@ const store =
     });
   };
 
-store.inject = [Db.token] as const;
+createStoreFn.inject = [Db.token] as const;
 
 const CartEventStore = {
-  store,
+  createStoreFn,
 } as const;
 
 export { CartEventStore };

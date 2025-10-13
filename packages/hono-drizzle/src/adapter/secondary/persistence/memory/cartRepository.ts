@@ -7,7 +7,7 @@ import type { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import type { StoreCartEvent } from '../../../../app/port/secondary/persistence/cartEventStore.js';
 import type { FindCartById } from '../../../../app/port/secondary/persistence/cartRepository.js';
 
-const buildFindById =
+const createFindByIdFn =
   (aggregates: Map<CustomerId, Cart>): FindCartById =>
   (aggregateId) => {
     const aggregate = aggregates.get(aggregateId);
@@ -16,7 +16,7 @@ const buildFindById =
       : errAsync(CartNotFoundError.create(aggregateId));
   };
 
-const buildStore =
+const createStoreFn =
   (
     events: Array<CartEvent>,
     aggregates: Map<CustomerId, Cart>,
@@ -27,20 +27,20 @@ const buildStore =
     return Promise.resolve();
   };
 
-const buildRepository = (
+const createRepository = (
   initialEvents: Array<CartEvent> = [],
   initialAggregates: Map<CustomerId, Cart> = new Map(),
 ) => {
   const events = [...initialEvents];
   const aggregates = new Map(initialAggregates);
   return {
-    findById: buildFindById(initialAggregates),
-    store: buildStore(events, aggregates),
+    findById: createFindByIdFn(initialAggregates),
+    store: createStoreFn(events, aggregates),
   };
 };
 
 const CartRepository = {
-  build: buildRepository,
+  create: createRepository,
 } as const;
 
 export { CartRepository };

@@ -37,7 +37,7 @@ const safeParse = (value: Args): Result<ValidatedArgs, ArgsValidateError> =>
     })),
   );
 
-const build =
+const create =
   (addCartItem: AddCartItem): AddCartItemHandler =>
   async (args) => {
     await safeParse(args)
@@ -54,7 +54,7 @@ const build =
 
 const AddCartItemHandler = {
   token: handlerName,
-  build,
+  create,
 } as const;
 
 export { AddCartItemHandler };

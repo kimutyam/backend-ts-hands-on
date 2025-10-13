@@ -1,25 +1,22 @@
 import type { Injector } from 'typed-inject';
 
-import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
 import { UserAccountHandler } from '../../../../adapter/primary/management/web/userAccountHandler.js';
 import type { AppEnv } from '../../env.js';
 import { ManagementPortInjector } from '../injector.js';
 
-const create = (injector: ManagementPortInjector) =>
-  injector
-    .provideFactory(UserAccountHandler.token, UserAccountHandler.build)
-    .provideFactory(RegisterProductHandler.token, RegisterProductHandler.build);
+const createSelf = (injector: ManagementPortInjector) =>
+  injector.provideFactory(UserAccountHandler.token, UserAccountHandler.build);
 
-const build = (env: AppEnv): [Injector, WebInjector] => {
+const create = (env: AppEnv): [Injector, WebInjector] => {
   const [rootInjector, managementPortInjector] =
-    ManagementPortInjector.build(env);
-  const webAdaptorInjector = create(managementPortInjector);
+    ManagementPortInjector.create(env);
+  const webAdaptorInjector = createSelf(managementPortInjector);
   return [rootInjector, webAdaptorInjector];
 };
 
-type WebInjector = ReturnType<typeof create>;
+type WebInjector = ReturnType<typeof createSelf>;
 const WebInjector = {
-  build,
+  create,
 } as const;
 
 export { WebInjector };

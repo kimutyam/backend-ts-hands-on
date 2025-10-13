@@ -17,7 +17,7 @@ const toProductInsert = (aggregate: Product): ProductInsert => ({
   price: aggregate.price,
 });
 
-const store =
+const createStoreFn =
   (db: Db): StoreProductEvent =>
   (event, aggregate) => {
     const fn = async () => {
@@ -32,10 +32,10 @@ const store =
     return ResultAsync.fromThrowable(fn, errorFn)();
   };
 
-store.inject = [Db.token] as const;
+createStoreFn.inject = [Db.token] as const;
 
 const ProductEventStore = {
-  store,
+  createStoreFn,
 } as const;
 
 export { ProductEventStore };

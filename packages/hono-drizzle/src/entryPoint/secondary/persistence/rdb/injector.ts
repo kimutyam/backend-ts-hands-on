@@ -20,12 +20,15 @@ const create = (
 ): PersistencePortInjector =>
   rootInjector
     .provideValue(DatabaseUrl.token, databaseUrl)
-    .provideFactory(Db.token, Db.build)
-    .provideFactory(FindUserAccountById.token, UserAccountRepository.findById)
-    .provideFactory(FindCartById.token, CartRepository.findById)
-    .provideFactory(StoreCartEvent.token, CartEventStore.store)
-    .provideFactory(FindProductById.token, ProductRepository.findById)
-    .provideFactory(StoreProductEvent.token, ProductEventStore.store);
+    .provideFactory(Db.token, Db.create)
+    .provideFactory(
+      FindUserAccountById.token,
+      UserAccountRepository.createFindByIdFn,
+    )
+    .provideFactory(FindCartById.token, CartRepository.createFindByIdFn)
+    .provideFactory(StoreCartEvent.token, CartEventStore.createStoreFn)
+    .provideFactory(FindProductById.token, ProductRepository.createFindByIdFn)
+    .provideFactory(StoreProductEvent.token, ProductEventStore.createStoreFn);
 
 const RdbAdaptorInjector = {
   create,

@@ -4,7 +4,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { DatabaseUrl } from './databaseUrl.js';
 
-const build = (url: DatabaseUrl) => {
+const create = (url: DatabaseUrl) => {
   const db = drizzle({
     connection: url,
     casing: 'snake_case',
@@ -17,13 +17,13 @@ const build = (url: DatabaseUrl) => {
   return Object.assign(db, { dispose });
 };
 
-type Db = ReturnType<typeof build>;
+type Db = ReturnType<typeof create>;
 
-build.inject = [DatabaseUrl.token] as const;
+create.inject = [DatabaseUrl.token] as const;
 
 const Db = {
   token: 'db' as const,
-  build,
+  create,
 } as const;
 
 export { Db };

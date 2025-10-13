@@ -4,7 +4,7 @@ import type { UserAccount } from '../../../../app/domain/userAccount/userAccount
 import { UserAccountNotFoundError } from '../../../../app/domain/userAccount/userAccountNotFound.js';
 import type { FindUserAccountById } from '../../../../app/port/secondary/persistence/userAccountRepository.js';
 
-const buildFindById =
+const createFindByIdFn =
   (aggregates: Map<string, UserAccount>): FindUserAccountById =>
   (aggregateId) => {
     const aggregate = aggregates.get(aggregateId);
@@ -13,17 +13,17 @@ const buildFindById =
       : errAsync(UserAccountNotFoundError.create(aggregateId));
   };
 
-const buildRepository = (
+const createRepository = (
   initialAggregates: Map<string, UserAccount> = new Map<string, UserAccount>(),
 ) => {
   const aggregates = new Map(initialAggregates);
   return {
-    findById: buildFindById(aggregates),
+    findById: createFindByIdFn(aggregates),
   };
 };
 
 const UserAccountRepository = {
-  build: buildRepository,
+  create: createRepository,
 } as const;
 
 export { UserAccountRepository };

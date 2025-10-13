@@ -3,29 +3,29 @@ import { createInjector } from 'typed-inject';
 
 import { GetUserAccount } from '../../../app/port/primary/management/getUserAccount.js';
 import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
-import { buildGetUserAccount } from '../../../app/useCase/getUserAccount.js';
-import { buildRegisterProduct } from '../../../app/useCase/registerProduct.js';
+import { GetUserAccountUseCase } from '../../../app/useCase/getUserAccount.js';
+import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js';
 import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
 import type { AppEnv } from '../env.js';
 
-const create = (injector: PersistencePortInjector) =>
+const createSelf = (injector: PersistencePortInjector) =>
   injector
-    .provideFactory(GetUserAccount.token, buildGetUserAccount)
-    .provideFactory(RegisterProduct.token, buildRegisterProduct);
+    .provideFactory(GetUserAccount.token, GetUserAccountUseCase.create)
+    .provideFactory(RegisterProduct.token, RegisterProductUseCase.create);
 
-const build = (env: AppEnv): [Injector, ManagementPortInjector] => {
+const create = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
   const persistencePortInjector =
     env.DATABASE_URL === undefined
       ? PersistencePortInjector.createOnMemory(rootInjector)
       : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
-  const managementPortInjector = create(persistencePortInjector);
+  const managementPortInjector = createSelf(persistencePortInjector);
   return [rootInjector, managementPortInjector];
 };
 
-type ManagementPortInjector = ReturnType<typeof create>;
+type ManagementPortInjector = ReturnType<typeof createSelf>;
 const ManagementPortInjector = {
-  build,
+  create,
 } as const;
 
 export { ManagementPortInjector };

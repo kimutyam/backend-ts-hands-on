@@ -8,7 +8,7 @@ import { testDb } from './helper/db.js';
 import { truncateTables } from './helper/table.js';
 
 describe('buildFindUserAccountById', () => {
-  const findUserAccountById = UserAccountRepository.findById(testDb);
+  const findUserAccountById = UserAccountRepository.createFindByIdFn(testDb);
 
   beforeAll(async () => {
     await truncateTables(testDb);

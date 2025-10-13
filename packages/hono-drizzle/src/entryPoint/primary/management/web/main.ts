@@ -4,7 +4,7 @@ import { Server } from './helper/server.js';
 import { WebInjector } from './injector.js';
 
 const appEnv = AppEnv.parse(process.env);
-const [rootInjector, webAdaptorInjector] = WebInjector.build(appEnv);
+const [rootInjector, webAdaptorInjector] = WebInjector.create(appEnv);
 const app = makeApp(webAdaptorInjector);
 const server = Server.run(app);
 

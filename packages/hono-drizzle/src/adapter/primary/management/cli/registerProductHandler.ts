@@ -41,7 +41,7 @@ const safeParse = (
 ): Result<ValidatedArgs, RegisterProductValidateError> =>
   R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
 
-const build =
+const create =
   (registerProduct: RegisterProduct): RegisterProductHandler =>
   async (args) => {
     await safeParse(args)
@@ -54,11 +54,10 @@ const build =
       });
   };
 
-build.inject = [RegisterProduct.token] as const;
+create.inject = [RegisterProduct.token] as const;
 
 const RegisterProductHandler = {
-  token: handlerName,
-  build,
+  create,
 } as const;
 
 export { RegisterProductHandler };
