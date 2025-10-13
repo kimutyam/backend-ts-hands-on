@@ -2,12 +2,12 @@ import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
 import { AddCartItem } from '../../../app/port/primary/shopping/addCartItem.js';
-import { buildAddCartItem } from '../../../app/useCase/addCartItem.js';
+import { AddCartItemUseCase } from '../../../app/useCase/addCartItem.js';
 import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
 import type { AppEnv } from '../env.js';
 
 const create = (injector: PersistencePortInjector) =>
-  injector.provideFactory(AddCartItem.token, buildAddCartItem);
+  injector.provideFactory(AddCartItem.token, AddCartItemUseCase.build);
 
 const build = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
