@@ -18,7 +18,7 @@ create.inject = [GetUserAccount.token] as const;
 
 const UserAccountHandler = {
   token: handlerName,
-  build: create,
+  create,
 } as const;
 
 export { UserAccountHandler };

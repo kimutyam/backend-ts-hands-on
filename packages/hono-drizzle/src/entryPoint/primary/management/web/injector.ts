@@ -5,7 +5,7 @@ import type { AppEnv } from '../../env.js';
 import { ManagementPortInjector } from '../injector.js';
 
 const createSelf = (injector: ManagementPortInjector) =>
-  injector.provideFactory(UserAccountHandler.token, UserAccountHandler.build);
+  injector.provideFactory(UserAccountHandler.token, UserAccountHandler.create);
 
 const create = (env: AppEnv): [Injector, WebInjector] => {
   const [rootInjector, managementPortInjector] =
