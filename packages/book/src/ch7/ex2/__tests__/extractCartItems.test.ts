@@ -19,7 +19,7 @@ describe('extractCartItem', () => {
     ];
     const cart = Cart.create(customerId, cartItems);
     const findCartById = () => okAsync(cart);
-    const extractCartItems = ExtractCartItems.build(findCartById);
+    const extractCartItems = ExtractCartItems.create(findCartById);
     const result = await extractCartItems(customerId);
     expect(result).toStrictEqual(cartItems);
   });
@@ -27,7 +27,7 @@ describe('extractCartItem', () => {
   it('カートが存在しない場合は、抽出するカート項目は空になる', async () => {
     const customerId = CustomerId.generate();
     const findCartById = () => errAsync(CartNotFoundError.create(customerId));
-    const extractCartItems = ExtractCartItems.build(findCartById);
+    const extractCartItems = ExtractCartItems.create(findCartById);
     const result = await extractCartItems(customerId);
     expect(result).toStrictEqual([]);
   });

@@ -6,7 +6,7 @@ type ExtractCartItems = (
   customerId: CustomerId,
 ) => Promise<ReadonlyArray<CartItem>>;
 
-const build =
+const create =
   (findCartById: FindCartById): ExtractCartItems =>
   async (customerId) =>
     findCartById(customerId)
@@ -14,9 +14,7 @@ const build =
       .unwrapOr<ReadonlyArray<CartItem>>([]);
 
 const ExtractCartItems = {
-  build,
+  create,
 } as const;
 
 export { ExtractCartItems };
-
-build.inject = ['findCartById'] as const;

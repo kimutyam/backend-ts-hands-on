@@ -5,22 +5,7 @@ import { CartItem } from 'ch7/ex1/cartItem.js';
 import { CustomerId } from 'ch7/ex1/customerId.js';
 import { Price } from 'ch7/ex1/price.js';
 import { ProductId } from 'ch7/ex1/productId.js';
-import {
-  buildDeleteCartById,
-  buildFindCartById,
-  buildSaveCart,
-} from 'ch7/ex2/cartRepositoryOnMemory.js';
-
-const buildRepository = (
-  initialAggregates: Map<CustomerId, Cart> = new Map<CustomerId, Cart>(),
-) => {
-  const aggregates = new Map(initialAggregates);
-  return {
-    findById: buildFindCartById(aggregates),
-    save: buildSaveCart(aggregates),
-    deleteById: buildDeleteCartById(aggregates),
-  };
-};
+import { CartRepository } from 'ch7/ex2/cartRepositoryOnMemory.js';
 
 const createCart = (customerId: CustomerId): Cart =>
   Cart.create(customerId, [
@@ -30,10 +15,10 @@ const createCart = (customerId: CustomerId): Cart =>
 
 describe('InMemoryCartRepository', () => {
   it('保存できる', async () => {
-    const repository = buildRepository();
+    const repository = CartRepository.create();
     const customerId = CustomerId.generate();
     const cart = createCart(customerId);
-    await repository.save(cart);
+    await repository.store(cart);
     const foundCart = await repository.findById(customerId);
     assert(foundCart.isOk());
     expect(foundCart.value).toEqual(cart);
@@ -42,7 +27,7 @@ describe('InMemoryCartRepository', () => {
   it('削除できる', async () => {
     const customerId = CustomerId.generate();
     const cart = createCart(customerId);
-    const repository = buildRepository(new Map([[customerId, cart]]));
+    const repository = CartRepository.create(new Map([[customerId, cart]]));
     await repository.deleteById(customerId);
     const foundCart = await repository.findById(customerId);
     assert(foundCart.isErr());

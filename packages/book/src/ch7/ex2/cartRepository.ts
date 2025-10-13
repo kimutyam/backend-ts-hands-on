@@ -7,7 +7,7 @@ interface FindCartById {
   (aggregateId: CustomerId): ResultAsync<Cart, CartNotFoundError>;
 }
 
-interface SaveCart {
+interface StoreCart {
   (aggregate: Cart): Promise<void>;
 }
 
@@ -15,4 +15,4 @@ interface DeleteCartById {
   (aggregateId: CustomerId): Promise<void>;
 }
 
-export type { DeleteCartById, FindCartById, SaveCart };
+export type { DeleteCartById, FindCartById, StoreCart };
