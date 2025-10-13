@@ -9,13 +9,14 @@ import { DomainEvent } from '../domainEvent.js';
 import { Price } from './price.js';
 import { ProductRegistered } from './productEvent.js';
 import { ProductId } from './productId.js';
+import { ProductName } from './productName.js';
 
 const aggregateName = 'Product';
 
 const schema = Aggregate.makeBrandedSchema(
   ProductId.schema,
   z.object({
-    name: z.string(),
+    name: ProductName.schema,
     price: Price.schema,
   }),
   aggregateName,
@@ -59,7 +60,7 @@ const register = (aggregate: Product): [Product, ProductRegistered] => {
 
 const init = (
   aggregateId: ProductId,
-  name: string,
+  name: ProductName,
   price: Price,
 ): Result<Product, ProductRefinementsError> => {
   const sequenceNumber = Aggregate.InitialSequenceNumber;
