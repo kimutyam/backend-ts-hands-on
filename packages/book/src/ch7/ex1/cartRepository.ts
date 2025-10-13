@@ -5,7 +5,7 @@ import type { ResultAsync } from 'neverthrow';
 
 interface CartRepository {
   findById: (aggregateId: CustomerId) => ResultAsync<Cart, CartNotFoundError>;
-  save: (cart: Cart) => Promise<void>;
+  store: (cart: Cart) => Promise<void>;
   deleteById: (aggregateId: CustomerId) => Promise<void>;
 }
 

@@ -6,7 +6,7 @@ interface IProductRepository {
 
   findAll: () => Promise<ReadonlyArray<Product>>;
 
-  save: (product: Product) => Promise<void>;
+  store: (product: Product) => Promise<void>;
   deleteById: (aggregateId: ProductId) => Promise<void>;
 }
 
