@@ -7,14 +7,14 @@ import { createWithErrorFromZod } from '../../util/result.js';
 
 const name = 'Price';
 
-const schema = z.number().int().min(100).max(10_000).brand('Price');
+const schema = z.number().int().min(100).max(10_000).brand(name);
 
 type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
-type PriceZodError = z.ZodError<PriceInput>;
 
 const errorKind = 'PriceRefinementsError';
 
+type PriceZodError = z.ZodError<PriceInput>;
 interface PriceRefinementsError extends ApplicationError<typeof errorKind> {
   error: PriceZodError;
 }

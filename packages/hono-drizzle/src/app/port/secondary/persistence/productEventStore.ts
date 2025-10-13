@@ -10,6 +10,7 @@ interface StoreProductEvent<DE extends ProductEvent = ProductEvent> {
     aggregate: Product,
   ): ResultAsync<void, ProductNameDuplicatedError>;
 }
+
 const StoreProductEvent = {
   token: 'StoreProductEvent' as const,
 } as const;

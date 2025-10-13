@@ -3,6 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import { Price } from '../../../../app/domain/product/price.js';
+import { ProductName } from '../../../../app/domain/product/productName.js';
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
 import type { ApplicationError } from '../../../../app/util/applicationError.js';
 import { createWithErrorFromZod } from '../../../../app/util/result.js';
@@ -12,7 +13,7 @@ const errorKind = 'RegisterProductHandlerError';
 
 const schema = z
   .object({
-    name: z.string().min(1).max(100),
+    name: ProductName.schema,
     price: Price.schema,
   })
   .readonly();
