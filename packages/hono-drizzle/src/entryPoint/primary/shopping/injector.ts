@@ -3,7 +3,7 @@ import { createInjector } from 'typed-inject';
 
 import { AddCartItem } from '../../../app/port/primary/shopping/addCartItem.js';
 import { AddCartItemUseCase } from '../../../app/useCase/addCartItem.js';
-import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
+import { PersistencePortInjector } from '../../secondary/persistence/injectorForShopping.js';
 import type { AppEnv } from '../env.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
