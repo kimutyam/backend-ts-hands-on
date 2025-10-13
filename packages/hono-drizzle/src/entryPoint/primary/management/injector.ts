@@ -5,7 +5,7 @@ import { GetUserAccount } from '../../../app/port/primary/management/getUserAcco
 import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
 import { GetUserAccountUseCase } from '../../../app/useCase/getUserAccount.js';
 import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js';
-import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
+import { PersistencePortInjector } from '../../secondary/persistence/injectorForManagement.js';
 import type { AppEnv } from '../env.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
