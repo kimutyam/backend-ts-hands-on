@@ -7,7 +7,7 @@ import { createWithErrorFromZod } from '../../util/result.js';
 
 const name = 'Price';
 
-const schema = z.number().int().min(100).max(10_000).brand('Price');
+const schema = z.number().int().min(100).max(10_000).brand(name);
 
 type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
