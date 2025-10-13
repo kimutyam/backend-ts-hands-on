@@ -4,8 +4,8 @@ import { hideBin } from 'yargs/helpers';
 
 import { AddCartItemHandler } from '../../../../adapter/primary/shopping/cli/addCartItemHandler.js';
 import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
-import { AppEnv } from '../../helper/env.js';
-import { ManagementPortInjector } from '../injector/port.js';
+import { AppEnv } from '../../env.js';
+import { ManagementPortInjector } from '../injector.js';
 import { execute } from './helper/execute.js';
 
 // TODO: web api

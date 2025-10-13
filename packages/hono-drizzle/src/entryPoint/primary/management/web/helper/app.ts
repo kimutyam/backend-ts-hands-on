@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 
 import { UserAccountHandler } from '../../../../../adapter/primary/management/web/userAccountHandler.js';
-import type { WebInjector } from '../../injector/webAdapter.js';
+import type { WebInjector } from '../injector.js';
 
 const makeApp = (webInjector: WebInjector): Hono => {
   const app = new Hono();
