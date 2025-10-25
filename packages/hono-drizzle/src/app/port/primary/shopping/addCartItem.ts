@@ -1,11 +1,11 @@
 import type { ResultAsync } from 'neverthrow';
 
-import type { CartRefinementsError } from '../../../domain/cart/cart.js';
 import type {
   CartItemAdded,
   CartItemUpdated,
 } from '../../../domain/cart/cartEvent.js';
 import type { CartNotFoundError } from '../../../domain/cart/cartNotFoundError.js';
+import type { CartRefinementsError } from '../../../domain/cart/cartRefinementsError.js';
 import type {
   Quantity,
   QuantityRefinementsError,

@@ -1,5 +1,4 @@
 import { Aggregate } from 'ch9/ex50/aggregate.js';
-import type { ApplicationError } from 'ch9/ex50/applicationError.js';
 import type { CartClearReason } from 'ch9/ex50/cartClearReason.js';
 import {
   CartCleared,
@@ -8,6 +7,7 @@ import {
   CartItemUpdated,
 } from 'ch9/ex50/cartEvent.js';
 import { CartItem } from 'ch9/ex50/cartItem.js';
+import { CartRefinementsError } from 'ch9/ex50/cartRefinementsError.js';
 import { CustomerId } from 'ch9/ex50/customerId.js';
 import { DomainEvent } from 'ch9/ex50/domainEvent.js';
 import { ProductId } from 'ch9/ex50/productId.js';
@@ -30,22 +30,7 @@ const schema = Aggregate.makeBrandedSchema(
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
 
-const errorKind = 'CartRefinementsError';
 type CartZodError = z.ZodError<CartInput>;
-interface CartRefinementsError extends ApplicationError<typeof errorKind> {
-  error: CartZodError;
-}
-
-const createError = (error: CartZodError): CartRefinementsError => ({
-  kind: errorKind,
-  message: error.message,
-  error,
-});
-
-const CartRefinementsError = {
-  kind: errorKind,
-  create: createError,
-} as const;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -103,7 +88,7 @@ const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
-    createWithErrorFromZod(createError),
+    createWithErrorFromZod(CartRefinementsError.create),
   );
 
 const init = (aggregateId: CustomerId): Cart =>

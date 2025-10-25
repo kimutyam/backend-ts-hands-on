@@ -2,7 +2,6 @@ import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import type { ApplicationError } from '../../util/applicationError.js';
 import { createWithErrorFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { CustomerId } from '../customer/customerId.js';
@@ -16,6 +15,7 @@ import {
   CartItemUpdated,
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
+import { CartRefinementsError } from './cartRefinementsError.js';
 import type { QuantityRefinementsError } from './quantity.js';
 
 const aggregateName = 'Cart';
@@ -31,23 +31,6 @@ const schema = Aggregate.makeBrandedSchema(
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
 type CartZodError = z.ZodError<CartInput>;
-
-const errorKind = 'CartRefinementsError';
-
-interface CartRefinementsError extends ApplicationError<typeof errorKind> {
-  error: CartZodError;
-}
-
-const createError = (error: CartZodError): CartRefinementsError => ({
-  kind: errorKind,
-  message: error.message,
-  error,
-});
-
-const CartRefinementsError = {
-  kind: errorKind,
-  create: createError,
-} as const;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -95,7 +78,7 @@ const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
-    createWithErrorFromZod(createError),
+    createWithErrorFromZod(CartRefinementsError.create),
   );
 
 const init = (
@@ -225,4 +208,4 @@ const Cart = {
   clear,
 } as const;
 
-export { Cart, CartRefinementsError };
+export { Cart, type CartZodError };
