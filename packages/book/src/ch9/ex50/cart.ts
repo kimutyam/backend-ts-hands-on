@@ -11,7 +11,7 @@ import { CartRefinementsError } from 'ch9/ex50/cartRefinementsError.js';
 import { CustomerId } from 'ch9/ex50/customerId.js';
 import { DomainEvent } from 'ch9/ex50/domainEvent.js';
 import { ProductId } from 'ch9/ex50/productId.js';
-import type { QuantityRefinementsError } from 'ch9/ex50/quantity.js';
+import type { QuantityRefinementsError } from 'ch9/ex50/quantityRefinementsError.js';
 import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
