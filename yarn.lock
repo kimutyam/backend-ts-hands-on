@@ -4187,10 +4187,10 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-hono@4.9.12:
-  version "4.9.12"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.9.12.tgz#065fe58e119e724ec228974bc369e5560a6c3bb2"
-  integrity sha512-SrTC0YxqPwnN7yKa8gg/giLyQ2pILCKoideIHbYbFQlWZjYt68D2A4Ae1hehO/aDQ6RmTcpqOV/O2yBtMzx/VQ==
+hono@4.10.3:
+  version "4.10.3"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.10.3.tgz#4e4063eebaac2b735ca4c7455b4d7a6339afc251"
+  integrity sha512-2LOYWUbnhdxdL8MNbNg9XZig6k+cZXm5IjHn2Aviv7honhBMOHb+jxrKIeJRZJRmn+htUCKhaicxwXuUDlchRA==
 
 html-escaper@^2.0.0:
   version "2.0.2"
