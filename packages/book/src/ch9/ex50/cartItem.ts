@@ -1,7 +1,7 @@
 import { Price } from 'ch9/ex50/price.js';
 import { ProductId } from 'ch9/ex50/productId.js';
-import type { QuantityRefinementsError } from 'ch9/ex50/quantity.js';
 import { Quantity } from 'ch9/ex50/quantity.js';
+import type { QuantityRefinementsError } from 'ch9/ex50/quantityRefinementsError.js';
 import type { Result } from 'neverthrow';
 import * as z from 'zod';
 

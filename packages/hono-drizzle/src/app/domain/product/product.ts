@@ -2,7 +2,6 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import type { ApplicationError } from '../../util/applicationError.js';
 import { createWithErrorFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { DomainEvent } from '../domainEvent.js';
@@ -10,6 +9,7 @@ import { Price } from './price.js';
 import { ProductRegistered } from './productEvent.js';
 import { ProductId } from './productId.js';
 import { ProductName } from './productName.js';
+import { ProductRefinementsError } from './productRefinementsError.js';
 
 const aggregateName = 'Product';
 
@@ -26,27 +26,13 @@ type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
 type ProductZodError = z.ZodError<Input>;
 
-const errorKind = 'ProductRefinementsError';
-
-interface ProductRefinementsError extends ApplicationError<typeof errorKind> {
-  error: ProductZodError;
-}
-
-const createError = (error: ProductZodError): ProductRefinementsError => ({
-  kind: errorKind,
-  message: error.message,
-  error,
-});
-
-const ProductRefinementsError = {
-  kind: errorKind,
-  create: createError,
-} as const;
-
 const parse = (value: Input): Product => schema.parse(value);
 
 const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
-  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
+  R.pipe(
+    schema.safeParse(value),
+    createWithErrorFromZod(ProductRefinementsError.create),
+  );
 
 const register = (aggregate: Product): [Product, ProductRegistered] => {
   const event = R.pipe(
@@ -76,4 +62,4 @@ const Product = {
   register,
 } as const;
 
-export { Product, ProductRefinementsError };
+export { Product, type ProductZodError };
