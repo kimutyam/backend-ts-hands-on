@@ -35,12 +35,14 @@ const create =
   async (args) => {
     await safeParse(args)
       .asyncAndThen(({ name, price }) => registerProduct(name, price))
-      .andTee((event) => {
-        console.log(`Product registered (ID: ${event.aggregateId})`);
-      })
-      .orTee((error) => {
-        console.error(error.message);
-      });
+      .match(
+        (event) => {
+          console.log(event);
+        },
+        (error) => {
+          console.error(error.message);
+        },
+      );
   };
 
 create.inject = [RegisterProduct.token] as const;

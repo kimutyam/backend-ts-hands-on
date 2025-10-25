@@ -37,12 +37,14 @@ const create =
       .asyncAndThen(({ customerId, productId, quantity }) =>
         addCartItem(customerId, productId, quantity),
       )
-      .andTee((event) => {
-        console.log(event);
-      })
-      .orTee((error) => {
-        console.error(error.message);
-      });
+      .match(
+        (event) => {
+          console.log(event);
+        },
+        (error) => {
+          console.error(error.message);
+        },
+      );
   };
 
 const AddCartItemHandler = {
