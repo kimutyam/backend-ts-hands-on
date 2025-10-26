@@ -2,18 +2,20 @@ import assert from 'node:assert';
 
 import { describe } from 'vitest';
 
+import { Aggregate } from '../../../../../app/domain/aggregate.js';
 import { userAccountTable } from '../schema/userAccount.sql.js';
 import { UserAccountRepository } from '../userAccountRepository.js';
 import { testDb } from './helper/db.js';
 import { truncateTables } from './helper/table.js';
 
-describe('buildFindUserAccountById', () => {
+describe.sequential('buildFindUserAccountById', () => {
   const findUserAccountById = UserAccountRepository.createFindByIdFn(testDb);
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await truncateTables(testDb);
     await testDb.insert(userAccountTable).values({
       id: 'test-id',
+      sequenceNumber: Aggregate.InitialSequenceNumber,
       name: 'Test User',
     });
   });
@@ -26,7 +28,11 @@ describe('buildFindUserAccountById', () => {
   it('登録済みのユーザーアカウントで索引できる', async () => {
     const result = await findUserAccountById('test-id');
     assert(result.isOk());
-    expect(result.value).toEqual({ id: 'test-id', name: 'Test User' });
+    expect(result.value).toEqual({
+      aggregateId: 'test-id',
+      sequenceNumber: 1,
+      name: 'Test User',
+    });
   });
 
   it('ユーザーアカウントが存在しない場合', async () => {

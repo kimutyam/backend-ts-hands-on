@@ -14,6 +14,13 @@
       "tag": "0001_create_cart",
       "version": "7",
       "when": 1747553637099
+    },
+    {
+      "breakpoints": true,
+      "idx": 2,
+      "tag": "0002_alter_user_account",
+      "version": "7",
+      "when": 1761495509121
     }
   ],
   "version": "7"

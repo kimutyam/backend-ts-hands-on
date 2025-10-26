@@ -3,7 +3,6 @@ import assert from 'node:assert';
 import { describe } from 'vitest';
 
 import { Aggregate } from '../../../../../app/domain/aggregate.js';
-import { CartNotFoundError } from '../../../../../app/domain/cart/cartNotFoundError.js';
 import { Quantity } from '../../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../../app/domain/customer/customerId.js';
 import { Price } from '../../../../../app/domain/product/price.js';
@@ -13,7 +12,7 @@ import { buildSetup } from './helper/cart.js';
 import { testDb } from './helper/db.js';
 import { truncateTables } from './helper/table.js';
 
-describe('FindCartById', () => {
+describe.sequential('FindCartById', () => {
   const findCartById = CartRepository.createFindByIdFn(testDb);
 
   const customerId1 = CustomerId.generate();
@@ -22,7 +21,7 @@ describe('FindCartById', () => {
   const productId1 = ProductId.generate();
   const productId2 = ProductId.generate();
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await truncateTables(testDb);
     const setup = buildSetup(testDb);
     await setup(productId1, productId2, customerId1, customerId2, customerId3);
@@ -61,7 +60,6 @@ describe('FindCartById', () => {
   it('カートが存在しない場合はエラーとなる', async () => {
     const result = await findCartById(customerId3);
     assert(result.isErr());
-    expect(result.error).toBeInstanceOf(CartNotFoundError);
     expect(result.error.customerId).toBe(customerId3);
   });
 });

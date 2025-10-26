@@ -22,4 +22,4 @@ const UserAccount = {
   parse,
 } as const;
 
-export type { UserAccount };
+export { UserAccount };

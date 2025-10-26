@@ -15,7 +15,7 @@ const create =
     if (userAccount === undefined) {
       console.error(`UserAccount with id ${id} not found.`);
     } else {
-      console.log(userAccount.id, userAccount.name);
+      console.log(userAccount.aggregateId, userAccount.name);
     }
   };
 
