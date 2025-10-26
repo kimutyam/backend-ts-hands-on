@@ -1,10 +1,8 @@
-import type { UserAccount } from 'app/domain/userAccount/userAccount.js';
-import type { UserAccountNotFoundError } from 'app/domain/userAccount/userAccountNotFound.js';
-import type { ResultAsync } from 'neverthrow';
+import type { UserAccount } from '../../../domain/userAccount/userAccount.js';
+import type { UserAccountNotFoundError } from '../../../domain/userAccount/userAccountNotFound.js';
+import type { FindById } from './repository.js';
 
-interface FindUserAccountById {
-  (id: string): ResultAsync<UserAccount, UserAccountNotFoundError>;
-}
+type FindUserAccountById = FindById<UserAccount, UserAccountNotFoundError>;
 
 const FindUserAccountById = {
   token: 'FindUserAccountById' as const,

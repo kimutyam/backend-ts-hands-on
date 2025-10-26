@@ -2,7 +2,7 @@ import type { ApplicationError } from '../../util/applicationError.js';
 import type { ProductId } from './productId.js';
 import type { ProductName } from './productName.js';
 
-const kind = 'ProductNameDuplicated';
+const kind = 'ProductNameDuplicatedError';
 
 interface ProductNameDuplicatedError extends ApplicationError<typeof kind> {
   readonly productId: ProductId;
