@@ -6,11 +6,9 @@ import { Quantity } from '../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import { ProductId } from '../../../../app/domain/product/productId.js';
 import type { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
-import type { ApplicationError } from '../../../../app/util/applicationError.js';
 import { createWithErrorFromZod } from '../../../../app/util/result.js';
+import { AddCartItemValidateError } from './addCartItemValidateError.js';
 import type { CommandHandler } from './commandHandler.js';
-
-const handlerName = 'AddCartItemHandler';
 
 const schema = z.object({
   customerId: CustomerId.schema,
@@ -18,23 +16,18 @@ const schema = z.object({
   quantity: Quantity.schema,
 });
 
-type ValidatedArgs = z.infer<typeof schema>;
 type Args = z.input<typeof schema>;
-
-interface ArgsValidateError extends ApplicationError<typeof handlerName> {
-  error: z.ZodError<Args>;
-}
+type ValidatedArgs = z.infer<typeof schema>;
+type AddCartItemArgsZodError = z.ZodError<Args>;
 
 type AddCartItemHandler = CommandHandler<Args>;
 
-const safeParse = (value: Args): Result<ValidatedArgs, ArgsValidateError> =>
+const safeParse = (
+  value: Args,
+): Result<ValidatedArgs, AddCartItemValidateError> =>
   R.pipe(
     schema.safeParse(value),
-    createWithErrorFromZod((zodError) => ({
-      kind: handlerName,
-      message: zodError.message,
-      error: zodError,
-    })),
+    createWithErrorFromZod(AddCartItemValidateError.create),
   );
 
 const create =
@@ -44,17 +37,18 @@ const create =
       .asyncAndThen(({ customerId, productId, quantity }) =>
         addCartItem(customerId, productId, quantity),
       )
-      .andTee((event) => {
-        console.log(event);
-      })
-      .orTee((error) => {
-        console.error(error.message);
-      });
+      .match(
+        (event) => {
+          console.log(event);
+        },
+        (error) => {
+          console.error(error.message);
+        },
+      );
   };
 
 const AddCartItemHandler = {
-  token: handlerName,
   create,
 } as const;
 
-export { AddCartItemHandler };
+export { AddCartItemHandler, type AddCartItemArgsZodError };
