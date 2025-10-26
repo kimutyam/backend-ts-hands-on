@@ -3,6 +3,8 @@ import { errAsync, okAsync } from 'neverthrow';
 import type { Product } from '../../../../app/domain/product/product.js';
 import type { ProductEvent } from '../../../../app/domain/product/productEvent.js';
 import type { ProductId } from '../../../../app/domain/product/productId.js';
+import { ProductName } from '../../../../app/domain/product/productName.js';
+import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
 import { ProductNotFoundError } from '../../../../app/domain/product/productNotFoundError.js';
 import type { StoreProductEvent } from '../../../../app/port/secondary/persistence/productEventStore.js';
 import type { FindProductById } from '../../../../app/port/secondary/persistence/productRepository.js';
@@ -22,6 +24,17 @@ const createStoreFn =
     aggregates: Map<ProductId, Product>,
   ): StoreProductEvent =>
   (event, aggregate) => {
+    const hasSameProductName = aggregates
+      .values()
+      .some(({ name }) => ProductName.equals(aggregate.name, name));
+    if (hasSameProductName) {
+      return errAsync(
+        ProductNameDuplicatedError.create(
+          aggregate.aggregateId,
+          aggregate.name,
+        ),
+      );
+    }
     events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
     return okAsync();
