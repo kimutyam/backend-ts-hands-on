@@ -10,8 +10,8 @@ import { execute } from './helper/execute.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
-  .string('id')
   .demandOption('id')
+  .string('id')
   .parseSync();
 
 const appEnv = AppEnv.parse(process.env);
