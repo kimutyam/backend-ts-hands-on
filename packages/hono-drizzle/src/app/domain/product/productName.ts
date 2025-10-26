@@ -9,10 +9,12 @@ type ProductNameInput = z.input<typeof schema>;
 
 const parse = (value: ProductNameInput): ProductName => schema.parse(value);
 
+const equals = (a: ProductName, b: ProductName): boolean => a === b;
+
 const ProductName = {
-  name,
   schema,
   parse,
+  equals,
 } as const;
 
 export { ProductName };
