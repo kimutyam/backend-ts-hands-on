@@ -1,4 +1,4 @@
-interface CommandHandler<In> {
-  (args: In): Promise<void>;
+interface CommandHandler<in Args> {
+  (args: Args): Promise<void>;
 }
 export type { CommandHandler };

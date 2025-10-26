@@ -9,6 +9,7 @@ import { createWithErrorFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 import { RegisterProductValidateError } from './registerProductValidateError.js';
 
+// 1
 const schema = z
   .object({
     name: ProductName.schema,
@@ -22,6 +23,7 @@ type RegisterProductArgsZodError = z.ZodError<Args>;
 
 type RegisterProductHandler = CommandHandler<Args>;
 
+// 2
 const safeParse = (
   value: Args,
 ): Result<ValidatedArgs, RegisterProductValidateError> =>
@@ -30,9 +32,11 @@ const safeParse = (
     createWithErrorFromZod(RegisterProductValidateError.create),
   );
 
+// 3
 const create =
   (registerProduct: RegisterProduct): RegisterProductHandler =>
   async (args) => {
+    // 4
     await safeParse(args)
       .asyncAndThen(({ name, price }) => registerProduct(name, price))
       .match(
