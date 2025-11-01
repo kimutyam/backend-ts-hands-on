@@ -11,7 +11,10 @@ const makeApp = (webInjector: WebInjector): Hono => {
     return c.json({ message: 'Internal Server Error' }, 500);
   });
 
-  app.route('/userAccounts', webInjector.resolve(UserAccountHandler.token));
+  app.route(
+    '/userAccounts',
+    webInjector.injectFunction(UserAccountHandler.create),
+  );
 
   return app;
 };

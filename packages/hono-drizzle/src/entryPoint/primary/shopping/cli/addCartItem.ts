@@ -3,10 +3,9 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { AddCartItemHandler } from '../../../../adapter/primary/shopping/cli/addCartItemHandler.js';
-import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
 import { AppEnv } from '../../env.js';
-import { ManagementPortInjector } from '../injector.js';
 import { execute } from './helper/execute.js';
+import { CliInjector } from './injector.js';
 
 // TODO: web api
 const argv = yargs(hideBin(process.argv))
@@ -20,9 +19,7 @@ const argv = yargs(hideBin(process.argv))
   .parseSync();
 
 const appEnv = AppEnv.parse(process.env);
-const [rootInjector, managementPortInjector] =
-  ManagementPortInjector.create(appEnv);
-const addCartItem = managementPortInjector.resolve(AddCartItem.token);
-const handler = AddCartItemHandler.create(addCartItem);
+const [rootInjector, cliInjector] = CliInjector.create(appEnv);
+const handler = cliInjector.injectFunction(AddCartItemHandler.create);
 
 await R.pipe(argv, execute(handler, rootInjector));
