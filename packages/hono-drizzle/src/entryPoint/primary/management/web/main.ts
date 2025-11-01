@@ -4,8 +4,8 @@ import { Server } from './helper/server.js';
 import { WebInjector } from './injector.js';
 
 const appEnv = AppEnv.parse(process.env);
-const [rootInjector, webAdaptorInjector] = WebInjector.create(appEnv);
-const app = makeApp(webAdaptorInjector);
+const [rootInjector, webInjector] = WebInjector.create(appEnv);
+const app = makeApp(webInjector);
 const server = Server.run(app);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
