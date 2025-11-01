@@ -3,10 +3,9 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
-import { RegisterProductUseCase } from '../../../../app/useCase/registerProduct.js';
 import { AppEnv } from '../../env.js';
-import { ManagementPortInjector } from '../injector.js';
 import { execute } from './helper/execute.js';
+import { CliInjector } from './injector.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
@@ -18,11 +17,7 @@ const argv = yargs(hideBin(process.argv))
 
 const appEnv = AppEnv.parse(process.env);
 
-const [rootInjector, managementPortInjector] =
-  ManagementPortInjector.create(appEnv);
-const registerProduct = managementPortInjector.injectFunction(
-  RegisterProductUseCase.create,
-);
-const handler = RegisterProductHandler.create(registerProduct);
+const [rootInjector, cliInjector] = CliInjector.create(appEnv);
+const handler = cliInjector.injectFunction(RegisterProductHandler.create);
 
 await R.pipe(argv, execute(handler, rootInjector));

@@ -9,19 +9,19 @@ import type { AppEnv } from '../env.js';
 const createSelf = (injector: PersistencePortInjector) =>
   injector.provideFactory(AddCartItem.token, AddCartItemUseCase.create);
 
-const create = (env: AppEnv): [Injector, ManagementPortInjector] => {
+const create = (env: AppEnv): [Injector, ShoppingPortInjector] => {
   const rootInjector = createInjector();
   const persistencePortInjector =
     env.DATABASE_URL === undefined
       ? PersistencePortInjector.createOnMemory(rootInjector)
       : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
-  const managementPortInjector = createSelf(persistencePortInjector);
-  return [rootInjector, managementPortInjector];
+  const shoppingPortInjector = createSelf(persistencePortInjector);
+  return [rootInjector, shoppingPortInjector];
 };
 
-type ManagementPortInjector = ReturnType<typeof createSelf>;
-const ManagementPortInjector = {
+type ShoppingPortInjector = ReturnType<typeof createSelf>;
+const ShoppingPortInjector = {
   create,
 } as const;
 
-export { ManagementPortInjector };
+export { ShoppingPortInjector };

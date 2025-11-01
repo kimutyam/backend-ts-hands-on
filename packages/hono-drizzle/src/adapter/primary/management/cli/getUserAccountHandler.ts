@@ -1,4 +1,4 @@
-import type { GetUserAccount } from '../../../../app/port/primary/management/getUserAccount.js';
+import { GetUserAccount } from '../../../../app/port/primary/management/getUserAccount.js';
 import type { CommandHandler } from './commandHandler.js';
 
 interface Args {
@@ -19,7 +19,10 @@ const create =
     }
   };
 
+create.inject = [GetUserAccount.token] as const;
+
 const GetUserAccountHandler = {
+  token: 'GetUserAccountHandler' as const,
   create,
 } as const;
 

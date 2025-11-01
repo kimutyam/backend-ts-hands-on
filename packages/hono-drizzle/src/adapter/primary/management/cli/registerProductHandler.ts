@@ -52,6 +52,7 @@ const create =
 create.inject = [RegisterProduct.token] as const;
 
 const RegisterProductHandler = {
+  token: 'RegisterProductHandler' as const,
   create,
 } as const;
 
