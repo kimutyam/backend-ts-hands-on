@@ -1,28 +1,32 @@
 import 'dotenv/config';
 
 import { drizzle } from 'drizzle-orm/node-postgres';
+import type { Disposable } from 'typed-inject';
 
 import { DatabaseUrl } from './databaseUrl.js';
 
-const create = (url: DatabaseUrl) => {
-  const db = drizzle({
+const createNodePgDatabase = (url: DatabaseUrl) =>
+  drizzle({
     connection: url,
     casing: 'snake_case',
     logger: true,
   });
+
+type Db = ReturnType<typeof createNodePgDatabase> & Disposable;
+
+const create = (url: DatabaseUrl): Db => {
+  const nodePgDatabase = createNodePgDatabase(url);
   const dispose = async () => {
-    await db.$client.end();
+    await nodePgDatabase.$client.end();
     console.log('Pool Ended');
   };
-  return Object.assign(db, { dispose });
+  return Object.assign(nodePgDatabase, { dispose });
 };
-
-type Db = ReturnType<typeof create>;
 
 create.inject = [DatabaseUrl.token] as const;
 
 const Db = {
-  token: 'db' as const,
+  token: 'Db' as const,
   create,
 } as const;
 
