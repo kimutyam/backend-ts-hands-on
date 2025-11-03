@@ -15,7 +15,7 @@ type RegisterProduct = (
 >;
 
 const RegisterProduct = {
-  token: 'RegisterProduct' as const,
+  token: 'RegisterProduct',
 } as const;
 
 export { RegisterProduct };

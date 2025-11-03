@@ -5,7 +5,7 @@ type GetUserAccount = (
 ) => Promise<UserAccount | undefined>;
 
 const GetUserAccount = {
-  token: 'GetUserAccount' as const,
+  token: 'GetUserAccount',
 } as const;
 
 export { GetUserAccount };

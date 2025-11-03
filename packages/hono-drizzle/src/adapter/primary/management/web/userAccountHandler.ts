@@ -2,8 +2,6 @@ import { Hono } from 'hono';
 
 import { GetUserAccount } from '../../../../app/port/primary/management/getUserAccount.js';
 
-const handlerName = 'UserAccountHandler';
-
 // Note: `/userAccounts` 階層に複数のメソッドを設ける想定
 const create = (getUserAccount: GetUserAccount) => {
   const app = new Hono();
@@ -17,7 +15,7 @@ const create = (getUserAccount: GetUserAccount) => {
 create.inject = [GetUserAccount.token] as const;
 
 const UserAccountHandler = {
-  token: handlerName,
+  token: 'UserAccountHandler',
   create,
 } as const;
 

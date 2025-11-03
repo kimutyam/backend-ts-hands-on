@@ -5,7 +5,7 @@ import type { FindById } from './repository.js';
 type FindProductById = FindById<Product, ProductNotFoundError>;
 
 const FindProductById = {
-  token: 'FindProductById' as const,
+  token: 'FindProductById',
 } as const;
 
 export { FindProductById };

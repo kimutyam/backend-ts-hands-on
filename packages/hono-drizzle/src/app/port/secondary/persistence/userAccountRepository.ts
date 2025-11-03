@@ -5,7 +5,7 @@ import type { FindById } from './repository.js';
 type FindUserAccountById = FindById<UserAccount, UserAccountNotFoundError>;
 
 const FindUserAccountById = {
-  token: 'FindUserAccountById' as const,
+  token: 'FindUserAccountById',
 } as const;
 
 export { FindUserAccountById };

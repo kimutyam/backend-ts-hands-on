@@ -27,7 +27,7 @@ type AddCartItem = (
 >;
 
 const AddCartItem = {
-  token: 'AddCartItem' as const,
+  token: 'AddCartItem',
 } as const;
 
 export { AddCartItem };

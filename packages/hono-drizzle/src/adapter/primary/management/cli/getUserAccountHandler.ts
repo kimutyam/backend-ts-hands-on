@@ -22,7 +22,7 @@ const create =
 create.inject = [GetUserAccount.token] as const;
 
 const GetUserAccountHandler = {
-  token: 'GetUserAccountHandler' as const,
+  token: 'GetUserAccountHandler',
   create,
 } as const;
 

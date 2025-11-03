@@ -12,7 +12,7 @@ interface StoreProductEvent<in DE extends ProductEvent = ProductEvent> {
 }
 
 const StoreProductEvent = {
-  token: 'StoreProductEvent' as const,
+  token: 'StoreProductEvent',
 } as const;
 
 export { StoreProductEvent };
