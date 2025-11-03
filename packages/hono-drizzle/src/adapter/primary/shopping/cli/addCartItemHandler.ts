@@ -50,7 +50,7 @@ const create =
 create.inject = [AddCartItem.token] as const;
 
 const AddCartItemHandler = {
-  token: 'AddCartItemHandler' as const,
+  token: 'AddCartItemHandler',
   create,
 } as const;
 

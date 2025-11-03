@@ -5,7 +5,7 @@ import type { FindById } from './repository.js';
 type FindCartById = FindById<Cart, CartNotFoundError>;
 
 const FindCartById = {
-  token: 'FindCartById' as const,
+  token: 'FindCartById',
 } as const;
 
 export { FindCartById };
