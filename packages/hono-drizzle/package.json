@@ -27,7 +27,7 @@
     "test:db:push": "yarn build:drizzle-kit && dotenv -e .env.test -- drizzle-kit push"
   },
   "dependencies": {
-    "@hono/node-server": "1.19.5",
+    "@hono/node-server": "1.19.6",
     "date-fns": "4.1.0",
     "dotenv": "17.2.3",
     "drizzle-orm": "0.44.7",
