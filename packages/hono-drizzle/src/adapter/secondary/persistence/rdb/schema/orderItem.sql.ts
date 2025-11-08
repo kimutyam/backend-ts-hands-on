@@ -10,18 +10,16 @@ import { orderTable } from './order.sql.js';
 const orderItemTable = pgTable(
   'order_item',
   {
-    orderId: varchar('order_id', { length: 26 })
+    orderId: varchar({ length: 26 })
       .$type<Order['aggregateId']>()
       .notNull()
       .references(() => orderTable.orderId, {
         onDelete: 'cascade',
         onUpdate: 'cascade',
       }),
-    productId: varchar('product_id', { length: 26 })
-      .$type<ProductId>()
-      .notNull(),
-    price: integer('price').$type<Price>().notNull(),
-    quantity: integer('quantity').$type<Quantity>().notNull(),
+    productId: varchar({ length: 26 }).$type<ProductId>().notNull(),
+    price: integer().$type<Price>().notNull(),
+    quantity: integer().$type<Quantity>().notNull(),
     ...timestamps,
   },
   (t) => [primaryKey({ columns: [t.orderId, t.productId] })],

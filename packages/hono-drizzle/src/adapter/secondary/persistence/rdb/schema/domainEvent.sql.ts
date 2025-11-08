@@ -9,15 +9,13 @@ import {
 import type { DomainEventId } from '../../../../../app/domain/domainEventId.js';
 
 const domainEventTable = pgTable('domain_event', {
-  eventId: varchar('event_id', { length: 26 })
-    .$type<DomainEventId>()
-    .primaryKey(),
-  occurredAt: timestamp('occurred_at', { withTimezone: true }).notNull(),
-  sequenceNumber: integer('sequence_number').notNull(),
-  eventName: varchar('event_name', { length: 50 }).notNull(),
-  aggregateId: varchar('aggregate_id', { length: 26 }).notNull(),
-  aggregateName: varchar('aggregate_name', { length: 50 }).notNull(),
-  payload: jsonb('payload').$type<{ [k: string]: unknown }>().notNull(),
+  eventId: varchar({ length: 26 }).$type<DomainEventId>().primaryKey(),
+  occurredAt: timestamp({ withTimezone: true }).notNull(),
+  sequenceNumber: integer().notNull(),
+  eventName: varchar({ length: 50 }).notNull(),
+  aggregateId: varchar({ length: 26 }).notNull(),
+  aggregateName: varchar({ length: 50 }).notNull(),
+  payload: jsonb().$type<Record<string, unknown>>().notNull(),
 });
 
 export { domainEventTable };
