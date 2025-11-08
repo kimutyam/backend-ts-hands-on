@@ -43,7 +43,6 @@ lerna-debug.log*
 # env
 .env*
 !.env.example
-!.env.test
 !.env.local
 
 # Docker
