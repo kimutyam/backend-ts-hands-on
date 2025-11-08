@@ -2,9 +2,8 @@ import { integer, pgTable, primaryKey, varchar } from 'drizzle-orm/pg-core';
 
 import type { Cart } from '../../../../../app/domain/cart/cart.js';
 import type { CartItem } from '../../../../../app/domain/cart/cartItem.js';
+import { cartTable } from './cart.sql.js';
 import { timestamps } from './columns.helpers.js';
-import { customerTable } from './customer.sql.js';
-import { productTable } from './product.sql.js';
 
 const cartItemTable = pgTable(
   'cart_item',
@@ -12,17 +11,13 @@ const cartItemTable = pgTable(
     customerId: varchar('customer_id', { length: 26 })
       .$type<Cart['aggregateId']>()
       .notNull()
-      .references(() => customerTable.customerId, {
+      .references(() => cartTable.customerId, {
         onDelete: 'restrict',
         onUpdate: 'restrict',
       }),
     productId: varchar('product_id', { length: 26 })
       .$type<CartItem['productId']>()
-      .notNull()
-      .references(() => productTable.productId, {
-        onDelete: 'restrict',
-        onUpdate: 'restrict',
-      }),
+      .notNull(),
     price: integer('price').$type<CartItem['price']>().notNull(),
     quantity: integer('quantity').$type<CartItem['quantity']>().notNull(),
     ...timestamps,

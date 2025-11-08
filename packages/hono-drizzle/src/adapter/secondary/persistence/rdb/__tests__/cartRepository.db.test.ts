@@ -19,12 +19,11 @@ describe.sequential('FindCartById', () => {
   const customerId2 = CustomerId.generate();
   const customerId3 = CustomerId.generate();
   const productId1 = ProductId.generate();
-  const productId2 = ProductId.generate();
 
   beforeEach(async () => {
     await truncateTables(testDb);
     const setup = buildSetup(testDb);
-    await setup(productId1, productId2, customerId1, customerId2, customerId3);
+    await setup(productId1, customerId1, customerId2);
   });
 
   afterAll(async () => {
