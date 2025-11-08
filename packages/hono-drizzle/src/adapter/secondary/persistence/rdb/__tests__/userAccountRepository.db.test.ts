@@ -5,15 +5,15 @@ import { describe } from 'vitest';
 import { Aggregate } from '../../../../../app/domain/aggregate.js';
 import { userAccountTable } from '../schema/userAccount.sql.js';
 import { UserAccountRepository } from '../userAccountRepository.js';
-import { testDb } from './helper/db.js';
+import { TestDb } from './helper/db.js';
 import { truncateTables } from './helper/table.js';
 
 describe.sequential('buildFindUserAccountById', () => {
-  const findUserAccountById = UserAccountRepository.createFindByIdFn(testDb);
+  const findUserAccountById = UserAccountRepository.createFindByIdFn(TestDb);
 
   beforeEach(async () => {
-    await truncateTables(testDb);
-    await testDb.insert(userAccountTable).values({
+    await truncateTables(TestDb);
+    await TestDb.insert(userAccountTable).values({
       id: 'test-id',
       sequenceNumber: Aggregate.InitialSequenceNumber,
       name: 'Test User',
@@ -21,8 +21,8 @@ describe.sequential('buildFindUserAccountById', () => {
   });
 
   afterAll(async () => {
-    await truncateTables(testDb);
-    await testDb.$client.end();
+    await truncateTables(TestDb);
+    await TestDb.$client.end();
   });
 
   it('登録済みのユーザーアカウントで索引できる', async () => {

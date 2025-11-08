@@ -6,7 +6,6 @@ import type { Price } from '../../../../../app/domain/product/price.js';
 import type { ProductId } from '../../../../../app/domain/product/productId.js';
 import { timestamps } from './columns.helpers.js';
 import { orderTable } from './order.sql.js';
-import { productTable } from './product.sql.js';
 
 const orderItemTable = pgTable(
   'order_item',
@@ -20,11 +19,7 @@ const orderItemTable = pgTable(
       }),
     productId: varchar('product_id', { length: 26 })
       .$type<ProductId>()
-      .notNull()
-      .references(() => productTable.productId, {
-        onDelete: 'restrict',
-        onUpdate: 'restrict',
-      }),
+      .notNull(),
     price: integer('price').$type<Price>().notNull(),
     quantity: integer('quantity').$type<Quantity>().notNull(),
     ...timestamps,

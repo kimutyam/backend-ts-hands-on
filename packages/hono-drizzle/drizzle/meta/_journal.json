@@ -21,6 +21,13 @@
       "tag": "0002_alter_user_account",
       "version": "7",
       "when": 1761495509121
+    },
+    {
+      "breakpoints": true,
+      "idx": 3,
+      "tag": "0003_alter_foreign_key",
+      "version": "7",
+      "when": 1762600686067
     }
   ],
   "version": "7"
