@@ -1,8 +1,9 @@
 import assert from 'node:assert';
 
-import type { Brand } from 'ch6/ex6219/brand.js';
 import { addDays, addHours, isAfter, isBefore, isEqual } from 'date-fns/fp';
 import * as R from 'remeda';
+
+import type { Brand } from './brand.js';
 
 interface Period extends Brand<'Period'> {
   readonly start: Date;

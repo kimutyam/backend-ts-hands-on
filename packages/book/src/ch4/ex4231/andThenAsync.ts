@@ -1,6 +1,7 @@
-import type { SomethingError } from 'ch4/common/somethingError.js';
 import type { ResultAsync } from 'neverthrow';
 import { errAsync, okAsync } from 'neverthrow';
+
+import type { SomethingError } from '../common/somethingError.js';
 
 const f1 = (n: number): ResultAsync<number, SomethingError> => okAsync(n * 2);
 const f2 = (n: number): ResultAsync<string, SomethingError> =>

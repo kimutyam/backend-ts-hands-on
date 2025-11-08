@@ -1,4 +1,4 @@
-import type { Result } from 'ch3/ex3231/result.js';
+import type { Result } from '../ex3231/result.js';
 
 type MyError = { message: string };
 type SomethingError = { error: string; detail: string };

@@ -1,4 +1,4 @@
-import type { Employee, Manager } from 'ch1/ex1251/types.js';
+import type { Employee, Manager } from './types.js';
 
 interface EmployeeFn {
   // 1

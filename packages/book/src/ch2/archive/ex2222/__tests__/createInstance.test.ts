@@ -1,5 +1,5 @@
-import { createInstance } from 'ch2/archive/ex2222/createInstance.js';
-import { Rational } from 'ch2/archive/ex2222/rational.js';
+import { createInstance } from '../createInstance.js';
+import { Rational } from '../rational.js';
 
 it('createInstance', () => {
   const rational: Rational = createInstance(Rational, 2, 4);

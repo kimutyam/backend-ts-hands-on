@@ -1,5 +1,5 @@
-import type { Name } from 'ch6/ex6221/name.js';
-import type { Telephone } from 'ch6/ex6221/telphone.js';
+import type { Name } from '../ex6221/name.js';
+import type { Telephone } from '../ex6221/telphone.js';
 
 interface Employee {
   readonly employeeNumber: number;

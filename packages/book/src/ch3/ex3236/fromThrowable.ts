@@ -1,5 +1,5 @@
-import type { Result } from 'ch3/ex3231/result.js';
-import { Failure, Success } from 'ch3/ex3231/result.js';
+import type { Result } from '../ex3231/result.js';
+import { Failure, Success } from '../ex3231/result.js';
 
 const fromThrowable = <T, E>(
   f: () => T,

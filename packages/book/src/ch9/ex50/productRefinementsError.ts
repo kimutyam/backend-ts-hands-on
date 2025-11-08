@@ -1,5 +1,5 @@
-import type { ApplicationError } from 'ch9/ex50/applicationError.js';
-import type { ProductZodError } from 'ch9/ex50/product.js';
+import type { ApplicationError } from './applicationError.js';
+import type { ProductZodError } from './product.js';
 
 const kind = 'ProductRefinementsError';
 

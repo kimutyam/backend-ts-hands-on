@@ -1,8 +1,9 @@
-import { Price } from 'ch9/ex10/price.js';
-import { ProductId } from 'ch9/ex10/productId.js';
-import type { QuantityInput } from 'ch9/ex10/quantity.js';
-import { Quantity } from 'ch9/ex10/quantity.js';
 import * as z from 'zod';
+
+import { Price } from './price.js';
+import { ProductId } from './productId.js';
+import type { QuantityInput } from './quantity.js';
+import { Quantity } from './quantity.js';
 
 // 1
 const schema = z

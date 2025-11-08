@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import type { Brand } from 'ch6/ex6218/brand.js';
+import type { Brand } from './brand.js';
 
 type Age = number & Brand<'Age'>;
 

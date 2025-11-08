@@ -1,8 +1,9 @@
 import { z } from 'zod';
-import type { OrderItem } from 'zod_blog/ex16/orderItem.js';
-import { OrderQuantity } from 'zod_blog/ex16/orderQuantity.js';
-import type { Price } from 'zod_blog/ex16/product/price.js';
-import { ProductId } from 'zod_blog/ex16/product/productId.js';
+
+import type { OrderItem } from '../ex16/orderItem.js';
+import { OrderQuantity } from '../ex16/orderQuantity.js';
+import type { Price } from '../ex16/product/price.js';
+import { ProductId } from '../ex16/product/productId.js';
 
 // 価格が存在しない
 const schema = z

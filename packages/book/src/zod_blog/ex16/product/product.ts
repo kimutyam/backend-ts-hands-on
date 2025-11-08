@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { Price } from 'zod_blog/ex16/product/price.js';
-import { ProductId } from 'zod_blog/ex16/product/productId.js';
+
+import { Price } from './price.js';
+import { ProductId } from './productId.js';
 
 const schema = z
   .object({

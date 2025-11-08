@@ -1,4 +1,4 @@
-import { splitBill } from 'ch3/ex3222/splitBill.js';
+import { splitBill } from './splitBill.js';
 
 try {
   splitBill(100, 1);

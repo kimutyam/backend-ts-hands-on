@@ -1,4 +1,4 @@
-import type { ApplicationError } from 'ch6/ex6231/applicationError.js';
+import type { ApplicationError } from './applicationError.js';
 
 const kind = 'StockReservation';
 interface StockReservationError extends ApplicationError<typeof kind> {

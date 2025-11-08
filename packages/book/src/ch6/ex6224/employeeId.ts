@@ -1,7 +1,8 @@
 import assert from 'node:assert';
 
-import type { Brand } from 'ch6/ex6224/brand.js';
 import { isValid, ulid } from 'ulidx';
+
+import type { Brand } from './brand.js';
 
 type EmployeeId = string & Brand<'EmployeeId'>;
 

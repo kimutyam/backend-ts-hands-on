@@ -1,9 +1,10 @@
-import { Cart } from 'ch7/ex1/cart.js';
-import { CustomerId } from 'ch7/ex1/customerId.js';
-import { Price } from 'ch7/ex1/price.js';
-import { ProductId } from 'ch7/ex1/productId.js';
-import { Quantity } from 'ch7/ex1/quantity.js';
 import * as R from 'remeda';
+
+import { Cart } from '../cart.js';
+import { CustomerId } from '../customerId.js';
+import { Price } from '../price.js';
+import { ProductId } from '../productId.js';
+import { Quantity } from '../quantity.js';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {

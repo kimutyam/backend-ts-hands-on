@@ -1,4 +1,4 @@
-import type { Employee } from 'ch1/ex1332/types.js';
+import type { Employee } from './types.js';
 
 // { name?: string; age?: number; }
 type PartialEmployee = Partial<Employee>;

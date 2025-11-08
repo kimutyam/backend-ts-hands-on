@@ -1,4 +1,4 @@
-import type { ApplicationError } from 'ch4/common/applicationError.js';
+import type { ApplicationError } from '../common/applicationError.js';
 
 const kind = 'UserNotFound';
 

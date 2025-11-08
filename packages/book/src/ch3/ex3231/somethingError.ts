@@ -1,4 +1,4 @@
-import type { ApplicationError } from 'ch3/ex3231/applicationError.js';
+import type { ApplicationError } from './applicationError.js';
 
 const kind = 'Something';
 

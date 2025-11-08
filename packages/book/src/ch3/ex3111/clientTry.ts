@@ -1,4 +1,4 @@
-import { recursiveFn } from 'ch3/ex3111/recursiveFn.js';
+import { recursiveFn } from './recursiveFn.js';
 
 try {
   recursiveFn();

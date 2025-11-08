@@ -1,7 +1,8 @@
-import { StockReservationError } from 'ch6/ex6231/stockReservationError.js';
-import type { Order, Stocks } from 'ch6/ex6231/types.js';
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
+
+import { StockReservationError } from './stockReservationError.js';
+import type { Order, Stocks } from './types.js';
 
 const reserveStock = (
   order: Order,

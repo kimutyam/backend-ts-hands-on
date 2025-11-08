@@ -1,7 +1,8 @@
-import { reserveStock } from 'ch6/ex6231/reserveStock.js';
-import type { StockReservationError } from 'ch6/ex6231/stockReservationError.js';
-import type { Order, ProductStock } from 'ch6/ex6231/types.js';
 import { ResultAsync } from 'neverthrow';
+
+import { reserveStock } from './reserveStock.js';
+import type { StockReservationError } from './stockReservationError.js';
+import type { Order, ProductStock } from './types.js';
 
 declare function findOrder(orderId: string): Promise<Order>;
 declare function findStocks(

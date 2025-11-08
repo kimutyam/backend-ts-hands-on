@@ -1,6 +1,7 @@
-import { employeeSchema } from 'ch5/ex5201/employeeSchema.js';
 import { assert, expect } from 'vitest';
 import { z } from 'zod';
+
+import { employeeSchema } from '../../ex5201/employeeSchema.js';
 
 describe('parse', () => {
   it('成功', () => {

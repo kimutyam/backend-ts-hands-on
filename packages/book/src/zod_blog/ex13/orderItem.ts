@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import type { OrderQuantityInput } from 'zod_blog/ex13/orderQuantity.js';
-import { OrderQuantity } from 'zod_blog/ex13/orderQuantity.js';
-import { Product } from 'zod_blog/ex13/product/product.js';
+
+import type { OrderQuantityInput } from './orderQuantity.js';
+import { OrderQuantity } from './orderQuantity.js';
+import { Product } from './product/product.js';
 
 const schema = z
   .object({

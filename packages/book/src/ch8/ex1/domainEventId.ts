@@ -1,7 +1,8 @@
 import assert from 'node:assert';
 
-import type { Brand } from 'ch8/ex1/brand.js';
 import { decodeTime, isValid, ulid } from 'ulidx';
+
+import type { Brand } from './brand.js';
 
 type DomainEventId = string & Brand<'DomainEventId'>;
 

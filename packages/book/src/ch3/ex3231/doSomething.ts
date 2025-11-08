@@ -1,5 +1,5 @@
-import type { Result } from 'ch3/ex3231/result.js';
-import type { SomethingError } from 'ch3/ex3231/somethingError.js';
+import type { Result } from './result.js';
+import type { SomethingError } from './somethingError.js';
 
 declare function doSomething(): Result<number, SomethingError>;
 

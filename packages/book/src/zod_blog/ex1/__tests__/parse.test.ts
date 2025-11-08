@@ -1,7 +1,8 @@
 import assert from 'node:assert';
 
 import { z } from 'zod';
-import { orderItemSchema } from 'zod_blog/ex1/schema.js';
+
+import { orderItemSchema } from '../schema.js';
 
 describe('parse', () => {
   it('成功', () => {

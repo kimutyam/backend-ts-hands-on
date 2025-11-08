@@ -1,6 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
-import { buildFromZodDefault } from 'zod_blog/ex16/result.js';
+
+import { buildFromZodDefault } from '../result.js';
 
 const schema = z.number().int().min(100).max(1_000_000).brand('Price');
 

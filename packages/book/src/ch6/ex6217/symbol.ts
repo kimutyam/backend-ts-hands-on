@@ -1,4 +1,4 @@
-import type { Brand } from 'ch6/ex6217/brand.js';
+import type { Brand } from './brand.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SymbolA: unique symbol = Symbol('A');

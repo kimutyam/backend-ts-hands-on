@@ -1,4 +1,4 @@
-import { divide } from 'ch3/ex3121/divide.js';
+import { divide } from './divide.js';
 
 const divided = divide(1, 0);
 

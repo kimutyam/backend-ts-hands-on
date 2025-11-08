@@ -1,12 +1,13 @@
-import type { Cart } from 'ch7/ex1/cart.js';
-import { CartNotFoundError } from 'ch7/ex1/cartNotFoundError.js';
-import type { CustomerId } from 'ch7/ex1/customerId.js';
+import { errAsync, okAsync } from 'neverthrow';
+
+import type { Cart } from '../ex1/cart.js';
+import { CartNotFoundError } from '../ex1/cartNotFoundError.js';
+import type { CustomerId } from '../ex1/customerId.js';
 import type {
   DeleteCartById,
   FindCartById,
   StoreCart,
-} from 'ch7/ex2/cartRepository.js';
-import { errAsync, okAsync } from 'neverthrow';
+} from './cartRepository.js';
 
 const createFindByIdFn =
   (aggregates: Map<CustomerId, Cart>): FindCartById =>

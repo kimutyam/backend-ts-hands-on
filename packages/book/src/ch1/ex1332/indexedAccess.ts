@@ -1,4 +1,4 @@
-import type { Employee } from 'ch1/ex1332/types.js';
+import type { Employee } from './types.js';
 
 type Name = Employee['name']; // 1
 

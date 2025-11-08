@@ -1,5 +1,5 @@
-import type { ApplicationError } from 'ch9/ex50/applicationError.js';
-import type { CartZodError } from 'ch9/ex50/cart.js';
+import type { ApplicationError } from './applicationError.js';
+import type { CartZodError } from './cart.js';
 
 const kind = 'CartRefinementsError';
 

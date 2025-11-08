@@ -1,4 +1,4 @@
-import { isWithin, postpone } from 'ch2/ex8/period.js';
+import { isWithin, postpone } from './period.js';
 
 interface CampaignPeriod {
   readonly campaignId: string;

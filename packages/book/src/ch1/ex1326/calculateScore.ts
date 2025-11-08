@@ -1,4 +1,4 @@
-import type { GameResult } from 'ch1/ex1327/gameResult.js';
+import type { GameResult } from '../ex1327/gameResult.js';
 
 const assertNever = (x: never): never => {
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
