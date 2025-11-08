@@ -1,5 +1,5 @@
 import { Db } from '../../db.js';
 
-const testDb = Db.create(process.env['DATABASE_URL']!);
+const TestDb = Db.create(process.env['DATABASE_URL']!);
 
-export { testDb };
+export { TestDb };

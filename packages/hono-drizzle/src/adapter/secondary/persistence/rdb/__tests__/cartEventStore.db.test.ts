@@ -19,8 +19,7 @@ import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
 import type { Db } from '../db.js';
-import { buildSetup } from './helper/cart.js';
-import { testDb } from './helper/db.js';
+import { TestDb } from './helper/db.js';
 import { buildSelectDomainEvent } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
 
@@ -56,34 +55,31 @@ const buildSelectCartItem =
     );
 
 describe.sequential('CartEventStore', () => {
-  const cartEventStore = CartEventStore.createStoreFn(testDb);
-  const selectCart = buildSelectCart(testDb);
-  const selectCartItem = buildSelectCartItem(testDb);
-  const selectDomainEvent = buildSelectDomainEvent(testDb);
-
-  const customerId1 = CustomerId.generate();
-  const customerId2 = CustomerId.generate();
-  const productId1 = ProductId.generate();
+  const cartEventStore = CartEventStore.createStoreFn(TestDb);
+  const selectCart = buildSelectCart(TestDb);
+  const selectCartItem = buildSelectCartItem(TestDb);
+  const selectDomainEvent = buildSelectDomainEvent(TestDb);
 
   beforeEach(async () => {
-    await truncateTables(testDb);
-    const setup = buildSetup(testDb);
-    await setup(productId1, customerId1, customerId2);
+    await truncateTables(TestDb);
   });
 
   afterAll(async () => {
-    await truncateTables(testDb);
-    await testDb.$client.end();
+    await truncateTables(TestDb);
+    await TestDb.$client.end();
   });
 
   it('カート項目を追加できる (新規追加)', async () => {
+    const customerId = CustomerId.generate();
+    const productId = ProductId.generate();
     const cartItem = {
-      productId: productId1,
+      productId,
       price: Price.parse(1_000),
       quantity: Quantity.parse(5),
     };
+
     const aggregate = Cart.parse({
-      aggregateId: customerId2,
+      aggregateId: customerId,
       sequenceNumber: 6,
       cartItems: [cartItem],
     });
@@ -96,18 +92,18 @@ describe.sequential('CartEventStore', () => {
 
     await cartEventStore(event, aggregate);
 
-    const cartResult = await selectCart(customerId2);
-    const cartItemResult = await selectCartItem(customerId2);
+    const cartResult = await selectCart(customerId);
+    const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
 
     expect(cartResult.rowCount).toBe(1);
     expect(cartResult.rows[0]).toStrictEqual({
-      aggregateId: customerId2,
+      aggregateId: customerId,
       sequenceNumber: 6,
     });
     expect(cartItemResult.rowCount).toBe(1);
     expect(cartItemResult.rows[0]).toStrictEqual({
-      productId: productId1,
+      productId,
       price: 1_000,
       quantity: 5,
     });
@@ -121,13 +117,15 @@ describe.sequential('CartEventStore', () => {
   });
 
   it('カート項目を追加できる (更新)', async () => {
+    const customerId = CustomerId.generate();
+    const productId = ProductId.generate();
     const cartItem = {
-      productId: productId1,
+      productId,
       price: Price.parse(1_010),
       quantity: Quantity.parse(3),
     };
     const aggregate = Cart.parse({
-      aggregateId: customerId1,
+      aggregateId: customerId,
       sequenceNumber: 2,
       cartItems: [cartItem],
     });
@@ -139,18 +137,18 @@ describe.sequential('CartEventStore', () => {
     );
 
     await cartEventStore(event, aggregate);
-    const cartResult = await selectCart(customerId1);
-    const cartItemResult = await selectCartItem(customerId1);
+    const cartResult = await selectCart(customerId);
+    const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
 
     expect(cartResult.rowCount).toBe(1);
     expect(cartResult.rows[0]).toStrictEqual({
-      aggregateId: customerId1,
+      aggregateId: customerId,
       sequenceNumber: 2,
     });
     expect(cartItemResult.rowCount).toBe(1);
     expect(cartItemResult.rows[0]).toStrictEqual({
-      productId: productId1,
+      productId,
       price: 1_010,
       quantity: 3,
     });
@@ -165,8 +163,11 @@ describe.sequential('CartEventStore', () => {
   });
 
   it('カート項目を削除できる', async () => {
+    const customerId = CustomerId.generate();
+    const productId = ProductId.generate();
+
     const aggregate = Cart.parse({
-      aggregateId: customerId1,
+      aggregateId: customerId,
       sequenceNumber: 2,
       cartItems: [],
     });
@@ -174,18 +175,18 @@ describe.sequential('CartEventStore', () => {
     const event: CartItemRemoved = R.pipe(
       aggregate,
       DomainEvent.generate(Cart.aggregateName, CartItemRemoved.eventName, {
-        productId: productId1,
+        productId,
       }),
     );
 
     await cartEventStore(event, aggregate);
-    const cartResult = await selectCart(customerId1);
-    const cartItemResult = await selectCartItem(customerId1);
+    const cartResult = await selectCart(customerId);
+    const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
 
     expect(cartResult.rowCount).toBe(1);
     expect(cartResult.rows[0]).toStrictEqual({
-      aggregateId: customerId1,
+      aggregateId: customerId,
       sequenceNumber: 2,
     });
     expect(cartItemResult.rowCount).toBe(0);
@@ -193,14 +194,15 @@ describe.sequential('CartEventStore', () => {
     expect(eventResult.rows[0]).toEqual({
       sequenceNumber: 2,
       payload: {
-        productId: productId1,
+        productId,
       },
     });
   });
 
   it('カートを空にできる', async () => {
+    const customerId = CustomerId.generate();
     const aggregate = Cart.parse({
-      aggregateId: customerId1,
+      aggregateId: customerId,
       sequenceNumber: 2,
       cartItems: [],
     });
@@ -208,19 +210,19 @@ describe.sequential('CartEventStore', () => {
     const event: CartCleared = R.pipe(
       aggregate,
       DomainEvent.generate(Cart.aggregateName, CartCleared.eventName, {
-        aggregateId: customerId1,
+        aggregateId: customerId,
         reason: 'OnManual',
       }),
     );
 
     await cartEventStore(event, aggregate);
-    const cartResult = await selectCart(customerId1);
-    const cartItemResult = await selectCartItem(customerId1);
+    const cartResult = await selectCart(customerId);
+    const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
 
     expect(cartResult.rowCount).toBe(1);
     expect(cartResult.rows[0]).toStrictEqual({
-      aggregateId: customerId1,
+      aggregateId: customerId,
       sequenceNumber: 2,
     });
     expect(cartItemResult.rowCount).toBe(0);
@@ -229,7 +231,7 @@ describe.sequential('CartEventStore', () => {
     expect(eventResult.rows[0]).toEqual({
       sequenceNumber: 2,
       payload: {
-        aggregateId: customerId1,
+        aggregateId: customerId,
         reason: 'OnManual',
       },
     });
