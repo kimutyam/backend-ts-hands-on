@@ -1,5 +1,5 @@
-import type { Product } from 'ch7/ex1/product.js';
-import type { ProductId } from 'ch7/ex1/productId.js';
+import type { Product } from './product.js';
+import type { ProductId } from './productId.js';
 
 interface IProductRepository {
   findById: (aggregateId: ProductId) => Promise<Product | undefined>;

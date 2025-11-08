@@ -1,7 +1,7 @@
-import type { Aggregate } from 'ch8/ex1/aggregate.js';
-import type { Brand } from 'ch8/ex1/brand.js';
-import type { Price } from 'ch8/ex1/price.js';
-import type { ProductId } from 'ch8/ex1/productId.js';
+import type { Aggregate } from './aggregate.js';
+import type { Brand } from './brand.js';
+import type { Price } from './price.js';
+import type { ProductId } from './productId.js';
 
 const aggregateName = 'Product';
 

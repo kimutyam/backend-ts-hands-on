@@ -1,4 +1,4 @@
-import type { Employee, PartTime } from 'ch1/ex1211/types.js';
+import type { Employee, PartTime } from './types.js';
 
 const modifyName = (employee: Employee, name: string): Employee => ({
   ...employee,

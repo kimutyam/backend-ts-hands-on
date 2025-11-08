@@ -1,5 +1,6 @@
-import { employeeSchema } from 'ch5/ex5401/employeeSchema.js';
 import { assert } from 'vitest';
+
+import { employeeSchema } from '../employeeSchema.js';
 
 describe('safeParse', () => {
   // 1

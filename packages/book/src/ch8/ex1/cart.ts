@@ -1,19 +1,20 @@
 import assert from 'node:assert';
 
-import { Aggregate } from 'ch8/ex1/aggregate.js';
-import type { Brand } from 'ch8/ex1/brand.js';
-import type { CartClearReason } from 'ch8/ex1/cartClearReason.js';
+import * as R from 'remeda';
+
+import { Aggregate } from './aggregate.js';
+import type { Brand } from './brand.js';
+import type { CartClearReason } from './cartClearReason.js';
 import {
   CartCleared,
   CartItemAdded,
   CartItemRemoved,
   CartItemUpdated,
-} from 'ch8/ex1/cartEvent.js';
-import { CartItem } from 'ch8/ex1/cartItem.js';
-import type { CustomerId } from 'ch8/ex1/customerId.js';
-import { DomainEvent } from 'ch8/ex1/domainEvent.js';
-import { ProductId } from 'ch8/ex1/productId.js';
-import * as R from 'remeda';
+} from './cartEvent.js';
+import { CartItem } from './cartItem.js';
+import type { CustomerId } from './customerId.js';
+import { DomainEvent } from './domainEvent.js';
+import { ProductId } from './productId.js';
 
 const aggregateName = 'Cart';
 

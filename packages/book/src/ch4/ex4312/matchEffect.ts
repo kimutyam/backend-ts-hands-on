@@ -1,7 +1,8 @@
-import type { UserNotFoundError } from 'ch4/ex4312/userNotFoundError.js';
 import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import type { Result } from 'neverthrow';
+
+import type { UserNotFoundError } from './userNotFoundError.js';
 
 declare const r: Result<number, UserNotFoundError>;
 

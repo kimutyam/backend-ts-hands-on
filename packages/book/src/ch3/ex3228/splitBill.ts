@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
+import { IndivisibleBillError } from '../ex3225/indivisibleBillError.js';
 
 const splitBill = (bill: number, members: number): number => {
   assert(bill > 0, '勘定は0円以上にしてください');

@@ -1,5 +1,6 @@
-import { Period } from 'ch2/ex55/period.js';
 import * as R from 'remeda';
+
+import { Period } from './period.js';
 
 R.pipe(
   Period.build(new Date(2024, 0, 1, 0, 0, 0), 30),

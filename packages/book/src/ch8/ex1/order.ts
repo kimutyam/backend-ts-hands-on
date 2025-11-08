@@ -1,8 +1,8 @@
-import { Aggregate } from 'ch8/ex1/aggregate.js';
-import type { Brand } from 'ch8/ex1/brand.js';
-import type { CartItem } from 'ch8/ex1/cartItem.js';
-import type { CustomerId } from 'ch8/ex1/customerId.js';
-import type { OrderId } from 'ch8/ex1/orderId.js';
+import { Aggregate } from './aggregate.js';
+import type { Brand } from './brand.js';
+import type { CartItem } from './cartItem.js';
+import type { CustomerId } from './customerId.js';
+import type { OrderId } from './orderId.js';
 
 const aggregateName = 'Order';
 

@@ -1,11 +1,12 @@
-import { Aggregate } from 'ch9/ex50/aggregate.js';
-import { Price } from 'ch9/ex50/price.js';
-import { ProductId } from 'ch9/ex50/productId.js';
-import { ProductRefinementsError } from 'ch9/ex50/productRefinementsError.js';
-import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
+
+import { Aggregate } from './aggregate.js';
+import { Price } from './price.js';
+import { ProductId } from './productId.js';
+import { ProductRefinementsError } from './productRefinementsError.js';
+import { createWithErrorFromZod } from './result.js';
 
 const aggregateName = 'Product';
 

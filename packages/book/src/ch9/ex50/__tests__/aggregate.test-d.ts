@@ -1,11 +1,12 @@
-import { Aggregate } from 'ch9/ex50/aggregate.js';
-import { CartItem } from 'ch9/ex50/cartItem.js';
-import { CustomerId } from 'ch9/ex50/customerId.js';
-import { Price } from 'ch9/ex50/price.js';
-import { ProductId } from 'ch9/ex50/productId.js';
-import { Quantity } from 'ch9/ex50/quantity.js';
 import { expectTypeOf } from 'vitest';
 import { z } from 'zod';
+
+import { Aggregate } from '../aggregate.js';
+import { CartItem } from '../cartItem.js';
+import { CustomerId } from '../customerId.js';
+import { Price } from '../price.js';
+import { ProductId } from '../productId.js';
+import { Quantity } from '../quantity.js';
 
 interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;

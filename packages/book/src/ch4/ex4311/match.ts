@@ -1,5 +1,6 @@
-import type { SomethingError } from 'ch4/common/somethingError.js';
 import type { Result } from 'neverthrow';
+
+import type { SomethingError } from '../common/somethingError.js';
 
 const okF = (n: number): number => n * 2;
 const errF = (e: SomethingError): string => `NaN: ${e.message}`;

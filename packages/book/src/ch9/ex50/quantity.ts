@@ -1,8 +1,9 @@
-import { QuantityRefinementsError } from 'ch9/ex50/quantityRefinementsError.js';
-import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
+
+import { QuantityRefinementsError } from './quantityRefinementsError.js';
+import { createWithErrorFromZod } from './result.js';
 
 const name = 'Quantity';
 

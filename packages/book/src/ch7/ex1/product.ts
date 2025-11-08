@@ -1,4 +1,4 @@
-import type { ProductId } from 'ch7/ex1/productId.js';
+import type { ProductId } from './productId.js';
 
 interface Product {
   readonly aggregateId: ProductId;

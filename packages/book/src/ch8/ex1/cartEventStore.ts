@@ -1,5 +1,5 @@
-import type { Cart } from 'ch8/ex1/cart.js';
-import type { CartEvent } from 'ch8/ex1/cartEvent.js';
+import type { Cart } from './cart.js';
+import type { CartEvent } from './cartEvent.js';
 
 interface CartEventStore<in DE extends CartEvent> {
   (event: DE, aggregate: Cart): Promise<void>;

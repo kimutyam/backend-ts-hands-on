@@ -1,7 +1,8 @@
-import type { MyError, SomethingError } from 'ch3/ex3238/types.js';
-import { calculate, toMyError } from 'ch3/ex3238/types.js';
-import { subRoutingAsync1, subRoutingAsync2 } from 'ch3/ex3238/typesAsync.js';
 import type { ResultAsync } from 'neverthrow';
+
+import type { MyError, SomethingError } from './types.js';
+import { calculate, toMyError } from './types.js';
+import { subRoutingAsync1, subRoutingAsync2 } from './typesAsync.js';
 
 const doSomethingAsync = (): ResultAsync<number, SomethingError | MyError> =>
   subRoutingAsync1()

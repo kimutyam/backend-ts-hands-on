@@ -1,5 +1,6 @@
-import { SomethingError } from 'ch4/common/somethingError.js';
 import { err, ok, Result } from 'neverthrow';
+
+import { SomethingError } from '../common/somethingError.js';
 
 const results: [Result<number, Error>, Result<string, SomethingError>] = [
   ok(1),

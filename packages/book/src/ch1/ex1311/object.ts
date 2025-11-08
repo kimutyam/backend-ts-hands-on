@@ -1,4 +1,4 @@
-import type { Employee, Manager } from 'ch1/ex1221/employee.js';
+import type { Employee, Manager } from '../ex1221/employee.js';
 
 let anyObject: object; // 1
 const employee: Employee = { name: '木村', age: 30 };

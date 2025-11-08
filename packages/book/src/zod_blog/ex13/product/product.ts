@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { Price } from 'zod_blog/ex13/product/price.js';
+
+import { Price } from './price.js';
 
 const schema = z.object({
   id: z.string().uuid(),

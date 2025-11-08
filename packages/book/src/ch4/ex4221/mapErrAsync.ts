@@ -1,5 +1,6 @@
-import type { SomethingError } from 'ch4/common/somethingError.js';
 import type { ResultAsync } from 'neverthrow';
+
+import type { SomethingError } from '../common/somethingError.js';
 
 declare const r: ResultAsync<number, SomethingError>;
 

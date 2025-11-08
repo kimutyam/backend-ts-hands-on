@@ -1,6 +1,6 @@
-import { splitBill } from 'ch3/ex3222/splitBill.js';
-import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
-import { NumberOfMembersError } from 'ch3/ex3225/numberOfMembersError.js';
+import { splitBill } from '../ex3222/splitBill.js';
+import { IndivisibleBillError } from './indivisibleBillError.js';
+import { NumberOfMembersError } from './numberOfMembersError.js';
 
 try {
   splitBill(100, 1);

@@ -1,21 +1,22 @@
-import { Aggregate } from 'ch9/ex50/aggregate.js';
-import type { CartClearReason } from 'ch9/ex50/cartClearReason.js';
+import { ok, Result } from 'neverthrow';
+import * as R from 'remeda';
+import { z } from 'zod';
+
+import { Aggregate } from './aggregate.js';
+import type { CartClearReason } from './cartClearReason.js';
 import {
   CartCleared,
   CartItemAdded,
   CartItemRemoved,
   CartItemUpdated,
-} from 'ch9/ex50/cartEvent.js';
-import { CartItem } from 'ch9/ex50/cartItem.js';
-import { CartRefinementsError } from 'ch9/ex50/cartRefinementsError.js';
-import { CustomerId } from 'ch9/ex50/customerId.js';
-import { DomainEvent } from 'ch9/ex50/domainEvent.js';
-import { ProductId } from 'ch9/ex50/productId.js';
-import type { QuantityRefinementsError } from 'ch9/ex50/quantityRefinementsError.js';
-import { createWithErrorFromZod } from 'ch9/ex50/result.js';
-import { ok, Result } from 'neverthrow';
-import * as R from 'remeda';
-import { z } from 'zod';
+} from './cartEvent.js';
+import { CartItem } from './cartItem.js';
+import { CartRefinementsError } from './cartRefinementsError.js';
+import { CustomerId } from './customerId.js';
+import { DomainEvent } from './domainEvent.js';
+import { ProductId } from './productId.js';
+import type { QuantityRefinementsError } from './quantityRefinementsError.js';
+import { createWithErrorFromZod } from './result.js';
 
 const aggregateName = 'Cart';
 

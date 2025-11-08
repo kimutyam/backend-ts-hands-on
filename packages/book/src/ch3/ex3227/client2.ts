@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { splitBill } from 'ch3/ex3227/splitBill.js';
+import { splitBill } from './splitBill.js';
 
 try {
   splitBill(100, 3);

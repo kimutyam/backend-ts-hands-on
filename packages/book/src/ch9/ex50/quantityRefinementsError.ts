@@ -1,5 +1,5 @@
-import type { ApplicationError } from 'ch9/ex50/applicationError.js';
-import type { QuantityZodError } from 'ch9/ex50/quantity.js';
+import type { ApplicationError } from './applicationError.js';
+import type { QuantityZodError } from './quantity.js';
 
 const kind = 'QuantityRefinementsError';
 

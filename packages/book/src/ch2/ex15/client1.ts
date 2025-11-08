@@ -1,6 +1,7 @@
-import type { Period } from 'ch2/ex15/period.js';
-import { isWithin } from 'ch2/ex15/period.js';
 import * as R from 'remeda';
+
+import type { Period } from './period.js';
+import { isWithin } from './period.js';
 
 const period: Period = {
   start: new Date(2024, 0, 1, 0, 0, 0),

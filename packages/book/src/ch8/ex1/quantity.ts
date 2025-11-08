@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import type { Brand } from 'ch8/ex1/brand.js';
+import type { Brand } from './brand.js';
 
 const name = 'Quantity';
 type Quantity = number & Brand<typeof name>;

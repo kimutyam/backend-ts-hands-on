@@ -1,5 +1,5 @@
-import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
-import { splitBillAsync } from 'ch3/ex3229/splitBillAsync.js';
+import { IndivisibleBillError } from '../ex3225/indivisibleBillError.js';
+import { splitBillAsync } from '../ex3229/splitBillAsync.js';
 
 const splitBillFloorAsync = (bill: number, members: number): Promise<number> =>
   splitBillAsync(bill, members).catch((reason: unknown) => {

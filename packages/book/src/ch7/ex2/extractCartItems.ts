@@ -1,6 +1,6 @@
-import type { CartItem } from 'ch7/ex1/cartItem.js';
-import type { CustomerId } from 'ch7/ex1/customerId.js';
-import type { FindCartById } from 'ch7/ex2/cartRepository.js';
+import type { CartItem } from '../ex1/cartItem.js';
+import type { CustomerId } from '../ex1/customerId.js';
+import type { FindCartById } from './cartRepository.js';
 
 type ExtractCartItems = (
   customerId: CustomerId,

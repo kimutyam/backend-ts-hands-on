@@ -1,5 +1,5 @@
-import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
-import { splitBill } from 'ch3/ex3228/splitBill.js';
+import { IndivisibleBillError } from '../ex3225/indivisibleBillError.js';
+import { splitBill } from './splitBill.js';
 
 try {
   splitBill(100, 3);

@@ -1,9 +1,10 @@
 import assert from 'node:assert';
 
 import * as R from 'remeda';
-import type { OrderItem } from 'zod_blog/ex16/orderItem.js';
-import { Price } from 'zod_blog/ex16/product/price.js';
-import { OrderQuantityDto } from 'zod_blog/ex21/dto.js';
+
+import type { OrderItem } from '../../ex16/orderItem.js';
+import { Price } from '../../ex16/product/price.js';
+import { OrderQuantityDto } from '../dto.js';
 
 it('構造の異なる入力値から注文項目を組み立てる', () => {
   const data: unknown = {

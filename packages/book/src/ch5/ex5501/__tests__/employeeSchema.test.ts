@@ -1,5 +1,6 @@
-import { employeeSchema } from 'ch5/ex5501/employeeSchema.js';
 import { assert, expect } from 'vitest';
+
+import { employeeSchema } from '../employeeSchema.js';
 
 describe('safeParse', () => {
   it('名前と年齢のバリデーションエラー', () => {

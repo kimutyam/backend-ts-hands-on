@@ -1,4 +1,4 @@
-import type { Employee, Manager } from 'ch1/ex1332/types.js';
+import type { Employee, Manager } from './types.js';
 
 type IsEmployeeSubType<T> = T extends Employee ? 'yes' : 'no';
 

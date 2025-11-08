@@ -1,8 +1,9 @@
-import type { ApplicationError } from 'ch9/ex50/applicationError.js';
-import { createWithErrorFromZod } from 'ch9/ex50/result.js';
 import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
+
+import type { ApplicationError } from './applicationError.js';
+import { createWithErrorFromZod } from './result.js';
 
 const name = 'Price';
 

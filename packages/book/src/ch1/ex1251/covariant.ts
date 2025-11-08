@@ -1,4 +1,4 @@
-import type { Employee, Manager } from 'ch1/ex1251/types.js';
+import type { Employee, Manager } from './types.js';
 
 const employee: Employee = { name: '木村', age: 30 };
 const manager: Manager = {

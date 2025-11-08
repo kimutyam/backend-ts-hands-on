@@ -1,6 +1,6 @@
-import type { Price } from 'ch7/ex1/price.js';
-import type { ProductId } from 'ch7/ex1/productId.js';
-import { Quantity } from 'ch7/ex1/quantity.js';
+import type { Price } from './price.js';
+import type { ProductId } from './productId.js';
+import { Quantity } from './quantity.js';
 
 interface CartItem {
   readonly productId: ProductId;

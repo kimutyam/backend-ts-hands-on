@@ -1,8 +1,9 @@
-import { Aggregate } from 'ch9/ex50/aggregate.js';
-import { CartItem } from 'ch9/ex50/cartItem.js';
-import { CustomerId } from 'ch9/ex50/customerId.js';
-import { OrderId } from 'ch9/ex50/orderId.js';
 import { z } from 'zod';
+
+import { Aggregate } from './aggregate.js';
+import { CartItem } from './cartItem.js';
+import { CustomerId } from './customerId.js';
+import { OrderId } from './orderId.js';
 
 const aggregateName = 'Order';
 

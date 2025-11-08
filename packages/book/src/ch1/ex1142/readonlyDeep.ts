@@ -1,4 +1,4 @@
-import type { Employee } from 'ch1/ex1142/employee.js';
+import type { Employee } from './employee.js';
 
 type ReadonlyDeep<T> = {
   readonly [K in keyof T]: ReadonlyDeep<T[K]>;

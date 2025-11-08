@@ -1,11 +1,12 @@
 import assert from 'node:assert';
 
-import type { Aggregate } from 'ch7/ex1/aggregate.js';
-import type { Brand } from 'ch7/ex1/brand.js';
-import { CartItem } from 'ch7/ex1/cartItem.js';
-import type { CustomerId } from 'ch7/ex1/customerId.js';
-import { ProductId } from 'ch7/ex1/productId.js';
 import * as R from 'remeda';
+
+import type { Aggregate } from './aggregate.js';
+import type { Brand } from './brand.js';
+import { CartItem } from './cartItem.js';
+import type { CustomerId } from './customerId.js';
+import { ProductId } from './productId.js';
 
 interface CartNotBranded extends Aggregate<CustomerId> {
   readonly cartItems: ReadonlyArray<CartItem>;

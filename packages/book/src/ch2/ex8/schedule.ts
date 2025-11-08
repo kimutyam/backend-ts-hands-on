@@ -1,5 +1,5 @@
-import { isWithin } from 'ch2/ex8/period.js';
-import type { Period } from 'ch2/ex15/period.js';
+import type { Period } from '../ex15/period.js';
+import { isWithin } from './period.js';
 
 interface Schedule {
   readonly entryPeriod: Period;

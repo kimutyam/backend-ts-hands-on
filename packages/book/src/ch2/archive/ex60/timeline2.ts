@@ -1,5 +1,6 @@
-import { Period } from 'ch2/ex55/period.js';
 import * as R from 'remeda';
+
+import { Period } from '../../ex55/period.js';
 
 interface Timeline {
   readonly entryPeriod: Period;

@@ -1,4 +1,4 @@
-import { Period } from 'ch2/ex1/period.js';
+import { Period } from '../ex1/period.js';
 
 class CampaignPeriod {
   private readonly period: Period;

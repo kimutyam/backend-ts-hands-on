@@ -1,4 +1,4 @@
-import { isWithin } from 'ch2/ex8/period.js';
+import { isWithin } from '../period.js';
 
 it('a', () => {
   const period = {

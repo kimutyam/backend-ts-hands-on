@@ -1,4 +1,4 @@
-import type { Rational } from 'ch2/archive/ex2222/rational.js';
+import type { Rational } from './rational.js';
 
 type PublicProperties<T> = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type

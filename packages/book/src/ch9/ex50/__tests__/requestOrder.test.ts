@@ -1,13 +1,14 @@
-import { Aggregate } from 'ch9/ex50/aggregate.js';
-import { Cart } from 'ch9/ex50/cart.js';
-import { CustomerId } from 'ch9/ex50/customerId.js';
-import { OrderId } from 'ch9/ex50/orderId.js';
-import { Price } from 'ch9/ex50/price.js';
-import { Product } from 'ch9/ex50/product.js';
-import { ProductId } from 'ch9/ex50/productId.js';
-import { Quantity } from 'ch9/ex50/quantity.js';
-import { requestOrder } from 'ch9/ex50/requestOrder.js';
 import { describe, expect } from 'vitest';
+
+import { Aggregate } from '../aggregate.js';
+import { Cart } from '../cart.js';
+import { CustomerId } from '../customerId.js';
+import { OrderId } from '../orderId.js';
+import { Price } from '../price.js';
+import { Product } from '../product.js';
+import { ProductId } from '../productId.js';
+import { Quantity } from '../quantity.js';
+import { requestOrder } from '../requestOrder.js';
 
 describe('requestOrder', () => {
   it('should place an order', () => {

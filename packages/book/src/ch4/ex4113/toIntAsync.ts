@@ -1,4 +1,4 @@
-import { toInt } from 'ch4/ex4112/toInt.js';
+import { toInt } from '../ex4112/toInt.js';
 
 const toIntAsync = (s: string): Promise<number> =>
   new Promise((resolve, reject) => {

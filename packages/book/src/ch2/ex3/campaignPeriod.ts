@@ -1,4 +1,4 @@
-import type { Period } from 'ch2/ex3/period.js';
+import type { Period } from './period.js';
 
 class CampaignPeriod {
   constructor(

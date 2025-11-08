@@ -1,11 +1,11 @@
 import assert from 'node:assert';
 
-import { Cart } from 'ch7/ex1/cart.js';
-import { CartItem } from 'ch7/ex1/cartItem.js';
-import { CustomerId } from 'ch7/ex1/customerId.js';
-import { Price } from 'ch7/ex1/price.js';
-import { ProductId } from 'ch7/ex1/productId.js';
-import { CartRepository } from 'ch7/ex2/cartRepositoryOnMemory.js';
+import { Cart } from '../../ex1/cart.js';
+import { CartItem } from '../../ex1/cartItem.js';
+import { CustomerId } from '../../ex1/customerId.js';
+import { Price } from '../../ex1/price.js';
+import { ProductId } from '../../ex1/productId.js';
+import { CartRepository } from '../cartRepositoryOnMemory.js';
 
 const createCart = (customerId: CustomerId): Cart =>
   Cart.create(customerId, [

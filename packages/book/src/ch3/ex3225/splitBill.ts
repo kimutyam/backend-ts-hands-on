@@ -1,5 +1,5 @@
-import { IndivisibleBillError } from 'ch3/ex3225/indivisibleBillError.js';
-import { NumberOfMembersError } from 'ch3/ex3225/numberOfMembersError.js';
+import { IndivisibleBillError } from './indivisibleBillError.js';
+import { NumberOfMembersError } from './numberOfMembersError.js';
 
 const splitBill = (bill: number, members: number): number => {
   if (members < 2) {

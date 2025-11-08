@@ -1,4 +1,4 @@
-import type { GameResult } from 'ch1/ex1327/gameResult.js';
+import type { GameResult } from '../ex1327/gameResult.js';
 
 const calculateScore = (result: GameResult): number => {
   switch (result.tag) {

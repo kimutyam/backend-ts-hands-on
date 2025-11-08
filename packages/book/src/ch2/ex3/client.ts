@@ -1,5 +1,5 @@
-import { CampaignPeriod } from 'ch2/ex3/campaignPeriod.js';
-import { Period } from 'ch2/ex3/period.js';
+import { CampaignPeriod } from './campaignPeriod.js';
+import { Period } from './period.js';
 
 const originalPeriod = Period.build(new Date(2024, 6, 1), 30); // 7月1日〜31日
 

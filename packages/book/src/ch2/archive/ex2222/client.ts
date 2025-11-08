@@ -1,4 +1,4 @@
-import { Rational } from 'ch2/archive/ex2222/rational.js';
+import { Rational } from './rational.js';
 
 const rational: Rational = new Rational(5, 6);
 

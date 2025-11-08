@@ -1,5 +1,5 @@
-import type { ApplicationError } from 'ch7/ex1/applicationError.js';
-import type { CustomerId } from 'ch7/ex1/customerId.js';
+import type { ApplicationError } from './applicationError.js';
+import type { CustomerId } from './customerId.js';
 
 const kind = 'CartNotFound';
 

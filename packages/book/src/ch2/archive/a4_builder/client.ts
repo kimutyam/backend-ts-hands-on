@@ -1,4 +1,4 @@
-import { Period } from 'ch2/archive/a4_builder/period.js';
+import { Period } from './period.js';
 
 const period = Period(
   new Date(2024, 0, 1, 0, 0, 0),
