@@ -5,6 +5,7 @@ export default defineConfig({
   schema:
     './dist-drizzle-kit/adapter/secondary/persistence/rdb/schema/*.sql.js',
   out: './drizzle',
+  casing: 'snake_case',
   dbCredentials: {
     url: process.env['DATABASE_URL']!,
   },

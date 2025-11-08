@@ -21,9 +21,9 @@
     "start:local": "node --env-file=.env.local dist/entryPoint/primary/management/web/main.js",
     "test": "vitest --typecheck",
     "test:cov": "vitest --coverage",
-    "test:db": "dotenv -e .env.test -- vitest --no-file-parallelism",
-    "test:db:migrate": "yarn build:drizzle-kit && dotenv -e .env.test -- drizzle-kit migrate",
-    "test:db:push": "yarn build:drizzle-kit && dotenv -e .env.test -- drizzle-kit push"
+    "test:db": "dotenv -e .env.test.db -- vitest --no-file-parallelism",
+    "test:db:migrate": "yarn build:drizzle-kit && dotenv -e .env.test.db -- drizzle-kit migrate",
+    "test:db:push": "yarn build:drizzle-kit && dotenv -e .env.test.db -- drizzle-kit push"
   },
   "dependencies": {
     "@hono/node-server": "1.19.6",

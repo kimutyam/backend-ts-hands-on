@@ -8,18 +8,16 @@ import { timestamps } from './columns.helpers.js';
 const cartItemTable = pgTable(
   'cart_item',
   {
-    customerId: varchar('customer_id', { length: 26 })
+    customerId: varchar({ length: 26 })
       .$type<Cart['aggregateId']>()
       .notNull()
       .references(() => cartTable.customerId, {
         onDelete: 'restrict',
         onUpdate: 'restrict',
       }),
-    productId: varchar('product_id', { length: 26 })
-      .$type<CartItem['productId']>()
-      .notNull(),
-    price: integer('price').$type<CartItem['price']>().notNull(),
-    quantity: integer('quantity').$type<CartItem['quantity']>().notNull(),
+    productId: varchar({ length: 26 }).$type<CartItem['productId']>().notNull(),
+    price: integer().$type<CartItem['price']>().notNull(),
+    quantity: integer().$type<CartItem['quantity']>().notNull(),
     ...timestamps,
   },
   (t) => [primaryKey({ columns: [t.customerId, t.productId] })],
