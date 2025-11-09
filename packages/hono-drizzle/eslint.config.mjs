@@ -2,7 +2,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import baseConfig from '../../eslint.config.mjs';
 import stylisticJs from '@stylistic/eslint-plugin-js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
-import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import tsParser from '@typescript-eslint/parser';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import neverthrow from 'eslint-plugin-neverthrow';
