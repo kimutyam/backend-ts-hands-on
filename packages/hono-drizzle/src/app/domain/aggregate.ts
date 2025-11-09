@@ -28,10 +28,11 @@ const makeSchema = <
 const makeBrandedSchema = <
   AggregateIdSchema extends z.ZodType,
   PropsSchema extends z.ZodObject<z.ZodRawShape>,
+  BrandName extends string,
 >(
   aggregateIdSchema: AggregateIdSchema,
   propsSchema: PropsSchema,
-  brandName: string,
+  brandName: BrandName,
 ) => makeSchema(aggregateIdSchema, propsSchema).brand(brandName);
 
 const Aggregate = {
