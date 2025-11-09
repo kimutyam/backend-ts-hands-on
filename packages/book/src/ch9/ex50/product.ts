@@ -6,7 +6,7 @@ import { Aggregate } from './aggregate.js';
 import { Price } from './price.js';
 import { ProductId } from './productId.js';
 import { ProductRefinementsError } from './productRefinementsError.js';
-import { createWithErrorFromZod } from './result.js';
+import { createFromZod } from './result.js';
 
 const aggregateName = 'Product';
 
@@ -28,7 +28,7 @@ const parse = (value: Input): Product => schema.parse(value);
 const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
   R.pipe(
     schema.safeParse(value),
-    createWithErrorFromZod(ProductRefinementsError.create),
+    createFromZod(ProductRefinementsError.create),
   );
 
 const Product = {
