@@ -22,7 +22,7 @@ const parse = (input: CartItemInput): CartItem => schema.parse(input);
 const createSingleQuantity = (productId: ProductId, price: Price): CartItem =>
   parse({
     productId,
-    quantity: Quantity.parse(1),
+    quantity: 1,
     price,
   });
 

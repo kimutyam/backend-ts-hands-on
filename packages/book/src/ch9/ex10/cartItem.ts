@@ -20,10 +20,10 @@ type CartItemInput = z.input<typeof schema>;
 const parse = (input: CartItemInput): CartItem => schema.parse(input);
 
 const createSingleQuantity = (productId: ProductId, price: Price): CartItem =>
+  // 2
   parse({
     productId,
-    // 2
-    quantity: Quantity.parse(1),
+    quantity: 1,
     price,
   });
 
