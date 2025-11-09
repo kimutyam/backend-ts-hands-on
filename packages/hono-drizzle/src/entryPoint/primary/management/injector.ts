@@ -1,17 +1,13 @@
 import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
-import { GetUserAccount } from '../../../app/port/primary/management/getUserAccount.js';
 import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
-import { GetUserAccountUseCase } from '../../../app/useCase/getUserAccount.js';
 import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js';
 import { PersistencePortInjector } from '../../secondary/persistence/injectorForManagement.js';
 import type { AppEnv } from '../env.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
-  injector
-    .provideFactory(GetUserAccount.token, GetUserAccountUseCase.create)
-    .provideFactory(RegisterProduct.token, RegisterProductUseCase.create);
+  injector.provideFactory(RegisterProduct.token, RegisterProductUseCase.create);
 
 const create = (env: AppEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();

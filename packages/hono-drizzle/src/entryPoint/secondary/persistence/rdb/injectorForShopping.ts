@@ -5,11 +5,9 @@ import { CartRepository } from '../../../../adapter/secondary/persistence/rdb/ca
 import { DatabaseUrl } from '../../../../adapter/secondary/persistence/rdb/databaseUrl.js';
 import { Db } from '../../../../adapter/secondary/persistence/rdb/db.js';
 import { ProductRepository } from '../../../../adapter/secondary/persistence/rdb/productRepository.js';
-import { UserAccountRepository } from '../../../../adapter/secondary/persistence/rdb/userAccountRepository.js';
 import { StoreCartEvent } from '../../../../app/port/secondary/persistence/cartEventStore.js';
 import { FindCartById } from '../../../../app/port/secondary/persistence/cartRepository.js';
 import { FindProductById } from '../../../../app/port/secondary/persistence/productRepository.js';
-import { FindUserAccountById } from '../../../../app/port/secondary/persistence/userAccountRepository.js';
 import type { PersistencePortInjector } from '../injectorForShopping.js';
 
 const create = (
@@ -19,10 +17,6 @@ const create = (
   rootInjector
     .provideValue(DatabaseUrl.token, databaseUrl)
     .provideFactory(Db.token, Db.create)
-    .provideFactory(
-      FindUserAccountById.token,
-      UserAccountRepository.createFindByIdFn,
-    )
     .provideFactory(FindCartById.token, CartRepository.createFindByIdFn)
     .provideFactory(StoreCartEvent.token, CartEventStore.createStoreFn)
     .provideFactory(FindProductById.token, ProductRepository.createFindByIdFn);
