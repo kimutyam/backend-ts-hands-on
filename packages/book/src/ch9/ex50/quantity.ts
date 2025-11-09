@@ -3,7 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import { QuantityRefinementsError } from './quantityRefinementsError.js';
-import { createWithErrorFromZod } from './result.js';
+import { createFromZod } from './result.js';
 
 const name = 'Quantity';
 
@@ -19,7 +19,7 @@ const safeParse = (
 ): Result<Quantity, QuantityRefinementsError> =>
   R.pipe(
     schema.safeParse(value),
-    createWithErrorFromZod(QuantityRefinementsError.create),
+    createFromZod(QuantityRefinementsError.create),
   );
 
 const Quantity = {

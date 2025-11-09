@@ -3,7 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import type { ApplicationError } from './applicationError.js';
-import { createWithErrorFromZod } from './result.js';
+import { createFromZod } from './result.js';
 
 const name = 'Price';
 
@@ -32,7 +32,7 @@ const PriceRefinementsError = {
 
 const parse = (value: PriceInput): Price => schema.parse(value);
 const safeParse = (value: PriceInput): Result<Price, PriceRefinementsError> =>
-  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
+  R.pipe(schema.safeParse(value), createFromZod(createError));
 
 const Price = {
   name,

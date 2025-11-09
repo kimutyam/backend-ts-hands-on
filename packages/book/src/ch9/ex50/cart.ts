@@ -16,7 +16,7 @@ import { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
 import type { QuantityRefinementsError } from './quantityRefinementsError.js';
-import { createWithErrorFromZod } from './result.js';
+import { createFromZod } from './result.js';
 
 const aggregateName = 'Cart';
 
@@ -89,7 +89,7 @@ const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
-    createWithErrorFromZod(CartRefinementsError.create),
+    createFromZod(CartRefinementsError.create),
   );
 
 const init = (aggregateId: CustomerId): Cart =>
