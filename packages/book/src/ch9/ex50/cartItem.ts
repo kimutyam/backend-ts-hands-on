@@ -15,24 +15,27 @@ const schema = z
   .readonly();
 
 type CartItem = z.infer<typeof schema>;
+type CartItemInput = z.input<typeof schema>;
 
-const createSingleQuantity = (
-  productId: ProductId,
-  price: Price,
-): CartItem => ({
-  productId,
-  quantity: Quantity.parse(1),
-  price,
-});
+const parse = (input: CartItemInput): CartItem => schema.parse(input);
+
+const createSingleQuantity = (productId: ProductId, price: Price): CartItem =>
+  parse({
+    productId,
+    quantity: Quantity.parse(1),
+    price,
+  });
 
 const add =
   (quantity: Quantity, price: Price) =>
   (item: CartItem): Result<CartItem, QuantityRefinementsError> =>
-    Quantity.safeParse(item.quantity + quantity).map((newQuantity) => ({
-      ...item,
-      quantity: newQuantity,
-      price,
-    }));
+    Quantity.safeParse(item.quantity + quantity).map((newQuantity) =>
+      parse({
+        ...item,
+        quantity: newQuantity,
+        price,
+      }),
+    );
 
 const calculateTotal = (item: CartItem): number => {
   const { price, quantity } = item;
@@ -44,6 +47,7 @@ const identify = (x: CartItem, y: CartItem): boolean =>
 
 const CartItem = {
   schema,
+  parse,
   add,
   calculateTotal,
   createSingleQuantity,
