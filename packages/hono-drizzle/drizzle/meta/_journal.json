@@ -28,6 +28,13 @@
       "tag": "0003_alter_foreign_key",
       "version": "7",
       "when": 1762600686067
+    },
+    {
+      "breakpoints": true,
+      "idx": 4,
+      "tag": "0004_drop_customer",
+      "version": "7",
+      "when": 1762675303844
     }
   ],
   "version": "7"
