@@ -1,3 +1,5 @@
+import { okAsync } from 'neverthrow';
+
 import { Cart } from '../domain/cart/cart.js';
 import type {
   CartItemAdded,
@@ -22,9 +24,9 @@ const create =
         price: product.price,
       }))
       .andThen((item) =>
-        findCartById(customerId).andThen((existingCart) =>
-          Cart.addCartItem(item)(existingCart),
-        ),
+        findCartById(customerId)
+          .orElse(() => okAsync(Cart.init(customerId)))
+          .andThen((cart) => Cart.addCartItem(item)(cart)),
       )
       .map(async ([cart, cartEvent]) => {
         await storeCartEvent(cartEvent, cart);

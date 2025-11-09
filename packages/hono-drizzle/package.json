@@ -18,7 +18,8 @@
     "db:generate": "yarn build:drizzle-kit && drizzle-kit generate",
     "db:migrate": "yarn build:drizzle-kit && dotenv -e .env.local -- drizzle-kit migrate",
     "db:push": "yarn build:drizzle-kit && dotenv -e .env.local -- drizzle-kit push",
-    "start:local": "node --env-file=.env.local dist/entryPoint/primary/management/web/main.js",
+    "start:managenet:local": "node --env-file=.env.local dist/entryPoint/primary/management/web/main.js",
+    "start:shopping:local": "node --env-file=.env.local dist/entryPoint/primary/shopping/web/main.js",
     "test": "vitest --typecheck",
     "test:cov": "vitest --coverage",
     "test:db": "dotenv -e .env.test.db -- vitest --no-file-parallelism",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "@hono/node-server": "1.19.6",
+    "@hono/zod-validator": "^0.7.4",
     "date-fns": "4.1.0",
     "dotenv": "17.2.3",
     "drizzle-orm": "0.44.7",
