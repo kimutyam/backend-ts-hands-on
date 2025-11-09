@@ -35,7 +35,7 @@ jobs:
       NODE_VERSION_FILE: '.node-version'
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
           cache: yarn
