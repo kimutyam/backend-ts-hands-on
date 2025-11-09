@@ -6,10 +6,8 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 
-import type { DomainEventId } from '../../../../../app/domain/domainEventId.js';
-
 const domainEventTable = pgTable('domain_event', {
-  eventId: varchar({ length: 26 }).$type<DomainEventId>().primaryKey(),
+  eventId: varchar({ length: 26 }).primaryKey(),
   occurredAt: timestamp({ withTimezone: true }).notNull(),
   sequenceNumber: integer().notNull(),
   eventName: varchar({ length: 50 }).notNull(),

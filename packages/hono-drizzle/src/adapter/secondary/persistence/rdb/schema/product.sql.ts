@@ -6,9 +6,7 @@ import { timestamps } from './columns.helpers.js';
 const productTable = pgTable(
   'product',
   {
-    productId: varchar({ length: 26 })
-      .$type<Product['aggregateId']>()
-      .primaryKey(),
+    productId: varchar({ length: 26 }).primaryKey(),
     sequenceNumber: integer().notNull(),
     name: varchar({ length: 100 }).notNull(),
     price: integer().$type<Product['price']>().notNull(),

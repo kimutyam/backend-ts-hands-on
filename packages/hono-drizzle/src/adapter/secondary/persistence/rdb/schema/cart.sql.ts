@@ -1,10 +1,9 @@
 import { integer, pgTable, varchar } from 'drizzle-orm/pg-core';
 
-import type { Cart } from '../../../../../app/domain/cart/cart.js';
 import { timestamps } from './columns.helpers.js';
 
 const cartTable = pgTable('cart', {
-  customerId: varchar({ length: 26 }).$type<Cart['aggregateId']>().primaryKey(),
+  customerId: varchar({ length: 26 }).primaryKey(),
   sequenceNumber: integer().notNull(),
   ...timestamps,
 });

@@ -3,7 +3,7 @@ import type { Result } from 'neverthrow';
 import { err, ok, ResultAsync } from 'neverthrow';
 
 import { Cart } from '../../../../app/domain/cart/cart.js';
-import type { CartItem } from '../../../../app/domain/cart/cartItem.js';
+import { CartItem } from '../../../../app/domain/cart/cartItem.js';
 import { CartNotFoundError } from '../../../../app/domain/cart/cartNotFoundError.js';
 import type { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import type { FindCartById } from '../../../../app/port/secondary/persistence/cartRepository.js';
@@ -19,6 +19,11 @@ interface Select {
   cart_item: CartItemSelect | null;
 }
 
+const toCartItem = (select: CartItemSelect): CartItem => {
+  const { productId, price, quantity } = select;
+  return CartItem.parse({ productId, price, quantity });
+};
+
 const toCart =
   (aggregateId: CustomerId) =>
   (selects: ReadonlyArray<Select>): Result<Cart, CartNotFoundError> => {
@@ -32,8 +37,7 @@ const toCart =
       if (cart_item === null) {
         return acc;
       }
-      const { productId, price, quantity } = cart_item;
-      return [...acc, { productId, price, quantity }];
+      return [...acc, toCartItem(cart_item)];
     }, []);
 
     return ok(
