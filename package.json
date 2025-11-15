@@ -10,7 +10,6 @@
       "packages/fp",
       "packages/fp-zod",
       "packages/pure",
-      "packages/conference-service",
       "packages/nest-sample",
       "packages/hono-drizzle"
     ],
@@ -45,13 +44,11 @@
     "lint:fp": "yarn workspace fp lint:fix",
     "lint:fp-zod": "yarn workspace fp-zod lint:fix",
     "lint:pure": "yarn workspace pure lint:fix",
-    "lint:conference-service": "yarn workspace conference-service lint:fix",
     "format": "run-p -c format:*",
     "format:example": "yarn workspace example format",
     "format:fp": "yarn workspace fp format",
     "format:fp-zod": "yarn workspace fp-zod format",
     "format:pure": "yarn workspace pure format",
-    "format:conference-service": "yarn workspace conference-service format",
     "test": "run-p -c test:*",
     "test:example": "yarn workspace example test"
   }
