@@ -2,15 +2,18 @@ import { z } from 'zod';
 
 const nameSchema = z
   .string({
+    // 1
     error: (issue) =>
       issue.input === undefined
         ? '名前は必須です'
         : '名前は文字列で指定してください',
   })
   .min(1, {
+    // 2
     error: (issue) => `名前は${issue.minimum.toString()}文字以上で指定ください`,
   })
   .max(10, {
+    // 3
     error: (issue) => `名前は${issue.maximum.toString()}文字以内で指定ください`,
   });
 
@@ -23,7 +26,6 @@ const employeeSchema = z.object({
           ? '年齢は必須です'
           : '年齢は数値で指定してください',
     })
-    // // 3
     .min(10, {
       error: (issue) =>
         `年齢は${issue.minimum.toString()}以上で指定してください`,
