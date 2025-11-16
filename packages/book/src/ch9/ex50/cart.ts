@@ -24,7 +24,7 @@ const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
-  }).shape,
+  }),
   aggregateName,
 );
 

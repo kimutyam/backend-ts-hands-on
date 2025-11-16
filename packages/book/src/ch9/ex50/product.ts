@@ -15,7 +15,7 @@ const schema = Aggregate.makeBrandedSchema(
   z.object({
     name: z.string(),
     price: Price.schema,
-  }).shape,
+  }),
   aggregateName,
 );
 

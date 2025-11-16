@@ -12,7 +12,7 @@ const schema = Aggregate.makeBrandedSchema(
   z.object({
     customerId: CustomerId.schema,
     items: z.array(CartItem.schema).readonly(),
-  }).shape,
+  }),
   aggregateName,
 );
 

@@ -15,14 +15,14 @@ const makeSchema = <
   PropsShape extends z.ZodRawShape,
 >(
   aggregateIdSchema: AggregateIdSchema,
-  propsShape: PropsShape,
+  propsSchema: z.ZodObject<PropsShape>,
 ) =>
   z
     .object({
       aggregateId: aggregateIdSchema,
       sequenceNumber: z.number().int().min(InitialSequenceNumber),
     })
-    .extend(propsShape)
+    .extend(propsSchema.shape)
     .readonly();
 
 const makeBrandedSchema = <
@@ -31,9 +31,9 @@ const makeBrandedSchema = <
   BrandName extends string,
 >(
   aggregateIdSchema: AggregateIdSchema,
-  propsShape: PropsShape,
+  propsSchema: z.ZodObject<PropsShape>,
   brandName: BrandName,
-) => makeSchema(aggregateIdSchema, propsShape).brand(brandName);
+) => makeSchema(aggregateIdSchema, propsSchema).brand(brandName);
 
 const Aggregate = {
   InitialSequenceNumber,

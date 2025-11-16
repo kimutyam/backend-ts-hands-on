@@ -17,7 +17,7 @@ it('集約のスキーマを生成できる', () => {
     CustomerId.schema,
     z.object({
       cartItems: z.array(CartItem.schema).readonly(),
-    }).shape,
+    }),
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const cart = schema.parse({
