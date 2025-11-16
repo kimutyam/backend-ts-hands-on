@@ -11,7 +11,7 @@ const schema = z.number().int().min(1).max(10).brand('Quantity');
 
 type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
-type QuantityZodError = z.ZodError<QuantityInput>;
+type QuantityZodError = z.ZodError<Quantity>;
 
 const parse = (value: QuantityInput): Quantity => schema.parse(value);
 const safeParse = (

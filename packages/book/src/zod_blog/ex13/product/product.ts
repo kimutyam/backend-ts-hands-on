@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Price } from './price.js';
 
 const schema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   price: Price.schema,
 });
 

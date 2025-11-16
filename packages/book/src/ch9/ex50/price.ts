@@ -14,7 +14,7 @@ type PriceInput = z.input<typeof schema>;
 
 const errorKind = 'QuantityRefinementsError';
 
-type PriceZodError = z.ZodError<PriceInput>;
+type PriceZodError = z.ZodError<Price>;
 interface PriceRefinementsError extends ApplicationError<typeof errorKind> {
   error: PriceZodError;
 }

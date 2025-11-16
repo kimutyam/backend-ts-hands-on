@@ -30,10 +30,10 @@ describe('safeParse', () => {
     expect(result.error.issues).toStrictEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          message: '名前は文字列で指定してください',
+          message: '名前は必須です',
         }),
         expect.objectContaining({
-          message: '年齢は数値で指定してください',
+          message: '年齢は必須です',
         }),
       ]),
     );

@@ -7,47 +7,47 @@ describe('safeParse', () => {
   it.each([
     {
       name: '',
-      expected: 'String must contain at least 1 character(s)',
+      expectedCode: 'too_small',
     },
     {
       name: 'ABCDEFGHIJK', // 11 characters
-      expected: 'String must contain at most 10 character(s)',
+      expectedCode: 'too_big',
     },
-  ])(`name=$nameの場合、バリデーションエラー`, ({ name, expected }) => {
+  ])(`name=$nameの場合、バリデーションエラー`, ({ name, expectedCode }) => {
     const result = employeeSchema.safeParse({
       name,
       age: 30,
     });
     assert(!result.success);
-    expect(result.error.format()).toStrictEqual({
-      _errors: [],
-      name: {
-        _errors: expect.arrayContaining([expected]),
-      },
-    });
+    expect(result.error.issues).toStrictEqual([
+      expect.objectContaining({
+        code: expectedCode,
+        path: ['name'],
+      }),
+    ]);
   });
 
   // 2
   it.each([
     {
       age: 10.4,
-      expected: 'Expected integer, received float',
+      expectedCode: 'invalid_type',
     },
     {
       age: 61,
-      expected: 'Number must be less than or equal to 60',
+      expectedCode: 'too_big',
     },
-  ])(`age=$ageの場合、バリデーションエラー`, ({ age, expected }) => {
+  ])(`age=$ageの場合、バリデーションエラー`, ({ age, expectedCode }) => {
     const result = employeeSchema.safeParse({
       name: '木村',
       age,
     });
     assert(!result.success);
-    expect(result.error.format()).toStrictEqual({
-      _errors: [],
-      age: {
-        _errors: expect.arrayContaining([expected]),
-      },
-    });
+    expect(result.error.issues).toStrictEqual([
+      expect.objectContaining({
+        code: expectedCode,
+        path: ['age'],
+      }),
+    ]);
   });
 });

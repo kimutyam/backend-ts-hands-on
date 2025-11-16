@@ -3,7 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import type { ApplicationError } from '../../util/applicationError.js';
-import { createWithErrorFromZod } from '../../util/result.js';
+import { createFromZod } from '../../util/result.js';
 
 const name = 'Quantity';
 
@@ -11,7 +11,7 @@ const schema = z.number().int().min(1).max(10).brand('Quantity');
 
 type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
-type QuantityZodError = z.ZodError<QuantityInput>;
+type QuantityZodError = z.ZodError<Quantity>;
 
 const errorKind = 'QuantityRefinementsError';
 
@@ -34,7 +34,7 @@ const parse = (value: QuantityInput): Quantity => schema.parse(value);
 const safeParse = (
   value: QuantityInput,
 ): Result<Quantity, QuantityRefinementsError> =>
-  R.pipe(schema.safeParse(value), createWithErrorFromZod(createError));
+  R.pipe(schema.safeParse(value), createFromZod(createError));
 
 const Quantity = {
   name,

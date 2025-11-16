@@ -6,7 +6,7 @@ export declare const PriceBrand: unique symbol;
 export declare const OrderQuantityBrand: unique symbol;
 
 export const productSchema = z.object({
-  id: z.string().uuid().brand(ProductIdBrand),
+  id: z.uuid().brand(ProductIdBrand),
   price: z.number().int().min(1000).max(100_000).brand(PriceBrand),
 });
 

@@ -6,7 +6,7 @@ import { Quantity } from '../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import { ProductId } from '../../../../app/domain/product/productId.js';
 import { AddCartItem } from '../../../../app/port/primary/shopping/addCartItem.js';
-import { createWithErrorFromZod } from '../../../../app/util/result.js';
+import { createFromZod } from '../../../../app/util/result.js';
 import { AddCartItemValidateError } from './addCartItemValidateError.js';
 import type { CommandHandler } from './commandHandler.js';
 
@@ -18,7 +18,7 @@ const schema = z.object({
 
 type Args = z.input<typeof schema>;
 type ValidatedArgs = z.infer<typeof schema>;
-type AddCartItemArgsZodError = z.ZodError<Args>;
+type AddCartItemArgsZodError = z.ZodError<ValidatedArgs>;
 
 type AddCartItemHandler = CommandHandler<Args>;
 
@@ -27,7 +27,7 @@ const safeParse = (
 ): Result<ValidatedArgs, AddCartItemValidateError> =>
   R.pipe(
     schema.safeParse(value),
-    createWithErrorFromZod(AddCartItemValidateError.create),
+    createFromZod(AddCartItemValidateError.create),
   );
 
 const create =

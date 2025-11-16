@@ -1,16 +1,10 @@
 import type { Result } from 'neverthrow';
 import { err, ok } from 'neverthrow';
-import * as R from 'remeda';
 import type { z } from 'zod';
 
-const createWithErrorFromZod =
-  <Input, Output, E = z.ZodError<Input>>(f: (e: z.ZodError<Input>) => E) =>
-  (result: z.SafeParseReturnType<Input, Output>): Result<Output, E> =>
+const createFromZod =
+  <T, E = z.ZodError<T>>(f: (e: z.ZodError<T>) => E) =>
+  (result: z.ZodSafeParseResult<T>): Result<T, E> =>
     result.success ? ok(result.data) : err(f(result.error));
 
-const createFromZod = <Input, Output>(
-  result: z.SafeParseReturnType<Input, Output>,
-): Result<Output, z.ZodError<Input>> =>
-  R.pipe(result, createWithErrorFromZod(R.identity()));
-
-export { createWithErrorFromZod, createFromZod };
+export { createFromZod };

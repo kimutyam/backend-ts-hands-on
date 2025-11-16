@@ -3,12 +3,11 @@ import { err, ok } from 'neverthrow';
 import * as R from 'remeda';
 import type { z } from 'zod';
 
-export const buildFromZod = <Input, Output, E = z.ZodError<Input>>(
-  result: z.SafeParseReturnType<Input, Output>,
-  f: (e: z.ZodError<Input>) => E,
-): Result<Output, E> =>
-  result.success ? ok(result.data) : err(f(result.error));
+export const fromZodReturnType =
+  <T, E = z.ZodError<T>>(f: (e: z.ZodError<T>) => E) =>
+  (result: z.ZodSafeParseResult<T>): Result<T, E> =>
+    result.success ? ok(result.data) : err(f(result.error));
 
-export const buildFromZodDefault = <Input, Output>(
-  result: z.SafeParseReturnType<Input, Output>,
-): Result<Output, z.ZodError<Input>> => buildFromZod(result, R.identity());
+export const fromZodReturnTypeDefault = <T>(
+  result: z.ZodSafeParseResult<T>,
+): Result<T, z.ZodError<T>> => R.pipe(result, fromZodReturnType(R.identity()));

@@ -3,7 +3,7 @@ import * as z from 'zod';
 
 const name = 'ProductId';
 
-const schema = z.string().ulid().brand('ProductId');
+const schema = z.ulid().brand('ProductId');
 
 type ProductId = z.infer<typeof schema>;
 type ProductIdInput = z.input<typeof schema>;

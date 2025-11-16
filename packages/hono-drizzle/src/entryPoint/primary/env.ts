@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const schema = z
   .object({
-    DATABASE_URL: z.string().url().optional(),
+    DATABASE_URL: z.url().optional(),
   })
   .readonly();
 

@@ -12,26 +12,26 @@ const incrementSequenceNumber = (sequenceNumber: number): number =>
 
 const makeSchema = <
   AggregateIdSchema extends z.ZodType,
-  PropsSchema extends z.ZodObject<z.ZodRawShape>,
+  PropsShape extends z.core.$ZodShape,
 >(
   aggregateIdSchema: AggregateIdSchema,
-  propsSchema: PropsSchema,
+  propsSchema: z.ZodObject<PropsShape>,
 ) =>
   z
     .object({
       aggregateId: aggregateIdSchema,
       sequenceNumber: z.number().int().min(InitialSequenceNumber),
     })
-    .merge(propsSchema)
+    .extend(propsSchema.shape)
     .readonly();
 
 const makeBrandedSchema = <
   AggregateIdSchema extends z.ZodType,
-  PropsSchema extends z.ZodObject<z.ZodRawShape>,
+  PropsShape extends z.core.$ZodShape,
   BrandName extends string,
 >(
   aggregateIdSchema: AggregateIdSchema,
-  propsSchema: PropsSchema,
+  propsSchema: z.ZodObject<PropsShape>,
   brandName: BrandName,
 ) => makeSchema(aggregateIdSchema, propsSchema).brand(brandName);
 

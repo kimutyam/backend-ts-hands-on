@@ -21,7 +21,7 @@ const schema = Aggregate.makeBrandedSchema(
 
 type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
-type ProductZodError = z.ZodError<Input>;
+type ProductZodError = z.ZodError<Product>;
 
 const parse = (value: Input): Product => schema.parse(value);
 

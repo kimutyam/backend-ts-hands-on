@@ -20,8 +20,10 @@ describe('safeParse', () => {
       dayOfWeek,
     });
     assert(!result.success);
-    expect(result.error.format()).toStrictEqual({
-      _errors: [expected],
-    });
+    expect(result.error.issues).toStrictEqual([
+      expect.objectContaining({
+        message: expected,
+      }),
+    ]);
   });
 });

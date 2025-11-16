@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { Price } from '../../../../app/domain/product/price.js';
 import { ProductName } from '../../../../app/domain/product/productName.js';
 import { RegisterProduct } from '../../../../app/port/primary/management/registerProduct.js';
-import { createWithErrorFromZod } from '../../../../app/util/result.js';
+import { createFromZod } from '../../../../app/util/result.js';
 import type { CommandHandler } from './commandHandler.js';
 import { RegisterProductValidateError } from './registerProductValidateError.js';
 
@@ -19,7 +19,7 @@ const schema = z
 
 type Args = z.input<typeof schema>;
 type ValidatedArgs = z.infer<typeof schema>;
-type RegisterProductArgsZodError = z.ZodError<Args>;
+type RegisterProductArgsZodError = z.ZodError<ValidatedArgs>;
 
 type RegisterProductHandler = CommandHandler<Args>;
 
@@ -29,7 +29,7 @@ const safeParse = (
 ): Result<ValidatedArgs, RegisterProductValidateError> =>
   R.pipe(
     schema.safeParse(value),
-    createWithErrorFromZod(RegisterProductValidateError.create),
+    createFromZod(RegisterProductValidateError.create),
   );
 
 // 3

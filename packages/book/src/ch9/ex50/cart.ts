@@ -30,8 +30,7 @@ const schema = Aggregate.makeBrandedSchema(
 
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
-
-type CartZodError = z.ZodError<CartInput>;
+type CartZodError = z.ZodError<Cart>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -67,21 +66,15 @@ const withinTotalPriceLimit = (cart: Cart): boolean =>
 const schemaWithRefinements = schema
   .refine(
     (cart) => withinItemsLimit(cart),
-    () => ({
-      message: `カート項目数が ${ItemsLimit.toString()} を上回っています`,
-    }),
+    `カート項目数が ${ItemsLimit.toString()} を上回っています`,
   )
   .refine(
     (cart) => withinTotalQuantityLimit(cart),
-    () => ({
-      message: `総数が ${TotalQuantityLimit.toString()} を上回っています`,
-    }),
+    `総数が ${TotalQuantityLimit.toString()} を上回っています`,
   )
   .refine(
     (cart) => withinTotalPriceLimit(cart),
-    () => ({
-      message: `総額が ${TotalPriceLimit.toString()} を上回っています`,
-    }),
+    `総額が ${TotalPriceLimit.toString()} を上回っています`,
   );
 
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);

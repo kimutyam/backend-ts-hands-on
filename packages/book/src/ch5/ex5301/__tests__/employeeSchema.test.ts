@@ -43,9 +43,12 @@ describe('safeParse', () => {
     const result = employeeSchema.safeParse('not an object');
     assert(!result.success);
     // 2
-    expect(result.error.format()).toStrictEqual({
-      _errors: expect.arrayContaining(['Expected object, received string']),
-    });
+    expect(result.error.issues).toStrictEqual([
+      expect.objectContaining({
+        code: 'invalid_type',
+        path: [],
+      }),
+    ]);
   });
 
   it('エラー: ageが文字列', () => {
@@ -54,11 +57,11 @@ describe('safeParse', () => {
       age: 'Priceless',
     });
     assert(!result.success);
-    expect(result.error.format()).toStrictEqual({
-      _errors: [],
-      age: {
-        _errors: expect.arrayContaining(['Expected number, received string']),
-      },
-    });
+    expect(result.error.issues).toStrictEqual([
+      expect.objectContaining({
+        code: 'invalid_type',
+        path: ['age'],
+      }),
+    ]);
   });
 });
