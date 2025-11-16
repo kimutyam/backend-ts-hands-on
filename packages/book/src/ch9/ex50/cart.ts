@@ -30,7 +30,6 @@ const schema = Aggregate.makeBrandedSchema(
 
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
-
 type CartZodError = z.ZodError<Cart>;
 
 const ItemsLimit = 10;
