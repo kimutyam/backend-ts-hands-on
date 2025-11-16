@@ -12,7 +12,7 @@ const incrementSequenceNumber = (sequenceNumber: number): number =>
 
 const makeSchema = <
   AggregateIdSchema extends z.ZodType,
-  PropsShape extends z.ZodRawShape,
+  PropsShape extends z.core.$ZodShape,
 >(
   aggregateIdSchema: AggregateIdSchema,
   propsSchema: z.ZodObject<PropsShape>,
@@ -27,7 +27,7 @@ const makeSchema = <
 
 const makeBrandedSchema = <
   AggregateIdSchema extends z.ZodType,
-  PropsShape extends z.ZodRawShape,
+  PropsShape extends z.core.$ZodShape,
   BrandName extends string,
 >(
   aggregateIdSchema: AggregateIdSchema,
