@@ -10,7 +10,7 @@ z.symbol();
 
 z.object({});
 z.date();
-z.record(z.number());
+z.record(z.string(), z.number());
 z.array(z.string());
 z.tuple([z.string(), z.number()]);
 z.enum(['foo', 'bar']);

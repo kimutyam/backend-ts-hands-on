@@ -12,8 +12,7 @@ const build = (input: OrderQuantityInput): OrderQuantity => schema.parse(input);
 
 const safeBuild = (
   input: OrderQuantityInput,
-): z.SafeParseReturnType<OrderQuantityInput, OrderQuantity> =>
-  schema.safeParse(input);
+): z.ZodSafeParseResult<OrderQuantity> => schema.safeParse(input);
 
 export const OrderQuantity = {
   build,

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const productSchema = z.object({
-  id: z.string().uuid('uuid形式にしてください'),
+  id: z.uuid('uuid形式にしてください'),
   price: z
     .number()
     .int('整数で指定ください')
@@ -9,7 +9,9 @@ export const productSchema = z.object({
     .max(100_000, '10万円を超える商品を扱えません'),
 });
 
-export const sortedStringSchema = z.string().refine(
-  (arg) => Array.from(arg).sort().join('') === arg,
-  (arg) => ({ message: `ソートされていません: ${arg}` }),
-);
+export const sortedStringSchema = z
+  .string()
+  .refine(
+    (arg) => Array.from(arg).sort().join('') === arg,
+    'ソートされていません',
+  );

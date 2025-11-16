@@ -2,7 +2,7 @@ import { ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { createWithErrorFromZod } from '../../util/result.js';
+import { createFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { CustomerId } from '../customer/customerId.js';
 import { DomainEvent } from '../domainEvent.js';
@@ -24,13 +24,13 @@ const schema = Aggregate.makeBrandedSchema(
   CustomerId.schema,
   z.object({
     cartItems: z.array(CartItem.schema).readonly(),
-  }),
+  }).shape,
   aggregateName,
 );
 
 type Cart = z.infer<typeof schema>;
 type CartInput = z.input<typeof schema>;
-type CartZodError = z.ZodError<CartInput>;
+type CartZodError = z.ZodError<Cart>;
 
 const ItemsLimit = 10;
 const TotalQuantityLimit = 30;
@@ -54,31 +54,22 @@ const withinTotalPriceLimit = (cart: Cart): boolean =>
   calculateTotalPrice(cart) <= TotalPriceLimit;
 
 const schemaWithRefinements = schema
-  .refine(
-    (cart) => withinItemsLimit(cart),
-    () => ({
-      message: `カート項目数が ${ItemsLimit.toString()} を上回っています`,
-    }),
-  )
-  .refine(
-    (cart) => withinTotalQuantityLimit(cart),
-    () => ({
-      message: `総数が ${TotalQuantityLimit.toString()} を上回っています`,
-    }),
-  )
-  .refine(
-    (cart) => withinTotalPriceLimit(cart),
-    () => ({
-      message: `総額が ${TotalPriceLimit.toString()} を上回っています`,
-    }),
-  );
+  .refine((cart) => withinItemsLimit(cart), {
+    error: `カート項目数が ${ItemsLimit.toString()} を上回っています`,
+  })
+  .refine((cart) => withinTotalQuantityLimit(cart), {
+    error: `総数が ${TotalQuantityLimit.toString()} を上回っています`,
+  })
+  .refine((cart) => withinTotalPriceLimit(cart), {
+    error: `総額が ${TotalPriceLimit.toString()} を上回っています`,
+  });
 
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
 const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
-    createWithErrorFromZod(CartRefinementsError.create),
+    createFromZod(CartRefinementsError.create),
   );
 
 const init = (

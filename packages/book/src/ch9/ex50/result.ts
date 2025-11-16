@@ -3,8 +3,8 @@ import { err, ok } from 'neverthrow';
 import type { z } from 'zod';
 
 const createFromZod =
-  <Input, Output, E = z.ZodError<Input>>(f: (e: z.ZodError<Input>) => E) =>
-  (result: z.SafeParseReturnType<Input, Output>): Result<Output, E> =>
+  <T, E = z.ZodError<T>>(f: (e: z.ZodError<T>) => E) =>
+  (result: z.ZodSafeParseResult<T>): Result<T, E> =>
     result.success ? ok(result.data) : err(f(result.error));
 
 export { createFromZod };

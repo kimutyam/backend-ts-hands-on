@@ -104,6 +104,7 @@ export default [
       'arrow-body-style': ['error', 'as-needed'],
       // SEE: https://github.com/iamturns/eslint-config-airbnb-typescript/blob/91fd090f6fdd8d598a6ac6e9bb2c2ba33014e425/lib/shared.js#L84-L87
       'dot-notation': 'off',
+      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
     },
   },
   {

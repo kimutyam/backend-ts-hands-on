@@ -63,22 +63,17 @@ describe('safeParse', () => {
       quantity: '1個',
     });
     assert(!result.success);
-    const formattedError = result.error.format();
-    console.log(formattedError);
-    expect(formattedError).toEqual(
-      expect.objectContaining({
-        _errors: [],
-        product: expect.objectContaining({
-          price: expect.objectContaining({
-            _errors: expect.arrayContaining([
-              'Expected number, received string',
-            ]),
-          }),
+    expect(result.error.issues).toStrictEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'invalid_type',
+          path: ['product', 'price'],
         }),
-        quantity: expect.objectContaining({
-          _errors: expect.arrayContaining(['Expected number, received string']),
+        expect.objectContaining({
+          code: 'invalid_type',
+          path: ['quantity'],
         }),
-      }),
+      ]),
     );
   });
 });

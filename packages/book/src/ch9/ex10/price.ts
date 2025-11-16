@@ -12,9 +12,8 @@ type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
 
 const parse = (value: PriceInput): Price => schema.parse(value);
-const safeParse = (
-  value: PriceInput,
-): z.SafeParseReturnType<PriceInput, Price> => schema.safeParse(value);
+const safeParse = (value: PriceInput): z.ZodSafeParseResult<Price> =>
+  schema.safeParse(value);
 
 const Price = {
   name,

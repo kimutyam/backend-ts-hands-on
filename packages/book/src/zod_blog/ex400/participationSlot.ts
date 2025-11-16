@@ -1,4 +1,3 @@
-import type { SafeParseReturnType } from 'zod';
 import { z } from 'zod';
 
 const schema = z.number().int().min(1);
@@ -12,8 +11,7 @@ const build = (input: ParticipationSlotInput): ParticipationSlot =>
 
 const safeBuild = (
   input: ParticipationSlotInput,
-): SafeParseReturnType<ParticipationSlotInput, ParticipationSlot> =>
-  schema.safeParse(input);
+): z.ZodSafeParseResult<ParticipationSlot> => schema.safeParse(input);
 
 export const OrderQuantity = {
   build,

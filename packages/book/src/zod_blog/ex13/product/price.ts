@@ -15,7 +15,7 @@ export type PriceInput = z.input<typeof schema>;
 
 const build = (a: PriceInput): Price => schema.parse(a);
 
-const safeBuild = (a: PriceInput): z.SafeParseReturnType<PriceInput, Price> =>
+const safeBuild = (a: PriceInput): z.ZodSafeParseResult<Price> =>
   schema.safeParse(a);
 
 export const Price = {

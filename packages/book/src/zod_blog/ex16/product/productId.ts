@@ -1,9 +1,9 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
 
-import { buildFromZodDefault } from '../result.js';
+import { fromZodReturnTypeDefault } from '../result.js';
 
-const schema = z.string().uuid().brand('ProductId');
+const schema = z.uuid().brand('ProductId');
 
 export type ProductId = z.infer<typeof schema>;
 
@@ -13,8 +13,8 @@ const build = (input: ProductIdInput): ProductId => schema.parse(input);
 
 const safeBuild = (
   input: ProductIdInput,
-): Result<ProductId, z.ZodError<ProductIdInput>> =>
-  buildFromZodDefault(schema.safeParse(input));
+): Result<ProductId, z.ZodError<ProductId>> =>
+  fromZodReturnTypeDefault(schema.safeParse(input));
 
 export const ProductId = {
   build,

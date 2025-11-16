@@ -9,31 +9,33 @@ describe('safeParse', () => {
       age: 104.5,
     });
     assert(!result.success);
-    expect(result.error.format()).toStrictEqual({
-      _errors: [],
-      name: {
-        _errors: expect.arrayContaining(['文字列で指定してください']),
-      },
-      age: {
-        _errors: expect.arrayContaining([
-          '整数で指定してください',
-          '60以下で指定してください',
-        ]),
-      },
-    });
+    expect(result.error.issues).toStrictEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: '名前は文字列で指定してください',
+        }),
+        expect.objectContaining({
+          message: '年齢は整数で指定してください',
+        }),
+        expect.objectContaining({
+          message: '年齢は60以下で指定してください',
+        }),
+      ]),
+    );
   });
 
   it('必須項目のバリデーションエラー', () => {
     const result = employeeSchema.safeParse({});
     assert(!result.success);
-    expect(result.error.format()).toStrictEqual({
-      _errors: [],
-      name: {
-        _errors: expect.arrayContaining(['名前は必須です']),
-      },
-      age: {
-        _errors: expect.arrayContaining(['年齢は必須です']),
-      },
-    });
+    expect(result.error.issues).toStrictEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          message: '名前は必須です',
+        }),
+        expect.objectContaining({
+          message: '年齢は必須です',
+        }),
+      ]),
+    );
   });
 });

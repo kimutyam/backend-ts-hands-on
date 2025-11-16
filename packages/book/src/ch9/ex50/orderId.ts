@@ -1,7 +1,7 @@
 import { ulid } from 'ulidx';
 import * as z from 'zod';
 
-const schema = z.string().ulid().brand('OrderId');
+const schema = z.ulid().brand('OrderId');
 
 type Input = z.input<typeof schema>;
 type OrderId = z.infer<typeof schema>;

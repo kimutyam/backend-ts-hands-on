@@ -19,7 +19,7 @@ const ticketSchema = z
     if (data.age < 18) {
       if (data.dayOfWeek !== 'Sunday') {
         ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+          code: 'custom',
           message: '未成年は日曜日しか選択できません',
         });
       }
@@ -29,7 +29,7 @@ const ticketSchema = z
     if (data.age >= 18) {
       if (data.dayOfWeek === 'Sunday') {
         ctx.addIssue({
-          code: z.ZodIssueCode.custom,
+          code: 'custom',
           message: '成人は日曜日を選択できません',
         });
       }

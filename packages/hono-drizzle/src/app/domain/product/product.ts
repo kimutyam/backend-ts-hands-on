@@ -2,7 +2,7 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { createWithErrorFromZod } from '../../util/result.js';
+import { createFromZod } from '../../util/result.js';
 import { Aggregate } from '../aggregate.js';
 import { DomainEvent } from '../domainEvent.js';
 import { Price } from './price.js';
@@ -18,20 +18,20 @@ const schema = Aggregate.makeBrandedSchema(
   z.object({
     name: ProductName.schema,
     price: Price.schema,
-  }),
+  }).shape,
   aggregateName,
 );
 
 type Input = z.input<typeof schema>;
 type Product = z.infer<typeof schema>;
-type ProductZodError = z.ZodError<Input>;
+type ProductZodError = z.ZodError<Product>;
 
 const parse = (value: Input): Product => schema.parse(value);
 
 const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
   R.pipe(
     schema.safeParse(value),
-    createWithErrorFromZod(ProductRefinementsError.create),
+    createFromZod(ProductRefinementsError.create),
   );
 
 const register = (aggregate: Product): [Product, ProductRegistered] => {

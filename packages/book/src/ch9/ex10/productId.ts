@@ -2,10 +2,7 @@ import { ulid } from 'ulidx';
 import * as z from 'zod';
 
 const name = 'ProductId';
-const schema = z
-  .string()
-  .ulid()
-  .brand(typeof name);
+const schema = z.ulid().brand(typeof name);
 
 type ProductId = z.infer<typeof schema>;
 type ProductInput = z.input<typeof schema>;

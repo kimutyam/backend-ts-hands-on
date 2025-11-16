@@ -12,26 +12,22 @@ describe('safeParse', () => {
       quantity: 100,
     });
     assert(!result.success);
-    const formattedError = result.error.format();
-    expect(formattedError).toEqual(
-      expect.objectContaining({
-        _errors: [],
-        product: expect.objectContaining({
-          id: expect.objectContaining({
-            _errors: expect.arrayContaining(['Invalid uuid']),
-          }),
-          price: expect.objectContaining({
-            _errors: expect.arrayContaining([
-              'Number must be greater than or equal to 1000',
-            ]),
-          }),
+
+    expect(result.error.issues).toStrictEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'invalid_format',
+          path: ['product', 'id'],
         }),
-        quantity: expect.objectContaining({
-          _errors: expect.arrayContaining([
-            'Number must be less than or equal to 10',
-          ]),
+        expect.objectContaining({
+          code: 'too_small',
+          path: ['product', 'price'],
         }),
-      }),
+        expect.objectContaining({
+          code: 'too_big',
+          path: ['quantity'],
+        }),
+      ]),
     );
   });
 });
