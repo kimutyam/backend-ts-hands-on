@@ -2,7 +2,7 @@ import * as z from 'zod';
 
 import { Price } from './price.js';
 import { ProductId } from './productId.js';
-import type { QuantityInput } from './quantity.js';
+import type { QuantityZodError } from './quantity.js';
 import { Quantity } from './quantity.js';
 
 // 1
@@ -29,7 +29,7 @@ const createSingleQuantity = (productId: ProductId, price: Price): CartItem =>
 
 const add =
   (quantity: Quantity, price: Price) =>
-  (item: CartItem): CartItem | z.ZodError<QuantityInput> => {
+  (item: CartItem): CartItem | QuantityZodError => {
     // 3
     const result = Quantity.safeParse(item.quantity + quantity);
     return result.success
