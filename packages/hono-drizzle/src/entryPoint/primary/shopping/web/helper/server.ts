@@ -1,9 +1,9 @@
 import type { ServerType } from '@hono/node-server';
 import { serve } from '@hono/node-server';
-import type { Hono } from 'hono';
+import type { OpenAPIHono } from '@hono/zod-openapi';
 import type { Injector } from 'typed-inject';
 
-const run = (app: Hono): ServerType =>
+const run = (app: OpenAPIHono): ServerType =>
   serve(
     {
       fetch: app.fetch,
