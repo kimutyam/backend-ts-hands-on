@@ -795,10 +795,10 @@
   resolved "https://registry.yarnpkg.com/@hono/node-server/-/node-server-1.19.6.tgz#44ec78607f37d3deb9476937049c721c7dc79390"
   integrity sha512-Shz/KjlIeAhfiuE93NDKVdZ7HdBVLQAfdbaXEaoAVO3ic9ibRSLGIQGkcBbFyuLr+7/1D5ZCINM8B+6IvXeMtw==
 
-"@hono/zod-openapi@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@hono/zod-openapi/-/zod-openapi-1.1.4.tgz#9333353e4ebc5f73e3b2da2bb46f38c07f0df637"
-  integrity sha512-4BbOtd6oKg20yo6HLluVbEycBLLIfdKX5o/gUSoKZ2uBmeP4Og/VDfIX3k9pbNEX5W3fRkuPeVjGA+zaQDVY1A==
+"@hono/zod-openapi@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@hono/zod-openapi/-/zod-openapi-1.1.5.tgz#9cdea9beebbc057da42c357f1f8ade6702f2e345"
+  integrity sha512-EAnY6ad4yt/MUKHx716BEGGOXSl5d0/FOLozOYB/pmSEFq07qrzefKFtBEMAgd3hlpJXjH+4lwgTtlAo+BGBgQ==
   dependencies:
     "@asteasolutions/zod-to-openapi" "^8.1.0"
     "@hono/zod-validator" "^0.7.4"
