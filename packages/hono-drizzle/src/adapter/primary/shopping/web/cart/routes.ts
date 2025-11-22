@@ -34,7 +34,7 @@ const GetCartRoute = createRoute({
   },
 });
 
-const DeleteCartRoute = createRoute({
+const ClearCartRoute = createRoute({
   method: 'delete',
   path: '/carts/{id}',
   tags: ['Carts'],
@@ -65,4 +65,4 @@ const DeleteCartRoute = createRoute({
   },
 });
 
-export { GetCartRoute, DeleteCartRoute };
+export { GetCartRoute, ClearCartRoute };

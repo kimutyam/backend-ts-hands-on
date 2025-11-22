@@ -2,10 +2,10 @@ import type { RouteHandler } from '@hono/zod-openapi';
 
 import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
 import { createErrorSchema } from '../errorSchemas.js';
-import type { DeleteCartRoute } from './routes.js';
+import type { ClearCartRoute } from './routes.js';
 
 const create =
-  (clearCart: ClearCart): RouteHandler<typeof DeleteCartRoute> =>
+  (clearCart: ClearCart): RouteHandler<typeof ClearCartRoute> =>
   async (c) => {
     const { id } = c.req.valid('param');
     return clearCart(id).match(
@@ -22,9 +22,9 @@ const create =
 
 create.inject = [ClearCart.token] as const;
 
-const DeleteCartHandler = {
-  token: 'DeleteCartHandler',
+const ClearCartHandler = {
+  token: 'ClearCartHandler',
   create,
 } as const;
 
-export { DeleteCartHandler };
+export { ClearCartHandler };
