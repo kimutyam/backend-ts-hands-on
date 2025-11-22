@@ -37,7 +37,7 @@
     "eslint-plugin-neverthrow": "1.1.4",
     "eslint-plugin-no-relative-import-paths": "1.6.1",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "rimraf": "6.1.0",
+    "rimraf": "6.1.2",
     "tsx": "4.20.6",
     "typescript": "5.9.3",
     "vitest": "3.2.4"
