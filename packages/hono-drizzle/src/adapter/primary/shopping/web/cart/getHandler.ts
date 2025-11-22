@@ -1,7 +1,7 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
-import { GetCart } from '../../../../app/port/primary/shopping/getCart.js';
-import type { GetCartRoute } from './cartRoute.js';
+import { GetCart } from '../../../../../app/port/primary/shopping/getCart.js';
+import type { GetCartRoute } from './routes.js';
 
 const create =
   (getCart: GetCart): RouteHandler<typeof GetCartRoute> =>
@@ -13,9 +13,9 @@ const create =
 
 create.inject = [GetCart.token] as const;
 
-const CartHandler = {
-  token: 'CartHandler',
+const GetCartHandler = {
+  token: 'GetCartHandler',
   create,
 } as const;
 
-export { CartHandler };
+export { GetCartHandler };

@@ -1,11 +1,14 @@
 import type { Injector } from 'typed-inject';
 
-import { CartHandler } from '../../../../adapter/primary/shopping/web/cartHandler.js';
+import { DeleteCartHandler } from '../../../../adapter/primary/shopping/web/cart/deleteHandler.js';
+import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
 import type { AppEnv } from '../../env.js';
 import { ShoppingPortInjector } from '../injector.js';
 
 const createSelf = (injector: ShoppingPortInjector) =>
-  injector.provideFactory(CartHandler.token, CartHandler.create);
+  injector
+    .provideFactory(GetCartHandler.token, GetCartHandler.create)
+    .provideFactory(DeleteCartHandler.token, DeleteCartHandler.create);
 
 const create = (env: AppEnv): [Injector, WebInjector] => {
   const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);

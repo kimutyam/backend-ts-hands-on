@@ -2,8 +2,10 @@ import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
 import { AddCartItem } from '../../../app/port/primary/shopping/addCartItem.js';
+import { ClearCart } from '../../../app/port/primary/shopping/clearCart.js';
 import { GetCart } from '../../../app/port/primary/shopping/getCart.js';
 import { AddCartItemUseCase } from '../../../app/useCase/addCartItem.js';
+import { ClearCartUseCase } from '../../../app/useCase/clearCart.js';
 import { GetCartUseCase } from '../../../app/useCase/getCart.js';
 import { PersistencePortInjector } from '../../secondary/persistence/injectorForShopping.js';
 import type { AppEnv } from '../env.js';
@@ -11,7 +13,8 @@ import type { AppEnv } from '../env.js';
 const createSelf = (injector: PersistencePortInjector) =>
   injector
     .provideFactory(AddCartItem.token, AddCartItemUseCase.create)
-    .provideFactory(GetCart.token, GetCartUseCase.create);
+    .provideFactory(GetCart.token, GetCartUseCase.create)
+    .provideFactory(ClearCart.token, ClearCartUseCase.create);
 
 const create = (env: AppEnv): [Injector, ShoppingPortInjector] => {
   const rootInjector = createInjector();
