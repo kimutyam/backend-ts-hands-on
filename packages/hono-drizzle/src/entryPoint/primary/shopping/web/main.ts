@@ -1,7 +1,7 @@
 import { AppEnv } from '../../env.js';
-import { makeApp } from './helper/app.js';
-import { Server } from './helper/server.js';
+import { makeApp } from './app.js';
 import { WebInjector } from './injector.js';
+import { Server } from './server.js';
 
 const appEnv = AppEnv.parse(process.env);
 const [rootInjector, webInjector] = WebInjector.create(appEnv);
