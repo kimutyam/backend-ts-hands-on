@@ -1,23 +1,15 @@
-import { zValidator } from '@hono/zod-validator';
-import { Hono } from 'hono';
-import { z } from 'zod';
+import type { RouteHandler } from '@hono/zod-openapi';
 
-import { CustomerId } from '../../../../app/domain/customer/customerId.js';
 import { GetCart } from '../../../../app/port/primary/shopping/getCart.js';
+import type { GetCartRoute } from './cartRoute.js';
 
-const paramSchema = z.object({
-  id: CustomerId.schema,
-});
-
-const create = (getCart: GetCart) => {
-  const app = new Hono();
-  app.get('/:id', zValidator('param', paramSchema), async (c) => {
+const create =
+  (getCart: GetCart): RouteHandler<typeof GetCartRoute> =>
+  async (c) => {
     const { id } = c.req.valid('param');
     const cartItems = await getCart(id);
-    return c.json(cartItems);
-  });
-  return app;
-};
+    return c.json(cartItems, 200);
+  };
 
 create.inject = [GetCart.token] as const;
 
