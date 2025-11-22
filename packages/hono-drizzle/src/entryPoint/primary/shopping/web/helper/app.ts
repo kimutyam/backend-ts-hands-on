@@ -1,9 +1,9 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 
-import { DeleteCartHandler } from '../../../../../adapter/primary/shopping/web/cart/deleteHandler.js';
+import { ClearCartHandler } from '../../../../../adapter/primary/shopping/web/cart/clearHandler.js';
 import { GetCartHandler } from '../../../../../adapter/primary/shopping/web/cart/getHandler.js';
 import {
-  DeleteCartRoute,
+  ClearCartRoute,
   GetCartRoute,
 } from '../../../../../adapter/primary/shopping/web/cart/routes.js';
 import {
@@ -17,8 +17,8 @@ const configureRoute = (app: OpenAPIHono, webInjector: WebInjector) =>
   app
     .openapi(GetCartRoute, webInjector.injectFunction(GetCartHandler.create))
     .openapi(
-      DeleteCartRoute,
-      webInjector.injectFunction(DeleteCartHandler.create),
+      ClearCartRoute,
+      webInjector.injectFunction(ClearCartHandler.create),
     );
 
 const makeApp = (webInjector: WebInjector): OpenAPIHono => {

@@ -34,7 +34,7 @@ const GetCartRoute = createRoute({
   },
 });
 
-const DeleteCartRoute = createRoute({
+const ClearCartRoute = createRoute({
   method: 'delete',
   path: '/carts/{id}',
   tags: ['Carts'],
@@ -46,13 +46,13 @@ const DeleteCartRoute = createRoute({
     204: {
       description: 'No Content',
     },
-    400: {
+    404: {
       content: {
         'application/json': {
-          schema: createErrorSchema('Bad Request'),
+          schema: createErrorSchema('Not Found'),
         },
       },
-      description: 'Bad Request',
+      description: 'Not Found',
     },
     422: {
       content: {
@@ -65,4 +65,4 @@ const DeleteCartRoute = createRoute({
   },
 });
 
-export { GetCartRoute, DeleteCartRoute };
+export { GetCartRoute, ClearCartRoute };
