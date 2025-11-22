@@ -1,6 +1,7 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
 import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
+import { createErrorSchema } from '../errorSchemas.js';
 import type { DeleteCartRoute } from './routes.js';
 
 const create =
@@ -9,7 +10,13 @@ const create =
     const { id } = c.req.valid('param');
     return clearCart(id).match(
       () => c.body(null, 204),
-      (error) => c.json({ message: error.message }, 404),
+      (error) =>
+        c.json(
+          createErrorSchema().parse({
+            title: error.message,
+          }),
+          404,
+        ),
     );
   };
 
