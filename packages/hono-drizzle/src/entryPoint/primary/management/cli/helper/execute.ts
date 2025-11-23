@@ -1,12 +1,19 @@
 import type { Injector } from 'typed-inject';
 
 import type { CommandHandler } from '../../../../../adapter/primary/management/cli/commandHandler.js';
+import { runWithRequestContext } from '../../../../../app/util/requestContext.js';
 
 const execute =
   <Args>(handler: CommandHandler<Args>, injector: Injector) =>
   async (args: Args): Promise<void> => {
     try {
-      await handler(args);
+      await runWithRequestContext(
+        {
+          requestId: crypto.randomUUID(),
+          executionPort: 'management',
+        },
+        () => handler(args),
+      );
     } catch (e: unknown) {
       if (e instanceof Error) {
         console.error(e.message);

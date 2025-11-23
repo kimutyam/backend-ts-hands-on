@@ -1,4 +1,3 @@
-import { getConnInfo } from '@hono/node-server/conninfo';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Scalar } from '@scalar/hono-api-reference';
 import { requestId } from 'hono/request-id';
@@ -43,15 +42,15 @@ const makeApp = (webInjector: WebInjector): OpenAPIHono => {
 
   app.use('*', requestId());
   app.use('*', async (c, next) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const connInfo = getConnInfo(c);
-    const ctx = {
-      requestId: c.get('requestId'),
-      ipAddress: connInfo.remote.address,
-    };
-    await runWithRequestContext(ctx, async () => {
-      await next();
-    });
+    await runWithRequestContext(
+      {
+        requestId: c.get('requestId'),
+        executionPort: 'shopping',
+      },
+      async () => {
+        await next();
+      },
+    );
   });
 
   app.notFound((c) => {
