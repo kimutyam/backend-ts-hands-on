@@ -1,10 +1,19 @@
 import 'dotenv/config';
 
+import type { Logger } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import type { Disposable } from 'typed-inject';
 
+import { getRequestContext } from '../../../../app/util/requestContext.js';
 import { DatabaseUrl } from './databaseUrl.js';
+
+export const queryLogger: Logger = {
+  logQuery: (query: string, params?: Array<unknown>) => {
+    const { requestId, ipAddress } = getRequestContext();
+    console.info(requestId, ipAddress, query, params);
+  },
+};
 
 const createNodePgDatabase = (url: DatabaseUrl) => {
   const pool = new Pool({
@@ -18,7 +27,7 @@ const createNodePgDatabase = (url: DatabaseUrl) => {
   return drizzle({
     client: pool,
     casing: 'snake_case',
-    logger: true,
+    logger: queryLogger,
   });
 };
 
