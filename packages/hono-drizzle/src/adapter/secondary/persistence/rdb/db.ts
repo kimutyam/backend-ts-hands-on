@@ -10,8 +10,13 @@ import { DatabaseUrl } from './databaseUrl.js';
 
 export const queryLogger: Logger = {
   logQuery: (query: string, params?: Array<unknown>) => {
-    const { requestId, executionPort } = getRequestContext();
-    console.info(requestId, executionPort, query, params);
+    const context = getRequestContext();
+    if (context === undefined) {
+      console.info(query, params);
+    } else {
+      const { requestId, executionPort } = context;
+      console.info(requestId, executionPort, query, params);
+    }
   },
 };
 

@@ -12,7 +12,6 @@ const runWithRequestContext = <T>(
   fn: () => Promise<T>,
 ): Promise<T> => storage.run(ctx, fn);
 
-const getRequestContext = (): Partial<RequestContext> =>
-  storage.getStore() ?? {};
+const getRequestContext = (): RequestContext | undefined => storage.getStore();
 
 export { runWithRequestContext, getRequestContext };
