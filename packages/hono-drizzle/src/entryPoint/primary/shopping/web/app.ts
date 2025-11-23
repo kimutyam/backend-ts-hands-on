@@ -1,18 +1,34 @@
+import { getConnInfo } from '@hono/node-server/conninfo';
 import { OpenAPIHono } from '@hono/zod-openapi';
+import { Scalar } from '@scalar/hono-api-reference';
+import { requestId } from 'hono/request-id';
+import { z } from 'zod';
 
+import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/addCartItemHandler.js';
+import { ClearCartHandler } from '../../../../adapter/primary/shopping/web/cart/clearHandler.js';
+import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
+import {
+  AddCartItemRoute,
+  ClearCartRoute,
+  GetCartRoute,
+} from '../../../../adapter/primary/shopping/web/cart/routes.js';
 import {
   createErrorSchema,
   createValidationErrorSchema,
 } from '../../../../adapter/primary/shopping/web/errorSchemas.js';
+import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import type { WebInjector } from './injector.js';
-import { configureOpenAPIDoc } from './openAPIDoc.js';
-import { configureRoutes } from './routes.js';
 
 const makeApp = (webInjector: WebInjector): OpenAPIHono => {
   const app = new OpenAPIHono({
     defaultHook: (result, c) => {
       // SEE: https://github.com/honojs/middleware/issues/1479
       if (!result.success) {
+        console.log(
+          'Validation Error',
+          c.get('requestId'),
+          z.formatError(result.error),
+        );
         return c.json(
           createValidationErrorSchema().parse({
             title: 'Validation Error',
@@ -25,17 +41,31 @@ const makeApp = (webInjector: WebInjector): OpenAPIHono => {
     },
   });
 
-  app.notFound((c) =>
-    c.json(
+  app.use('*', requestId());
+  app.use('*', async (c, next) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const connInfo = getConnInfo(c);
+    const ctx = {
+      requestId: c.get('requestId'),
+      ipAddress: connInfo.remote.address,
+    };
+    await runWithRequestContext(ctx, async () => {
+      await next();
+    });
+  });
+
+  app.notFound((c) => {
+    console.log('Not Found', c.get('requestId'), c.req.url);
+    return c.json(
       createErrorSchema().parse({
         title: 'Not Found',
       }),
       404,
-    ),
-  );
+    );
+  });
 
   app.onError((err, c) => {
-    console.error(err.message);
+    console.error('Internal Server Error', c.get('requestId'), err.message);
     return c.json(
       createErrorSchema().parse({
         title: 'Internal Server Error',
@@ -44,8 +74,32 @@ const makeApp = (webInjector: WebInjector): OpenAPIHono => {
     );
   });
 
-  configureOpenAPIDoc(app);
-  configureRoutes(app, webInjector);
+  app
+    .doc31('/doc', {
+      openapi: '3.1.0',
+      info: {
+        version: '1.0.0',
+        title: 'Shopping Cart API',
+      },
+    })
+    .get(
+      '/scalar',
+      Scalar({
+        url: '/doc',
+      }),
+    );
+
+  app
+    .openapi(GetCartRoute, webInjector.injectFunction(GetCartHandler.create))
+    .openapi(
+      ClearCartRoute,
+      webInjector.injectFunction(ClearCartHandler.create),
+    )
+    .openapi(
+      AddCartItemRoute,
+      webInjector.injectFunction(AddCartItemHandler.create),
+    );
+
   return app;
 };
 export { makeApp };
