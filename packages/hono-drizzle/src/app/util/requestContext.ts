@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 
 interface RequestContext {
   readonly requestId: string;
-  readonly executionPort: 'management' | 'shopping';
+  readonly primaryPort: 'management' | 'shopping';
 }
 
 const storage = new AsyncLocalStorage<RequestContext>();

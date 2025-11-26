@@ -14,8 +14,8 @@ export const queryLogger: Logger = {
     if (context === undefined) {
       console.info(query, params);
     } else {
-      const { requestId, executionPort } = context;
-      console.info(requestId, executionPort, query, params);
+      const { requestId, primaryPort } = context;
+      console.info(requestId, primaryPort, query, params);
     }
   },
 };

@@ -10,7 +10,7 @@ const execute =
       await runWithRequestContext(
         {
           requestId: crypto.randomUUID(),
-          executionPort: 'management',
+          primaryPort: 'management',
         },
         () => handler(args),
       );
