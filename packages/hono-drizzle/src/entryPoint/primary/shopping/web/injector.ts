@@ -1,6 +1,6 @@
 import type { Injector } from 'typed-inject';
 
-import { AddCartItemHandler } from '../../../../adapter/primary/shopping/cli/addCartItemHandler.js';
+import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/addCartItemHandler.js';
 import { ClearCartHandler } from '../../../../adapter/primary/shopping/web/cart/clearHandler.js';
 import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
 import type { AppEnv } from '../../env.js';
