@@ -45,7 +45,7 @@ const makeApp = (webInjector: WebInjector): OpenAPIHono => {
     await runWithRequestContext(
       {
         requestId: c.get('requestId'),
-        executionPort: 'shopping',
+        primaryPort: 'shopping',
       },
       async () => {
         await next();
