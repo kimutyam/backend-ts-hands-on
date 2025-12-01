@@ -5,7 +5,7 @@ import { hideBin } from 'yargs/helpers';
 import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
 import { AppEnv } from '../../env.js';
 import { execute } from './execute.js';
-import { CliInjector } from './injector.js';
+import { CliAdapterInjector } from './injector.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
@@ -17,7 +17,7 @@ const argv = yargs(hideBin(process.argv))
 
 const appEnv = AppEnv.parse(process.env);
 
-const [rootInjector, cliInjector] = CliInjector.create(appEnv);
+const [rootInjector, cliInjector] = CliAdapterInjector.create(appEnv);
 const handler = cliInjector.injectFunction(RegisterProductHandler.create);
 
 await R.pipe(argv, execute(handler, rootInjector));

@@ -5,7 +5,7 @@ import type { Injector } from 'typed-inject';
 
 import { AppEnv } from '../../env.js';
 import { makeApp } from './app.js';
-import { WebInjector } from './injector.js';
+import { WebAdapterInjector } from './injector.js';
 
 const run = (app: OpenAPIHono): ServerType =>
   serve(
@@ -34,8 +34,8 @@ const shutdown = async (
 };
 
 const appEnv = AppEnv.parse(process.env);
-const [rootInjector, webInjector] = WebInjector.create(appEnv);
-const app = makeApp(webInjector);
+const [rootInjector, webAdapterInjector] = WebAdapterInjector.create(appEnv);
+const app = makeApp(webAdapterInjector);
 const server = run(app);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises

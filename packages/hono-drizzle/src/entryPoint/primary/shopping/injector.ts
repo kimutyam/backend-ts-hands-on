@@ -9,7 +9,7 @@ import { AddCartItemUseCase } from '../../../app/useCase/addCartItem.js';
 import { ClearCartUseCase } from '../../../app/useCase/clearCart.js';
 import { GetCartUseCase } from '../../../app/useCase/getCart.js';
 import { RemoveCartItemUseCase } from '../../../app/useCase/removeCartItem.js';
-import { PersistencePortInjector } from '../../secondary/persistence/injectorForShopping.js';
+import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
 import type { AppEnv } from '../env.js';
 
 const createSelf = (injector: PersistencePortInjector) =>

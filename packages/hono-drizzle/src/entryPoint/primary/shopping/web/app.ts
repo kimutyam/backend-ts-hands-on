@@ -18,9 +18,9 @@ import {
   createValidationErrorSchema,
 } from '../../../../adapter/primary/shopping/web/errorSchemas.js';
 import { runWithRequestContext } from '../../../../app/util/requestContext.js';
-import type { WebInjector } from './injector.js';
+import type { WebAdapterInjector } from './injector.js';
 
-const makeApp = (webInjector: WebInjector): OpenAPIHono => {
+const makeApp = (webAdapterInjector: WebAdapterInjector): OpenAPIHono => {
   const app = new OpenAPIHono({
     defaultHook: (result, c) => {
       // SEE: https://github.com/honojs/middleware/issues/1479
@@ -91,18 +91,21 @@ const makeApp = (webInjector: WebInjector): OpenAPIHono => {
     );
 
   app
-    .openapi(GetCartRoute, webInjector.injectFunction(GetCartHandler.create))
+    .openapi(
+      GetCartRoute,
+      webAdapterInjector.injectFunction(GetCartHandler.create),
+    )
     .openapi(
       AddCartItemRoute,
-      webInjector.injectFunction(AddCartItemHandler.create),
+      webAdapterInjector.injectFunction(AddCartItemHandler.create),
     )
     .openapi(
       RemoveCartItemRoute,
-      webInjector.injectFunction(RemoveCartItemHandler.create),
+      webAdapterInjector.injectFunction(RemoveCartItemHandler.create),
     )
     .openapi(
       ClearCartRoute,
-      webInjector.injectFunction(ClearCartHandler.create),
+      webAdapterInjector.injectFunction(ClearCartHandler.create),
     );
 
   return app;

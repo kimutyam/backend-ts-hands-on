@@ -10,16 +10,16 @@ const createSelf = (injector: ManagementPortInjector) =>
     RegisterProductHandler.create,
   );
 
-const create = (env: AppEnv): [Injector, CliInjector] => {
+const create = (env: AppEnv): [Injector, CliAdapterInjector] => {
   const [rootInjector, managementPortInjector] =
     ManagementPortInjector.create(env);
-  const webAdaptorInjector = createSelf(managementPortInjector);
-  return [rootInjector, webAdaptorInjector];
+  const cliAdapterInjector = createSelf(managementPortInjector);
+  return [rootInjector, cliAdapterInjector];
 };
 
-type CliInjector = ReturnType<typeof createSelf>;
-const CliInjector = {
+type CliAdapterInjector = ReturnType<typeof createSelf>;
+const CliAdapterInjector = {
   create,
 } as const;
 
-export { CliInjector };
+export { CliAdapterInjector };
