@@ -10,7 +10,7 @@ import { ClearCartUseCase } from '../../../app/useCase/clearCart.js';
 import { GetCartUseCase } from '../../../app/useCase/getCart.js';
 import { RemoveCartItemUseCase } from '../../../app/useCase/removeCartItem.js';
 import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
-import type { AppEnv } from '../env.js';
+import type { ValidatedEnv } from '../validatedEnv.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
   injector
@@ -19,7 +19,7 @@ const createSelf = (injector: PersistencePortInjector) =>
     .provideFactory(RemoveCartItem.token, RemoveCartItemUseCase.create)
     .provideFactory(ClearCart.token, ClearCartUseCase.create);
 
-const create = (env: AppEnv): [Injector, ShoppingPortInjector] => {
+const create = (env: ValidatedEnv): [Injector, ShoppingPortInjector] => {
   const rootInjector = createInjector();
   const persistencePortInjector =
     env.DATABASE_URL === undefined

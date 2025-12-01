@@ -4,7 +4,7 @@ import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/car
 import { ClearCartHandler } from '../../../../adapter/primary/shopping/web/cart/clearHandler.js';
 import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
 import { RemoveCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/removeCartItemHandler.js';
-import type { AppEnv } from '../../env.js';
+import type { ValidatedEnv } from '../../validatedEnv.js';
 import { ShoppingPortInjector } from '../injector.js';
 
 const createSelf = (injector: ShoppingPortInjector) =>
@@ -14,7 +14,7 @@ const createSelf = (injector: ShoppingPortInjector) =>
     .provideFactory(RemoveCartItemHandler.token, RemoveCartItemHandler.create)
     .provideFactory(ClearCartHandler.token, ClearCartHandler.create);
 
-const create = (env: AppEnv): [Injector, WebAdapterInjector] => {
+const create = (env: ValidatedEnv): [Injector, WebAdapterInjector] => {
   const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);
   const webAdapterInjector = createSelf(shoppingPortInjector);
   return [rootInjector, webAdapterInjector];

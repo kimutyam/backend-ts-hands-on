@@ -3,7 +3,7 @@ import { serve } from '@hono/node-server';
 import type { OpenAPIHono } from '@hono/zod-openapi';
 import type { Injector } from 'typed-inject';
 
-import { AppEnv } from '../../env.js';
+import { ValidatedEnv } from '../../validatedEnv.js';
 import { makeApp } from './app.js';
 import { WebAdapterInjector } from './injector.js';
 
@@ -33,8 +33,8 @@ const shutdown = async (
   await injector.dispose();
 };
 
-const appEnv = AppEnv.parse(process.env);
-const [rootInjector, webAdapterInjector] = WebAdapterInjector.create(appEnv);
+const env = ValidatedEnv.parse(process.env);
+const [rootInjector, webAdapterInjector] = WebAdapterInjector.create(env);
 const app = makeApp(webAdapterInjector);
 const server = run(app);
 
