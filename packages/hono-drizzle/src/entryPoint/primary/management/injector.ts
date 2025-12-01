@@ -3,7 +3,7 @@ import { createInjector } from 'typed-inject';
 
 import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
 import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js';
-import { PersistencePortInjector } from '../../secondary/persistence/injectorForManagement.js';
+import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
 import type { AppEnv } from '../env.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
