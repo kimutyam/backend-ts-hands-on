@@ -52,8 +52,8 @@ const createRepository = (
   };
 };
 
-const ProductRepository = {
+const ProductRepositoryOnMemory = {
   create: createRepository,
 } as const;
 
-export { ProductRepository };
+export { ProductRepositoryOnMemory };

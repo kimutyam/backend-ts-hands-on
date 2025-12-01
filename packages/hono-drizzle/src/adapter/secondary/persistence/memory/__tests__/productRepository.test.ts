@@ -9,7 +9,7 @@ import { Product } from '../../../../../app/domain/product/product.js';
 import type { ProductRegistered } from '../../../../../app/domain/product/productEvent.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { ProductName } from '../../../../../app/domain/product/productName.js';
-import { ProductRepository } from '../productRepository.js';
+import { ProductRepositoryOnMemory } from '../productRepository.js';
 
 const registerProduct = (
   aggregateId: ProductId,
@@ -50,7 +50,7 @@ describe('FindCartById', () => {
     Price.parse(1000),
   );
 
-  const repository = ProductRepository.create(
+  const repository = ProductRepositoryOnMemory.create(
     [event1, event2],
     new Map([
       [product1.aggregateId, product1],
