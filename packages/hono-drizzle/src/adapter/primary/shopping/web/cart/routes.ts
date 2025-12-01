@@ -9,11 +9,12 @@ import {
   AddCartItemResponseSchema,
   CartIdParamSchema,
   GetCartResponseSchema,
+  RemoveCartItemParamsSchema,
 } from './schemas.js';
 
 const GetCartRoute = createRoute({
   method: 'get',
-  path: '/carts/{id}',
+  path: '/carts/{cartId}',
   tags: ['Cart'],
   operationId: 'GetCart',
   request: {
@@ -91,9 +92,40 @@ const AddCartItemRoute = createRoute({
   },
 });
 
+const RemoveCartItemRoute = createRoute({
+  method: 'delete',
+  path: '/carts/{cartId}/items/{productId}',
+  tags: ['Cart'],
+  operationId: 'RemoveCartItem',
+  request: {
+    params: RemoveCartItemParamsSchema,
+  },
+  responses: {
+    204: {
+      description: 'No Content',
+    },
+    404: {
+      content: {
+        'application/json': {
+          schema: createErrorSchema('Not Found'),
+        },
+      },
+      description: 'Not Found',
+    },
+    422: {
+      content: {
+        'application/json': {
+          schema: createValidationErrorSchema('Unprocessable Content'),
+        },
+      },
+      description: 'Unprocessable Content',
+    },
+  },
+});
+
 const ClearCartRoute = createRoute({
   method: 'delete',
-  path: '/carts/{id}',
+  path: '/carts/{cartId}',
   tags: ['Cart'],
   operationId: 'DeleteCart',
   request: {
@@ -122,4 +154,4 @@ const ClearCartRoute = createRoute({
   },
 });
 
-export { GetCartRoute, AddCartItemRoute, ClearCartRoute };
+export { GetCartRoute, AddCartItemRoute, RemoveCartItemRoute, ClearCartRoute };

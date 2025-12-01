@@ -1,5 +1,7 @@
 import assert from 'node:assert';
 
+import type { Result } from 'neverthrow';
+import { err, ok } from 'neverthrow';
 import * as R from 'remeda';
 
 import { Aggregate } from './aggregate.js';
@@ -12,6 +14,7 @@ import {
   CartItemUpdated,
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
+import { CartItemNotFoundError } from './cartItemNotFoundError.js';
 import type { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
 import { ProductId } from './productId.js';
@@ -136,11 +139,14 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  (cart: Cart): [Cart, CartItemRemoved] => {
+  (cart: Cart): Result<[Cart, CartItemRemoved], CartItemNotFoundError> => {
     const { aggregateId, sequenceNumber, cartItems } = cart;
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
+    if (cartItems.length === removedCartItems.length) {
+      return err(CartItemNotFoundError.create(aggregateId, productId));
+    }
     const aggregate = create(
       aggregateId,
       Aggregate.incrementSequenceNumber(sequenceNumber),
@@ -152,7 +158,7 @@ const removeCartItem =
         productId,
       }),
     );
-    return [aggregate, event];
+    return ok([aggregate, event]);
   };
 
 const clear =

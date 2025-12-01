@@ -102,11 +102,13 @@ describe('removeCartItem', () => {
         price: Price.valueOf(2_000),
       },
     ];
-    const [removedCart, event] = R.pipe(
+    const result = R.pipe(
       Cart.create(customId, 0, cartItems),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
     const expectation = Cart.create(customId, 1, [cartItems[1]!]);
+    assert(result.isOk());
+    const [removedCart, event] = result.value;
     expect(removedCart).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
     expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);

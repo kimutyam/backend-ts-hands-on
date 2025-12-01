@@ -26,9 +26,16 @@ const quantitySchema = Quantity.schema.openapi({
 
 const CartIdParamSchema = z
   .object({
-    id: customerIdSchema,
+    cartId: customerIdSchema,
   })
-  .openapi('CartGetParams');
+  .openapi('CartIdParam');
+
+const RemoveCartItemParamsSchema = z
+  .object({
+    cartId: customerIdSchema,
+    productId: productIdSchema,
+  })
+  .openapi('RemoveCartItemParamsSchema');
 
 const CartItemSchema = z
   .object({
@@ -45,7 +52,7 @@ const CartItemSchema = z
 const GetCartResponseSchema = z.array(CartItemSchema).readonly();
 
 const AddCartItemRequestSchema = z.object({
-  customerId: customerIdSchema,
+  cartId: customerIdSchema,
   productId: productIdSchema,
   quantity: quantitySchema,
 });
@@ -60,6 +67,7 @@ const AddCartItemResponseSchema = z.object({
 
 export {
   CartIdParamSchema,
+  RemoveCartItemParamsSchema,
   GetCartResponseSchema,
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,

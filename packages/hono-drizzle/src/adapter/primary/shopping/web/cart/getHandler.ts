@@ -6,8 +6,8 @@ import type { GetCartRoute } from './routes.js';
 const create =
   (getCart: GetCart): RouteHandler<typeof GetCartRoute> =>
   async (c) => {
-    const { id } = c.req.valid('param');
-    const cartItems = await getCart(id);
+    const { cartId } = c.req.valid('param');
+    const cartItems = await getCart(cartId);
     return c.json(cartItems, 200);
   };
 
