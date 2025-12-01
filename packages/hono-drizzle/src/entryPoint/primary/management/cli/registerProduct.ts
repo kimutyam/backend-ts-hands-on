@@ -17,7 +17,9 @@ const argv = yargs(hideBin(process.argv))
 
 const env = ValidatedEnv.parse(process.env);
 
-const [rootInjector, cliInjector] = CliAdapterInjector.create(env);
-const handler = cliInjector.injectFunction(RegisterProductHandler.create);
+const [rootInjector, cliAdapterInjector] = CliAdapterInjector.create(env);
+const handler = cliAdapterInjector.injectFunction(
+  RegisterProductHandler.create,
+);
 
 await R.pipe(argv, execute(handler, rootInjector));
