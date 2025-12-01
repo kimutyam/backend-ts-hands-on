@@ -1,7 +1,7 @@
 import type { ApplicationError } from '../../util/applicationError.js';
 import type { ProductId } from './productId.js';
 
-const kind = 'ProductsNotFound';
+const kind = 'ProductsNotFoundError';
 
 interface ProductsNotFoundError extends ApplicationError<typeof kind> {
   readonly productIds: ReadonlyArray<ProductId>;

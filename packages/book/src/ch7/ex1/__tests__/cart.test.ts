@@ -1,3 +1,5 @@
+import assert from 'node:assert';
+
 import * as R from 'remeda';
 
 import { Cart } from '../cart.js';
@@ -96,6 +98,7 @@ describe('removeCartItem', () => {
       Cart.removeCartItem(cartItems[0]!.productId),
     );
     const expectation = Cart.create(customId, [cartItems[1]!]);
-    expect(removedCart).toStrictEqual(expectation);
+    assert(removedCart.isOk());
+    expect(removedCart.value).toStrictEqual(expectation);
   });
 });

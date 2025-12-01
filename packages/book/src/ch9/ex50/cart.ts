@@ -1,4 +1,4 @@
-import { ok, Result } from 'neverthrow';
+import { err, ok, Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
@@ -11,6 +11,7 @@ import {
   CartItemUpdated,
 } from './cartEvent.js';
 import { CartItem } from './cartItem.js';
+import { CartItemNotFoundError } from './cartItemNotFoundError.js';
 import { CartRefinementsError } from './cartRefinementsError.js';
 import { CustomerId } from './customerId.js';
 import { DomainEvent } from './domainEvent.js';
@@ -156,11 +157,14 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  (cart: Cart): [Cart, CartItemRemoved] => {
+  (cart: Cart): Result<[Cart, CartItemRemoved], CartItemNotFoundError> => {
     const { aggregateId, sequenceNumber, cartItems } = cart;
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
+    if (cartItems.length === removedCartItems.length) {
+      return err(CartItemNotFoundError.create(aggregateId, productId));
+    }
     const aggregate = parse({
       aggregateId,
       sequenceNumber: Aggregate.incrementSequenceNumber(sequenceNumber),
@@ -172,7 +176,7 @@ const removeCartItem =
         productId,
       }),
     );
-    return [aggregate, event];
+    return ok([aggregate, event]);
   };
 
 const clear =

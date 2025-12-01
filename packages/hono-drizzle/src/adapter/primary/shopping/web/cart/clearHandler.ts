@@ -7,8 +7,8 @@ import type { ClearCartRoute } from './routes.js';
 const create =
   (clearCart: ClearCart): RouteHandler<typeof ClearCartRoute> =>
   async (c) => {
-    const { id } = c.req.valid('param');
-    return clearCart(id).match(
+    const { cartId } = c.req.valid('param');
+    return clearCart(cartId).match(
       () => c.body(null, 204),
       (error) =>
         c.json(

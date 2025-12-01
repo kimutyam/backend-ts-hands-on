@@ -1,6 +1,5 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
-import { CartNotFoundError } from '../../../../../app/domain/cart/cartNotFoundError.js';
 import { CartRefinementsError } from '../../../../../app/domain/cart/cartRefinementsError.js';
 import { QuantityRefinementsError } from '../../../../../app/domain/cart/quantity.js';
 import { ProductNotFoundError } from '../../../../../app/domain/product/productNotFoundError.js';
@@ -12,8 +11,8 @@ import type { AddCartItemRoute } from './routes.js';
 const create =
   (addCartItem: AddCartItem): RouteHandler<typeof AddCartItemRoute> =>
   async (c) => {
-    const { customerId, productId, quantity } = c.req.valid('json');
-    return addCartItem(customerId, productId, quantity).match(
+    const { cartId, productId, quantity } = c.req.valid('json');
+    return addCartItem(cartId, productId, quantity).match(
       (event) =>
         c.json(
           {
@@ -25,7 +24,6 @@ const create =
       (error) => {
         switch (error.kind) {
           case ProductNotFoundError.kind:
-          case CartNotFoundError.kind:
             return c.json(
               createErrorSchema().parse({
                 title: error.message,

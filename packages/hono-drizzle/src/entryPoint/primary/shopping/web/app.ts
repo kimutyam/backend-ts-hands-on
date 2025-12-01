@@ -6,10 +6,12 @@ import { z } from 'zod';
 import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/addCartItemHandler.js';
 import { ClearCartHandler } from '../../../../adapter/primary/shopping/web/cart/clearHandler.js';
 import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
+import { RemoveCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/removeCartItemHandler.js';
 import {
   AddCartItemRoute,
   ClearCartRoute,
   GetCartRoute,
+  RemoveCartItemRoute,
 } from '../../../../adapter/primary/shopping/web/cart/routes.js';
 import {
   createErrorSchema,
@@ -91,12 +93,16 @@ const makeApp = (webInjector: WebInjector): OpenAPIHono => {
   app
     .openapi(GetCartRoute, webInjector.injectFunction(GetCartHandler.create))
     .openapi(
-      ClearCartRoute,
-      webInjector.injectFunction(ClearCartHandler.create),
-    )
-    .openapi(
       AddCartItemRoute,
       webInjector.injectFunction(AddCartItemHandler.create),
+    )
+    .openapi(
+      RemoveCartItemRoute,
+      webInjector.injectFunction(RemoveCartItemHandler.create),
+    )
+    .openapi(
+      ClearCartRoute,
+      webInjector.injectFunction(ClearCartHandler.create),
     );
 
   return app;

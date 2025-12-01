@@ -49,13 +49,13 @@ describe('addCartItem', () => {
       Cart.addCartItem(targetCartItem),
     );
     assert(result.isOk());
-    const [addedCart, event] = result.value;
+    const [addedCartItem, event] = result.value;
     const expectation = Cart.parse({
       aggregateId: customId,
       sequenceNumber: 2,
       cartItems: [cartItem, targetCartItem],
     });
-    expect(addedCart).toStrictEqual(expectation);
+    expect(addedCartItem).toStrictEqual(expectation);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(targetCartItem);
   });
@@ -122,7 +122,7 @@ describe('removeCartItem', () => {
         price: Price.parse(2_000),
       },
     ];
-    const [removedCart, event] = R.pipe(
+    const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
@@ -135,7 +135,9 @@ describe('removeCartItem', () => {
       sequenceNumber: 2,
       cartItems: [cartItems[1]!],
     });
-    expect(removedCart).toEqual(expectation);
+    assert(result.isOk());
+    const [removedCartItem, event] = result.value;
+    expect(removedCartItem).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
     expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);
   });

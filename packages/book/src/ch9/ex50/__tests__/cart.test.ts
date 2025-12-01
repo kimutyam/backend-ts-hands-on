@@ -122,7 +122,7 @@ describe('removeCartItem', () => {
         price: Price.parse(2_000),
       },
     ];
-    const [removedCart, event] = R.pipe(
+    const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
         sequenceNumber: Aggregate.InitialSequenceNumber,
@@ -135,6 +135,8 @@ describe('removeCartItem', () => {
       sequenceNumber: 2,
       cartItems: [cartItems[1]!],
     });
+    assert(result.isOk());
+    const [removedCart, event] = result.value;
     expect(removedCart).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
     expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);

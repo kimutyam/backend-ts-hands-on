@@ -1,10 +1,13 @@
 import assert from 'node:assert';
 
+import type { Result } from 'neverthrow';
+import { err, ok } from 'neverthrow';
 import * as R from 'remeda';
 
 import type { Aggregate } from './aggregate.js';
 import type { Brand } from './brand.js';
 import { CartItem } from './cartItem.js';
+import { CartItemNotFoundError } from './cartItemNotFoundError.js';
 import type { CustomerId } from './customerId.js';
 import { ProductId } from './productId.js';
 
@@ -100,12 +103,14 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  (cart: Cart): Cart => {
+  (cart: Cart): Result<Cart, CartItemNotFoundError> => {
     const { aggregateId, cartItems } = cart;
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
-    return create(aggregateId, removedCartItems);
+    return cartItems.length === removedCartItems.length
+      ? err(CartItemNotFoundError.create(aggregateId, productId))
+      : ok(create(aggregateId, removedCartItems));
   };
 
 const clear = (cart: Cart): Cart => {
