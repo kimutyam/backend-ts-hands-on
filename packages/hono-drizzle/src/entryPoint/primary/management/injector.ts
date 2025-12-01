@@ -4,12 +4,12 @@ import { createInjector } from 'typed-inject';
 import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
 import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js';
 import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
-import type { AppEnv } from '../env.js';
+import type { ValidatedEnv } from '../validatedEnv.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
   injector.provideFactory(RegisterProduct.token, RegisterProductUseCase.create);
 
-const create = (env: AppEnv): [Injector, ManagementPortInjector] => {
+const create = (env: ValidatedEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
   const persistencePortInjector =
     env.DATABASE_URL === undefined

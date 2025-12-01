@@ -1,7 +1,7 @@
 import type { Injector } from 'typed-inject';
 
 import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
-import type { AppEnv } from '../../env.js';
+import type { ValidatedEnv } from '../../validatedEnv.js';
 import { ManagementPortInjector } from '../injector.js';
 
 const createSelf = (injector: ManagementPortInjector) =>
@@ -10,7 +10,7 @@ const createSelf = (injector: ManagementPortInjector) =>
     RegisterProductHandler.create,
   );
 
-const create = (env: AppEnv): [Injector, CliAdapterInjector] => {
+const create = (env: ValidatedEnv): [Injector, CliAdapterInjector] => {
   const [rootInjector, managementPortInjector] =
     ManagementPortInjector.create(env);
   const cliAdapterInjector = createSelf(managementPortInjector);
