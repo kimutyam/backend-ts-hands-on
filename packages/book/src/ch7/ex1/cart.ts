@@ -105,12 +105,14 @@ const removeCartItem =
   (productId: ProductId) =>
   (cart: Cart): Result<Cart, CartItemNotFoundError> => {
     const { aggregateId, cartItems } = cart;
+    // 1
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
+    // 2
     return cartItems.length === removedCartItems.length
       ? err(CartItemNotFoundError.create(aggregateId, productId))
-      : ok(create(aggregateId, removedCartItems));
+      : ok(create(aggregateId, removedCartItems)); // 3
   };
 
 const clear = (cart: Cart): Cart => {
