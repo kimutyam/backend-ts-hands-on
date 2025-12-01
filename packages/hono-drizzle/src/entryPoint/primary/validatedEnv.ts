@@ -8,6 +8,7 @@ const schema = z
 
 type ValidatedEnv = z.infer<typeof schema>;
 
+// 1
 /* global NodeJS */
 const parse = (value: NodeJS.ProcessEnv): ValidatedEnv => schema.parse(value);
 

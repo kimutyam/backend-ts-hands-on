@@ -6,9 +6,11 @@ import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js'
 import { PersistencePortInjector } from '../../secondary/persistence/injector.js';
 import type { ValidatedEnv } from '../validatedEnv.js';
 
+// 1
 const createSelf = (injector: PersistencePortInjector) =>
   injector.provideFactory(RegisterProduct.token, RegisterProductUseCase.create);
 
+// 2
 const create = (env: ValidatedEnv): [Injector, ManagementPortInjector] => {
   const rootInjector = createInjector();
   const persistencePortInjector =
@@ -19,6 +21,7 @@ const create = (env: ValidatedEnv): [Injector, ManagementPortInjector] => {
   return [rootInjector, managementPortInjector];
 };
 
+// 3
 type ManagementPortInjector = ReturnType<typeof createSelf>;
 const ManagementPortInjector = {
   create,
