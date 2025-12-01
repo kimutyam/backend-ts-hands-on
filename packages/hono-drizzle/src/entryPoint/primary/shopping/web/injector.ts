@@ -14,15 +14,15 @@ const createSelf = (injector: ShoppingPortInjector) =>
     .provideFactory(RemoveCartItemHandler.token, RemoveCartItemHandler.create)
     .provideFactory(ClearCartHandler.token, ClearCartHandler.create);
 
-const create = (env: AppEnv): [Injector, WebInjector] => {
+const create = (env: AppEnv): [Injector, WebAdapterInjector] => {
   const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);
-  const webAdaptorInjector = createSelf(shoppingPortInjector);
-  return [rootInjector, webAdaptorInjector];
+  const webAdapterInjector = createSelf(shoppingPortInjector);
+  return [rootInjector, webAdapterInjector];
 };
 
-type WebInjector = ReturnType<typeof createSelf>;
-const WebInjector = {
+type WebAdapterInjector = ReturnType<typeof createSelf>;
+const WebAdapterInjector = {
   create,
 } as const;
 
-export { WebInjector };
+export { WebAdapterInjector };
