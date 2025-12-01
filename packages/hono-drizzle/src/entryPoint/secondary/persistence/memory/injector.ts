@@ -12,14 +12,14 @@ const create = (rootInjector: Injector): PersistencePortInjector => {
   const productRepository = ProductRepositoryOnMemory.create();
   const cartRepository = CartRepositoryOnMemory.create();
   return rootInjector
+    .provideValue(FindProductById.token, productRepository.findById)
     .provideValue(StoreProductEvent.token, productRepository.store)
     .provideValue(FindCartById.token, cartRepository.findById)
-    .provideValue(StoreCartEvent.token, cartRepository.store)
-    .provideValue(FindProductById.token, productRepository.findById);
+    .provideValue(StoreCartEvent.token, cartRepository.store);
 };
 
-const MemoryAdaptorInjector = {
+const MemoryAdapterInjector = {
   create,
 } as const;
 
-export { MemoryAdaptorInjector };
+export { MemoryAdapterInjector };

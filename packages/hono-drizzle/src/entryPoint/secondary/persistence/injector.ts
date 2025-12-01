@@ -4,19 +4,19 @@ import type { StoreCartEvent } from '../../../app/port/secondary/persistence/car
 import type { FindCartById } from '../../../app/port/secondary/persistence/cartRepository.js';
 import type { StoreProductEvent } from '../../../app/port/secondary/persistence/productEventStore.js';
 import type { FindProductById } from '../../../app/port/secondary/persistence/productRepository.js';
-import { MemoryAdaptorInjector } from './memory/injector.js';
-import { RdbAdaptorInjector } from './rdb/injector.js';
+import { MemoryAdapterInjector } from './memory/injector.js';
+import { RdbAdapterInjector } from './rdb/injector.js';
 
 type PersistencePortInjector = Injector<{
+  [FindProductById.token]: FindProductById;
   [StoreProductEvent.token]: StoreProductEvent;
   [FindCartById.token]: FindCartById;
   [StoreCartEvent.token]: StoreCartEvent;
-  [FindProductById.token]: FindProductById;
 }>;
 
 const PersistencePortInjector = {
-  createOnRdb: RdbAdaptorInjector.create,
-  createOnMemory: MemoryAdaptorInjector.create,
+  createOnRdb: RdbAdapterInjector.create,
+  createOnMemory: MemoryAdapterInjector.create,
 } as const;
 
 export { PersistencePortInjector };

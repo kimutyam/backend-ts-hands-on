@@ -19,13 +19,13 @@ const create = (
   rootInjector
     .provideValue(DatabaseUrl.token, databaseUrl)
     .provideFactory(Db.token, Db.create)
+    .provideFactory(FindProductById.token, ProductRepository.createFindByIdFn)
     .provideFactory(StoreProductEvent.token, ProductEventStore.createStoreFn)
     .provideFactory(FindCartById.token, CartRepository.createFindByIdFn)
-    .provideFactory(StoreCartEvent.token, CartEventStore.createStoreFn)
-    .provideFactory(FindProductById.token, ProductRepository.createFindByIdFn);
+    .provideFactory(StoreCartEvent.token, CartEventStore.createStoreFn);
 
-const RdbAdaptorInjector = {
+const RdbAdapterInjector = {
   create,
 } as const;
 
-export { RdbAdaptorInjector };
+export { RdbAdapterInjector };
