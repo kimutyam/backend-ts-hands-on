@@ -12,8 +12,8 @@ class CampaignPeriod {
     this.period = new Period(start, end);
   }
 
-  isWithin(dateToCompare: Date): boolean {
-    return this.period.isWithin(dateToCompare);
+  contains(dateToCompare: Date): boolean {
+    return this.period.contains(dateToCompare);
   }
 }
 

@@ -13,7 +13,7 @@ class Period {
     private end: Date,
   ) {}
 
-  isWithin(dateToCompare: Date): boolean {
+  contains(dateToCompare: Date): boolean {
     return (
       isSameOrBefore(this.start, dateToCompare) &&
       isSameOrAfter(this.end, dateToCompare)

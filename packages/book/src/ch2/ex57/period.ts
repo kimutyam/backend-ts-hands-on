@@ -5,9 +5,9 @@ interface Period {
 
 declare function build(start: Date, periodDays: number): Period;
 
-declare function isWithin(): boolean;
+declare function contains(): boolean;
 
 declare function postpone(): Period;
 declare function extend(): Period;
 
-export { build, isWithin, extend, postpone, type Period };
+export { build, contains, extend, postpone, type Period };

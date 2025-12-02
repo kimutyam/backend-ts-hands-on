@@ -16,7 +16,7 @@ const isSameOrAfter =
   (date: Date): boolean =>
     isAfter(date, dateToCompare) || isEqual(date, dateToCompare);
 
-const isWithin =
+const contains =
   (dateToCompare: Date) =>
   (period: Period): boolean => {
     const { start, end } = period;
@@ -53,7 +53,7 @@ const build = (start: Date, periodDays: number): Period => ({
 
 const Period = {
   build,
-  isWithin,
+  contains,
   extend,
   postpone,
 } as const;

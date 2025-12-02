@@ -18,7 +18,7 @@ const isSameOrAfter =
     R.pipe(date, isAfter(dateToCompare)) ||
     R.pipe(date, isEqual(dateToCompare));
 
-const isWithin =
+const contains =
   (dateToCompare: Date) =>
   (period: Period): boolean => {
     const { start, end } = period;
@@ -48,4 +48,4 @@ const extend =
     };
   };
 
-export { extend, isWithin, postpone, type Period };
+export { extend, contains, postpone, type Period };

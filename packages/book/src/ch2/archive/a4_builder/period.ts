@@ -4,7 +4,7 @@ import * as R from 'remeda';
 interface Period {
   readonly start: Date;
   readonly end: Date;
-  readonly isWithin: (dateToCompare: Date) => boolean;
+  readonly contains: (dateToCompare: Date) => boolean;
   readonly postpone: (delayDays: number, delayHours: number) => Period;
   readonly extend: (extensionDays: number, extensionHours: number) => Period;
 }
@@ -26,7 +26,7 @@ const Period = (start: Date, end: Date): Period => {
   };
   return {
     ...self,
-    isWithin: (dateToCompare: Date): boolean =>
+    contains: (dateToCompare: Date): boolean =>
       R.pipe(self.start, isSameOrBefore(dateToCompare)) &&
       R.pipe(self.end, isSameOrAfter(dateToCompare)),
     postpone: (delayDays: number, delayHours: number): Period =>
