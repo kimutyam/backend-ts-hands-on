@@ -7,17 +7,17 @@ interface Timeline {
   readonly lotteryEndDate: Period['end'];
 }
 
-const isWithin = (timeline: Timeline, dateToCompare: Date): boolean =>
+const contains = (timeline: Timeline, dateToCompare: Date): boolean =>
   R.pipe(
     {
       start: timeline.entryPeriod.start,
       end: timeline.lotteryEndDate,
     },
-    Period.isWithin(dateToCompare),
+    Period.contains(dateToCompare),
   );
 
 const Timeline = {
-  isWithin,
+  contains,
 } as const;
 
 export { Timeline };

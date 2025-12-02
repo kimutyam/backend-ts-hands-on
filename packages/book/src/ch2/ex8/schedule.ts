@@ -1,14 +1,14 @@
 import type { Period } from '../ex15/period.js';
-import { isWithin } from './period.js';
+import { contains } from './period.js';
 
 interface Schedule {
   readonly entryPeriod: Period;
   readonly lotteryPeriod: Period;
 }
 
-const isWithinSchedule = (schedule: Schedule, dateToCompare: Date): boolean => {
+const containsSchedule = (schedule: Schedule, dateToCompare: Date): boolean => {
   const { entryPeriod, lotteryPeriod } = schedule;
-  return isWithin(
+  return contains(
     {
       start: entryPeriod.start,
       end: lotteryPeriod.end,
@@ -17,4 +17,4 @@ const isWithinSchedule = (schedule: Schedule, dateToCompare: Date): boolean => {
   );
 };
 
-export { isWithinSchedule, type Schedule };
+export { containsSchedule, type Schedule };

@@ -1,4 +1,4 @@
-import { isWithin, postpone } from './period.js';
+import { contains, postpone } from './period.js';
 
 interface CampaignPeriod {
   readonly campaignId: string;
@@ -9,10 +9,10 @@ interface CampaignPeriod {
 // データ構造に互換性があるのでそのまま使える
 // Periodクラスのメソッドで定義されている場合は、Periodを移譲して使うことになるが、
 // そういったデータ構造の関連性を整備しなくても、関数を使用するかどうかだけの判断軸となる。
-const isWithinCampaign = (
+const containsCampaignPeriod = (
   period: CampaignPeriod,
   dateToCompare: Date,
-): boolean => isWithin(period, dateToCompare);
+): boolean => contains(period, dateToCompare);
 
 // Periodを移譲しなくても、利用できる
 const postponeCampaign = (
@@ -41,10 +41,10 @@ const campaign = {
   end: new Date(2024, 6, 30),
 };
 
-isWithin(campaign, new Date(2024, 6, 15)); // true
+contains(campaign, new Date(2024, 6, 15)); // true
 
 // 他方、「CampaignPeriodは延期してはならない」などの変更が入っても気にする必要がない
 
-console.log(isWithinCampaign, postponeCampaign);
+console.log(containsCampaignPeriod, postponeCampaign);
 
 export { type CampaignPeriod };

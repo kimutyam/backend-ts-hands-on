@@ -11,7 +11,7 @@ const isSameOrAfter = (date: Date, dateToCompare: Date): boolean =>
 const isSameOrBefore = (date: Date, dateToCompare: Date): boolean =>
   isBefore(date, dateToCompare) || isEqual(date, dateToCompare);
 
-const isWithin = (period: Period, dateToCompare: Date): boolean => {
+const contains = (period: Period, dateToCompare: Date): boolean => {
   const { start, end } = period;
   return (
     isSameOrAfter(start, dateToCompare) && isSameOrBefore(end, dateToCompare)
@@ -46,8 +46,8 @@ const campaignPeriod: CampaignPeriod = {
 
 postpone(campaignPeriod.period, 3, 0); // 7月4日〜8月3日 に変更
 
-const isValid = isWithin(campaignPeriod.period, new Date(2024, 6, 2)); // false（本来は true のはず）
+const isContained = contains(campaignPeriod.period, new Date(2024, 6, 2)); // false（本来は true のはず）
 
-console.log('isWithin:', isValid);
+console.log('isContained:', isContained);
 console.log('start:', campaignPeriod.period.start);
 console.log('end:', campaignPeriod.period.end);
