@@ -19,7 +19,7 @@ class Period {
   ) {}
 
   // 2
-  isWithin = (dateToCompare: Date): boolean =>
+  contains = (dateToCompare: Date): boolean =>
     R.pipe(this.start, isSameOrBefore(dateToCompare)) &&
     R.pipe(this.end, isSameOrAfter(dateToCompare));
 

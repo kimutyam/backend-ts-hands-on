@@ -56,7 +56,7 @@ const valueOf = (start: Date, end: Date): Period => {
 const buildAt = (start: Date, periodDate: number): Period =>
   valueOf(start, R.pipe(start, addDays(periodDate)));
 
-const isWithin =
+const contains =
   (dateToCompare: Date) =>
   (period: Period): boolean => {
     const { start, end } = period;
@@ -90,7 +90,7 @@ const Period = {
   valueOf,
   buildAt,
   equals,
-  isWithin,
+  contains,
   extend,
   postpone,
 } as const;

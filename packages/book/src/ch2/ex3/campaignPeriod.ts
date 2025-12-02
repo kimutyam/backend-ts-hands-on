@@ -6,8 +6,8 @@ class CampaignPeriod {
     public readonly period: Period,
   ) {}
 
-  isWithin(dateToCompare: Date): boolean {
-    return this.period.isWithin(dateToCompare);
+  contains(dateToCompare: Date): boolean {
+    return this.period.contains(dateToCompare);
   }
 }
 

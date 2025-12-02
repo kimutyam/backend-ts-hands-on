@@ -11,7 +11,7 @@ const isSameOrBefore = (date: Date, dateToCompare: Date): boolean =>
 const isSameOrAfter = (date: Date, dateToCompare: Date): boolean =>
   isAfter(date, dateToCompare) || isEqual(date, dateToCompare);
 
-const isWithin =
+const contains =
   (dateToCompare: Date) =>
   (period: Period): boolean => {
     const { start, end } = period;
@@ -20,4 +20,4 @@ const isWithin =
     );
   };
 
-export { isWithin, type Period };
+export { contains, type Period };
