@@ -43,7 +43,7 @@
     "zod": "4.1.13"
   },
   "devDependencies": {
-    "@eslint/compat": "1.4.1",
+    "@eslint/compat": "2.0.0",
     "@stylistic/eslint-plugin-js": "4.4.1",
     "@types/node": "22.19.1",
     "@types/pg": "8.15.6",
