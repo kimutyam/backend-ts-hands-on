@@ -1,5 +1,4 @@
 class Employee {
-  String id;
   String name;
   int age;
 
