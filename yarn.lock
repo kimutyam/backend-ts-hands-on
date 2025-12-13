@@ -1716,28 +1716,28 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@scalar/core@0.3.23":
-  version "0.3.23"
-  resolved "https://registry.yarnpkg.com/@scalar/core/-/core-0.3.23.tgz#0595e6fe00ffb39d620319d4f929c4200a3139ec"
-  integrity sha512-hop7LVR3MKB2VpS8dly3gmmbB3lBGxQRtL0pBaC77zFMRHoBv1DuB2bj8l4gxd5grzitJ1LsYduvywLAMY9F6g==
+"@scalar/core@0.3.26":
+  version "0.3.26"
+  resolved "https://registry.yarnpkg.com/@scalar/core/-/core-0.3.26.tgz#c25348401a6beae3082c25352789a17e9076b792"
+  integrity sha512-CTwhU0zteyhFvlGbiErUC/nt7o4VMraXC4E52x2Cz+s/rgGrmS00pTYtnjO3NVQXXqjScq8BqMTqBZrHQEJhWw==
   dependencies:
-    "@scalar/types" "0.5.0"
+    "@scalar/types" "0.5.2"
 
-"@scalar/hono-api-reference@0.9.25":
-  version "0.9.25"
-  resolved "https://registry.yarnpkg.com/@scalar/hono-api-reference/-/hono-api-reference-0.9.25.tgz#b0f9ddeb14116ff57b21de7054b0cae0cec89cd4"
-  integrity sha512-ZEQAhvVU/FXdJs8+rVXdfWjwzkE+M6Zr+4W+zNhy8DF17BIpxFXfVL7i3OxK1V/4EtkTplkETjYGTR4ju3RFZw==
+"@scalar/hono-api-reference@0.9.28":
+  version "0.9.28"
+  resolved "https://registry.yarnpkg.com/@scalar/hono-api-reference/-/hono-api-reference-0.9.28.tgz#86150766a19e87af56752610b1b784b01a94b7b3"
+  integrity sha512-RVY55Rpcy9/irv0SMSxuSlQ6wDyuP+iTDmTz/d5tGv/qqo8vEOJMdDRNftMUqdtqiZUAE8fXJnuDCTJ80ZztAQ==
   dependencies:
-    "@scalar/core" "0.3.23"
+    "@scalar/core" "0.3.26"
 
-"@scalar/types@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@scalar/types/-/types-0.5.0.tgz#4bdbaf50316c88847562771dad50b5962713e81e"
-  integrity sha512-imDMuTieOc5kHM9/Kt/1lmiI5ZtusuaYlzsXTP99IsWvD8mJ7ivF73lPBRj4PKtg4vY+ta5CO/vJpvnCYandRg==
+"@scalar/types@0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@scalar/types/-/types-0.5.2.tgz#e7e0a62da6bbeecc2e1868d0b0f70ecedc546eef"
+  integrity sha512-F5wyb/B/Mu56PpNqhgSfuKwiwVnmhNhzTOo+k5b++HvYhjwAnqnw8BzbDzwXhhn172IPw8kSkupA/vphw61IRA==
   dependencies:
     nanoid "5.1.5"
     type-fest "5.0.0"
-    zod "4.1.11"
+    zod "^4.1.11"
 
 "@sinclair/typebox@^0.34.0":
   version "0.34.41"
@@ -7415,12 +7415,7 @@ yoctocolors-cjs@^2.1.3:
   resolved "https://registry.yarnpkg.com/yoctocolors-cjs/-/yoctocolors-cjs-2.1.3.tgz#7e4964ea8ec422b7a40ac917d3a344cfd2304baa"
   integrity sha512-U/PBtDf35ff0D8X8D0jfdzHYEPFxAI7jJlxZXwCSez5M3190m+QobIfh+sWDWSHMCWWJN2AWamkegn6vr6YBTw==
 
-zod@4.1.11:
-  version "4.1.11"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-4.1.11.tgz#4aab62f76cfd45e6c6166519ba31b2ea019f75f5"
-  integrity sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==
-
-zod@4.1.13:
+zod@4.1.13, zod@^4.1.11:
   version "4.1.13"
   resolved "https://registry.yarnpkg.com/zod/-/zod-4.1.13.tgz#93699a8afe937ba96badbb0ce8be6033c0a4b6b1"
   integrity sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==
