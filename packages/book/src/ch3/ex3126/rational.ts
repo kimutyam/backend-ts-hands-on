@@ -1,28 +1,31 @@
 import assert from 'node:assert';
 
 interface Rational {
-  readonly numerator: number;
-  readonly denominator: number;
+  readonly reducedNumerator: number;
+  readonly reducedDenominator: number;
 }
 
 const calculateGcd = (a: number, b: number): number =>
   b === 0 ? a : calculateGcd(b, a % b);
 
-const build = (initNumerator: number, initDenominator: number): Rational => {
-  assert(initDenominator !== 0);
-  assert(Number.isInteger(initNumerator));
-  assert(Number.isInteger(initDenominator));
-  const gcd = calculateGcd(initNumerator, initDenominator);
+// 1
+const build = (numerator: number, denominator: number): Rational => {
+  assert(denominator !== 0, '分母は0以外になるようにしてください');
+  assert(Number.isInteger(numerator), '分子は整数になるようにしてください');
+  assert(Number.isInteger(denominator), '分母は整数になるようにしてください');
+  const gcd = calculateGcd(numerator, denominator);
   return {
-    numerator: initNumerator / gcd,
-    denominator: initDenominator / gcd,
+    reducedNumerator: numerator / gcd,
+    reducedDenominator: denominator / gcd,
   };
 };
 
+// 2
 const add = (a: Rational, b: Rational): Rational =>
   build(
-    a.numerator * b.denominator + b.numerator * a.denominator,
-    a.denominator * b.denominator,
+    a.reducedNumerator * b.reducedDenominator +
+      b.reducedNumerator * a.reducedDenominator,
+    a.reducedDenominator * b.reducedDenominator,
   );
 
 const Rational = {
