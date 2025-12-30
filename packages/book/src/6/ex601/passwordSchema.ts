@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const passwordSchema = z
   .string()
-  .min(16, '最低でも16文字にしてください')
+  .min(16)
   .refine((val) => /^[a-zA-Z0-9]*$/.test(val), {
     message: '半角英数字のみを使用してください',
   })
