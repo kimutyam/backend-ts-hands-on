@@ -10,11 +10,13 @@ const nameSchema = z
   })
   .min(1, {
     // 2
-    error: (issue) => `名前は${issue.minimum.toString()}文字以上で指定ください`,
+    error: (issue) =>
+      `名前は${issue.minimum.toString()}文字以上で指定してください`,
   })
   .max(10, {
     // 3
-    error: (issue) => `名前は${issue.maximum.toString()}文字以内で指定ください`,
+    error: (issue) =>
+      `名前は${issue.maximum.toString()}文字以内で指定してください`,
   });
 
 const employeeSchema = z.object({
