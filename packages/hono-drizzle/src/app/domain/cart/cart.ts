@@ -85,15 +85,13 @@ const init = (
 
 const addCartItem =
   (targetCartItem: CartItem) =>
-  ({
-    aggregateId,
-    sequenceNumber,
-    cartItems,
-    // 1
-  }: Cart): Result<
+  (
+    cart: Cart,
+  ): Result<
     [Cart, CartItemAdded | CartItemUpdated],
     QuantityRefinementsError | CartRefinementsError
   > => {
+    const { aggregateId, sequenceNumber, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>
       ProductId.equals(cartItem.productId, targetCartItem.productId),
     );
@@ -149,11 +147,8 @@ const addCartItem =
 
 const removeCartItem =
   (productId: ProductId) =>
-  ({
-    aggregateId,
-    sequenceNumber,
-    cartItems,
-  }: Cart): Result<[Cart, CartItemRemoved], CartItemNotFoundError> => {
+  (cart: Cart): Result<[Cart, CartItemRemoved], CartItemNotFoundError> => {
+    const { aggregateId, sequenceNumber, cartItems } = cart;
     const removedCartItems = cartItems.filter(
       (cartItem) => !ProductId.equals(cartItem.productId, productId),
     );
