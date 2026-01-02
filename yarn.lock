@@ -6031,10 +6031,10 @@ regexp.prototype.flags@^1.5.4:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.32.0:
-  version "2.32.0"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.32.0.tgz#51eafec73c6ee80c44689d44bb0233255c41b724"
-  integrity sha512-BZx9DsT4FAgXDTOdgJIc5eY6ECIXMwtlSPQoPglF20ycSWigttDDe88AozEsPPT4OWk5NujroGSBC1phw5uU+w==
+remeda@2.32.2:
+  version "2.32.2"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.32.2.tgz#794770f41a3dad822629bcc08bb875eddfe06872"
+  integrity sha512-hoxrSvrhAg6Me7ZfHLWYXMvXPMMWijNtbdZNnC3+GnQWavCBXZ8pS4AOumOi3K/preQf34ZO/J5Z5N/JNfx3gw==
   dependencies:
     type-fest "^4.41.0"
 
