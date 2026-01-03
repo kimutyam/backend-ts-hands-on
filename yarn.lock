@@ -6023,12 +6023,10 @@ regexp.prototype.flags@^1.5.4:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.32.2:
-  version "2.32.2"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.32.2.tgz#794770f41a3dad822629bcc08bb875eddfe06872"
-  integrity sha512-hoxrSvrhAg6Me7ZfHLWYXMvXPMMWijNtbdZNnC3+GnQWavCBXZ8pS4AOumOi3K/preQf34ZO/J5Z5N/JNfx3gw==
-  dependencies:
-    type-fest "^4.41.0"
+remeda@2.33.0:
+  version "2.33.0"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.33.0.tgz#52c4499443ff45ac966d54e44266c2c5a1b5b3f2"
+  integrity sha512-10g+LXHpn3qG/sa7Yi3/eJUk6iFoPnfB1/l5Avj4BaGTIcQT7qQd4UblsoqqJvBsiMD5GIWv5TfNKh/x4Yj5hQ==
 
 require-directory@^2.1.1:
   version "2.1.1"

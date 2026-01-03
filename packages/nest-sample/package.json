@@ -26,7 +26,7 @@
     "@nestjs/core": "11.1.11",
     "@nestjs/platform-fastify": "11.1.11",
     "reflect-metadata": "0.2.2",
-    "remeda": "2.32.2",
+    "remeda": "2.33.0",
     "rxjs": "7.8.2",
     "zod": "4.3.2"
   },
