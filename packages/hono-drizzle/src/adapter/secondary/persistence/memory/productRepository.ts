@@ -1,5 +1,6 @@
 import { errAsync, okAsync } from 'neverthrow';
 
+import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import type { Product } from '../../../../app/domain/product/product.js';
 import type { ProductEvent } from '../../../../app/domain/product/productEvent.js';
 import type { ProductId } from '../../../../app/domain/product/productId.js';
@@ -24,6 +25,14 @@ const createStoreFn =
     aggregates: Map<ProductId, Product>,
   ): StoreProductEvent =>
   (event, aggregate) => {
+    const hasSameSequence = events.some(
+      (stored) =>
+        stored.aggregateId === event.aggregateId &&
+        stored.sequenceNumber === event.sequenceNumber,
+    );
+    if (hasSameSequence) {
+      throw new OptimisticLockError(event.aggregateName);
+    }
     const hasSameProductName = aggregates
       .values()
       .some(({ name }) => ProductName.equals(aggregate.name, name));

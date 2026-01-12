@@ -17,6 +17,7 @@ import {
   createErrorSchema,
   createValidationErrorSchema,
 } from '../../../../adapter/primary/shopping/web/errorSchemas.js';
+import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import type { WebAdapterInjector } from './injector.js';
 
@@ -67,6 +68,15 @@ const makeApp = (webAdapterInjector: WebAdapterInjector): OpenAPIHono => {
 
   app.onError((err, c) => {
     console.error('Internal Server Error', c.get('requestId'), err.message);
+    if (err instanceof OptimisticLockError) {
+      return c.json(
+        createErrorSchema().parse({
+          title: 'Conflict Error',
+          detail: err.message,
+        }),
+        409,
+      );
+    }
     return c.json(
       createErrorSchema().parse({
         title: 'Internal Server Error',

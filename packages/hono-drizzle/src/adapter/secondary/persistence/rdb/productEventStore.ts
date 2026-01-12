@@ -1,4 +1,5 @@
 import { ResultAsync } from 'neverthrow';
+import * as R from 'remeda';
 
 import type { Product } from '../../../../app/domain/product/product.js';
 import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
@@ -6,7 +7,10 @@ import type { StoreProductEvent } from '../../../../app/port/secondary/persisten
 import { Db } from './db.js';
 import { domainEventTable } from './schema/domainEvent.sql.js';
 import { productTable } from './schema/product.sql.js';
-import { toConstraintError } from './toConstraintError.js';
+import {
+  isConstraintError,
+  throwOptimisticLockErrorIfNeeded,
+} from './toConstraintError.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 
@@ -26,10 +30,17 @@ const createStoreFn =
         await tx.insert(productTable).values(toProductInsert(aggregate));
       });
     };
-    const errorFn = toConstraintError('product_name_unique', () =>
-      ProductNameDuplicatedError.create(aggregate.aggregateId, aggregate.name),
-    );
-    return ResultAsync.fromThrowable(fn, errorFn)();
+    const errorFn = (error: unknown): ProductNameDuplicatedError => {
+      R.pipe(error, throwOptimisticLockErrorIfNeeded(event.aggregateName));
+      if (R.pipe(error, isConstraintError('product_name_unique'))) {
+        return ProductNameDuplicatedError.create(
+          aggregate.aggregateId,
+          aggregate.name,
+        );
+      }
+      throw error;
+    };
+    return ResultAsync.fromPromise(fn(), errorFn);
   };
 
 createStoreFn.inject = [Db.token] as const;

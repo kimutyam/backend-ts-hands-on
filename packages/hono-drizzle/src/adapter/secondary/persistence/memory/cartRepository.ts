@@ -4,6 +4,7 @@ import type { Cart } from '../../../../app/domain/cart/cart.js';
 import type { CartEvent } from '../../../../app/domain/cart/cartEvent.js';
 import { CartNotFoundError } from '../../../../app/domain/cart/cartNotFoundError.js';
 import type { CustomerId } from '../../../../app/domain/customer/customerId.js';
+import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import type { StoreCartEvent } from '../../../../app/port/secondary/persistence/cartEventStore.js';
 import type { FindCartById } from '../../../../app/port/secondary/persistence/cartRepository.js';
 
@@ -21,7 +22,15 @@ const createStoreFn =
     events: Array<CartEvent>,
     aggregates: Map<CustomerId, Cart>,
   ): StoreCartEvent =>
-  async (event, aggregate) => {
+  (event, aggregate) => {
+    const hasSameSequence = events.some(
+      (stored) =>
+        stored.aggregateId === event.aggregateId &&
+        stored.sequenceNumber === event.sequenceNumber,
+    );
+    if (hasSameSequence) {
+      throw new OptimisticLockError(event.aggregateName);
+    }
     events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
     return Promise.resolve();

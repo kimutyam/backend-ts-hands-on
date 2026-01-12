@@ -91,7 +91,6 @@ describe.sequential('CartEventStore', () => {
     );
 
     await cartEventStore(event, aggregate);
-
     const cartResult = await selectCart(customerId);
     const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);

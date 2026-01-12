@@ -81,6 +81,14 @@ const AddCartItemRoute = createRoute({
       },
       description: 'Not Found',
     },
+    409: {
+      content: {
+        'application/json': {
+          schema: createErrorSchema('Conflict'),
+        },
+      },
+      description: 'Conflict',
+    },
     422: {
       content: {
         'application/json': {
@@ -112,6 +120,14 @@ const RemoveCartItemRoute = createRoute({
       },
       description: 'Not Found',
     },
+    409: {
+      content: {
+        'application/json': {
+          schema: createErrorSchema('Conflict'),
+        },
+      },
+      description: 'Conflict',
+    },
     422: {
       content: {
         'application/json': {
@@ -142,6 +158,14 @@ const ClearCartRoute = createRoute({
         },
       },
       description: 'Not Found',
+    },
+    409: {
+      content: {
+        'application/json': {
+          schema: createErrorSchema('Conflict'),
+        },
+      },
+      description: 'Conflict',
     },
     422: {
       content: {

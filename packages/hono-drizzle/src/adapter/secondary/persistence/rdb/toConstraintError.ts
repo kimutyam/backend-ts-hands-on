@@ -1,17 +1,25 @@
 import { DrizzleQueryError } from 'drizzle-orm/errors';
 import { DatabaseError } from 'pg';
 
-const toConstraintError =
-  <E>(constraint: string, f: (a: DatabaseError) => E) =>
-  (e: unknown): E => {
-    if (e instanceof DrizzleQueryError) {
-      if (e.cause instanceof DatabaseError) {
-        if (e.cause.constraint === constraint) {
-          return f(e.cause);
-        }
+import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
+
+const isConstraintError =
+  (constraint: string) =>
+  (error: unknown): boolean => {
+    if (error instanceof DrizzleQueryError) {
+      if (error.cause instanceof DatabaseError) {
+        return error.cause.constraint === constraint;
       }
     }
-    throw e;
+    return false;
   };
 
-export { toConstraintError };
+const throwOptimisticLockErrorIfNeeded =
+  (aggregateName: string) =>
+  (error: unknown): void => {
+    if (isConstraintError('domain_event_aggregate_sequence_unique')(error)) {
+      throw new OptimisticLockError(aggregateName);
+    }
+  };
+
+export { isConstraintError, throwOptimisticLockErrorIfNeeded };
