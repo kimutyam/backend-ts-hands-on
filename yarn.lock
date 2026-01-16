@@ -6035,10 +6035,10 @@ regexp.prototype.flags@^1.5.4:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-remeda@2.33.1:
-  version "2.33.1"
-  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.33.1.tgz#d84857111f1c58a61fa9d5bbd7963d4fdeb8cd28"
-  integrity sha512-404Eba/HI/blNfbebo586OjEnAhq/x5jN1aIfK4gHnjAP7SADaRfDdIjo8Acpz7hkXgM06MPTwu4IbXamvM9Qw==
+remeda@2.33.3:
+  version "2.33.3"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-2.33.3.tgz#5750cd66d52fbd6fb5ac6ebfff8c54dd5543cf65"
+  integrity sha512-lZne8IOVPnyZApub61z13+iAD7Wr80JdlThr9iUcYjZdZvSBDvRrmJIZsqSKGnI5zJr/zt6ppIEJgZM15X6KjQ==
 
 require-directory@^2.1.1:
   version "2.1.1"
