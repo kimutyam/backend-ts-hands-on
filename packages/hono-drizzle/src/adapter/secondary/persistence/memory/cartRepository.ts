@@ -21,7 +21,7 @@ const createStoreFn =
     events: Array<CartEvent>,
     aggregates: Map<CustomerId, Cart>,
   ): StoreCartEvent =>
-  async (event, aggregate) => {
+  (event, aggregate) => {
     events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
     return Promise.resolve();

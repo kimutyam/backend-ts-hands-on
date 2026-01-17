@@ -11,10 +11,11 @@ import {
   CartItemRemoved,
   CartItemUpdated,
 } from '../../../../../app/domain/cart/cartEvent.js';
-import type { CartItem } from '../../../../../app/domain/cart/cartItem.js';
+import { CartItem } from '../../../../../app/domain/cart/cartItem.js';
 import { Quantity } from '../../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../../app/domain/customer/customerId.js';
 import { DomainEvent } from '../../../../../app/domain/domainEvent.js';
+import { OptimisticLockError } from '../../../../../app/domain/optimisticLockError.js';
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
@@ -91,7 +92,6 @@ describe.sequential('CartEventStore', () => {
     );
 
     await cartEventStore(event, aggregate);
-
     const cartResult = await selectCart(customerId);
     const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
@@ -235,5 +235,65 @@ describe.sequential('CartEventStore', () => {
         reason: 'OnManual',
       },
     });
+  });
+
+  it('楽観ロックが検知された場合はエラーになる', async () => {
+    const customerId = CustomerId.generate();
+    const productId = ProductId.generate();
+
+    const cartItem = CartItem.parse({
+      productId,
+      price: Price.parse(1_000),
+      quantity: Quantity.parse(1),
+    });
+
+    const aggregate1 = Cart.parse({
+      aggregateId: customerId,
+      sequenceNumber: 1,
+      cartItems: [cartItem],
+    });
+    const event1: CartItemAdded = R.pipe(
+      aggregate1,
+      DomainEvent.generate(Cart.aggregateName, CartItemAdded.eventName, {
+        cartItem,
+      }),
+    );
+
+    await cartEventStore(event1, aggregate1);
+
+    const updatedCartItem = CartItem.parse({
+      productId,
+      price: Price.parse(2_000),
+      quantity: Quantity.parse(2),
+    });
+
+    const staleAggregate = Cart.parse({
+      aggregateId: customerId,
+      sequenceNumber: 1,
+      cartItems: [updatedCartItem],
+    });
+    const staleEvent: CartItemUpdated = R.pipe(
+      staleAggregate,
+      DomainEvent.generate(Cart.aggregateName, CartItemUpdated.eventName, {
+        cartItem: updatedCartItem,
+      }),
+    );
+
+    await expect(cartEventStore(staleEvent, staleAggregate)).rejects.toThrow(
+      OptimisticLockError,
+    );
+
+    const cartResult = await selectCart(customerId);
+    const cartItemResult = await selectCartItem(customerId);
+    const eventResult = await selectDomainEvent(staleEvent.eventId);
+
+    expect(cartResult.rowCount).toBe(1);
+    expect(cartResult.rows[0]).toStrictEqual({
+      aggregateId: customerId,
+      sequenceNumber: 1,
+    });
+    expect(cartItemResult.rowCount).toBe(1);
+    expect(cartItemResult.rows[0]).toStrictEqual(cartItem);
+    expect(eventResult.rowCount).toBe(0);
   });
 });

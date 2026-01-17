@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm';
 
 import type { Cart } from '../../../../app/domain/cart/cart.js';
+import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import type { StoreCartEvent } from '../../../../app/port/secondary/persistence/cartEventStore.js';
 import { Db } from './db.js';
 import { cartTable } from './schema/cart.sql.js';
@@ -29,7 +30,7 @@ const createStoreFn =
     await db.transaction(async (tx) => {
       const cartItemInserts = toCartItemInserts(aggregate);
       await tx.insert(domainEventTable).values(event);
-      await tx
+      const result = await tx
         .insert(cartTable)
         .values(toCartInsert(aggregate))
         .onConflictDoUpdate({
@@ -38,7 +39,11 @@ const createStoreFn =
             sequenceNumber: aggregate.sequenceNumber,
             updatedAt: new Date(),
           },
+          setWhere: eq(cartTable.sequenceNumber, aggregate.sequenceNumber - 1),
         });
+      if (result.rowCount === 0) {
+        throw new OptimisticLockError(event.aggregateName);
+      }
       await tx
         .delete(cartItemTable)
         .where(eq(cartItemTable.customerId, aggregate.aggregateId));

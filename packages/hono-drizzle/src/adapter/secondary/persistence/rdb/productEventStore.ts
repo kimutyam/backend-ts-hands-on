@@ -1,4 +1,5 @@
 import { ResultAsync } from 'neverthrow';
+import * as R from 'remeda';
 
 import type { Product } from '../../../../app/domain/product/product.js';
 import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
@@ -6,7 +7,7 @@ import type { StoreProductEvent } from '../../../../app/port/secondary/persisten
 import { Db } from './db.js';
 import { domainEventTable } from './schema/domainEvent.sql.js';
 import { productTable } from './schema/product.sql.js';
-import { toConstraintError } from './toConstraintError.js';
+import { isConstraintError } from './toConstraintError.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 
@@ -26,9 +27,15 @@ const createStoreFn =
         await tx.insert(productTable).values(toProductInsert(aggregate));
       });
     };
-    const errorFn = toConstraintError('product_name_unique', () =>
-      ProductNameDuplicatedError.create(aggregate.aggregateId, aggregate.name),
-    );
+    const errorFn = (error: unknown): ProductNameDuplicatedError => {
+      if (R.pipe(error, isConstraintError('product_name_unique'))) {
+        return ProductNameDuplicatedError.create(
+          aggregate.aggregateId,
+          aggregate.name,
+        );
+      }
+      throw error;
+    };
     return ResultAsync.fromThrowable(fn, errorFn)();
   };
 
