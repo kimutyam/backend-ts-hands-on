@@ -7,10 +7,7 @@ import type { StoreProductEvent } from '../../../../app/port/secondary/persisten
 import { Db } from './db.js';
 import { domainEventTable } from './schema/domainEvent.sql.js';
 import { productTable } from './schema/product.sql.js';
-import {
-  isConstraintError,
-  throwOptimisticLockErrorIfNeeded,
-} from './toConstraintError.js';
+import { isConstraintError } from './toConstraintError.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 
@@ -31,7 +28,6 @@ const createStoreFn =
       });
     };
     const errorFn = (error: unknown): ProductNameDuplicatedError => {
-      R.pipe(error, throwOptimisticLockErrorIfNeeded(event.aggregateName));
       if (R.pipe(error, isConstraintError('product_name_unique'))) {
         return ProductNameDuplicatedError.create(
           aggregate.aggregateId,
@@ -40,7 +36,7 @@ const createStoreFn =
       }
       throw error;
     };
-    return ResultAsync.fromPromise(fn(), errorFn);
+    return ResultAsync.fromThrowable(fn, errorFn)();
   };
 
 createStoreFn.inject = [Db.token] as const;

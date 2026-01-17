@@ -29,8 +29,7 @@ CREATE TABLE "domain_event" (
 	"event_name" varchar(50) NOT NULL,
 	"aggregate_id" varchar(26) NOT NULL,
 	"aggregate_name" varchar(50) NOT NULL,
-	"payload" jsonb NOT NULL,
-	CONSTRAINT "domain_event_aggregate_sequence_unique" UNIQUE("aggregate_id","sequence_number")
+	"payload" jsonb NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "order" (
