@@ -4,44 +4,9 @@
     {
       "breakpoints": true,
       "idx": 0,
-      "tag": "0000_user_account",
+      "tag": "0000_init",
       "version": "7",
-      "when": 1746955719331
-    },
-    {
-      "breakpoints": true,
-      "idx": 1,
-      "tag": "0001_create_cart",
-      "version": "7",
-      "when": 1747553637099
-    },
-    {
-      "breakpoints": true,
-      "idx": 2,
-      "tag": "0002_alter_user_account",
-      "version": "7",
-      "when": 1761495509121
-    },
-    {
-      "breakpoints": true,
-      "idx": 3,
-      "tag": "0003_alter_foreign_key",
-      "version": "7",
-      "when": 1762600686067
-    },
-    {
-      "breakpoints": true,
-      "idx": 4,
-      "tag": "0004_drop_customer",
-      "version": "7",
-      "when": 1762675303844
-    },
-    {
-      "breakpoints": true,
-      "idx": 5,
-      "tag": "0005_drop_user_account",
-      "version": "7",
-      "when": 1762696649155
+      "when": 1768665893578
     }
   ],
   "version": "7"
