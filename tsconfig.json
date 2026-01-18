@@ -24,11 +24,14 @@
     "noUncheckedSideEffectImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "preserveSymlinks": true,
+    "preserveSymlinks": false,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "ESNext"
+    "target": "ESNext",
+    "types": [
+      "vitest/globals"
+    ]
   }
 }
