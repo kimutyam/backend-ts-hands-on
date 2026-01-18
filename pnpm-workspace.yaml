@@ -5,7 +5,3 @@ packages:
   - packages/fp-zod
   - packages/pure
   - packages/hono-drizzle
-onlyBuiltDependencies:
-  - '@nestjs/core'
-  - esbuild
-  - unrs-resolver
