@@ -7,6 +7,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import neverthrow from 'eslint-plugin-neverthrow';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import globals from 'globals';
 
 const compat = new FlatCompat();
 const tsconfigRootDir = dirname(fileURLToPath(import.meta.url));
@@ -16,6 +17,10 @@ export default [
   {
     files: ['**/*.ts'],
     languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.vitest,
+      },
       parser: tsParser,
       parserOptions: {
         project: ['./tsconfig.json'],
