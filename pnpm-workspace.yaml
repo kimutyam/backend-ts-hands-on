@@ -4,7 +4,6 @@ packages:
   - packages/fp
   - packages/fp-zod
   - packages/pure
-  - packages/nest-sample
   - packages/hono-drizzle
 onlyBuiltDependencies:
   - '@nestjs/core'
