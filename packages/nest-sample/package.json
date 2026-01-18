@@ -22,18 +22,18 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "11.1.11",
-    "@nestjs/core": "11.1.11",
-    "@nestjs/platform-fastify": "11.1.11",
+    "@nestjs/common": "11.1.12",
+    "@nestjs/core": "11.1.12",
+    "@nestjs/platform-fastify": "11.1.12",
     "reflect-metadata": "0.2.2",
     "remeda": "2.33.3",
     "rxjs": "7.8.2",
     "zod": "4.3.5"
   },
   "devDependencies": {
-    "@nestjs/cli": "11.0.14",
+    "@nestjs/cli": "11.0.15",
     "@nestjs/schematics": "11.0.9",
-    "@nestjs/testing": "11.1.11",
+    "@nestjs/testing": "11.1.12",
     "@types/jest": "30.0.0",
     "@types/node": "22.19.6",
     "@types/supertest": "6.0.3",
