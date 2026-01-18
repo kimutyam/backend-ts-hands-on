@@ -1,6 +1,8 @@
 ---
 # Reference: https://yamllint.readthedocs.io/en/stable/configuration.html
 extends: default
+ignore: |
+  pnpm-lock.yaml
 rules:
   line-length:
     max: 140

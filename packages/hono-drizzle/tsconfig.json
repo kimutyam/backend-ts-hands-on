@@ -3,7 +3,11 @@
     "baseUrl": "./src",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "preserveSymlinks": false,
+    "types": [
+      "vitest/globals"
+    ]
   },
   "extends": "../../tsconfig.json",
   "include": [

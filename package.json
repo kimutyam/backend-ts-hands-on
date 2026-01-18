@@ -4,21 +4,6 @@
   "description": "バックエンドTypeScriptのハンズオン",
   "license": "UNLICENSED",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/book",
-      "packages/fp",
-      "packages/fp-zod",
-      "packages/pure",
-      "packages/nest-sample",
-      "packages/hono-drizzle"
-    ],
-    "nohoist": [
-      "**/prisma",
-      "**/@prisma/client",
-      "**/@nestjs/common"
-    ]
-  },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.3",
     "@eslint/js": "9.39.2",
@@ -35,21 +20,21 @@
   },
   "scripts": {
     "build": "run-p -c build:*",
-    "build:example": "yarn workspace book build",
-    "build:fp": "yarn workspace fp build",
-    "build:fp-zod": "yarn workspace fp-zod build",
-    "build:pure": "yarn workspace pure build",
+    "build:example": "pnpm --filter book build",
+    "build:fp": "pnpm --filter fp build",
+    "build:fp-zod": "pnpm --filter fp-zod build",
+    "build:pure": "pnpm --filter pure build",
     "lint": "run-p -c lint:*",
-    "lint:book": "yarn workspace book lint:fix",
-    "lint:fp": "yarn workspace fp lint:fix",
-    "lint:fp-zod": "yarn workspace fp-zod lint:fix",
-    "lint:pure": "yarn workspace pure lint:fix",
+    "lint:book": "pnpm --filter book lint:fix",
+    "lint:fp": "pnpm --filter fp lint:fix",
+    "lint:fp-zod": "pnpm --filter fp-zod lint:fix",
+    "lint:pure": "pnpm --filter pure lint:fix",
     "format": "run-p -c format:*",
-    "format:example": "yarn workspace example format",
-    "format:fp": "yarn workspace fp format",
-    "format:fp-zod": "yarn workspace fp-zod format",
-    "format:pure": "yarn workspace pure format",
+    "format:example": "pnpm --filter example format",
+    "format:fp": "pnpm --filter fp format",
+    "format:fp-zod": "pnpm --filter fp-zod format",
+    "format:pure": "pnpm --filter pure format",
     "test": "run-p -c test:*",
-    "test:example": "yarn workspace example test"
+    "test:example": "pnpm --filter example test"
   }
 }

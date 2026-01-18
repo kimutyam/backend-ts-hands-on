@@ -19,20 +19,14 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: ${{ inputs.node-version-file }}
-          cache: yarn
-      - name: yarn install
-        uses: borales/actions-yarn@v5
+      - uses: pnpm/action-setup@v4
         with:
-          cmd: workspace ${{ inputs.workspace-name }} install --production=false --frozen-lockfile
-      - name: yarn lint
-        uses: borales/actions-yarn@v5
-        with:
-          cmd: workspace ${{ inputs.workspace-name }} lint
-      - name: yarn build
-        uses: borales/actions-yarn@v5
-        with:
-          cmd: workspace ${{ inputs.workspace-name }} build
-      - name: yarn test
-        uses: borales/actions-yarn@v5
-        with:
-          cmd: workspace ${{ inputs.workspace-name }} test
+          version: 10
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
+      - name: pnpm lint
+        run: pnpm --filter ${{ inputs.workspace-name }} lint
+      - name: pnpm build
+        run: pnpm --filter ${{ inputs.workspace-name }} build
+      - name: pnpm test
+        run: pnpm --filter ${{ inputs.workspace-name }} test
