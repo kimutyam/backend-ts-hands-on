@@ -6,7 +6,7 @@ import type { DomainEvent } from '../../../../../../app/domain/domainEvent.js';
 import type { DomainEventId } from '../../../../../../app/domain/domainEventId.js';
 import type { Db } from '../../db.js';
 
-const buildSelectDomainEvent =
+const createSelectDomainEventFn =
   (db: Db) =>
   <T extends DomainEvent<any, any, any, any>>(
     eventId: DomainEventId,
@@ -22,4 +22,4 @@ const buildSelectDomainEvent =
           event_id = ${eventId}`,
     );
 
-export { buildSelectDomainEvent };
+export { createSelectDomainEventFn };
