@@ -29,9 +29,6 @@
     "sourceMap": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "target": "ESNext",
-    "types": [
-      "vitest/globals"
-    ]
+    "target": "ESNext"
   }
 }
