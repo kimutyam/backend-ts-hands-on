@@ -1,4 +1,4 @@
-import { assert } from 'vitest';
+import assert from 'node:assert';
 
 import { employeeSchema } from '../employeeSchema.js';
 

@@ -1,4 +1,5 @@
-import { assert, expect } from 'vitest';
+import assert from 'node:assert';
+
 import { z } from 'zod';
 
 import { employeeSchema } from '../../ex201/employeeSchema.js';
