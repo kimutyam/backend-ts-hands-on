@@ -26,7 +26,16 @@ const regularTestConfig = defineConfig({
   },
 });
 
+const getConfig = (testType: string | undefined) => {
+  switch (testType) {
+    case 'regular':
+      return regularTestConfig;
+    case 'db':
+      return dbTestConfig;
+    default:
+      throw new Error(`TEST_TYPE is unexpected value. Should have been never.`);
+  }
+};
+
 // Default configuration based on environment variable
-export default process.env['TEST_TYPE'] === 'db'
-  ? dbTestConfig
-  : regularTestConfig;
+export default getConfig(process.env['TEST_TYPE']);

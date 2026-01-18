@@ -20,8 +20,8 @@
     "db:push": "yarn build:drizzle-kit && dotenv -e .env.local -- drizzle-kit push",
     "start:managenet:local": "node --env-file=.env.local dist/entryPoint/primary/management/web/main.js",
     "start:shopping:local": "node --env-file=.env.local dist/entryPoint/primary/shopping/web/main.js",
-    "test": "vitest --typecheck",
-    "test:cov": "vitest --coverage",
+    "test": "dotenv -e .env.test -- vitest --typecheck",
+    "test:cov": "dotenv -e .env.test -- vitest --coverage",
     "test:db": "dotenv -e .env.test.db -- vitest --no-file-parallelism",
     "test:db:migrate": "yarn build:drizzle-kit && dotenv -e .env.test.db -- drizzle-kit migrate",
     "test:db:push": "yarn build:drizzle-kit && dotenv -e .env.test.db -- drizzle-kit push"

@@ -21,10 +21,10 @@ import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
 import type { Db } from '../db.js';
 import { TestDb } from './helper/db.js';
-import { buildSelectDomainEvent } from './helper/domainEvent.js';
+import { createSelectDomainEventFn } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
 
-const buildSelectCart =
+const createSelectCartFn =
   (db: Db) =>
   (
     aggregateId: CustomerId,
@@ -40,7 +40,7 @@ const buildSelectCart =
           customer_id = ${aggregateId}`,
     );
 
-const buildSelectCartItem =
+const createSelectCartItemFn =
   (db: Db) =>
   (customerId: CustomerId): PgRaw<QueryResult<CartItem>> =>
     db.execute<CartItem>(
@@ -57,9 +57,9 @@ const buildSelectCartItem =
 
 describe.sequential('CartEventStore', () => {
   const cartEventStore = CartEventStore.createStoreFn(TestDb);
-  const selectCart = buildSelectCart(TestDb);
-  const selectCartItem = buildSelectCartItem(TestDb);
-  const selectDomainEvent = buildSelectDomainEvent(TestDb);
+  const selectCart = createSelectCartFn(TestDb);
+  const selectCartItem = createSelectCartItemFn(TestDb);
+  const selectDomainEvent = createSelectDomainEventFn(TestDb);
 
   beforeEach(async () => {
     await truncateTables(TestDb);

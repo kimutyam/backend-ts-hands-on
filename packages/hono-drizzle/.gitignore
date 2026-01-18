@@ -1,2 +1,3 @@
 dist-drizzle-kit/
+!.env.test
 !.env.test.db

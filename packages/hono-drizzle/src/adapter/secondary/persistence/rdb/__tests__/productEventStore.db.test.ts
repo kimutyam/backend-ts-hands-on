@@ -16,10 +16,10 @@ import { ProductNameDuplicatedError } from '../../../../../app/domain/product/pr
 import type { Db } from '../db.js';
 import { ProductEventStore } from '../productEventStore.js';
 import { TestDb } from './helper/db.js';
-import { buildSelectDomainEvent } from './helper/domainEvent.js';
+import { createSelectDomainEventFn } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
 
-const buildSelectProduct =
+const createSelectProductFn =
   (db: Db) =>
   (
     aggregateId: ProductId,
@@ -44,9 +44,9 @@ const buildSelectProduct =
     );
 
 describe.sequential('ProductEventStore', () => {
-  const productEventStore = ProductEventStore.createStoreFn(TestDb);
-  const selectProduct = buildSelectProduct(TestDb);
-  const selectDomainEvent = buildSelectDomainEvent(TestDb);
+  const storeProductEvent = ProductEventStore.createStoreFn(TestDb);
+  const selectProduct = createSelectProductFn(TestDb);
+  const selectDomainEvent = createSelectDomainEventFn(TestDb);
 
   beforeEach(async () => {
     await truncateTables(TestDb);
@@ -72,7 +72,7 @@ describe.sequential('ProductEventStore', () => {
       }),
     );
 
-    const result = await productEventStore(event, aggregate);
+    const result = await storeProductEvent(event, aggregate);
     assert(result.isOk());
 
     const productResult = await selectProduct(aggregateId);
@@ -121,10 +121,10 @@ describe.sequential('ProductEventStore', () => {
       }),
     );
 
-    const firstResult = await productEventStore(event1, aggregate1);
+    const firstResult = await storeProductEvent(event1, aggregate1);
     assert(firstResult.isOk());
 
-    const secondResult = await productEventStore(event2, aggregate2);
+    const secondResult = await storeProductEvent(event2, aggregate2);
     assert(secondResult.isErr());
     expect(secondResult.error.kind).toBe(ProductNameDuplicatedError.kind);
 
