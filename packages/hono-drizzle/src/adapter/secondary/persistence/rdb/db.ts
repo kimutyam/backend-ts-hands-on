@@ -36,7 +36,7 @@ const createNodePgDatabase = (url: DatabaseUrl) => {
 
 type Db = ReturnType<typeof createNodePgDatabase> & Disposable;
 
-const create = (url: DatabaseUrl): Db => {
+const getInstance = (url: DatabaseUrl): Db => {
   const nodePgDatabase = createNodePgDatabase(url);
   const dispose = async () => {
     await nodePgDatabase.$client.end();
@@ -45,11 +45,11 @@ const create = (url: DatabaseUrl): Db => {
   return Object.assign(nodePgDatabase, { dispose });
 };
 
-create.inject = [DatabaseUrl.token] as const;
+getInstance.inject = [DatabaseUrl.token] as const;
 
 const Db = {
   token: 'Db' as const,
-  create,
+  getInstance,
 } as const;
 
 export { Db };
