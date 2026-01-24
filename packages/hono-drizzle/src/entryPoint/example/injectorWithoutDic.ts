@@ -38,7 +38,7 @@ if (databaseUrl === undefined) {
   storeProductEvent = productRepository.store;
 } else {
   // secondary adapters (rdb)
-  const db = Db.create(databaseUrl);
+  const db = Db.getInstance(databaseUrl);
   findCartById = CartRepository.createFindByIdFn(db);
   storeCartEvent = CartEventStore.createStoreFn(db);
   findProductById = ProductRepository.createFindByIdFn(db);

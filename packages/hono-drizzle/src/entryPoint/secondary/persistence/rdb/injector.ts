@@ -18,7 +18,7 @@ const create = (
 ): PersistencePortInjector =>
   rootInjector
     .provideValue(DatabaseUrl.token, databaseUrl)
-    .provideFactory(Db.token, Db.create)
+    .provideFactory(Db.token, Db.getInstance)
     .provideFactory(FindProductById.token, ProductRepository.createFindByIdFn)
     .provideFactory(StoreProductEvent.token, ProductEventStore.createStoreFn)
     .provideFactory(FindCartById.token, CartRepository.createFindByIdFn)

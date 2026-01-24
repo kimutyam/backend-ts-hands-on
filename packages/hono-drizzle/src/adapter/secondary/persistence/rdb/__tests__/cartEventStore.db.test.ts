@@ -19,8 +19,7 @@ import { OptimisticLockError } from '../../../../../app/domain/optimisticLockErr
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
-import type { Db } from '../db.js';
-import { TestDb } from './helper/db.js';
+import { Db } from '../db.js';
 import { createSelectDomainEventFn } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
 
@@ -56,18 +55,19 @@ const createSelectCartItemFn =
     );
 
 describe.sequential('CartEventStore', () => {
-  const cartEventStore = CartEventStore.createStoreFn(TestDb);
-  const selectCart = createSelectCartFn(TestDb);
-  const selectCartItem = createSelectCartItemFn(TestDb);
-  const selectDomainEvent = createSelectDomainEventFn(TestDb);
+  const db = Db.getInstanceFromEnv();
+  const cartEventStore = CartEventStore.createStoreFn(db);
+  const selectCart = createSelectCartFn(db);
+  const selectCartItem = createSelectCartItemFn(db);
+  const selectDomainEvent = createSelectDomainEventFn(db);
 
   beforeEach(async () => {
-    await truncateTables(TestDb);
+    await truncateTables(db);
   });
 
   afterAll(async () => {
-    await truncateTables(TestDb);
-    await TestDb.$client.end();
+    await truncateTables(db);
+    await db.$client.end();
   });
 
   it('カート項目を追加できる (新規追加)', async () => {

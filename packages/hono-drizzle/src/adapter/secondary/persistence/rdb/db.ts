@@ -36,7 +36,7 @@ const createNodePgDatabase = (url: DatabaseUrl) => {
 
 type Db = ReturnType<typeof createNodePgDatabase> & Disposable;
 
-const create = (url: DatabaseUrl): Db => {
+const getInstance = (url: DatabaseUrl): Db => {
   const nodePgDatabase = createNodePgDatabase(url);
   const dispose = async () => {
     await nodePgDatabase.$client.end();
@@ -45,11 +45,20 @@ const create = (url: DatabaseUrl): Db => {
   return Object.assign(nodePgDatabase, { dispose });
 };
 
-create.inject = [DatabaseUrl.token] as const;
+const getInstanceFromEnv = (): Db => {
+  const url = process.env['DATABASE_URL'];
+  if (url === undefined) {
+    throw new Error('DATABASE_URL is not defined');
+  }
+  return Db.getInstance(url);
+};
+
+getInstance.inject = [DatabaseUrl.token] as const;
 
 const Db = {
   token: 'Db' as const,
-  create,
+  getInstance,
+  getInstanceFromEnv,
 } as const;
 
 export { Db };
