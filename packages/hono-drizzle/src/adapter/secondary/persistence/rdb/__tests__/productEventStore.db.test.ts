@@ -129,13 +129,13 @@ describe.sequential('ProductEventStore', () => {
     expect(secondResult.error.kind).toBe(ProductNameDuplicatedError.kind);
 
     const product1Result = await selectProduct(aggregate1.aggregateId);
-    const product2Result = await selectProduct(aggregate2.aggregateId);
     const event1Result = await selectDomainEvent(event1.eventId);
+    const product2Result = await selectProduct(aggregate2.aggregateId);
     const event2Result = await selectDomainEvent(event2.eventId);
 
     expect(product1Result.rowCount).toBe(1);
-    expect(product2Result.rowCount).toBe(0);
     expect(event1Result.rowCount).toBe(1);
+    expect(product2Result.rowCount).toBe(0);
     expect(event2Result.rowCount).toBe(0);
   });
 });

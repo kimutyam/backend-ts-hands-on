@@ -26,12 +26,12 @@ const setup = async (productId: ProductId) => {
 describe.sequential('FindProductById', () => {
   const findProductById = ProductRepository.createFindByIdFn(TestDb);
 
-  const existsproductId = ProductId.generate();
+  const existsProductId = ProductId.generate();
   const notExistsProductId = ProductId.generate();
 
   beforeAll(async () => {
     await truncateTables(TestDb);
-    await setup(existsproductId);
+    await setup(existsProductId);
   });
 
   afterAll(async () => {
@@ -40,10 +40,10 @@ describe.sequential('FindProductById', () => {
   });
 
   it('登録済みの商品を索引できる', async () => {
-    const result = await findProductById(existsproductId);
+    const result = await findProductById(existsProductId);
     assert(result.isOk());
     expect(result.value).toStrictEqual({
-      aggregateId: existsproductId,
+      aggregateId: existsProductId,
       sequenceNumber: 1,
       name: ProductName.parse('Test Product'),
       price: Price.parse(1000),
