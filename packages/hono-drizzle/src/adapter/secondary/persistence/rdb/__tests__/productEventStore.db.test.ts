@@ -13,9 +13,8 @@ import { ProductRegistered } from '../../../../../app/domain/product/productEven
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { ProductName } from '../../../../../app/domain/product/productName.js';
 import { ProductNameDuplicatedError } from '../../../../../app/domain/product/productNameDuplicatedError.js';
-import type { Db } from '../db.js';
+import { Db } from '../db.js';
 import { ProductEventStore } from '../productEventStore.js';
-import { TestDb } from './helper/db.js';
 import { createSelectDomainEventFn } from './helper/domainEvent.js';
 import { truncateTables } from './helper/table.js';
 
@@ -44,17 +43,18 @@ const createSelectProductFn =
     );
 
 describe.sequential('ProductEventStore', () => {
-  const storeProductEvent = ProductEventStore.createStoreFn(TestDb);
-  const selectProduct = createSelectProductFn(TestDb);
-  const selectDomainEvent = createSelectDomainEventFn(TestDb);
+  const db = Db.getInstanceFromEnv();
+  const storeProductEvent = ProductEventStore.createStoreFn(db);
+  const selectProduct = createSelectProductFn(db);
+  const selectDomainEvent = createSelectDomainEventFn(db);
 
   beforeEach(async () => {
-    await truncateTables(TestDb);
+    await truncateTables(db);
   });
 
   afterAll(async () => {
-    await truncateTables(TestDb);
-    await TestDb.$client.end();
+    await truncateTables(db);
+    await db.$client.end();
   });
 
   it('商品を登録できる', async () => {
