@@ -1,5 +1,10 @@
-import type { CommandHandler } from '../../../../adapter/primary/management/cli/commandHandler.js';
-import type { Db } from '../../../../adapter/secondary/persistence/rdb/db.js';
+import type { CommandHandler } from '../../11/ex40/commandHandler.js';
+
+interface Db {
+  $client: {
+    end: () => Promise<void>;
+  };
+}
 
 interface FileHandler {
   close: () => Promise<void>;

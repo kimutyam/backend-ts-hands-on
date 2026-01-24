@@ -1,9 +1,7 @@
-import type { Injector } from 'typed-inject';
-
-import type { CommandHandler } from '../../../../adapter/primary/management/cli/commandHandler.js';
+import type { CommandHandler } from './commandHandler.js';
 
 const execute =
-  <Args>(handler: CommandHandler<Args>, injector: Injector) =>
+  <Args>(handler: CommandHandler<Args>) =>
   async (args: Args): Promise<void> => {
     try {
       await handler(args);
@@ -13,8 +11,6 @@ const execute =
       } else {
         console.error('An unknown error occurred');
       }
-    } finally {
-      await injector.dispose();
     }
   };
 
