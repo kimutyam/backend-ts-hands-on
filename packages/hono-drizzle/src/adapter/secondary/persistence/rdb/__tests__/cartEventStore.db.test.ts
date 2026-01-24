@@ -21,7 +21,6 @@ import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
 import { Db } from '../db.js';
 import { createSelectDomainEventFn } from './helper/domainEvent.js';
-import { truncateTables } from './helper/table.js';
 
 const createSelectCartFn =
   (db: Db) =>
@@ -54,19 +53,26 @@ const createSelectCartItemFn =
           customer_id = ${customerId}`,
     );
 
+const createTruncateTableFn = (db: Db) => async () => {
+  await db.execute(
+    'TRUNCATE TABLE public.domain_event, public.cart, public.cart_item',
+  );
+};
+
 describe.sequential('CartEventStore', () => {
   const db = Db.getInstanceFromEnv();
   const cartEventStore = CartEventStore.createStoreFn(db);
+  const truncateTable = createTruncateTableFn(db);
   const selectCart = createSelectCartFn(db);
   const selectCartItem = createSelectCartItemFn(db);
   const selectDomainEvent = createSelectDomainEventFn(db);
 
   beforeEach(async () => {
-    await truncateTables(db);
+    await truncateTable();
   });
 
   afterAll(async () => {
-    await truncateTables(db);
+    await truncateTable();
     await db.$client.end();
   });
 

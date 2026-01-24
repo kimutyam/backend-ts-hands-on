@@ -8,7 +8,6 @@ import { ProductName } from '../../../../../app/domain/product/productName.js';
 import { Db } from '../db.js';
 import { ProductRepository } from '../productRepository.js';
 import { productTable } from '../schema/product.sql.js';
-import { truncateTables } from './helper/table.js';
 
 const createSetupFn = (db: Db) => async (productId: ProductId) => {
   await db.transaction(async (tx) => {
@@ -23,21 +22,25 @@ const createSetupFn = (db: Db) => async (productId: ProductId) => {
   });
 };
 
+const createTruncateTableFn = (db: Db) => async () => {
+  await db.execute('TRUNCATE TABLE public.product');
+};
+
 describe.sequential('FindProductById', () => {
   const db = Db.getInstanceFromEnv();
   const findProductById = ProductRepository.createFindByIdFn(db);
+  const truncateTable = createTruncateTableFn(db);
   const setup = createSetupFn(db);
-
   const existsProductId = ProductId.generate();
   const notExistsProductId = ProductId.generate();
 
   beforeAll(async () => {
-    await truncateTables(db);
+    await truncateTable();
     await setup(existsProductId);
   });
 
   afterAll(async () => {
-    await truncateTables(db);
+    await truncateTable();
     await db.$client.end();
   });
 
