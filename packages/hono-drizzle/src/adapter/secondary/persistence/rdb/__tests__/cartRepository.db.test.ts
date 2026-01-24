@@ -11,7 +11,6 @@ import { CartRepository } from '../cartRepository.js';
 import { Db } from '../db.js';
 import { cartTable } from '../schema/cart.sql.js';
 import { cartItemTable } from '../schema/cartItem.sql.js';
-import { truncateTables } from './helper/table.js';
 
 const createSetupWithCartItemFn =
   (db: Db) => async (customerId: CustomerId, productId: ProductId) => {
@@ -40,9 +39,14 @@ const setupWithoutCartItemFn = (db: Db) => async (customerId: CustomerId) => {
   ]);
 };
 
+const createTruncateTableFn = (db: Db) => async () => {
+  await db.execute('TRUNCATE TABLE public.cart, public.cart_item');
+};
+
 describe.sequential('FindCartById', () => {
   const db = Db.getInstanceFromEnv();
   const findCartById = CartRepository.createFindByIdFn(db);
+  const truncateTable = createTruncateTableFn(db);
   const setupWithCartItem = createSetupWithCartItemFn(db);
   const setupWithoutCartItem = setupWithoutCartItemFn(db);
 
@@ -52,13 +56,13 @@ describe.sequential('FindCartById', () => {
   const productId1 = ProductId.generate();
 
   beforeAll(async () => {
-    await truncateTables(db);
+    await truncateTable();
     await setupWithCartItem(customerId1, productId1);
     await setupWithoutCartItem(customerId2);
   });
 
   afterAll(async () => {
-    await truncateTables(db);
+    await truncateTable();
     await db.$client.end();
   });
 

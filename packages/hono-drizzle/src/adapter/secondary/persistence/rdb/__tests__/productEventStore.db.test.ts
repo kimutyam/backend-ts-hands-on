@@ -16,7 +16,6 @@ import { ProductNameDuplicatedError } from '../../../../../app/domain/product/pr
 import { Db } from '../db.js';
 import { ProductEventStore } from '../productEventStore.js';
 import { createSelectDomainEventFn } from './helper/domainEvent.js';
-import { truncateTables } from './helper/table.js';
 
 const createSelectProductFn =
   (db: Db) =>
@@ -42,18 +41,23 @@ const createSelectProductFn =
           product_id = ${aggregateId}`,
     );
 
+const createTruncateTableFn = (db: Db) => async () => {
+  await db.execute('TRUNCATE TABLE public.product');
+};
+
 describe.sequential('ProductEventStore', () => {
   const db = Db.getInstanceFromEnv();
   const storeProductEvent = ProductEventStore.createStoreFn(db);
+  const truncateTable = createTruncateTableFn(db);
   const selectProduct = createSelectProductFn(db);
   const selectDomainEvent = createSelectDomainEventFn(db);
 
   beforeEach(async () => {
-    await truncateTables(db);
+    await truncateTable();
   });
 
   afterAll(async () => {
-    await truncateTables(db);
+    await truncateTable();
     await db.$client.end();
   });
 
