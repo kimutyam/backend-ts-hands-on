@@ -15,27 +15,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",
     "globals": "16.4.0",
-    "npm-run-all2": "8.0.4",
     "prettier": "3.8.0",
     "typescript": "5.9.3"
-  },
-  "scripts": {
-    "build": "run-p -c build:*",
-    "build:example": "pnpm --filter book build",
-    "build:fp": "pnpm --filter fp build",
-    "build:fp-zod": "pnpm --filter fp-zod build",
-    "build:pure": "pnpm --filter pure build",
-    "lint": "run-p -c lint:*",
-    "lint:book": "pnpm --filter book lint:fix",
-    "lint:fp": "pnpm --filter fp lint:fix",
-    "lint:fp-zod": "pnpm --filter fp-zod lint:fix",
-    "lint:pure": "pnpm --filter pure lint:fix",
-    "format": "run-p -c format:*",
-    "format:example": "pnpm --filter example format",
-    "format:fp": "pnpm --filter fp format",
-    "format:fp-zod": "pnpm --filter fp-zod format",
-    "format:pure": "pnpm --filter pure format",
-    "test": "run-p -c test:*",
-    "test:example": "pnpm --filter example test"
   }
 }
