@@ -1,8 +1,8 @@
 import { createInjector, Scope } from 'typed-inject';
 
-import { Logger } from '../debug1/logger.js';
-import { Request } from '../debug1/request.js';
-import { Url } from '../debug1/url.js';
+import { Logger } from '../ex21/logger.js';
+import { Request } from '../ex21/request.js';
+import { Url } from '../ex21/url.js';
 
 const injector = createInjector()
   .provideValue(Url.token, 'https://example.com')
