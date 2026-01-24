@@ -38,29 +38,23 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
-          cache: yarn
-      - name: yarn install
-        uses: borales/actions-yarn@v5
+      - uses: pnpm/action-setup@v4
         with:
-          cmd: workspace ${{ env.WORKSPACE_NAME }} install --production=false --frozen-lockfile
-      - name: yarn lint
-        uses: borales/actions-yarn@v5
-        with:
-          cmd: workspace ${{ env.WORKSPACE_NAME }} lint
-      - name: yarn build
-        uses: borales/actions-yarn@v5
-        with:
-          cmd: workspace ${{ env.WORKSPACE_NAME }} build
+          version: 10
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
+      - name: pnpm lint
+        run: pnpm --filter ${{ env.WORKSPACE_NAME }} lint
+      - name: pnpm build
+        run: pnpm --filter ${{ env.WORKSPACE_NAME }} build
       - name: Start Docker Compose
         run: docker compose up -d
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: unit test
-        uses: borales/actions-yarn@v5
-        with:
-          cmd: workspace ${{ env.WORKSPACE_NAME }} test
+        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test
       - name: Migrate database
-        run: yarn test:db:migrate
+        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db:migrate
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: db test
-        run: yarn test:db
+        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}

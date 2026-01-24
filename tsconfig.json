@@ -24,7 +24,7 @@
     "noUncheckedSideEffectImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "preserveSymlinks": true,
+    "preserveSymlinks": false,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

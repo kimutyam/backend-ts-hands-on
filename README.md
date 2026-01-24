@@ -4,6 +4,6 @@
 
 ```bash
 nodenv install
-npm install -g yarn
-yarn install
+npm install -g pnpm
+pnpm install
 ```

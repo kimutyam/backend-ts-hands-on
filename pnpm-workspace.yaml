@@ -1,0 +1,7 @@
+---
+packages:
+  - packages/book
+  - packages/fp
+  - packages/fp-zod
+  - packages/pure
+  - packages/hono-drizzle

@@ -1,4 +1,4 @@
-import { assert, expect } from 'vitest';
+import assert from 'node:assert';
 
 import { ticketSchema } from '../ticketSchema.js';
 

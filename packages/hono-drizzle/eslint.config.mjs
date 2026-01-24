@@ -5,21 +5,21 @@ import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import neverthrow from 'eslint-plugin-neverthrow';
-import globals from 'globals';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const compat = new FlatCompat();
+const tsconfigRootDir = dirname(fileURLToPath(import.meta.url));
 
 export default [
   ...baseConfig,
   {
     files: ['**/*.ts'],
     languageOptions: {
-      globals: {
-        ...globals.node,
-      },
       parser: tsParser,
       parserOptions: {
-        project: true,
+        project: ['./tsconfig.json'],
+        tsconfigRootDir,
         sourceType: 'module',
       },
     },

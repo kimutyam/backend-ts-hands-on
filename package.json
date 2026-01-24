@@ -4,52 +4,18 @@
   "description": "バックエンドTypeScriptのハンズオン",
   "license": "UNLICENSED",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/book",
-      "packages/fp",
-      "packages/fp-zod",
-      "packages/pure",
-      "packages/nest-sample",
-      "packages/hono-drizzle"
-    ],
-    "nohoist": [
-      "**/prisma",
-      "**/@prisma/client",
-      "**/@nestjs/common"
-    ]
-  },
   "devDependencies": {
+    "@eslint/compat": "1.4.1",
     "@eslint/eslintrc": "3.3.3",
     "@eslint/js": "9.39.2",
-    "@types/node": "22.19.7",
     "@typescript-eslint/eslint-plugin": "8.53.1",
     "@typescript-eslint/parser": "8.53.1",
     "eslint": "9.39.2",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",
-    "npm-run-all2": "8.0.4",
+    "globals": "16.4.0",
     "prettier": "3.8.0",
     "typescript": "5.9.3"
-  },
-  "scripts": {
-    "build": "run-p -c build:*",
-    "build:example": "yarn workspace book build",
-    "build:fp": "yarn workspace fp build",
-    "build:fp-zod": "yarn workspace fp-zod build",
-    "build:pure": "yarn workspace pure build",
-    "lint": "run-p -c lint:*",
-    "lint:book": "yarn workspace book lint:fix",
-    "lint:fp": "yarn workspace fp lint:fix",
-    "lint:fp-zod": "yarn workspace fp-zod lint:fix",
-    "lint:pure": "yarn workspace pure lint:fix",
-    "format": "run-p -c format:*",
-    "format:example": "yarn workspace example format",
-    "format:fp": "yarn workspace fp format",
-    "format:fp-zod": "yarn workspace fp-zod format",
-    "format:pure": "yarn workspace pure format",
-    "test": "run-p -c test:*",
-    "test:example": "yarn workspace example test"
   }
 }
