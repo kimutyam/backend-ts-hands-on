@@ -1,0 +1,30 @@
+import type { CommandHandler } from '../../11/ex40/commandHandler.js';
+
+interface Db {
+  $client: {
+    end: () => Promise<void>;
+  };
+}
+
+interface FileHandler {
+  close: () => Promise<void>;
+}
+
+const execute =
+  <Args>(handler: CommandHandler<Args>, db?: Db, fileHandler?: FileHandler) =>
+  async (args: Args): Promise<void> => {
+    try {
+      await handler(args);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.error(e.message);
+      } else {
+        console.error('An unknown error occurred');
+      }
+    } finally {
+      await db?.$client.end();
+      await fileHandler?.close();
+    }
+  };
+
+export { execute };
