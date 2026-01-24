@@ -35,7 +35,7 @@
     "drizzle-orm": "0.45.1",
     "hono": "4.11.4",
     "neverthrow": "8.2.0",
-    "pg": "8.17.1",
+    "pg": "8.17.2",
     "remeda": "2.33.3",
     "typed-inject": "5.0.0",
     "ulidx": "2.4.1",
