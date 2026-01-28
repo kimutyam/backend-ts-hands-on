@@ -27,8 +27,15 @@ const toCartItem = (select: CartItemSelect): CartItem => {
 const toCart =
   (aggregateId: CustomerId) =>
   (selects: ReadonlyArray<Select>): Result<Cart, CartNotFoundError> => {
-    if (selects.length === 0) {
+    const selectCount = selects.length;
+    if (selectCount === 0) {
       return err(CartNotFoundError.create(aggregateId));
+    }
+
+    if (selectCount > 1) {
+      throw new Error(
+        `顧客IDでの索引で複数のカートが見つかりました: ${aggregateId}`,
+      );
     }
 
     const { sequenceNumber } = selects[0]!.cart;
