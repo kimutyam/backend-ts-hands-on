@@ -15,10 +15,16 @@ const toProduct =
   (
     selects: ReadonlyArray<ProductSelect>,
   ): Result<Product, ProductNotFoundError> => {
-    if (selects.length === 0) {
+    const selectCount = selects.length;
+    if (selectCount === 0) {
       return err(ProductNotFoundError.create(aggregateId));
     }
 
+    if (selectCount > 1) {
+      throw new Error(
+        `商品IDでの索引で複数の商品が見つかりました: ${aggregateId}`,
+      );
+    }
     const { name, price, sequenceNumber } = selects[0]!;
 
     return ok(
