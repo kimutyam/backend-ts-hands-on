@@ -1,4 +1,4 @@
-import { okAsync, ResultAsync } from 'neverthrow';
+import { okAsync } from 'neverthrow';
 
 import { Cart } from '../domain/cart/cart.js';
 import type {
@@ -28,9 +28,7 @@ const create =
           .orElse(() => okAsync(Cart.init(customerId)))
           .andThen((cart) => Cart.addCartItem(item)(cart)),
       )
-      .andThrough(([cart, cartEvent]) =>
-        ResultAsync.fromSafePromise(storeCartEvent(cartEvent, cart)),
-      )
+      .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 
 create.inject = [

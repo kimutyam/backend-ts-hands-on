@@ -24,7 +24,7 @@ const createStoreFn =
   (event, aggregate) => {
     events.push(event);
     aggregates.set(aggregate.aggregateId, aggregate);
-    return Promise.resolve();
+    return okAsync();
   };
 
 const createRepository = (
