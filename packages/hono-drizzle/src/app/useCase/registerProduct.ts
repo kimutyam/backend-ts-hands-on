@@ -9,9 +9,10 @@ const create =
     const aggregateId = ProductId.generate();
     return Product.init(aggregateId, name, price)
       .map(Product.register)
-      .asyncAndThen(([aggregate, event]) =>
-        storeProductEvent(event, aggregate).map(() => event),
-      );
+      .asyncAndThrough(([aggregate, event]) =>
+        storeProductEvent(event, aggregate),
+      )
+      .map(([, event]) => event);
   };
 
 create.inject = [StoreProductEvent.token] as const;

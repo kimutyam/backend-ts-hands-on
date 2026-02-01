@@ -1,3 +1,5 @@
+import { ResultAsync } from 'neverthrow';
+
 import { Cart } from '../domain/cart/cart.js';
 import type { CartItemRemoved } from '../domain/cart/cartEvent.js';
 import type { RemoveCartItem } from '../port/primary/shopping/removeCartItem.js';
@@ -12,10 +14,10 @@ const create =
   (customerId, productId) =>
     findCartById(customerId)
       .andThen(Cart.removeCartItem(productId))
-      .map(async ([cart, cartEvent]) => {
-        await storeCartEvent(cartEvent, cart);
-        return cartEvent;
-      });
+      .andThrough(([cart, cartEvent]) =>
+        ResultAsync.fromSafePromise(storeCartEvent(cartEvent, cart)),
+      )
+      .map(([, cartEvent]) => cartEvent);
 
 create.inject = [FindCartById.token, StoreCartEvent.token] as const;
 

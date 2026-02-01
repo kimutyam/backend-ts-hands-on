@@ -42,3 +42,25 @@ const server = run(app);
 process.on('SIGINT', () => shutdown(server, rootInjector, 'SIGINT'));
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('SIGTERM', () => shutdown(server, rootInjector, 'SIGTERM'));
+
+// https://gemini.google.com/app/c878181161e01f0e?hl=ja
+process.on('unhandledRejection', (reason) => {
+  // Sentry等への通知例
+  // Sentry.captureException(reason);
+
+  console.error('Unhandled Rejection:', reason);
+
+  // 安全にプロセスを終了
+  process.exit(1);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('致命的なエラー（uncaughtException）が発生しました:');
+  console.error(error.stack);
+
+  // 1. 外部サービス（Sentry等）にエラーを報告
+  // 2. ログのフラッシュ（書き出し）
+
+  // 重要：プロセスを終了させる
+  process.exit(1);
+});
