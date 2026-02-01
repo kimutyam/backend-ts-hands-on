@@ -1,7 +1,10 @@
+import type { StoreEvent } from './eventStore.js';
+import type { Order } from './order.js';
 import type { OrderEvent } from './orderEvent.js';
 
-interface OrderEventStore<DE extends OrderEvent> {
-  (event: DE): Promise<void>;
-}
+type StoreOrderEvent<DE extends OrderEvent = OrderEvent> = StoreEvent<
+  Order,
+  DE
+>;
 
-export type { OrderEventStore };
+export type { StoreOrderEvent };

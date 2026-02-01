@@ -7,11 +7,11 @@ interface FindById<A extends Aggregate<unknown>, out E> {
 }
 
 interface Store<in A extends Aggregate<unknown>> {
-  (aggregate: A): Promise<void>;
+  (aggregate: A): ResultAsync<void, never>;
 }
 
 interface DeleteById<in A extends Aggregate<unknown>> {
-  (aggregateId: A['aggregateId']): Promise<void>;
+  (aggregateId: A['aggregateId']): ResultAsync<void, never>;
 }
 
 export type { DeleteById, FindById, Store };

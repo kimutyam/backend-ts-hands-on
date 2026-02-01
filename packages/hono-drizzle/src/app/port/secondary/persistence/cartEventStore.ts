@@ -1,11 +1,9 @@
-import type { ResultAsync } from 'neverthrow';
-
 import type { Cart } from '../../../domain/cart/cart.js';
 import type { CartEvent } from '../../../domain/cart/cartEvent.js';
+import type { StoreEvent } from './eventStore.js';
 
-interface StoreCartEvent<in DE extends CartEvent = CartEvent> {
-  (event: DE, aggregate: Cart): ResultAsync<void, never>;
-}
+type StoreCartEvent<DE extends CartEvent = CartEvent> = StoreEvent<Cart, DE>;
+
 const StoreCartEvent = {
   token: 'CartEventStore',
 } as const;
