@@ -19,14 +19,14 @@ class CartRepositoryOnMemory implements CartRepository {
       : errAsync(CartNotFoundError.create(aggregateId));
   }
 
-  store(aggregate: Cart): Promise<void> {
+  store(aggregate: Cart): ResultAsync<void, never> {
     this.aggregates.set(aggregate.aggregateId, aggregate);
-    return Promise.resolve();
+    return okAsync();
   }
 
-  deleteById(aggregateId: CustomerId): Promise<void> {
+  deleteById(aggregateId: CustomerId): ResultAsync<void, never> {
     this.aggregates.delete(aggregateId);
-    return Promise.resolve();
+    return okAsync();
   }
 }
 
