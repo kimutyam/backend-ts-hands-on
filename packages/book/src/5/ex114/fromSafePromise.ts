@@ -1,6 +1,8 @@
 import { ResultAsync } from 'neverthrow';
 
-const ra = ResultAsync.fromSafePromise(Promise.resolve(42));
+declare function selectUserCount(id: string): Promise<number>;
 
-const a = await ra;
-console.log(a);
+// ResultAsync<number, never>
+const ra = ResultAsync.fromSafePromise(selectUserCount('user-id-1'));
+
+console.log(ra);
