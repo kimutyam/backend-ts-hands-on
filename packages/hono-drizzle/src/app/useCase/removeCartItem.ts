@@ -12,10 +12,8 @@ const create =
   (customerId, productId) =>
     findCartById(customerId)
       .andThen(Cart.removeCartItem(productId))
-      .map(async ([cart, cartEvent]) => {
-        await storeCartEvent(cartEvent, cart);
-        return cartEvent;
-      });
+      .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
+      .map(([, cartEvent]) => cartEvent);
 
 create.inject = [FindCartById.token, StoreCartEvent.token] as const;
 

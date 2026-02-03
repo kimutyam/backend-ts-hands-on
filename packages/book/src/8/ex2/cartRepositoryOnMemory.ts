@@ -22,14 +22,14 @@ const createStoreFn =
   (aggregates: Map<CustomerId, Cart>): StoreCart =>
   (aggregate: Cart) => {
     aggregates.set(aggregate.aggregateId, aggregate);
-    return Promise.resolve();
+    return okAsync();
   };
 
 const createDeleteByIdFn =
   (aggregates: Map<CustomerId, Cart>): DeleteCartById =>
   (aggregateId: CustomerId) => {
     aggregates.delete(aggregateId);
-    return Promise.resolve();
+    return okAsync();
   };
 
 const createRepository = (

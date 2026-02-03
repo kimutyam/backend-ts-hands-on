@@ -28,10 +28,8 @@ const create =
           .orElse(() => okAsync(Cart.init(customerId)))
           .andThen((cart) => Cart.addCartItem(item)(cart)),
       )
-      .map(async ([cart, cartEvent]) => {
-        await storeCartEvent(cartEvent, cart);
-        return cartEvent;
-      });
+      .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
+      .map(([, cartEvent]) => cartEvent);
 
 create.inject = [
   FindProductById.token,

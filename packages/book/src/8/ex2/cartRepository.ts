@@ -9,11 +9,11 @@ interface FindCartById {
 }
 
 interface StoreCart {
-  (aggregate: Cart): Promise<void>;
+  (aggregate: Cart): ResultAsync<void, never>;
 }
 
 interface DeleteCartById {
-  (aggregateId: CustomerId): Promise<void>;
+  (aggregateId: CustomerId): ResultAsync<void, never>;
 }
 
 export type { DeleteCartById, FindCartById, StoreCart };

@@ -21,9 +21,10 @@ const run = (app: OpenAPIHono): ServerType =>
 const shutdown = async (
   server: ServerType,
   injector: Injector,
-  sig: string,
+  reason: string,
+  code = 0,
 ) => {
-  console.log(`[${sig}] shutting down...`);
+  console.log(`[${reason}] shutting down...`);
   server.close((err) => {
     if (err) {
       console.error(err.message);
@@ -31,6 +32,7 @@ const shutdown = async (
     console.log('HTTP server closed.');
   });
   await injector.dispose();
+  process.exit(code);
 };
 
 const env = ValidatedEnv.parse(process.env);
@@ -42,3 +44,18 @@ const server = run(app);
 process.on('SIGINT', () => shutdown(server, rootInjector, 'SIGINT'));
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('SIGTERM', () => shutdown(server, rootInjector, 'SIGTERM'));
+
+// NOTE: app.onErrorではリクエスト時以外で検出できないため、最終防衛策として設置
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+process.on('uncaughtException', async (error) => {
+  console.error('致命的なエラー（uncaughtException）が発生しました:');
+  console.error(error.stack);
+  await shutdown(server, rootInjector, 'uncaughtException', 1);
+});
+
+// NOTE: Promiseチェーン内でキャッチされなかったエラーを検出
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+process.on('unhandledRejection', async (reason) => {
+  console.error('Unhandled Rejection:', reason);
+  await shutdown(server, rootInjector, 'unhandledRejection', 1);
+});

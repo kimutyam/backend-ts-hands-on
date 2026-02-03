@@ -6,8 +6,8 @@ import type { CustomerId } from './customerId.js';
 
 interface CartRepository {
   findById: (aggregateId: CustomerId) => ResultAsync<Cart, CartNotFoundError>;
-  store: (cart: Cart) => Promise<void>;
-  deleteById: (aggregateId: CustomerId) => Promise<void>;
+  store: (cart: Cart) => ResultAsync<void, never>;
+  deleteById: (aggregateId: CustomerId) => ResultAsync<void, never>;
 }
 
 export type { CartRepository };

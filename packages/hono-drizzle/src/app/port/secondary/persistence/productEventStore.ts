@@ -1,15 +1,13 @@
-import type { ResultAsync } from 'neverthrow';
-
 import type { Product } from '../../../domain/product/product.js';
 import type { ProductEvent } from '../../../domain/product/productEvent.js';
 import type { ProductNameDuplicatedError } from '../../../domain/product/productNameDuplicatedError.js';
+import type { StoreEvent } from './eventStore.js';
 
-interface StoreProductEvent<in DE extends ProductEvent = ProductEvent> {
-  (
-    event: DE,
-    aggregate: Product,
-  ): ResultAsync<void, ProductNameDuplicatedError>;
-}
+type StoreProductEvent<DE extends ProductEvent = ProductEvent> = StoreEvent<
+  Product,
+  DE,
+  ProductNameDuplicatedError
+>;
 
 const StoreProductEvent = {
   token: 'StoreProductEvent',
