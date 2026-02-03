@@ -12,7 +12,7 @@ const create =
   (customerId) =>
     findCartById(customerId)
       .map(Cart.clear('OnManual'))
-      .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
+      .andTee(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 
 create.inject = [FindCartById.token, StoreCartEvent.token] as const;

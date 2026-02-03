@@ -28,7 +28,7 @@ const create =
           .orElse(() => okAsync(Cart.init(customerId)))
           .andThen((cart) => Cart.addCartItem(item)(cart)),
       )
-      .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
+      .andTee(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 
 create.inject = [
