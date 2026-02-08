@@ -2,7 +2,8 @@ import { err, ok, Result } from 'neverthrow';
 
 import { SomethingError } from '../common/somethingError.js';
 
-const results: Array<Result<number, SomethingError>> = [
+// Array<Result<number, SomethingError>>
+const results = [
   ok(1),
   err(SomethingError.create('oh')),
   ok(2),
@@ -10,7 +11,7 @@ const results: Array<Result<number, SomethingError>> = [
   err(SomethingError.create('god')),
 ];
 
-// 1
+// Result<Array<number>, Array<SomethingError>>
 const r1 = Result.combineWithAllErrors(results);
 
 console.log(results, r1);

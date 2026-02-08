@@ -2,24 +2,20 @@ import { errAsync, okAsync, ResultAsync } from 'neverthrow';
 
 import { SomethingError } from '../common/somethingError.js';
 
-const results: Array<ResultAsync<number, never>> = [okAsync(1), okAsync(2)];
+// Array<ResultAsync<number, never>>
+const results = [okAsync(1), okAsync(2)];
 
-// 1
+// ResultAsync<Array<number>, never>
 const r1 = ResultAsync.combine(results);
 
-const results2: Array<ResultAsync<number, SomethingError>> = [
+// Array<ResultAsync<number, SomethingError>>
+const results2 = [
   okAsync(1),
   errAsync(SomethingError.create('err!')),
   okAsync(2),
 ];
 
-// 2
+// ResultAsync<Array<number>, SomethingError>
 const r2 = ResultAsync.combine(results2);
 
-// 3
-const awaited1 = await r1;
-
-// 4
-const awaited2 = await r2.mapErr((e) => e.message);
-
-console.log(awaited1, awaited2);
+console.log(r1, r2);

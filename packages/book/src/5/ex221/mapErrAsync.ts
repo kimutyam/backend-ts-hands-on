@@ -2,12 +2,10 @@ import type { ResultAsync } from 'neverthrow';
 
 import type { SomethingError } from '../common/somethingError.js';
 
-declare const r: ResultAsync<number, SomethingError>;
+declare const ra: ResultAsync<number, SomethingError>;
+declare function f(e: SomethingError): string;
 
-// 1
-const f = (e: SomethingError): string => e.message;
+// ResultAsync<number, string>
+const ra1: ResultAsync<number, string> = ra.mapErr(f);
 
-// 2
-const r1: ResultAsync<number, string> = r.mapErr(f);
-
-console.log(r1);
+console.log(ra1);

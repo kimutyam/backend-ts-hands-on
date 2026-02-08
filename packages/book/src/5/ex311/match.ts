@@ -7,7 +7,7 @@ const errF = (e: SomethingError): string => `NaN: ${e.message}`;
 
 declare const r1: Result<number, SomethingError>;
 
-// 1
+// number | string
 const r2 = r1.match(okF, errF);
 
 console.log(r2);
