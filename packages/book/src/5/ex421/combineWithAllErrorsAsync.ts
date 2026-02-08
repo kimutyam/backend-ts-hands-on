@@ -2,7 +2,8 @@ import { errAsync, okAsync, ResultAsync } from 'neverthrow';
 
 import { SomethingError } from '../common/somethingError.js';
 
-const results: Array<ResultAsync<number, SomethingError>> = [
+// Array<ResultAsync<number, SomethingError>>
+const results = [
   okAsync(1),
   errAsync(SomethingError.create('oh')),
   okAsync(2),
@@ -10,7 +11,7 @@ const results: Array<ResultAsync<number, SomethingError>> = [
   errAsync(SomethingError.create('god')),
 ];
 
-// 1
+// ResultAsync<Array<number>, Array<SomethingError>>
 const r1 = ResultAsync.combineWithAllErrors(results);
 
 console.log(r1);

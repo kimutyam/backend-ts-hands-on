@@ -7,9 +7,9 @@ const unsafeWrapPromise = (value?: string): Promise<string> => {
   return Promise.resolve(value);
 };
 
-// 1
-const r = ResultAsync.fromPromise(unsafeWrapPromise(), () => ({
+// ResultAsync<string, { message: string }>
+const ra = ResultAsync.fromPromise(unsafeWrapPromise(), () => ({
   message: 'rejected',
 }));
 
-console.log(r);
+console.log(ra);

@@ -2,12 +2,12 @@ import type { ResultAsync } from 'neverthrow';
 
 import type { SomethingError } from '../common/somethingError.js';
 
-const okF = (n: number): number => n * 2;
-const errF = (e: SomethingError): string => `NaN: ${e.message}`;
+declare function okF(n: number): number;
+declare function errF(e: SomethingError): string;
 
-declare const r1: ResultAsync<number, SomethingError>;
+declare const ra1: ResultAsync<number, SomethingError>;
 
-// 1
-const r2 = r1.match(okF, errF);
+// Promise<number | string>
+const ra2 = ra1.match(okF, errF);
 
-console.log(r2);
+console.log(ra2);

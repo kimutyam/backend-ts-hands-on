@@ -1,13 +1,15 @@
 import type { ResultAsync } from 'neverthrow';
-import { errAsync, okAsync } from 'neverthrow';
 
-const f1 = (e: Error): ResultAsync<number, string> => errAsync(e.name);
-const f2 = (name: string): ResultAsync<undefined, string> =>
-  name === 'RangeError' ? okAsync(undefined) : errAsync(name);
+import type { SomethingError } from '../common/somethingError.js';
 
-declare const r1: ResultAsync<number, Error>;
+declare function f1(e: SomethingError): ResultAsync<number, string>;
+declare function f2(name: string): ResultAsync<undefined, string>;
 
-const r2 = r1.orElse(f1);
-const r3 = r2.orElse(f2);
+declare const ra1: ResultAsync<number, SomethingError>;
 
-console.log(r3);
+// ResultAsync<number, string>
+const ra2 = ra1.orElse(f1);
+// ResultAsync<number | undefined, string>
+const ra3 = ra2.orElse(f2);
+
+console.log(ra3);
