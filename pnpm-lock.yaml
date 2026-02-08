@@ -69,8 +69,8 @@ importers:
         specifier: 8.18.0
         version: 8.18.0
       remeda:
-        specifier: 2.33.4
-        version: 2.33.4
+        specifier: 2.33.5
+        version: 2.33.5
       typed-inject:
         specifier: 5.0.0
         version: 5.0.0
@@ -240,8 +240,8 @@ importers:
         specifier: 8.18.0
         version: 8.18.0
       remeda:
-        specifier: 2.33.4
-        version: 2.33.4
+        specifier: 2.33.5
+        version: 2.33.5
       typed-inject:
         specifier: 5.0.0
         version: 5.0.0
@@ -3236,8 +3236,8 @@ packages:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
     engines: {node: '>= 0.4'}
 
-  remeda@2.33.4:
-    resolution: {integrity: sha512-ygHswjlc/opg2VrtiYvUOPLjxjtdKvjGz1/plDhkG66hjNjFr1xmfrs2ClNFo/E6TyUFiwYNh53bKV26oBoMGQ==}
+  remeda@2.33.5:
+    resolution: {integrity: sha512-FqmpPA9i9T5EGcqgyHf9kHjefnyCZM1M3kSdZjPk1j2StGNoJyoYp0807RYcjNkQ1UpsEQa5qzgsjLY4vYtT8g==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -6885,7 +6885,7 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  remeda@2.33.4: {}
+  remeda@2.33.5: {}
 
   require-directory@2.1.1: {}
 
