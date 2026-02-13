@@ -13,7 +13,7 @@ const domainEventTable = pgTable('domain_event', {
   eventName: varchar({ length: 50 }).notNull(),
   aggregateId: varchar({ length: 26 }).notNull(),
   aggregateName: varchar({ length: 50 }).notNull(),
-  payload: jsonb().notNull(),
+  payload: jsonb().$type<Record<string, unknown>>().notNull(),
 });
 
 export { domainEventTable };
