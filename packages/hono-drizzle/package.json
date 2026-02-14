@@ -33,7 +33,7 @@
     "date-fns": "4.1.0",
     "dotenv": "17.2.4",
     "drizzle-orm": "0.45.1",
-    "hono": "4.11.7",
+    "hono": "4.11.9",
     "neverthrow": "8.2.0",
     "pg": "8.18.0",
     "remeda": "2.33.5",
