@@ -20,7 +20,7 @@
     "@hono/node-server": "1.19.9",
     "@types/node": "22.19.11",
     "date-fns": "4.1.0",
-    "dotenv": "17.2.3",
+    "dotenv": "17.2.4",
     "hono": "4.11.7",
     "neverthrow": "8.2.0",
     "pg": "8.18.0",
