@@ -1,7 +1,5 @@
 import assert from 'node:assert';
 
-import { beforeAll, describe } from 'vitest';
-
 import { Aggregate } from '../../../../../app/domain/aggregate.js';
 import { Quantity } from '../../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../../app/domain/customer/customerId.js';
@@ -56,7 +54,7 @@ describe.sequential('FindCartById', () => {
   const customerId3 = CustomerId.generate();
   const productId1 = ProductId.generate();
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await truncateTable();
     await setupWithCartItem(customerId1, productId1);
     await setupWithoutCartItem(customerId2);
