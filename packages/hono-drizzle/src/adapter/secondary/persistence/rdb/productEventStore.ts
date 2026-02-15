@@ -11,20 +11,23 @@ import { isConstraintError } from './toConstraintError.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 
-const toProductInsert = (aggregate: Product): ProductInsert => ({
-  productId: aggregate.aggregateId,
-  sequenceNumber: aggregate.sequenceNumber,
-  name: aggregate.name,
-  price: aggregate.price,
-});
+const toProductInsert = (aggregate: Product): ProductInsert => {
+  const { aggregateId, sequenceNumber, name, price } = aggregate;
+  return {
+    productId: aggregateId,
+    sequenceNumber,
+    name,
+    price,
+  };
+};
 
 const createStoreFn =
   (db: Db): StoreProductEvent =>
   (event, aggregate) => {
     const fn = async () => {
       await db.transaction(async (tx) => {
-        await tx.insert(domainEventTable).values(event);
         await tx.insert(productTable).values(toProductInsert(aggregate));
+        await tx.insert(domainEventTable).values(event);
       });
     };
     const errorFn = (error: unknown): ProductNameDuplicatedError => {
