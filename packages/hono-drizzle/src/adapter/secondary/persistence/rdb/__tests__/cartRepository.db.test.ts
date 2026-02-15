@@ -8,9 +8,10 @@ import { CustomerId } from '../../../../../app/domain/customer/customerId.js';
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartRepository } from '../cartRepository.js';
-import { Db } from '../db.js';
+import type { Db } from '../db.js';
 import { cartTable } from '../schema/cart.sql.js';
 import { cartItemTable } from '../schema/cartItem.sql.js';
+import { getDbInstanceFromEnv } from './helper/db.js';
 
 const createSetupWithCartItemFn =
   (db: Db) => async (customerId: CustomerId, productId: ProductId) => {
@@ -44,7 +45,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 };
 
 describe.sequential('FindCartById', () => {
-  const db = Db.getInstanceFromEnv();
+  const db = getDbInstanceFromEnv();
   const findCartById = CartRepository.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
   const setupWithCartItem = createSetupWithCartItemFn(db);

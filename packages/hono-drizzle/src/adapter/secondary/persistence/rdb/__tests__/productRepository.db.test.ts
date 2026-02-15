@@ -5,9 +5,10 @@ import { beforeAll, describe } from 'vitest';
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { ProductName } from '../../../../../app/domain/product/productName.js';
-import { Db } from '../db.js';
+import type { Db } from '../db.js';
 import { ProductRepository } from '../productRepository.js';
 import { productTable } from '../schema/product.sql.js';
+import { getDbInstanceFromEnv } from './helper/db.js';
 
 const createSetupFn = (db: Db) => async (productId: ProductId) => {
   await db.transaction(async (tx) => {
@@ -27,7 +28,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 };
 
 describe.sequential('FindProductById', () => {
-  const db = Db.getInstanceFromEnv();
+  const db = getDbInstanceFromEnv();
   const findProductById = ProductRepository.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
   const setup = createSetupFn(db);

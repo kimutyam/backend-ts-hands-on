@@ -45,20 +45,11 @@ const getInstance = (url: DatabaseUrl): Db => {
   return Object.assign(nodePgDatabase, { dispose });
 };
 
-const getInstanceFromEnv = (): Db => {
-  const url = process.env['DATABASE_URL'];
-  if (url === undefined) {
-    throw new Error('DATABASE_URL is not defined');
-  }
-  return Db.getInstance(url);
-};
-
 getInstance.inject = [DatabaseUrl.token] as const;
 
 const Db = {
   token: 'Db' as const,
   getInstance,
-  getInstanceFromEnv,
 } as const;
 
 export { Db };

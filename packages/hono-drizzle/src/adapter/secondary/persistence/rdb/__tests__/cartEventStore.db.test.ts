@@ -19,7 +19,8 @@ import { OptimisticLockError } from '../../../../../app/domain/optimisticLockErr
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { CartEventStore } from '../cartEventStore.js';
-import { Db } from '../db.js';
+import type { Db } from '../db.js';
+import { getDbInstanceFromEnv } from './helper/db.js';
 import { createSelectDomainEventFn } from './helper/domainEvent.js';
 
 const createSelectCartFn =
@@ -60,7 +61,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 };
 
 describe.sequential('CartEventStore', () => {
-  const db = Db.getInstanceFromEnv();
+  const db = getDbInstanceFromEnv();
   const cartEventStore = CartEventStore.createStoreFn(db);
   const truncateTable = createTruncateTableFn(db);
   const selectCart = createSelectCartFn(db);
