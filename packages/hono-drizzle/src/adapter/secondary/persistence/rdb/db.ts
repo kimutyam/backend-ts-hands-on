@@ -6,7 +6,7 @@ import type { Disposable } from 'typed-inject';
 import { getRequestContext } from '../../../../app/util/requestContext.js';
 import { DatabaseUrl } from './databaseUrl.js';
 
-export const queryLogger: Logger = {
+const queryLogger: Logger = {
   logQuery: (query: string, params?: Array<unknown>) => {
     const context = getRequestContext();
     if (context === undefined) {
@@ -45,20 +45,11 @@ const getInstance = (url: DatabaseUrl): Db => {
   return Object.assign(nodePgDatabase, { dispose });
 };
 
-const getInstanceFromEnv = (): Db => {
-  const url = process.env['DATABASE_URL'];
-  if (url === undefined) {
-    throw new Error('DATABASE_URL is not defined');
-  }
-  return Db.getInstance(url);
-};
-
 getInstance.inject = [DatabaseUrl.token] as const;
 
 const Db = {
   token: 'Db' as const,
   getInstance,
-  getInstanceFromEnv,
 } as const;
 
 export { Db };

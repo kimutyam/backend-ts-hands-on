@@ -13,8 +13,9 @@ import { ProductRegistered } from '../../../../../app/domain/product/productEven
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { ProductName } from '../../../../../app/domain/product/productName.js';
 import { ProductNameDuplicatedError } from '../../../../../app/domain/product/productNameDuplicatedError.js';
-import { Db } from '../db.js';
+import type { Db } from '../db.js';
 import { ProductEventStore } from '../productEventStore.js';
+import { getDbInstanceFromEnv } from './helper/db.js';
 import { createSelectDomainEventFn } from './helper/domainEvent.js';
 
 const createSelectProductFn =
@@ -46,7 +47,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 };
 
 describe.sequential('ProductEventStore', () => {
-  const db = Db.getInstanceFromEnv();
+  const db = getDbInstanceFromEnv();
   const storeProductEvent = ProductEventStore.createStoreFn(db);
   const truncateTable = createTruncateTableFn(db);
   const selectProduct = createSelectProductFn(db);
