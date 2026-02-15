@@ -4,7 +4,6 @@ import { sql } from 'drizzle-orm';
 import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
 import type { QueryResult } from 'pg';
 import * as R from 'remeda';
-import { describe } from 'vitest';
 
 import { DomainEvent } from '../../../../../app/domain/domainEvent.js';
 import { Price } from '../../../../../app/domain/product/price.js';

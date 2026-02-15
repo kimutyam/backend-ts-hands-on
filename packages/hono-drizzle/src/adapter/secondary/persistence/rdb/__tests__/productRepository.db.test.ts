@@ -1,7 +1,5 @@
 import assert from 'node:assert';
 
-import { beforeAll, describe } from 'vitest';
-
 import { Price } from '../../../../../app/domain/product/price.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 import { ProductName } from '../../../../../app/domain/product/productName.js';
@@ -35,7 +33,7 @@ describe.sequential('FindProductById', () => {
   const existsProductId = ProductId.generate();
   const notExistsProductId = ProductId.generate();
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await truncateTable();
     await setup(existsProductId);
   });

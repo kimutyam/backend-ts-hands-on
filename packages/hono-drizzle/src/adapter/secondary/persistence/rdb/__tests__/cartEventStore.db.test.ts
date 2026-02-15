@@ -2,7 +2,6 @@ import { sql } from 'drizzle-orm';
 import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
 import type { QueryResult } from 'pg';
 import * as R from 'remeda';
-import { describe } from 'vitest';
 
 import { Cart } from '../../../../../app/domain/cart/cart.js';
 import {
