@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql
   test_db:
     image: postgres:18.1
     container_name: test_db
@@ -21,7 +21,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - test_db_data:/var/lib/postgresql/data
+      - test_db_data:/var/lib/postgresql
 
 volumes:
   db_data:
