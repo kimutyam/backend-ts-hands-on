@@ -18,14 +18,14 @@ const dbTestConfig = defineConfig({
   },
 });
 
-const getConfig = (testType: string | undefined) => {
-  switch (testType) {
+const getConfig = (testKind: string | undefined) => {
+  switch (testKind) {
     case 'normal':
       return normalTestConfig;
     case 'db':
       return dbTestConfig;
     default:
-      throw new Error(`TEST_TYPE is unexpected value. Should have been never.`);
+      throw new Error(`TEST_KIND is unexpected value. Should have been never.`);
   }
 };
 
