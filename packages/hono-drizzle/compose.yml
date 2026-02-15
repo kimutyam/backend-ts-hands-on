@@ -2,7 +2,6 @@
 services:
   app_db:
     image: postgres:18.1
-    container_name: app_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -13,7 +12,6 @@ services:
       - db_data:/var/lib/postgresql
   test_db:
     image: postgres:18.1
-    container_name: test_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
