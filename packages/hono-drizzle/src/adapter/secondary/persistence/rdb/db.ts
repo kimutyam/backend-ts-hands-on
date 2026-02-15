@@ -6,7 +6,7 @@ import type { Disposable } from 'typed-inject';
 import { getRequestContext } from '../../../../app/util/requestContext.js';
 import { DatabaseUrl } from './databaseUrl.js';
 
-export const queryLogger: Logger = {
+const queryLogger: Logger = {
   logQuery: (query: string, params?: Array<unknown>) => {
     const context = getRequestContext();
     if (context === undefined) {
