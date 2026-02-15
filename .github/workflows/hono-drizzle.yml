@@ -54,7 +54,7 @@ jobs:
         run: |
           echo "Waiting for PostgreSQL containers to be healthy..."
           docker compose ps
-          timeout 60 bash -c 'until docker compose ps | grep -q "healthy"; do sleep 2; done'
+          timeout 60 bash -c 'until [ $(docker compose ps | grep -c "healthy") -eq 2 ]; do sleep 2; done'
           echo "PostgreSQL containers are healthy"
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: unit test
