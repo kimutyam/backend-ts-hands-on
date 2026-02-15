@@ -53,7 +53,7 @@ jobs:
       - name: unit test
         run: pnpm --filter ${{ env.WORKSPACE_NAME }} test
       - name: Migrate database
-        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db:migrate
+        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db:push
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: db test
         run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db
