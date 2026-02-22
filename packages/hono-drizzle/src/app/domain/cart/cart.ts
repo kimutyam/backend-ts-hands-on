@@ -27,6 +27,10 @@ const schema = Aggregate.makeBrandedSchema(
     cartItems: z.array(CartItem.schema).readonly(),
   }),
   aggregateName,
+  {
+    id: aggregateName,
+    description: 'カート',
+  },
 );
 
 type Cart = z.infer<typeof schema>;

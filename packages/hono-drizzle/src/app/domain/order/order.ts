@@ -14,6 +14,7 @@ const schema = Aggregate.makeBrandedSchema(
     items: z.array(CartItem.schema).readonly(),
   }),
   aggregateName,
+  { id: aggregateName, description: '注文' },
 );
 
 type Input = z.input<typeof schema>;

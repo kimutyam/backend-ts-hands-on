@@ -2,9 +2,15 @@ import { z } from 'zod';
 
 const schema = z
   .object({
-    DATABASE_URL: z.url().optional(),
+    DATABASE_URL: z.url().optional().meta({
+      example: 'postgresql://user:password@localhost:5432/mydb',
+      description: 'データベース接続URL',
+    }),
   })
-  .readonly();
+  .readonly()
+  .meta({
+    description: '環境変数',
+  });
 
 type ValidatedEnv = z.infer<typeof schema>;
 

@@ -15,6 +15,7 @@ const schema = z
   .readonly()
   .meta({
     id: 'CartItem',
+    description: 'カート項目',
   });
 
 type CartItem = z.infer<typeof schema>;

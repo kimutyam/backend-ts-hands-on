@@ -20,6 +20,7 @@ const schema = Aggregate.makeBrandedSchema(
     price: Price.schema,
   }),
   aggregateName,
+  { id: aggregateName, description: '商品' },
 );
 
 type Input = z.input<typeof schema>;
