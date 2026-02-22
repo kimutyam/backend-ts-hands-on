@@ -16,7 +16,7 @@ import {
 import {
   ErrorSchema,
   ValidationErrorSchema,
-} from '../../../../adapter/primary/shopping/web/errorSchemas.js';
+} from '../../../../adapter/primary/shopping/web/responseSchemas.js';
 import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import type { WebAdapterInjector } from './injector.js';
