@@ -11,6 +11,18 @@ import { isConstraintError } from './toConstraintError.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 
+const toProductNameDuplicatedError =
+  (aggregate: Product) =>
+  (error: unknown): ProductNameDuplicatedError => {
+    if (R.pipe(error, isConstraintError('product_name_unique'))) {
+      return ProductNameDuplicatedError.create(
+        aggregate.aggregateId,
+        aggregate.name,
+      );
+    }
+    throw error;
+  };
+
 const toProductInsert = (aggregate: Product): ProductInsert => {
   const { aggregateId, sequenceNumber, name, price } = aggregate;
   return {
@@ -24,22 +36,16 @@ const toProductInsert = (aggregate: Product): ProductInsert => {
 const createStoreFn =
   (db: Db): StoreProductEvent =>
   (event, aggregate) => {
-    const fn = async () => {
+    const storeFn = async () => {
       await db.transaction(async (tx) => {
         await tx.insert(productTable).values(toProductInsert(aggregate));
         await tx.insert(domainEventTable).values(event);
       });
     };
-    const errorFn = (error: unknown): ProductNameDuplicatedError => {
-      if (R.pipe(error, isConstraintError('product_name_unique'))) {
-        return ProductNameDuplicatedError.create(
-          aggregate.aggregateId,
-          aggregate.name,
-        );
-      }
-      throw error;
-    };
-    return ResultAsync.fromThrowable(fn, errorFn)();
+    return ResultAsync.fromThrowable(
+      storeFn,
+      toProductNameDuplicatedError(aggregate),
+    )();
   };
 
 createStoreFn.inject = [Db.token] as const;
