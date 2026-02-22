@@ -38,7 +38,6 @@ const storeCart = async (
       target: [cartTable.customerId],
       set: {
         sequenceNumber: aggregate.sequenceNumber,
-        updatedAt: new Date(),
       },
       setWhere: eq(cartTable.sequenceNumber, aggregate.sequenceNumber - 1),
     });
