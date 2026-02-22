@@ -38,7 +38,6 @@ const storeCart = async (
       target: [cartTable.customerId],
       set: {
         sequenceNumber: aggregate.sequenceNumber,
-        updatedAt: new Date(),
       },
       setWhere: eq(cartTable.sequenceNumber, aggregate.sequenceNumber - 1),
     });
@@ -62,9 +61,9 @@ const createStoreFn =
   (event, aggregate) => {
     const fn = async () => {
       await db.transaction(async (tx) => {
-        await tx.insert(domainEventTable).values(event);
         await storeCart(tx, aggregate, event.aggregateName);
         await storeCartItems(tx, aggregate);
+        await tx.insert(domainEventTable).values(event);
       });
     };
     return ResultAsync.fromSafePromise(fn());
