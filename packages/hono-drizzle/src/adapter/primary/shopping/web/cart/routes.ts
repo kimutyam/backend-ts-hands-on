@@ -1,9 +1,6 @@
 import { createRoute } from '@hono/zod-openapi';
 
-import {
-  createErrorSchema,
-  createValidationErrorSchema,
-} from '../errorSchemas.js';
+import { ErrorSchema, ValidationErrorSchema } from '../errorSchemas.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
@@ -30,12 +27,12 @@ const GetCartRoute = createRoute({
       },
     },
     422: {
+      description: 'Unprocessable Content',
       content: {
         'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
+          schema: ValidationErrorSchema,
         },
       },
-      description: 'Unprocessable Content',
     },
   },
 });
@@ -47,13 +44,13 @@ const AddCartItemRoute = createRoute({
   operationId: 'AddCartItem',
   request: {
     body: {
+      description: 'Cart Item to add',
+      required: true,
       content: {
         'application/json': {
           schema: AddCartItemRequestSchema,
         },
       },
-      description: 'Cart Item to add',
-      required: true,
     },
   },
   responses: {
@@ -66,36 +63,36 @@ const AddCartItemRoute = createRoute({
       },
     },
     400: {
+      description: 'Bad Request',
       content: {
         'application/json': {
-          schema: createErrorSchema('Bad Request'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Bad Request',
     },
     404: {
+      description: 'Not Found',
       content: {
         'application/json': {
-          schema: createErrorSchema('Not Found'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Not Found',
     },
     409: {
+      description: 'Conflict',
       content: {
         'application/json': {
-          schema: createErrorSchema('Conflict'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Conflict',
     },
     422: {
+      description: 'Unprocessable Content',
       content: {
         'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
+          schema: ValidationErrorSchema,
         },
       },
-      description: 'Unprocessable Content',
     },
   },
 });
@@ -113,28 +110,28 @@ const RemoveCartItemRoute = createRoute({
       description: 'No Content',
     },
     404: {
+      description: 'Not Found',
       content: {
         'application/json': {
-          schema: createErrorSchema('Not Found'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Not Found',
     },
     409: {
+      description: 'Conflict',
       content: {
         'application/json': {
-          schema: createErrorSchema('Conflict'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Conflict',
     },
     422: {
+      description: 'Unprocessable Content',
       content: {
         'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
+          schema: ValidationErrorSchema,
         },
       },
-      description: 'Unprocessable Content',
     },
   },
 });
@@ -152,28 +149,28 @@ const ClearCartRoute = createRoute({
       description: 'No Content',
     },
     404: {
+      description: 'Not Found',
       content: {
         'application/json': {
-          schema: createErrorSchema('Not Found'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Not Found',
     },
     409: {
+      description: 'Conflict',
       content: {
         'application/json': {
-          schema: createErrorSchema('Conflict'),
+          schema: ErrorSchema,
         },
       },
-      description: 'Conflict',
     },
     422: {
+      description: 'Unprocessable Content',
       content: {
         'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
+          schema: ValidationErrorSchema,
         },
       },
-      description: 'Unprocessable Content',
     },
   },
 });

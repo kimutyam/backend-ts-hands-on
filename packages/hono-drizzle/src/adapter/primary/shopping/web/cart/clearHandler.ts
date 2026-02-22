@@ -1,7 +1,7 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
 import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
-import { createErrorSchema } from '../errorSchemas.js';
+import { ErrorSchema } from '../errorSchemas.js';
 import type { ClearCartRoute } from './routes.js';
 
 const create =
@@ -12,7 +12,7 @@ const create =
       () => c.body(null, 204),
       (error) =>
         c.json(
-          createErrorSchema().parse({
+          ErrorSchema.parse({
             title: error.message,
           }),
           404,
