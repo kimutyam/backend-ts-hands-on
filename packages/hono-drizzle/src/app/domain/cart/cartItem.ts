@@ -12,7 +12,10 @@ const schema = z
     price: Price.schema,
     quantity: Quantity.schema,
   })
-  .readonly();
+  .readonly()
+  .meta({
+    id: 'CartItem',
+  });
 
 type CartItem = z.infer<typeof schema>;
 type CartItemInput = z.input<typeof schema>;

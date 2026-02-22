@@ -7,7 +7,10 @@ import { createFromZod } from '../../util/result.js';
 
 const name = 'Quantity';
 
-const schema = z.number().int().min(1).max(10).brand('Quantity');
+const schema = z.number().int().min(1).max(10).brand('Quantity').meta({
+  example: 2,
+  description: '数量',
+});
 
 type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
