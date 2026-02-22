@@ -19,14 +19,11 @@ interface Select {
   cart_item: CartItemSelect | null;
 }
 
-const toCartItem = (select: CartItemSelect): CartItem => {
-  const { productId, price, quantity } = select;
-  return CartItem.parse({ productId, price, quantity });
-};
-
-const toCart =
+const validate =
   (aggregateId: CustomerId) =>
-  (selects: ReadonlyArray<Select>): Result<Cart, CartNotFoundError> => {
+  (
+    selects: ReadonlyArray<Select>,
+  ): Result<ReadonlyArray<Select>, CartNotFoundError> => {
     const selectCount = selects.length;
     if (selectCount === 0) {
       return err(CartNotFoundError.create(aggregateId));
@@ -37,24 +34,34 @@ const toCart =
         `顧客IDでの索引で複数のカートが見つかりました: ${aggregateId}`,
       );
     }
-
-    const { sequenceNumber } = selects[0]!.cart;
-
-    const cartItems = selects.reduce<Array<CartItem>>((acc, { cart_item }) => {
-      if (cart_item === null) {
-        return acc;
-      }
-      return [...acc, toCartItem(cart_item)];
-    }, []);
-
-    return ok(
-      Cart.parse({
-        aggregateId,
-        sequenceNumber,
-        cartItems,
-      }),
-    );
+    return ok(selects);
   };
+
+const toCartItem = (select: CartItemSelect): CartItem => {
+  const { productId, price, quantity } = select;
+  return CartItem.parse({ productId, price, quantity });
+};
+
+const toCart = (
+  selects: ReadonlyArray<Select>,
+): Result<Cart, CartNotFoundError> => {
+  const { customerId, sequenceNumber } = selects[0]!.cart;
+
+  const cartItems = selects.reduce<Array<CartItem>>((acc, { cart_item }) => {
+    if (cart_item === null) {
+      return acc;
+    }
+    return [...acc, toCartItem(cart_item)];
+  }, []);
+
+  return ok(
+    Cart.parse({
+      aggregateId: customerId,
+      sequenceNumber,
+      cartItems,
+    }),
+  );
+};
 
 const createFindByIdFn =
   (db: Db): FindCartById =>
@@ -68,7 +75,9 @@ const createFindByIdFn =
           eq(cartTable.customerId, cartItemTable.customerId),
         )
         .where(eq(cartTable.customerId, aggregateId)),
-    ).andThen(toCart(aggregateId));
+    )
+      .andThrough(validate(aggregateId))
+      .andThen(toCart);
 
 createFindByIdFn.inject = [Db.token] as const;
 

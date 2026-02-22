@@ -10,11 +10,11 @@ import { productTable } from './schema/product.sql.js';
 
 type ProductSelect = typeof productTable.$inferSelect;
 
-const toProduct =
+const validate =
   (aggregateId: ProductId) =>
   (
     selects: ReadonlyArray<ProductSelect>,
-  ): Result<Product, ProductNotFoundError> => {
+  ): Result<ReadonlyArray<ProductSelect>, ProductNotFoundError> => {
     const selectCount = selects.length;
     if (selectCount === 0) {
       return err(ProductNotFoundError.create(aggregateId));
@@ -25,17 +25,23 @@ const toProduct =
         `商品IDでの索引で複数の商品が見つかりました: ${aggregateId}`,
       );
     }
-    const { name, price, sequenceNumber } = selects[0]!;
-
-    return ok(
-      Product.parse({
-        aggregateId,
-        name,
-        price,
-        sequenceNumber,
-      }),
-    );
+    return ok(selects);
   };
+
+const toProduct = (
+  selects: ReadonlyArray<ProductSelect>,
+): Result<Product, ProductNotFoundError> => {
+  const { productId, name, price, sequenceNumber } = selects[0]!;
+
+  return ok(
+    Product.parse({
+      aggregateId: productId,
+      name,
+      price,
+      sequenceNumber,
+    }),
+  );
+};
 
 const createFindByIdFn =
   (db: Db): FindProductById =>
@@ -45,7 +51,9 @@ const createFindByIdFn =
         .select()
         .from(productTable)
         .where(eq(productTable.productId, aggregateId)),
-    ).andThen(toProduct(aggregateId));
+    )
+      .andThrough(validate(aggregateId))
+      .andThen(toProduct);
 
 createFindByIdFn.inject = [Db.token] as const;
 
