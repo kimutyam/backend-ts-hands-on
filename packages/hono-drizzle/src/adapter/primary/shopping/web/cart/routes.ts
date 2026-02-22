@@ -1,6 +1,15 @@
 import { createRoute } from '@hono/zod-openapi';
 
-import { ErrorSchema, ValidationErrorSchema } from '../errorSchemas.js';
+import {
+  createOpenApiResponse200,
+  createOpenApiResponse201,
+  OpenApiResponse204,
+  OpenApiResponse400,
+  OpenApiResponse404,
+  OpenApiResponse409,
+  OpenApiResponse422,
+  OpenApiResponse500,
+} from '../errorSchemas.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
@@ -18,22 +27,9 @@ const GetCartRoute = createRoute({
     params: CartIdParamSchema,
   },
   responses: {
-    200: {
-      description: 'Cart',
-      content: {
-        'application/json': {
-          schema: GetCartResponseSchema,
-        },
-      },
-    },
-    422: {
-      description: 'Unprocessable Content',
-      content: {
-        'application/json': {
-          schema: ValidationErrorSchema,
-        },
-      },
-    },
+    ...createOpenApiResponse200(GetCartResponseSchema),
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
@@ -44,7 +40,7 @@ const AddCartItemRoute = createRoute({
   operationId: 'AddCartItem',
   request: {
     body: {
-      description: 'Cart Item to add',
+      description: 'Add Cart Items',
       required: true,
       content: {
         'application/json': {
@@ -54,46 +50,12 @@ const AddCartItemRoute = createRoute({
     },
   },
   responses: {
-    201: {
-      description: 'Created',
-      content: {
-        'application/json': {
-          schema: AddCartItemResponseSchema,
-        },
-      },
-    },
-    400: {
-      description: 'Bad Request',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    404: {
-      description: 'Not Found',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    409: {
-      description: 'Conflict',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    422: {
-      description: 'Unprocessable Content',
-      content: {
-        'application/json': {
-          schema: ValidationErrorSchema,
-        },
-      },
-    },
+    ...createOpenApiResponse201(AddCartItemResponseSchema),
+    ...OpenApiResponse400,
+    ...OpenApiResponse404,
+    ...OpenApiResponse409,
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
@@ -106,33 +68,11 @@ const RemoveCartItemRoute = createRoute({
     params: RemoveCartItemParamsSchema,
   },
   responses: {
-    204: {
-      description: 'No Content',
-    },
-    404: {
-      description: 'Not Found',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    409: {
-      description: 'Conflict',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    422: {
-      description: 'Unprocessable Content',
-      content: {
-        'application/json': {
-          schema: ValidationErrorSchema,
-        },
-      },
-    },
+    ...OpenApiResponse204,
+    ...OpenApiResponse404,
+    ...OpenApiResponse409,
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
@@ -145,33 +85,11 @@ const ClearCartRoute = createRoute({
     params: CartIdParamSchema,
   },
   responses: {
-    204: {
-      description: 'No Content',
-    },
-    404: {
-      description: 'Not Found',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    409: {
-      description: 'Conflict',
-      content: {
-        'application/json': {
-          schema: ErrorSchema,
-        },
-      },
-    },
-    422: {
-      description: 'Unprocessable Content',
-      content: {
-        'application/json': {
-          schema: ValidationErrorSchema,
-        },
-      },
-    },
+    ...OpenApiResponse204,
+    ...OpenApiResponse404,
+    ...OpenApiResponse409,
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
