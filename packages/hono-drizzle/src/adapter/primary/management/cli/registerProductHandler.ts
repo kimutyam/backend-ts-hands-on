@@ -15,7 +15,10 @@ const schema = z
     name: ProductName.schema,
     price: Price.schema,
   })
-  .readonly();
+  .readonly()
+  .meta({
+    description: '商品の登録のCLIの引数',
+  });
 
 type Args = z.input<typeof schema>;
 type ValidatedArgs = z.infer<typeof schema>;

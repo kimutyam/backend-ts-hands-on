@@ -1,9 +1,15 @@
 import { createRoute } from '@hono/zod-openapi';
 
 import {
-  createErrorSchema,
-  createValidationErrorSchema,
-} from '../errorSchemas.js';
+  createOpenApiResponse200,
+  createOpenApiResponse201,
+  OpenApiResponse204,
+  OpenApiResponse400,
+  OpenApiResponse404,
+  OpenApiResponse409,
+  OpenApiResponse422,
+  OpenApiResponse500,
+} from '../responseSchemas.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
@@ -21,22 +27,9 @@ const GetCartRoute = createRoute({
     params: CartIdParamSchema,
   },
   responses: {
-    200: {
-      description: 'Cart',
-      content: {
-        'application/json': {
-          schema: GetCartResponseSchema,
-        },
-      },
-    },
-    422: {
-      content: {
-        'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
-        },
-      },
-      description: 'Unprocessable Content',
-    },
+    ...createOpenApiResponse200(GetCartResponseSchema),
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
@@ -47,56 +40,22 @@ const AddCartItemRoute = createRoute({
   operationId: 'AddCartItem',
   request: {
     body: {
+      description: 'Add Cart Items',
+      required: true,
       content: {
         'application/json': {
           schema: AddCartItemRequestSchema,
         },
       },
-      description: 'Cart Item to add',
-      required: true,
     },
   },
   responses: {
-    201: {
-      description: 'Created',
-      content: {
-        'application/json': {
-          schema: AddCartItemResponseSchema,
-        },
-      },
-    },
-    400: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Bad Request'),
-        },
-      },
-      description: 'Bad Request',
-    },
-    404: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Not Found'),
-        },
-      },
-      description: 'Not Found',
-    },
-    409: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Conflict'),
-        },
-      },
-      description: 'Conflict',
-    },
-    422: {
-      content: {
-        'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
-        },
-      },
-      description: 'Unprocessable Content',
-    },
+    ...createOpenApiResponse201(AddCartItemResponseSchema),
+    ...OpenApiResponse400,
+    ...OpenApiResponse404,
+    ...OpenApiResponse409,
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
@@ -109,33 +68,11 @@ const RemoveCartItemRoute = createRoute({
     params: RemoveCartItemParamsSchema,
   },
   responses: {
-    204: {
-      description: 'No Content',
-    },
-    404: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Not Found'),
-        },
-      },
-      description: 'Not Found',
-    },
-    409: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Conflict'),
-        },
-      },
-      description: 'Conflict',
-    },
-    422: {
-      content: {
-        'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
-        },
-      },
-      description: 'Unprocessable Content',
-    },
+    ...OpenApiResponse204,
+    ...OpenApiResponse404,
+    ...OpenApiResponse409,
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 
@@ -148,33 +85,11 @@ const ClearCartRoute = createRoute({
     params: CartIdParamSchema,
   },
   responses: {
-    204: {
-      description: 'No Content',
-    },
-    404: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Not Found'),
-        },
-      },
-      description: 'Not Found',
-    },
-    409: {
-      content: {
-        'application/json': {
-          schema: createErrorSchema('Conflict'),
-        },
-      },
-      description: 'Conflict',
-    },
-    422: {
-      content: {
-        'application/json': {
-          schema: createValidationErrorSchema('Unprocessable Content'),
-        },
-      },
-      description: 'Unprocessable Content',
-    },
+    ...OpenApiResponse204,
+    ...OpenApiResponse404,
+    ...OpenApiResponse409,
+    ...OpenApiResponse422,
+    ...OpenApiResponse500,
   },
 });
 

@@ -5,7 +5,7 @@ import { QuantityRefinementsError } from '../../../../../app/domain/cart/quantit
 import { ProductNotFoundError } from '../../../../../app/domain/product/productNotFoundError.js';
 import { AddCartItem } from '../../../../../app/port/primary/shopping/addCartItem.js';
 import { assertNever } from '../../../../../app/util/assertNever.js';
-import { createErrorSchema } from '../errorSchemas.js';
+import { ErrorSchema } from '../responseSchemas.js';
 import type { AddCartItemRoute } from './routes.js';
 
 const create =
@@ -25,7 +25,7 @@ const create =
         switch (error.kind) {
           case ProductNotFoundError.kind:
             return c.json(
-              createErrorSchema().parse({
+              ErrorSchema.parse({
                 title: error.message,
               }),
               404,
@@ -33,7 +33,7 @@ const create =
           case CartRefinementsError.kind:
           case QuantityRefinementsError.kind:
             return c.json(
-              createErrorSchema().parse({
+              ErrorSchema.parse({
                 title: error.message,
               }),
               400,

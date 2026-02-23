@@ -1,7 +1,10 @@
 import { ulid } from 'ulidx';
 import * as z from 'zod';
 
-const schema = z.ulid().brand('CustomerId');
+const schema = z.ulid().brand('CustomerId').meta({
+  example: '01KAN6MY2AJFPVGQATAS6CK9XX',
+  description: '顧客ID (ULID)',
+});
 type Input = z.input<typeof schema>;
 type CustomerId = z.infer<typeof schema>;
 

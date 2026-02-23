@@ -1,7 +1,7 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
 import { RemoveCartItem } from '../../../../../app/port/primary/shopping/removeCartItem.js';
-import { createErrorSchema } from '../errorSchemas.js';
+import { ErrorSchema } from '../responseSchemas.js';
 import type { RemoveCartItemRoute } from './routes.js';
 
 const create =
@@ -12,7 +12,7 @@ const create =
       () => c.body(null, 204),
       (error) =>
         c.json(
-          createErrorSchema().parse({
+          ErrorSchema.parse({
             title: error.message,
           }),
           404,

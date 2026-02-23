@@ -1,7 +1,10 @@
 import { decodeTime, ulid } from 'ulidx';
 import * as z from 'zod';
 
-const schema = z.ulid().brand('DomainEventId');
+const schema = z.ulid().brand('DomainEventId').meta({
+  example: '01KAN6MY2AJFPVGQATAS6CK9XX',
+  description: 'ドメインイベントID (ULID)',
+});
 type Input = z.input<typeof schema>;
 type DomainEventId = z.infer<typeof schema>;
 

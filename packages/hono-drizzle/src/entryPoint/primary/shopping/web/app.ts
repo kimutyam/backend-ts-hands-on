@@ -14,9 +14,9 @@ import {
   RemoveCartItemRoute,
 } from '../../../../adapter/primary/shopping/web/cart/routes.js';
 import {
-  createErrorSchema,
-  createValidationErrorSchema,
-} from '../../../../adapter/primary/shopping/web/errorSchemas.js';
+  ErrorSchema,
+  ValidationErrorSchema,
+} from '../../../../adapter/primary/shopping/web/responseSchemas.js';
 import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import type { WebAdapterInjector } from './injector.js';
@@ -32,7 +32,7 @@ const makeApp = (webAdapterInjector: WebAdapterInjector): OpenAPIHono => {
           z.formatError(result.error),
         );
         return c.json(
-          createValidationErrorSchema().parse({
+          ValidationErrorSchema.parse({
             title: 'Validation Error',
             issues: result.error.issues,
           }),
@@ -59,7 +59,7 @@ const makeApp = (webAdapterInjector: WebAdapterInjector): OpenAPIHono => {
   app.notFound((c) => {
     console.log('Not Found', c.get('requestId'), c.req.url);
     return c.json(
-      createErrorSchema().parse({
+      ErrorSchema.parse({
         title: 'Not Found',
       }),
       404,
@@ -70,7 +70,7 @@ const makeApp = (webAdapterInjector: WebAdapterInjector): OpenAPIHono => {
     console.error('Internal Server Error', c.get('requestId'), err.message);
     if (err instanceof OptimisticLockError) {
       return c.json(
-        createErrorSchema().parse({
+        ErrorSchema.parse({
           title: 'Conflict Error',
           detail: err.message,
         }),
@@ -78,7 +78,7 @@ const makeApp = (webAdapterInjector: WebAdapterInjector): OpenAPIHono => {
       );
     }
     return c.json(
-      createErrorSchema().parse({
+      ErrorSchema.parse({
         title: 'Internal Server Error',
       }),
       500,
