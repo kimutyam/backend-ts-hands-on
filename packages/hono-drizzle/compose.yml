@@ -1,7 +1,7 @@
 ---
 services:
   app_db:
-    image: postgres:18.2
+    image: postgres:18.3
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -11,7 +11,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql
   test_db:
-    image: postgres:18.2
+    image: postgres:18.3
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
