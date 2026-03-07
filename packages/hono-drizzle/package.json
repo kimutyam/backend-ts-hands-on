@@ -29,7 +29,7 @@
   "dependencies": {
     "@hono/node-server": "1.19.10",
     "@hono/zod-openapi": "1.2.2",
-    "@scalar/hono-api-reference": "0.9.45",
+    "@scalar/hono-api-reference": "0.9.48",
     "date-fns": "4.1.0",
     "dotenv": "17.3.1",
     "drizzle-orm": "0.45.1",
