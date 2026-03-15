@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
 import { runWithRequestContext } from '../../../../app/util/requestContext.js';
-import { ErrorSchema, ValidationErrorSchema } from './responseSchemas.js';
+import { ErrorSchema, ValidationErrorSchema } from './errorSchemas.js';
 
 type AppVariables = {
   Variables: RequestIdVariables;

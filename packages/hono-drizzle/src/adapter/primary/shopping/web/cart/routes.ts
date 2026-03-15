@@ -9,7 +9,7 @@ import {
   OpenApiResponse409,
   OpenApiResponse422,
   OpenApiResponse500,
-} from '../responseSchemas.js';
+} from '../openApiResponse.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,

@@ -2,7 +2,7 @@ import type { RouteHandler } from '@hono/zod-openapi';
 
 import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
 import type { AppVariables } from '../app.js';
-import { ErrorSchema } from '../responseSchemas.js';
+import { ErrorSchema } from '../errorSchemas.js';
 import type { ClearCartRoute } from './routes.js';
 
 const create =
