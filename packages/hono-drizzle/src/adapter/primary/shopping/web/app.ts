@@ -7,12 +7,12 @@ import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.
 import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import { ErrorSchema, ValidationErrorSchema } from './responseSchemas.js';
 
-type AppEnv = {
+type AppVariables = {
   Variables: RequestIdVariables;
 };
 
-const create = (): OpenAPIHono<AppEnv> => {
-  const app = new OpenAPIHono<AppEnv>({
+const create = (): OpenAPIHono<AppVariables> => {
+  const app = new OpenAPIHono<AppVariables>({
     defaultHook: (result, c) => {
       // SEE: https://github.com/honojs/middleware/issues/1479
       if (!result.success) {
@@ -82,4 +82,4 @@ const App = {
   create,
 } as const;
 
-export { App, type AppEnv };
+export { App, type AppVariables };

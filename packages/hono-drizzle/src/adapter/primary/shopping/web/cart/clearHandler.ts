@@ -1,12 +1,12 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
 import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
-import type { AppEnv } from '../app.js';
+import type { AppVariables } from '../app.js';
 import { ErrorSchema } from '../responseSchemas.js';
 import type { ClearCartRoute } from './routes.js';
 
 const create =
-  (clearCart: ClearCart): RouteHandler<typeof ClearCartRoute, AppEnv> =>
+  (clearCart: ClearCart): RouteHandler<typeof ClearCartRoute, AppVariables> =>
   async (c) => {
     const { cartId } = c.req.valid('param');
     return clearCart(cartId).match(

@@ -5,12 +5,14 @@ import { QuantityRefinementsError } from '../../../../../app/domain/cart/quantit
 import { ProductNotFoundError } from '../../../../../app/domain/product/productNotFoundError.js';
 import { AddCartItem } from '../../../../../app/port/primary/shopping/addCartItem.js';
 import { assertNever } from '../../../../../app/util/assertNever.js';
-import type { AppEnv } from '../app.js';
+import type { AppVariables } from '../app.js';
 import { ErrorSchema } from '../responseSchemas.js';
 import type { AddCartItemRoute } from './routes.js';
 
 const create =
-  (addCartItem: AddCartItem): RouteHandler<typeof AddCartItemRoute, AppEnv> =>
+  (
+    addCartItem: AddCartItem,
+  ): RouteHandler<typeof AddCartItemRoute, AppVariables> =>
   async (c) => {
     const { cartId, productId, quantity } = c.req.valid('json');
     return addCartItem(cartId, productId, quantity).match(
