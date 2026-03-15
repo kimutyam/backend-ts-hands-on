@@ -9,7 +9,7 @@ import { PersistencePortInjector } from '../../../secondary/persistence/injector
 import { ValidatedEnv } from '../../validatedEnv.js';
 import { setupRoute } from './app.js';
 
-const run = (app: App): ServerType =>
+const bootServer = (app: App): ServerType =>
   serve(
     {
       fetch: app.fetch,
@@ -20,7 +20,7 @@ const run = (app: App): ServerType =>
     },
   );
 
-const shutdown = async (
+const shutdownServer = async (
   server: ServerType,
   injector: Injector,
   reason: string,
@@ -44,24 +44,28 @@ const persistencePortInjector =
     ? PersistencePortInjector.createOnMemory(rootInjector)
     : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
 
-const server = R.pipe(App.create(), setupRoute(persistencePortInjector), run);
+const server = R.pipe(
+  App.create(),
+  setupRoute(persistencePortInjector),
+  bootServer,
+);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on('SIGINT', () => shutdown(server, rootInjector, 'SIGINT'));
+process.on('SIGINT', () => shutdownServer(server, rootInjector, 'SIGINT'));
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on('SIGTERM', () => shutdown(server, rootInjector, 'SIGTERM'));
+process.on('SIGTERM', () => shutdownServer(server, rootInjector, 'SIGTERM'));
 
 // NOTE: app.onErrorではリクエスト時以外で検出できないため、最終防衛策として設置
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('uncaughtException', async (error) => {
   console.error('致命的なエラー（uncaughtException）が発生しました:');
   console.error(error.stack);
-  await shutdown(server, rootInjector, 'uncaughtException', 1);
+  await shutdownServer(server, rootInjector, 'uncaughtException', 1);
 });
 
 // NOTE: Promiseチェーン内でキャッチされなかったエラーを検出
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('unhandledRejection', async (reason) => {
   console.error('Unhandled Rejection:', reason);
-  await shutdown(server, rootInjector, 'unhandledRejection', 1);
+  await shutdownServer(server, rootInjector, 'unhandledRejection', 1);
 });
