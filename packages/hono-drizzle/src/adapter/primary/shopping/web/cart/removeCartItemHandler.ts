@@ -1,11 +1,14 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
 import { RemoveCartItem } from '../../../../../app/port/primary/shopping/removeCartItem.js';
+import type { AppEnv } from '../app.js';
 import { ErrorSchema } from '../responseSchemas.js';
 import type { RemoveCartItemRoute } from './routes.js';
 
 const create =
-  (removeCartItem: RemoveCartItem): RouteHandler<typeof RemoveCartItemRoute> =>
+  (
+    removeCartItem: RemoveCartItem,
+  ): RouteHandler<typeof RemoveCartItemRoute, AppEnv> =>
   async (c) => {
     const { cartId, productId } = c.req.valid('param');
     return removeCartItem(cartId, productId).match(

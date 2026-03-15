@@ -1,22 +1,11 @@
 import type { ServerType } from '@hono/node-server';
-import { serve } from '@hono/node-server';
-import type { OpenAPIHono } from '@hono/zod-openapi';
+import * as R from 'remeda';
 import type { Injector } from 'typed-inject';
 
+import { App } from '../../../../adapter/primary/shopping/web/app.js';
 import { ValidatedEnv } from '../../validatedEnv.js';
-import { makeApp } from './app.js';
+import { injectToRoute, run } from './app.js';
 import { WebAdapterInjector } from './injector.js';
-
-const run = (app: OpenAPIHono): ServerType =>
-  serve(
-    {
-      fetch: app.fetch,
-      port: 3000,
-    },
-    (info) => {
-      console.log(`Server is running on ${info.port.toString()}`);
-    },
-  );
 
 const shutdown = async (
   server: ServerType,
@@ -37,8 +26,7 @@ const shutdown = async (
 
 const env = ValidatedEnv.parse(process.env);
 const [rootInjector, webAdapterInjector] = WebAdapterInjector.create(env);
-const app = makeApp(webAdapterInjector);
-const server = run(app);
+const server = R.pipe(App.create(), injectToRoute(webAdapterInjector), run);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('SIGINT', () => shutdown(server, rootInjector, 'SIGINT'));
