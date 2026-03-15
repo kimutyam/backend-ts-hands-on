@@ -1,5 +1,5 @@
-import type { ServerType } from '@hono/node-server';
-import { serve } from '@hono/node-server';
+import { Scalar } from '@scalar/hono-api-reference';
+import * as R from 'remeda';
 
 import type { App } from '../../../../adapter/primary/shopping/web/app.js';
 import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/addCartItemHandler.js';
@@ -12,41 +12,63 @@ import {
   GetCartRoute,
   RemoveCartItemRoute,
 } from '../../../../adapter/primary/shopping/web/cart/routes.js';
-import type { WebAdapterInjector } from './injector.js';
+import { AddCartItemUseCase } from '../../../../app/useCase/addCartItem.js';
+import { ClearCartUseCase } from '../../../../app/useCase/clearCart.js';
+import { GetCartUseCase } from '../../../../app/useCase/getCart.js';
+import { RemoveCartItemUseCase } from '../../../../app/useCase/removeCartItem.js';
+import type { PersistencePortInjector } from '../../../secondary/persistence/injector.js';
 
-const injectToRoute =
-  (webAdapterInjector: WebAdapterInjector) =>
-  (app: App): App => {
+const setScalar = (app: App): App => {
+  app.get(
+    '/scalar',
+    Scalar({
+      url: '/doc',
+    }),
+  );
+  return app;
+};
+
+const setDoc = (app: App): App =>
+  app.doc31('/doc', {
+    openapi: '3.1.0',
+    info: {
+      version: '1.0.0',
+      title: 'Shopping Cart API',
+    },
+  });
+
+const setCartRoute =
+  (persistencePortInjector: PersistencePortInjector) =>
+  (app: App): App =>
     app
       .openapi(
         GetCartRoute,
-        webAdapterInjector.injectFunction(GetCartHandler.create),
+        GetCartHandler.create(
+          persistencePortInjector.injectFunction(GetCartUseCase.create),
+        ),
       )
       .openapi(
         AddCartItemRoute,
-        webAdapterInjector.injectFunction(AddCartItemHandler.create),
+        AddCartItemHandler.create(
+          persistencePortInjector.injectFunction(AddCartItemUseCase.create),
+        ),
       )
       .openapi(
         RemoveCartItemRoute,
-        webAdapterInjector.injectFunction(RemoveCartItemHandler.create),
+        RemoveCartItemHandler.create(
+          persistencePortInjector.injectFunction(RemoveCartItemUseCase.create),
+        ),
       )
       .openapi(
         ClearCartRoute,
-        webAdapterInjector.injectFunction(ClearCartHandler.create),
+        ClearCartHandler.create(
+          persistencePortInjector.injectFunction(ClearCartUseCase.create),
+        ),
       );
 
-    return app;
-  };
+const setupRoute =
+  (persistencePortInjector: PersistencePortInjector) =>
+  (app: App): App =>
+    R.pipe(app, setCartRoute(persistencePortInjector), setDoc, setScalar);
 
-const run = (app: App): ServerType =>
-  serve(
-    {
-      fetch: app.fetch,
-      port: 3000,
-    },
-    (info) => {
-      console.log(`Server is running on ${info.port.toString()}`);
-    },
-  );
-
-export { injectToRoute, run };
+export { setupRoute };

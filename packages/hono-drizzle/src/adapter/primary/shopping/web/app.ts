@@ -1,5 +1,4 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Scalar } from '@scalar/hono-api-reference';
 import type { RequestIdVariables } from 'hono/request-id';
 import { requestId } from 'hono/request-id';
 import { z } from 'zod';
@@ -75,21 +74,6 @@ const create = (): OpenAPIHono<AppEnv> => {
       500,
     );
   });
-
-  app
-    .doc31('/doc', {
-      openapi: '3.1.0',
-      info: {
-        version: '1.0.0',
-        title: 'Shopping Cart API',
-      },
-    })
-    .get(
-      '/scalar',
-      Scalar({
-        url: '/doc',
-      }),
-    );
   return app;
 };
 

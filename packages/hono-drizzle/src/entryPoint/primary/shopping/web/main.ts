@@ -1,11 +1,24 @@
 import type { ServerType } from '@hono/node-server';
+import { serve } from '@hono/node-server';
 import * as R from 'remeda';
 import type { Injector } from 'typed-inject';
+import { createInjector } from 'typed-inject';
 
 import { App } from '../../../../adapter/primary/shopping/web/app.js';
+import { PersistencePortInjector } from '../../../secondary/persistence/injector.js';
 import { ValidatedEnv } from '../../validatedEnv.js';
-import { injectToRoute, run } from './app.js';
-import { WebAdapterInjector } from './injector.js';
+import { setupRoute } from './app.js';
+
+const run = (app: App): ServerType =>
+  serve(
+    {
+      fetch: app.fetch,
+      port: 3000,
+    },
+    (info) => {
+      console.log(`Server is running on ${info.port.toString()}`);
+    },
+  );
 
 const shutdown = async (
   server: ServerType,
@@ -25,8 +38,13 @@ const shutdown = async (
 };
 
 const env = ValidatedEnv.parse(process.env);
-const [rootInjector, webAdapterInjector] = WebAdapterInjector.create(env);
-const server = R.pipe(App.create(), injectToRoute(webAdapterInjector), run);
+const rootInjector = createInjector();
+const persistencePortInjector =
+  env.DATABASE_URL === undefined
+    ? PersistencePortInjector.createOnMemory(rootInjector)
+    : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
+
+const server = R.pipe(App.create(), setupRoute(persistencePortInjector), run);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('SIGINT', () => shutdown(server, rootInjector, 'SIGINT'));

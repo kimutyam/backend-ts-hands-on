@@ -24,7 +24,6 @@ const create =
 create.inject = [ClearCart.token] as const;
 
 const ClearCartHandler = {
-  token: 'ClearCartHandler',
   create,
 } as const;
 

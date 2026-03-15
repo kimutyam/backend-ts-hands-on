@@ -26,7 +26,6 @@ const create =
 create.inject = [RemoveCartItem.token] as const;
 
 const RemoveCartItemHandler = {
-  token: 'RemoveCartItemHandler',
   create,
 } as const;
 

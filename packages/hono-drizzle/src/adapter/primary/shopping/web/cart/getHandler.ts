@@ -15,7 +15,6 @@ const create =
 create.inject = [GetCart.token] as const;
 
 const GetCartHandler = {
-  token: 'GetCartHandler',
   create,
 } as const;
 
