@@ -2,12 +2,10 @@ import type { ServerType } from '@hono/node-server';
 import { serve } from '@hono/node-server';
 import * as R from 'remeda';
 import type { Injector } from 'typed-inject';
-import { createInjector } from 'typed-inject';
 
 import { App } from '../../../../adapter/primary/shopping/web/app.js';
-import { MemoryAdapterInjector } from '../../../secondary/persistence/memory/injector.js';
-import { RdbAdapterInjector } from '../../../secondary/persistence/rdb/injector.js';
 import { ValidatedEnv } from '../../validatedEnv.js';
+import { ShoppingPortInjector } from '../injector.js';
 import { setupRoute } from './app.js';
 
 const bootServer = (app: App): ServerType =>
@@ -39,15 +37,11 @@ const shutdownServer = async (
 };
 
 const env = ValidatedEnv.parse(process.env);
-const rootInjector = createInjector();
-const persistencePortInjector =
-  env.DATABASE_URL === undefined
-    ? MemoryAdapterInjector.create(rootInjector)
-    : RdbAdapterInjector.create(rootInjector, env.DATABASE_URL);
+const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);
 
 const server = R.pipe(
   App.create(),
-  setupRoute(persistencePortInjector),
+  setupRoute(shoppingPortInjector),
   bootServer,
 );
 

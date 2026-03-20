@@ -12,11 +12,7 @@ import {
   GetCartRoute,
   RemoveCartItemRoute,
 } from '../../../../adapter/primary/shopping/web/cart/routes.js';
-import { AddCartItemUseCase } from '../../../../app/useCase/addCartItem.js';
-import { ClearCartUseCase } from '../../../../app/useCase/clearCart.js';
-import { GetCartUseCase } from '../../../../app/useCase/getCart.js';
-import { RemoveCartItemUseCase } from '../../../../app/useCase/removeCartItem.js';
-import type { PersistencePortInjector } from '../../../secondary/persistence/injector.js';
+import type { ShoppingPortInjector } from '../injector.js';
 
 const setScalar = (app: App): App => {
   app.get(
@@ -38,37 +34,29 @@ const setDoc = (app: App): App =>
   });
 
 const setCartRoute =
-  (persistencePortInjector: PersistencePortInjector) =>
+  (shoppingPortInjector: ShoppingPortInjector) =>
   (app: App): App =>
     app
       .openapi(
         GetCartRoute,
-        GetCartHandler.create(
-          persistencePortInjector.injectFunction(GetCartUseCase.create),
-        ),
+        shoppingPortInjector.injectFunction(GetCartHandler.create),
       )
       .openapi(
         AddCartItemRoute,
-        AddCartItemHandler.create(
-          persistencePortInjector.injectFunction(AddCartItemUseCase.create),
-        ),
+        shoppingPortInjector.injectFunction(AddCartItemHandler.create),
       )
       .openapi(
         RemoveCartItemRoute,
-        RemoveCartItemHandler.create(
-          persistencePortInjector.injectFunction(RemoveCartItemUseCase.create),
-        ),
+        shoppingPortInjector.injectFunction(RemoveCartItemHandler.create),
       )
       .openapi(
         ClearCartRoute,
-        ClearCartHandler.create(
-          persistencePortInjector.injectFunction(ClearCartUseCase.create),
-        ),
+        shoppingPortInjector.injectFunction(ClearCartHandler.create),
       );
 
 const setupRoute =
-  (persistencePortInjector: PersistencePortInjector) =>
+  (shoppingPortInjector: ShoppingPortInjector) =>
   (app: App): App =>
-    R.pipe(app, setCartRoute(persistencePortInjector), setDoc, setScalar);
+    R.pipe(app, setCartRoute(shoppingPortInjector), setDoc, setScalar);
 
 export { setupRoute };
