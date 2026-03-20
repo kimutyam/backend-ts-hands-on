@@ -5,7 +5,8 @@ import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
 import { App } from '../../../../adapter/primary/shopping/web/app.js';
-import { PersistencePortInjector } from '../../../secondary/persistence/injector.js';
+import { MemoryAdapterInjector } from '../../../secondary/persistence/memory/injector.js';
+import { RdbAdapterInjector } from '../../../secondary/persistence/rdb/injector.js';
 import { ValidatedEnv } from '../../validatedEnv.js';
 import { setupRoute } from './app.js';
 
@@ -41,8 +42,8 @@ const env = ValidatedEnv.parse(process.env);
 const rootInjector = createInjector();
 const persistencePortInjector =
   env.DATABASE_URL === undefined
-    ? PersistencePortInjector.createOnMemory(rootInjector)
-    : PersistencePortInjector.createOnRdb(rootInjector, env.DATABASE_URL);
+    ? MemoryAdapterInjector.create(rootInjector)
+    : RdbAdapterInjector.create(rootInjector, env.DATABASE_URL);
 
 const server = R.pipe(
   App.create(),
