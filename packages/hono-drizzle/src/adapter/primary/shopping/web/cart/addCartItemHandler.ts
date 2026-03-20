@@ -6,7 +6,7 @@ import { ProductNotFoundError } from '../../../../../app/domain/product/productN
 import { AddCartItem } from '../../../../../app/port/primary/shopping/addCartItem.js';
 import { assertNever } from '../../../../../app/util/assertNever.js';
 import type { AppVariables } from '../app.js';
-import { ErrorSchema } from '../responseSchemas.js';
+import { ErrorSchema } from '../errorSchemas.js';
 import type { AddCartItemRoute } from './routes.js';
 
 const create =
