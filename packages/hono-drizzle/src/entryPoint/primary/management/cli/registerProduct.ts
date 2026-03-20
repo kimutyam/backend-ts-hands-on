@@ -4,8 +4,8 @@ import { hideBin } from 'yargs/helpers';
 
 import { RegisterProductHandler } from '../../../../adapter/primary/management/cli/registerProductHandler.js';
 import { ValidatedEnv } from '../../validatedEnv.js';
+import { ManagementPortInjector } from '../injector.js';
 import { execute } from './execute.js';
-import { CliAdapterInjector } from './injector.js';
 
 const argv = yargs(hideBin(process.argv))
   .strict()
@@ -17,8 +17,9 @@ const argv = yargs(hideBin(process.argv))
 
 const env = ValidatedEnv.parse(process.env);
 
-const [rootInjector, cliAdapterInjector] = CliAdapterInjector.create(env);
-const handler = cliAdapterInjector.injectFunction(
+const [rootInjector, managementPortInjector] =
+  ManagementPortInjector.create(env);
+const handler = managementPortInjector.injectFunction(
   RegisterProductHandler.create,
 );
 
