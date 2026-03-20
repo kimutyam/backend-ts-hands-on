@@ -8,7 +8,7 @@ const create =
   (getCart: GetCart): RouteHandler<typeof GetCartRoute, AppVariables> =>
   async (c) => {
     const { cartId } = c.req.valid('param');
-    const cartItems = await getCart(cartId);
+    const { cartItems } = await getCart(cartId);
     return c.json(cartItems, 200);
   };
 
