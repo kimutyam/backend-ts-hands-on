@@ -1,15 +1,6 @@
 import { createRoute } from '@hono/zod-openapi';
 
-import {
-  createOpenApiResponse200,
-  createOpenApiResponse201,
-  OpenApiResponse204,
-  OpenApiResponse400,
-  OpenApiResponse404,
-  OpenApiResponse409,
-  OpenApiResponse422,
-  OpenApiResponse500,
-} from '../openApiResponse.js';
+import { OpenApiResponseSpec } from '../openApiResponseSpec.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
@@ -27,9 +18,9 @@ const GetCartRoute = createRoute({
     params: CartIdParamSchema,
   },
   responses: {
-    ...createOpenApiResponse200(GetCartResponseSchema),
-    ...OpenApiResponse422,
-    ...OpenApiResponse500,
+    ...OpenApiResponseSpec.create200(GetCartResponseSchema),
+    ...OpenApiResponseSpec['422'],
+    ...OpenApiResponseSpec['500'],
   },
 });
 
@@ -50,12 +41,12 @@ const AddCartItemRoute = createRoute({
     },
   },
   responses: {
-    ...createOpenApiResponse201(AddCartItemResponseSchema),
-    ...OpenApiResponse400,
-    ...OpenApiResponse404,
-    ...OpenApiResponse409,
-    ...OpenApiResponse422,
-    ...OpenApiResponse500,
+    ...OpenApiResponseSpec.create201(AddCartItemResponseSchema),
+    ...OpenApiResponseSpec['400'],
+    ...OpenApiResponseSpec['404'],
+    ...OpenApiResponseSpec['409'],
+    ...OpenApiResponseSpec['422'],
+    ...OpenApiResponseSpec['500'],
   },
 });
 
@@ -68,11 +59,11 @@ const RemoveCartItemRoute = createRoute({
     params: RemoveCartItemParamsSchema,
   },
   responses: {
-    ...OpenApiResponse204,
-    ...OpenApiResponse404,
-    ...OpenApiResponse409,
-    ...OpenApiResponse422,
-    ...OpenApiResponse500,
+    ...OpenApiResponseSpec['204'],
+    ...OpenApiResponseSpec['404'],
+    ...OpenApiResponseSpec['409'],
+    ...OpenApiResponseSpec['422'],
+    ...OpenApiResponseSpec['500'],
   },
 });
 
@@ -85,11 +76,11 @@ const ClearCartRoute = createRoute({
     params: CartIdParamSchema,
   },
   responses: {
-    ...OpenApiResponse204,
-    ...OpenApiResponse404,
-    ...OpenApiResponse409,
-    ...OpenApiResponse422,
-    ...OpenApiResponse500,
+    ...OpenApiResponseSpec['204'],
+    ...OpenApiResponseSpec['404'],
+    ...OpenApiResponseSpec['409'],
+    ...OpenApiResponseSpec['422'],
+    ...OpenApiResponseSpec['500'],
   },
 });
 

@@ -2,7 +2,7 @@ import type { z } from 'zod';
 
 import { ErrorSchema, ValidationErrorSchema } from './errorSchemas.js';
 
-const createOpenApiResponse200 = <Z extends z.ZodType>(schema: Z) => ({
+const createSpec200 = <Z extends z.ZodType>(schema: Z) => ({
   200: {
     description: 'Success',
     content: {
@@ -13,7 +13,7 @@ const createOpenApiResponse200 = <Z extends z.ZodType>(schema: Z) => ({
   },
 });
 
-const createOpenApiResponse201 = <Z extends z.ZodType>(schema: Z) => ({
+const createSpec201 = <Z extends z.ZodType>(schema: Z) => ({
   201: {
     description: 'Created',
     content: {
@@ -24,13 +24,13 @@ const createOpenApiResponse201 = <Z extends z.ZodType>(schema: Z) => ({
   },
 });
 
-const OpenApiResponse204 = {
+const Spec204 = {
   204: {
     description: 'No Content',
   },
 };
 
-const OpenApiResponse400 = {
+const Spec400 = {
   400: {
     description: 'Bad Request',
     content: {
@@ -41,7 +41,7 @@ const OpenApiResponse400 = {
   },
 };
 
-const OpenApiResponse404 = {
+const Spec404 = {
   404: {
     description: 'Not Found',
     content: {
@@ -52,7 +52,7 @@ const OpenApiResponse404 = {
   },
 };
 
-const OpenApiResponse409 = {
+const Spec409 = {
   409: {
     description: 'Conflict',
     content: {
@@ -63,7 +63,7 @@ const OpenApiResponse409 = {
   },
 };
 
-const OpenApiResponse422 = {
+const Spec422 = {
   422: {
     description: 'Unprocessable Content',
     content: {
@@ -74,7 +74,7 @@ const OpenApiResponse422 = {
   },
 };
 
-const OpenApiResponse500 = {
+const Spec500 = {
   500: {
     description: 'Internal Server Error',
     content: {
@@ -85,13 +85,15 @@ const OpenApiResponse500 = {
   },
 };
 
-export {
-  createOpenApiResponse200,
-  createOpenApiResponse201,
-  OpenApiResponse204,
-  OpenApiResponse400,
-  OpenApiResponse404,
-  OpenApiResponse409,
-  OpenApiResponse422,
-  OpenApiResponse500,
-};
+const OpenApiResponseSpec = {
+  create200: createSpec200,
+  create201: createSpec201,
+  204: Spec204,
+  400: Spec400,
+  404: Spec404,
+  409: Spec409,
+  422: Spec422,
+  500: Spec500,
+} as const;
+
+export { OpenApiResponseSpec };
