@@ -5,7 +5,7 @@ import { QuantityRefinementsError } from '../../../../../app/domain/cart/quantit
 import { ProductNotFoundError } from '../../../../../app/domain/product/productNotFoundError.js';
 import { AddCartItem } from '../../../../../app/port/primary/shopping/addCartItem.js';
 import { assertNever } from '../../../../../app/util/assertNever.js';
-import type { AppVariables } from '../app.js';
+import type { AppVariables } from '../appVariables.js';
 import { ErrorSchema } from '../errorSchemas.js';
 import type { AddCartItemRoute } from './routes.js';
 
