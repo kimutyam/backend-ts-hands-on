@@ -10,7 +10,7 @@ import { ProductId } from '../../domain/product/productId.js';
 import { GetCartUseCase } from '../getCart.js';
 
 describe('GetCartUseCase', () => {
-  it('カートが存在する場合は、そのカート内のカート項目を取得できる', async () => {
+  it('カートが存在する場合は取得できる', async () => {
     const customerId = CustomerId.generate();
     const cartItems = [
       {
@@ -27,14 +27,14 @@ describe('GetCartUseCase', () => {
     const findCartById = () => okAsync(cart);
     const getCart = GetCartUseCase.create(findCartById);
     const result = await getCart(customerId);
-    expect(result).toStrictEqual(cartItems);
+    expect(result).toStrictEqual(cart);
   });
 
-  it('カートが存在しない場合は、抽出するカート項目は空になる', async () => {
+  it('カートが存在しない場合は、カート項目が空のカートを取得できる', async () => {
     const customerId = CustomerId.generate();
     const findCartById = () => errAsync(CartNotFoundError.create(customerId));
     const getCart = GetCartUseCase.create(findCartById);
     const result = await getCart(customerId);
-    expect(result).toStrictEqual([]);
+    expect(result).toStrictEqual(Cart.init(customerId));
   });
 });
