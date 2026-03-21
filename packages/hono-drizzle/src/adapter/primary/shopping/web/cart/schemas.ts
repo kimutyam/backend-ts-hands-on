@@ -9,13 +9,8 @@ import { Quantity } from '../../../../../app/domain/cart/quantity.js';
 import { CustomerId } from '../../../../../app/domain/customer/customerId.js';
 import { ProductId } from '../../../../../app/domain/product/productId.js';
 
-const CartIdParamSchema = z.object({
+const GetCartParamSchema = z.object({
   cartId: CustomerId.schema,
-});
-
-const RemoveCartItemParamsSchema = z.object({
-  cartId: CustomerId.schema,
-  productId: ProductId.schema,
 });
 
 const GetCartResponseSchema = z.array(CartItem.schema).readonly();
@@ -34,10 +29,20 @@ const AddCartItemResponseSchema = z.object({
   item: CartItem.schema,
 });
 
+const RemoveCartItemParamsSchema = z.object({
+  cartId: CustomerId.schema,
+  productId: ProductId.schema,
+});
+
+const ClearCartParamSchema = z.object({
+  cartId: CustomerId.schema,
+});
+
 export {
-  CartIdParamSchema,
-  RemoveCartItemParamsSchema,
+  GetCartParamSchema,
   GetCartResponseSchema,
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
+  RemoveCartItemParamsSchema,
+  ClearCartParamSchema,
 };

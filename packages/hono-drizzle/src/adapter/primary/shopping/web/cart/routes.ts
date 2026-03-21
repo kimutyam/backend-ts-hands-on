@@ -4,7 +4,8 @@ import { OpenApiResponseSpec } from '../openApiResponseSpec.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
-  CartIdParamSchema,
+  ClearCartParamSchema,
+  GetCartParamSchema,
   GetCartResponseSchema,
   RemoveCartItemParamsSchema,
 } from './schemas.js';
@@ -15,7 +16,7 @@ const GetCartRoute = createRoute({
   tags: ['Cart'],
   operationId: 'GetCart',
   request: {
-    params: CartIdParamSchema,
+    params: GetCartParamSchema,
   },
   responses: {
     ...OpenApiResponseSpec.create200(GetCartResponseSchema),
@@ -73,7 +74,7 @@ const ClearCartRoute = createRoute({
   tags: ['Cart'],
   operationId: 'DeleteCart',
   request: {
-    params: CartIdParamSchema,
+    params: ClearCartParamSchema,
   },
   responses: {
     ...OpenApiResponseSpec['204'],
