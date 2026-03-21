@@ -3,10 +3,9 @@ import { serve } from '@hono/node-server';
 import * as R from 'remeda';
 import type { Injector } from 'typed-inject';
 
-import { App } from '../../../../adapter/primary/shopping/web/app.js';
 import { ValidatedEnv } from '../../validatedEnv.js';
 import { ShoppingPortInjector } from '../injector.js';
-import { setupRoute } from './app.js';
+import { App } from './app.js';
 
 const bootServer = (app: App): ServerType =>
   serve(
@@ -39,11 +38,7 @@ const shutdownServer = async (
 const env = ValidatedEnv.parse(process.env);
 const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);
 
-const server = R.pipe(
-  App.create(),
-  setupRoute(shoppingPortInjector),
-  bootServer,
-);
+const server = R.pipe(App.create(shoppingPortInjector), bootServer);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 process.on('SIGINT', () => shutdownServer(server, rootInjector, 'SIGINT'));

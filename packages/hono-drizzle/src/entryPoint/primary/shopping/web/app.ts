@@ -1,7 +1,10 @@
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Scalar } from '@scalar/hono-api-reference';
-import * as R from 'remeda';
+import type { AppVariables } from 'adapter/primary/shopping/web/appVariables.js';
+import { createMiddleware } from 'hono/factory';
+import { requestId } from 'hono/request-id';
+import { z } from 'zod';
 
-import type { App } from '../../../../adapter/primary/shopping/web/app.js';
 import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/addCartItemHandler.js';
 import { ClearCartHandler } from '../../../../adapter/primary/shopping/web/cart/clearHandler.js';
 import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
@@ -12,19 +15,90 @@ import {
   GetCartRoute,
   RemoveCartItemRoute,
 } from '../../../../adapter/primary/shopping/web/cart/routes.js';
+import {
+  ErrorSchema,
+  ValidationErrorSchema,
+} from '../../../../adapter/primary/shopping/web/errorSchemas.js';
+import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
+import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import type { ShoppingPortInjector } from '../injector.js';
 
-const setScalar = (app: App): App => {
-  app.get(
-    '/scalar',
-    Scalar({
-      url: '/doc',
-    }),
+type App = OpenAPIHono<AppVariables>;
+
+const requestContext = createMiddleware(async (c, next) => {
+  await runWithRequestContext(
+    {
+      requestId: c.get('requestId'),
+      primaryPort: 'shopping',
+    },
+    async () => {
+      await next();
+    },
   );
-  return app;
+});
+
+const setMiddleware = (app: App) => {
+  app.use('*', requestId());
+  app.use('*', requestContext);
 };
 
-const setDoc = (app: App): App =>
+const setNotFoundHandler = (app: App) => {
+  app.notFound((c) => {
+    console.log('Not Found', c.get('requestId'), c.req.url);
+    return c.json(
+      ErrorSchema.parse({
+        title: 'Not Found',
+      }),
+      404,
+    );
+  });
+};
+
+const setErrorHandler = (app: App) => {
+  app.onError((err, c) => {
+    console.error('Internal Server Error', c.get('requestId'), err.message);
+    if (err instanceof OptimisticLockError) {
+      return c.json(
+        ErrorSchema.parse({
+          title: 'Conflict Error',
+          detail: err.message,
+        }),
+        409,
+      );
+    }
+    return c.json(
+      ErrorSchema.parse({
+        title: 'Internal Server Error',
+      }),
+      500,
+    );
+  });
+};
+
+const setRouteOfCart = (
+  app: App,
+  shoppingPortInjector: ShoppingPortInjector,
+) => {
+  app
+    .openapi(
+      GetCartRoute,
+      shoppingPortInjector.injectFunction(GetCartHandler.create),
+    )
+    .openapi(
+      AddCartItemRoute,
+      shoppingPortInjector.injectFunction(AddCartItemHandler.create),
+    )
+    .openapi(
+      RemoveCartItemRoute,
+      shoppingPortInjector.injectFunction(RemoveCartItemHandler.create),
+    )
+    .openapi(
+      ClearCartRoute,
+      shoppingPortInjector.injectFunction(ClearCartHandler.create),
+    );
+};
+
+const setDoc = (app: App) => {
   app.doc31('/doc', {
     openapi: '3.1.0',
     info: {
@@ -32,31 +106,50 @@ const setDoc = (app: App): App =>
       title: 'Shopping Cart API',
     },
   });
+};
 
-const setCartRoute =
-  (shoppingPortInjector: ShoppingPortInjector) =>
-  (app: App): App =>
-    app
-      .openapi(
-        GetCartRoute,
-        shoppingPortInjector.injectFunction(GetCartHandler.create),
-      )
-      .openapi(
-        AddCartItemRoute,
-        shoppingPortInjector.injectFunction(AddCartItemHandler.create),
-      )
-      .openapi(
-        RemoveCartItemRoute,
-        shoppingPortInjector.injectFunction(RemoveCartItemHandler.create),
-      )
-      .openapi(
-        ClearCartRoute,
-        shoppingPortInjector.injectFunction(ClearCartHandler.create),
-      );
+const setScalar = (app: App) => {
+  app.get(
+    '/scalar',
+    Scalar({
+      url: '/doc',
+    }),
+  );
+};
 
-const setupRoute =
-  (shoppingPortInjector: ShoppingPortInjector) =>
-  (app: App): App =>
-    R.pipe(app, setCartRoute(shoppingPortInjector), setDoc, setScalar);
+const create = (shoppingPortInjector: ShoppingPortInjector): App => {
+  const app = new OpenAPIHono<AppVariables>({
+    defaultHook: (result, c) => {
+      // SEE: https://github.com/honojs/middleware/issues/1479
+      if (!result.success) {
+        console.log(
+          'Validation Error',
+          c.get('requestId'),
+          z.formatError(result.error),
+        );
+        return c.json(
+          ValidationErrorSchema.parse({
+            title: 'Validation Error',
+            issues: result.error.issues,
+          }),
+          422,
+        );
+      }
+      return undefined;
+    },
+  });
 
-export { setupRoute };
+  setMiddleware(app);
+  setNotFoundHandler(app);
+  setErrorHandler(app);
+  setRouteOfCart(app, shoppingPortInjector);
+  setDoc(app);
+  setScalar(app);
+  return app;
+};
+
+const App = {
+  create,
+} as const;
+
+export { App, type AppVariables };

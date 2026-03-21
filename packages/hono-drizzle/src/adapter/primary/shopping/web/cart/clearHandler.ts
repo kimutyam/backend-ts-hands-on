@@ -1,7 +1,7 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
 import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
-import type { AppVariables } from '../app.js';
+import type { AppVariables } from '../appVariables.js';
 import { ErrorSchema } from '../errorSchemas.js';
 import type { ClearCartRoute } from './routes.js';
 
