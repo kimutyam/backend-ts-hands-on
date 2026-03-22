@@ -1,3 +1,4 @@
+import type { OpenAPIHonoOptions } from '@hono/zod-openapi';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Scalar } from '@scalar/hono-api-reference';
 import type { AppVariables } from 'adapter/primary/shopping/web/appVariables.js';
@@ -24,6 +25,28 @@ import { runWithRequestContext } from '../../../../app/util/requestContext.js';
 import type { ShoppingPortInjector } from '../injector.js';
 
 type App = OpenAPIHono<AppVariables>;
+
+const defaultHook: OpenAPIHonoOptions<AppVariables>['defaultHook'] = (
+  result,
+  c,
+) => {
+  // SEE: https://github.com/honojs/middleware/issues/1479
+  if (!result.success) {
+    console.log(
+      'Validation Error',
+      c.get('requestId'),
+      z.formatError(result.error),
+    );
+    return c.json(
+      ValidationErrorSchema.parse({
+        title: 'Validation Error',
+        issues: result.error.issues,
+      }),
+      422,
+    );
+  }
+  return undefined;
+};
 
 const createRequestContext = createMiddleware(async (c, next) => {
   await runWithRequestContext(
@@ -119,24 +142,7 @@ const setScalar = (app: App) => {
 
 const create = (shoppingPortInjector: ShoppingPortInjector): App => {
   const app = new OpenAPIHono<AppVariables>({
-    defaultHook: (result, c) => {
-      // SEE: https://github.com/honojs/middleware/issues/1479
-      if (!result.success) {
-        console.log(
-          'Validation Error',
-          c.get('requestId'),
-          z.formatError(result.error),
-        );
-        return c.json(
-          ValidationErrorSchema.parse({
-            title: 'Validation Error',
-            issues: result.error.issues,
-          }),
-          422,
-        );
-      }
-      return undefined;
-    },
+    defaultHook,
   });
 
   setMiddleware(app);
