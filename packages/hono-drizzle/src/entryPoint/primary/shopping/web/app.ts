@@ -25,7 +25,7 @@ import type { ShoppingPortInjector } from '../injector.js';
 
 type App = OpenAPIHono<AppVariables>;
 
-const requestContext = createMiddleware(async (c, next) => {
+const createRequestContext = createMiddleware(async (c, next) => {
   await runWithRequestContext(
     {
       requestId: c.get('requestId'),
@@ -39,7 +39,7 @@ const requestContext = createMiddleware(async (c, next) => {
 
 const setMiddleware = (app: App) => {
   app.use('*', requestId());
-  app.use('*', requestContext);
+  app.use('*', createRequestContext);
 };
 
 const setNotFoundHandler = (app: App) => {
@@ -152,4 +152,4 @@ const App = {
   create,
 } as const;
 
-export { App, type AppVariables };
+export { App };
