@@ -20,7 +20,7 @@ process.on('SIGTERM', () => {
 
 // NOTE: app.onErrorではリクエスト時以外で検出できないため、最終防衛策として設置
 process.on('uncaughtException', (error) => {
-  console.error('uncaughtException', error.stack);
+  console.error('uncaughtException', error);
   shutdownServer({
     reason: 'uncaughtException',
     code: 1,
