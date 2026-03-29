@@ -9,7 +9,7 @@ import type { App } from './app.js';
 type ClosableServer = Pick<ServerType, 'close'>;
 type DisposableInjector = Pick<Injector, 'dispose'>;
 
-const bootServer = (app: App): ServerType =>
+const serveApp = (app: App): ServerType =>
   serve(
     {
       fetch: app.fetch,
@@ -33,15 +33,12 @@ type ShutdownContext = {
   code?: number;
 };
 
-const resolveTimeoutExitCode = (exitCode: number): number =>
-  exitCode === 0 ? 1 : exitCode;
-
 const closeServer = async (server: ClosableServer): Promise<void> => {
   await promisify(server.close.bind(server))();
   console.log('HTTP server closed.');
 };
 
-const createShutdownServerFn = ({
+const createShutdownHandler = ({
   closeServer: closeServerFn = closeServer,
   exitProcess = process.exit.bind(process),
   shutdownTimeoutMs = SHUTDOWN_TIMEOUT_MS,
@@ -66,7 +63,7 @@ const createShutdownServerFn = ({
         console.error(
           `Shutdown timed out after ${shutdownTimeoutMs.toString()}ms. Forcing exit.`,
         );
-        exitProcess(resolveTimeoutExitCode(exitCode));
+        exitProcess(exitCode === 0 ? 1 : exitCode);
       }, shutdownTimeoutMs);
       timeoutId.unref();
 
@@ -88,4 +85,16 @@ const createShutdownServerFn = ({
   };
 };
 
-export { bootServer, createShutdownServerFn };
+const createShutdownStarter =
+  (
+    server: ClosableServer,
+    injector: DisposableInjector,
+    shutdownHandler = createShutdownHandler(),
+  ) =>
+  (context: ShutdownContext): void => {
+    shutdownHandler(server, injector, context).catch((error: unknown) => {
+      console.error('Unexpected error during shutdown:', error);
+    });
+  };
+
+export { serveApp, createShutdownHandler, createShutdownStarter };

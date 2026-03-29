@@ -1,12 +1,12 @@
 /* global vi */
 
-import { createShutdownServerFn } from '../server.js';
+import { createShutdownHandler } from '../server.js';
 
 const createPendingPromise = (): Promise<never> => Promise.race([]);
-type ShutdownServer = ReturnType<typeof createShutdownServerFn>;
-type ShutdownTargetServer = Parameters<ShutdownServer>[0];
-type ShutdownInjector = Parameters<ShutdownServer>[1];
-type ShutdownContext = Parameters<ShutdownServer>[2];
+type ShutdownHandler = ReturnType<typeof createShutdownHandler>;
+type ShutdownTargetServer = Parameters<ShutdownHandler>[0];
+type ShutdownInjector = Parameters<ShutdownHandler>[1];
+type ShutdownContext = Parameters<ShutdownHandler>[2];
 
 const createServerStub = (): ShutdownTargetServer => ({
   close: vi.fn(),
@@ -25,7 +25,7 @@ const createShutdownContext = (
   ...overrides,
 });
 
-describe('createShutdownServerFn', () => {
+describe('createShutdownHandler', () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
@@ -35,7 +35,7 @@ describe('createShutdownServerFn', () => {
     vi.useFakeTimers();
 
     const exitProcess = vi.fn();
-    const shutdownServer = createShutdownServerFn({
+    const shutdownHandler = createShutdownHandler({
       closeServer: () => createPendingPromise(),
       exitProcess,
       shutdownTimeoutMs: 10,
@@ -46,7 +46,7 @@ describe('createShutdownServerFn', () => {
     const injector = createInjectorStub(dispose);
     const server = createServerStub();
 
-    const shutdownPromise = shutdownServer(
+    const shutdownPromise = shutdownHandler(
       server,
       injector,
       createShutdownContext(),
@@ -66,7 +66,7 @@ describe('createShutdownServerFn', () => {
         callOrder.push('closeServer');
       }),
     );
-    const shutdownServer = createShutdownServerFn({
+    const shutdownHandler = createShutdownHandler({
       closeServer,
       exitProcess,
       shutdownTimeoutMs: 10,
@@ -79,7 +79,7 @@ describe('createShutdownServerFn', () => {
     const injector = createInjectorStub(dispose);
     const server = createServerStub();
 
-    await shutdownServer(server, injector, createShutdownContext());
+    await shutdownHandler(server, injector, createShutdownContext());
 
     expect(closeServer).toHaveBeenCalledTimes(1);
     expect(dispose).toHaveBeenCalledTimes(1);
