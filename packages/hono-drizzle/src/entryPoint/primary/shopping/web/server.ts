@@ -58,14 +58,22 @@ const createShutdownHandler = ({
     const runShutdown = async (): Promise<void> => {
       console.log(`[${reason}] shutting down...`);
       let exitCode = code;
+      let exited = false;
+
+      const exitOnce = (nextExitCode: number): void => {
+        if (exited) {
+          return;
+        }
+        exited = true;
+        exitProcess(nextExitCode);
+      };
 
       const timeoutId = setTimeout(() => {
         console.error(
           `Shutdown timed out after ${shutdownTimeoutMs.toString()}ms. Forcing exit.`,
         );
-        exitProcess(exitCode === 0 ? 1 : exitCode);
+        exitOnce(exitCode === 0 ? 1 : exitCode);
       }, shutdownTimeoutMs);
-      timeoutId.unref();
 
       try {
         await closeServerFn(server);
@@ -75,7 +83,7 @@ const createShutdownHandler = ({
         exitCode = 1;
       } finally {
         clearTimeout(timeoutId);
-        exitProcess(exitCode);
+        exitOnce(exitCode);
       }
     };
 

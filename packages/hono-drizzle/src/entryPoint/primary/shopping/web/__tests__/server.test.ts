@@ -58,6 +58,38 @@ describe('createShutdownHandler', () => {
     expect(exitProcess).toHaveBeenCalledWith(1);
   });
 
+  it('timeout 後に shutdown 処理が完了しても exit は二重実行しない', async () => {
+    vi.useFakeTimers();
+
+    let resolveCloseServer: (() => void) | undefined;
+    const closeServer = vi.fn(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveCloseServer = resolve;
+        }),
+    );
+    const exitProcess = vi.fn();
+    const shutdownHandler = createShutdownHandler({
+      closeServer,
+      exitProcess,
+      shutdownTimeoutMs: 10,
+    });
+    const injector = createInjectorStub();
+    const server = createServerStub();
+
+    const shutdownPromise = shutdownHandler(
+      server,
+      injector,
+      createShutdownContext(),
+    );
+    await vi.advanceTimersByTimeAsync(10);
+    resolveCloseServer?.();
+    await shutdownPromise;
+
+    expect(exitProcess).toHaveBeenCalledTimes(1);
+    expect(exitProcess).toHaveBeenCalledWith(1);
+  });
+
   it('shutdown が完了した場合は指定された終了コードで終了する', async () => {
     const callOrder: Array<string> = [];
     const exitProcess = vi.fn();
