@@ -1,13 +1,15 @@
+import { promisify } from 'node:util';
+
 import type { ServerType } from '@hono/node-server';
 import { serve } from '@hono/node-server';
-import * as R from 'remeda';
 import type { Injector } from 'typed-inject';
 
-import { ValidatedEnv } from '../../validatedEnv.js';
-import { ShoppingPortInjector } from '../injector.js';
-import { App } from './app.js';
+import type { App } from './app.js';
 
-const bootServer = (app: App): ServerType =>
+type ClosableServer = Pick<ServerType, 'close'>;
+type DisposableInjector = Pick<Injector, 'dispose'>;
+
+const serveApp = (app: App): ServerType =>
   serve(
     {
       fetch: app.fetch,
@@ -18,44 +20,89 @@ const bootServer = (app: App): ServerType =>
     },
   );
 
-const shutdownServer = async (
-  server: ServerType,
-  injector: Injector,
-  reason: string,
-  code = 0,
-) => {
-  console.log(`[${reason}] shutting down...`);
-  server.close((err) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log('HTTP server closed.');
-  });
-  await injector.dispose();
-  process.exit(code);
+const SHUTDOWN_TIMEOUT_MS = 10_000;
+
+type ShutdownHandlerDeps = {
+  closeServer?: (server: ClosableServer) => Promise<void>;
+  exitProcess?: (code: number) => void;
+  shutdownTimeoutMs?: number;
 };
 
-const env = ValidatedEnv.parse(process.env);
-const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);
+type ShutdownContext = {
+  reason: string;
+  code?: number;
+};
 
-const server = R.pipe(App.create(shoppingPortInjector), bootServer);
+const closeServer = async (server: ClosableServer): Promise<void> => {
+  await promisify(server.close.bind(server))();
+  console.log('HTTP server closed.');
+};
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on('SIGINT', () => shutdownServer(server, rootInjector, 'SIGINT'));
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on('SIGTERM', () => shutdownServer(server, rootInjector, 'SIGTERM'));
+const createShutdownHandler = ({
+  closeServer: closeServerFn = closeServer,
+  exitProcess = process.exit.bind(process),
+  shutdownTimeoutMs = SHUTDOWN_TIMEOUT_MS,
+}: ShutdownHandlerDeps = {}) => {
+  let shutdownPromise: Promise<void> | undefined;
 
-// NOTE: app.onErrorではリクエスト時以外で検出できないため、最終防衛策として設置
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on('uncaughtException', async (error) => {
-  console.error('致命的なエラー（uncaughtException）が発生しました:');
-  console.error(error.stack);
-  await shutdownServer(server, rootInjector, 'uncaughtException', 1);
-});
+  return (
+    server: ClosableServer,
+    injector: DisposableInjector,
+    { reason, code = 0 }: ShutdownContext,
+  ): Promise<void> => {
+    if (shutdownPromise !== undefined) {
+      console.log(`[${reason}] shutdown already in progress.`);
+      return shutdownPromise;
+    }
 
-// NOTE: Promiseチェーン内でキャッチされなかったエラーを検出
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on('unhandledRejection', async (reason) => {
-  console.error('Unhandled Rejection:', reason);
-  await shutdownServer(server, rootInjector, 'unhandledRejection', 1);
-});
+    const runShutdown = async (): Promise<void> => {
+      console.log(`[${reason}] shutting down...`);
+      let exitCode = code;
+      let exited = false;
+
+      const exitOnce = (nextExitCode: number): void => {
+        if (exited) {
+          return;
+        }
+        exited = true;
+        exitProcess(nextExitCode);
+      };
+
+      const timeoutId = setTimeout(() => {
+        console.error(
+          `Shutdown timed out after ${shutdownTimeoutMs.toString()}ms. Forcing exit.`,
+        );
+        exitOnce(exitCode === 0 ? 1 : exitCode);
+      }, shutdownTimeoutMs);
+
+      try {
+        await closeServerFn(server);
+        await injector.dispose();
+      } catch (error) {
+        console.error('Error occurred during shutdown:', error);
+        exitCode = 1;
+      } finally {
+        clearTimeout(timeoutId);
+        exitOnce(exitCode);
+      }
+    };
+
+    shutdownPromise = runShutdown();
+
+    return shutdownPromise;
+  };
+};
+
+const createShutdownStarter =
+  (
+    server: ClosableServer,
+    injector: DisposableInjector,
+    shutdownHandler = createShutdownHandler(),
+  ) =>
+  (context: ShutdownContext): void => {
+    shutdownHandler(server, injector, context).catch((error: unknown) => {
+      console.error('Unexpected error during shutdown:', error);
+    });
+  };
+
+export { serveApp, createShutdownHandler, createShutdownStarter };
