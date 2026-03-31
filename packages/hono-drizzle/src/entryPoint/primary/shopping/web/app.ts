@@ -79,12 +79,11 @@ const setNotFoundHandler = (app: App) => {
 
 const setErrorHandler = (app: App) => {
   app.onError((err, c) => {
-    console.error('Internal Server Error', c.get('requestId'), err.message);
+    console.error('Internal Server Error', c.get('requestId'), err);
     if (err instanceof OptimisticLockError) {
       return c.json(
         ErrorSchema.parse({
           title: 'Conflict Error',
-          detail: err.message,
         }),
         409,
       );
