@@ -20,7 +20,7 @@ it('集約のスキーマを生成できる', () => {
     }),
     { id: 'Cart' },
   );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line @typescript-eslint/no-unused-vars
   const cart = schema.parse({
     aggregateId: CustomerId.generate(),
     sequenceNumber: 1,
