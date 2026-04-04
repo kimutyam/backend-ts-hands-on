@@ -16,17 +16,15 @@
     "format:fix": "prettier --write \"{src,test}/**/*.ts\"",
     "lint": "eslint --cache \"{src,test}/**/*.ts\"",
     "lint:fix": "eslint --cache \"{src,test}/**/*.ts\" --fix",
-    "prebuild:drizzle-kit": "rimraf dist-drizzle-kit",
-    "build:drizzle-kit": "tsc -p tsconfig.drizzle-kit.json",
-    "db:generate": "pnpm run build:drizzle-kit && drizzle-kit generate",
-    "db:migrate": "pnpm run build:drizzle-kit && dotenv -e .env.local -- drizzle-kit migrate",
-    "db:push": "pnpm run build:drizzle-kit && dotenv -e .env.local -- drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "dotenv -e .env.local -- drizzle-kit migrate",
+    "db:push": "dotenv -e .env.local -- drizzle-kit push",
     "start:shopping:local": "node --env-file=.env.local dist/entryPoint/primary/shopping/web/main.js",
     "test": "dotenv -e .env.test -- vitest --typecheck",
     "test:cov": "dotenv -e .env.test -- vitest --coverage",
     "test:db": "dotenv -e .env.test.db -- vitest --no-file-parallelism",
-    "test:db:migrate": "pnpm run build:drizzle-kit && dotenv -e .env.test.db -- drizzle-kit migrate",
-    "test:db:push": "pnpm run build:drizzle-kit && dotenv -e .env.test.db -- drizzle-kit push"
+    "test:db:migrate": "dotenv -e .env.test.db -- drizzle-kit migrate",
+    "test:db:push": "dotenv -e .env.test.db -- drizzle-kit push"
   },
   "dependencies": {
     "@hono/node-server": "1.19.12",
