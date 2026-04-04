@@ -1,5 +1,5 @@
-import type { ApplicationError } from '../../util/applicationError.js';
-import type { CartZodError } from './cart.js';
+import type { CartZodError } from '#/app/domain/cart/cart.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
 
 const kind = 'CartRefinementsError';
 

@@ -1,5 +1,5 @@
-import type { Aggregate } from './aggregate.js';
-import { DomainEventId } from './domainEventId.js';
+import type { Aggregate } from '#/app/domain/aggregate.js';
+import { DomainEventId } from '#/app/domain/domainEventId.js';
 
 interface DomainEvent<
   AggregateId,

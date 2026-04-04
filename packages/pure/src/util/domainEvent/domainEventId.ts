@@ -1,6 +1,6 @@
-import { createEncoder } from '../nominal/codec/createEncoder';
-import { createGenerator } from '../nominal/createGenerator';
-import type { Nominal } from '../nominal/nominal';
+import { createEncoder } from '#/util/nominal/codec/createEncoder.js';
+import { createGenerator } from '#/util/nominal/createGenerator.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
 
 type RawType = string;
 const TypeValue = 'DomainEventId';

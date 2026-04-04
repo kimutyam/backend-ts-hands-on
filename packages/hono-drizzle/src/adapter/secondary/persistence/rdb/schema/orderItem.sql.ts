@@ -1,7 +1,7 @@
 import { integer, pgTable, primaryKey, varchar } from 'drizzle-orm/pg-core';
 
-import { timestamps } from './columns.helpers.js';
-import { orderTable } from './order.sql.js';
+import { timestamps } from '#/adapter/secondary/persistence/rdb/schema/columns.helpers.js';
+import { orderTable } from '#/adapter/secondary/persistence/rdb/schema/order.sql.js';
 
 const orderItemTable = pgTable(
   'order_item',

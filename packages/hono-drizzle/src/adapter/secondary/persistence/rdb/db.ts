@@ -3,8 +3,8 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import type { Disposable } from 'typed-inject';
 
-import { getRequestContext } from '../../../../app/util/requestContext.js';
-import { DatabaseUrl } from './databaseUrl.js';
+import { DatabaseUrl } from '#/adapter/secondary/persistence/rdb/databaseUrl.js';
+import { getRequestContext } from '#/app/util/requestContext.js';
 
 const queryLogger: Logger = {
   logQuery: (query: string, params?: Array<unknown>) => {

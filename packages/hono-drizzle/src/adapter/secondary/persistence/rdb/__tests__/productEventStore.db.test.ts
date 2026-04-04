@@ -5,17 +5,17 @@ import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
 import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 
-import { DomainEvent } from '../../../../../app/domain/domainEvent.js';
-import { Price } from '../../../../../app/domain/product/price.js';
-import { Product } from '../../../../../app/domain/product/product.js';
-import { ProductRegistered } from '../../../../../app/domain/product/productEvent.js';
-import { ProductId } from '../../../../../app/domain/product/productId.js';
-import { ProductName } from '../../../../../app/domain/product/productName.js';
-import { ProductNameDuplicatedError } from '../../../../../app/domain/product/productNameDuplicatedError.js';
-import type { Db } from '../db.js';
-import { ProductEventStore } from '../productEventStore.js';
-import { getDbInstanceFromEnv } from './helper/db.js';
-import { createSelectDomainEventFn } from './helper/domainEvent.js';
+import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
+import { createSelectDomainEventFn } from '#/adapter/secondary/persistence/rdb/__tests__/helper/domainEvent.js';
+import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import { ProductEventStore } from '#/adapter/secondary/persistence/rdb/productEventStore.js';
+import { DomainEvent } from '#/app/domain/domainEvent.js';
+import { Price } from '#/app/domain/product/price.js';
+import { Product } from '#/app/domain/product/product.js';
+import { ProductRegistered } from '#/app/domain/product/productEvent.js';
+import { ProductId } from '#/app/domain/product/productId.js';
+import { ProductName } from '#/app/domain/product/productName.js';
+import { ProductNameDuplicatedError } from '#/app/domain/product/productNameDuplicatedError.js';
 
 const createSelectProductFn =
   (db: Db) =>

@@ -1,6 +1,6 @@
-import type { ApplicationError } from '../../util/applicationError.js';
-import type { ProductId } from './productId.js';
-import type { ProductName } from './productName.js';
+import type { ProductId } from '#/app/domain/product/productId.js';
+import type { ProductName } from '#/app/domain/product/productName.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
 
 const kind = 'ProductNameDuplicatedError';
 

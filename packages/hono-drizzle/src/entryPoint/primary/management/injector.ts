@@ -1,12 +1,12 @@
 import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
-import { RegisterProduct } from '../../../app/port/primary/management/registerProduct.js';
-import { RegisterProductUseCase } from '../../../app/useCase/registerProduct.js';
-import type { PersistencePortInjector } from '../../secondary/persistence/injector.js';
-import { MemoryAdapterInjector } from '../../secondary/persistence/memory/injector.js';
-import { RdbAdapterInjector } from '../../secondary/persistence/rdb/injector.js';
-import type { ValidatedEnv } from '../validatedEnv.js';
+import { RegisterProduct } from '#/app/port/primary/management/registerProduct.js';
+import { RegisterProductUseCase } from '#/app/useCase/registerProduct.js';
+import type { ValidatedEnv } from '#/entryPoint/primary/validatedEnv.js';
+import type { PersistencePortInjector } from '#/entryPoint/secondary/persistence/injector.js';
+import { MemoryAdapterInjector } from '#/entryPoint/secondary/persistence/memory/injector.js';
+import { RdbAdapterInjector } from '#/entryPoint/secondary/persistence/rdb/injector.js';
 
 // 1
 const createSelf = (injector: PersistencePortInjector) =>

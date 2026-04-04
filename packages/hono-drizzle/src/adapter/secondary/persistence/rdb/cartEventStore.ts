@@ -1,13 +1,13 @@
 import { eq } from 'drizzle-orm';
 import { ResultAsync } from 'neverthrow';
 
-import type { Cart } from '../../../../app/domain/cart/cart.js';
-import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
-import type { StoreCartEvent } from '../../../../app/port/secondary/persistence/cartEventStore.js';
-import { Db } from './db.js';
-import { cartTable } from './schema/cart.sql.js';
-import { cartItemTable } from './schema/cartItem.sql.js';
-import { domainEventTable } from './schema/domainEvent.sql.js';
+import { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import { cartTable } from '#/adapter/secondary/persistence/rdb/schema/cart.sql.js';
+import { cartItemTable } from '#/adapter/secondary/persistence/rdb/schema/cartItem.sql.js';
+import { domainEventTable } from '#/adapter/secondary/persistence/rdb/schema/domainEvent.sql.js';
+import type { Cart } from '#/app/domain/cart/cart.js';
+import { OptimisticLockError } from '#/app/domain/optimisticLockError.js';
+import type { StoreCartEvent } from '#/app/port/secondary/persistence/cartEventStore.js';
 
 type CartInsert = typeof cartTable.$inferInsert;
 type CartItemInsert = typeof cartItemTable.$inferInsert;

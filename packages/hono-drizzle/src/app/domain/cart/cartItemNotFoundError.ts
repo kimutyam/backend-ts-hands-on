@@ -1,6 +1,6 @@
-import type { ApplicationError } from '../../util/applicationError.js';
-import type { CustomerId } from '../customer/customerId.js';
-import type { ProductId } from '../product/productId.js';
+import type { CustomerId } from '#/app/domain/customer/customerId.js';
+import type { ProductId } from '#/app/domain/product/productId.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
 
 const kind = 'CartItemNotFoundError';
 interface CartItemNotFoundError extends ApplicationError<typeof kind> {

@@ -1,14 +1,14 @@
 import { describe, expect } from 'vitest';
 
-import { Aggregate } from '../../aggregate.js';
-import { Cart } from '../../cart/cart.js';
-import { Quantity } from '../../cart/quantity.js';
-import { CustomerId } from '../../customer/customerId.js';
-import { Price } from '../../product/price.js';
-import { Product } from '../../product/product.js';
-import { ProductId } from '../../product/productId.js';
-import { OrderId } from '../orderId.js';
-import { requestOrder } from '../requestOrder.js';
+import { Aggregate } from '#/app/domain/aggregate.js';
+import { Cart } from '#/app/domain/cart/cart.js';
+import { Quantity } from '#/app/domain/cart/quantity.js';
+import { CustomerId } from '#/app/domain/customer/customerId.js';
+import { OrderId } from '#/app/domain/order/orderId.js';
+import { requestOrder } from '#/app/domain/order/requestOrder.js';
+import { Price } from '#/app/domain/product/price.js';
+import { Product } from '#/app/domain/product/product.js';
+import { ProductId } from '#/app/domain/product/productId.js';
 
 describe('requestOrder', () => {
   it('should place an order', () => {

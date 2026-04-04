@@ -1,7 +1,7 @@
-import type { SafeCodec } from '../../codec/createSafeCodec';
-import type { Nominal } from '../nominal';
-import { createCodec } from './createCodec';
-import { createSafeDecoder } from './createSafeDecoder';
+import type { SafeCodec } from '#/util/codec/createSafeCodec.js';
+import { createCodec } from '#/util/nominal/codec/createCodec.js';
+import { createSafeDecoder } from '#/util/nominal/codec/createSafeDecoder.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
 
 export const createSafeCodec = <Name extends string, S, E>(
   name: Name,

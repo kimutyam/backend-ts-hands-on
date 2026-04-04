@@ -1,7 +1,7 @@
 import type { Newtype } from 'newtype-ts';
 import { prism } from 'newtype-ts';
-import type { ApplicationError } from '../util/applicationError';
-import { codecFromPrism } from '../util/codec';
+import type { ApplicationError } from '#/util/applicationError.js';
+import { codecFromPrism } from '#/util/codec.js';
 
 type RawType = string;
 
@@ -11,7 +11,7 @@ const MinLength = 4;
 const MaxLength = 12;
 
 // 複数条件の時にバリデーションエラーのメッセージングに弱い。
-const errorMessage = `ユーザーアカウント名は${MinLength}文字以上${MaxLength}文字以内で半角英数字で指定してください`;
+const errorMessage = `ユーザーアカウント名は${MinLength.toString()}文字以上${MaxLength.toString()}文字以内で半角英数字で指定してください`;
 
 const prismInstance = prism<UserAccountName>(
   (raw) => raw.length >= MinLength && raw.length <= MaxLength && /^[A-Za-z0-9]+$/.test(raw),

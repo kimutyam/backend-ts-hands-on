@@ -1,6 +1,6 @@
-import type { ApplicationError } from '../util/applicationError';
-import { createSafeCodec } from '../util/nominal/codec/createSafeCodec';
-import type { Nominal } from '../util/nominal/nominal';
+import type { ApplicationError } from '#/util/applicationError.js';
+import { createSafeCodec } from '#/util/nominal/codec/createSafeCodec.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
 
 type RawType = string;
 const UserAccountIdTypeName = 'UserAccountId';

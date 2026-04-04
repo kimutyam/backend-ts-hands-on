@@ -1,12 +1,12 @@
 import assert from 'node:assert';
 
-import { Price } from '../../../../../app/domain/product/price.js';
-import { ProductId } from '../../../../../app/domain/product/productId.js';
-import { ProductName } from '../../../../../app/domain/product/productName.js';
-import type { Db } from '../db.js';
-import { ProductRepository } from '../productRepository.js';
-import { productTable } from '../schema/product.sql.js';
-import { getDbInstanceFromEnv } from './helper/db.js';
+import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
+import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import { ProductRepository } from '#/adapter/secondary/persistence/rdb/productRepository.js';
+import { productTable } from '#/adapter/secondary/persistence/rdb/schema/product.sql.js';
+import { Price } from '#/app/domain/product/price.js';
+import { ProductId } from '#/app/domain/product/productId.js';
+import { ProductName } from '#/app/domain/product/productName.js';
 
 const createSetupFn = (db: Db) => async (productId: ProductId) => {
   await db.transaction(async (tx) => {

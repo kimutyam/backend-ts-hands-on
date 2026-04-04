@@ -1,5 +1,5 @@
-import type { Generator } from '../generator';
-import type { Nominal } from './nominal';
+import type { Generator } from '#/util/generator.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
 
 const generateNominal =
   <Name extends string>(name: Name) =>

@@ -1,7 +1,7 @@
-import type { Codec } from '../../codec/codec';
-import type { Nominal } from '../nominal';
-import { createDecoder } from './createDecoder';
-import { createEncoder } from './createEncoder';
+import type { Codec } from '#/util/codec/codec.js';
+import { createDecoder } from '#/util/nominal/codec/createDecoder.js';
+import { createEncoder } from '#/util/nominal/codec/createEncoder.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
 
 export const createCodec = <Name extends string, S>(name: Name): Codec<S, Nominal<Name, S>> => {
   const { encode } = createEncoder<Name, S>();

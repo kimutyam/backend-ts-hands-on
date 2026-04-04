@@ -1,13 +1,13 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
-import { CartRefinementsError } from '../../../../../app/domain/cart/cartRefinementsError.js';
-import { QuantityRefinementsError } from '../../../../../app/domain/cart/quantity.js';
-import { ProductNotFoundError } from '../../../../../app/domain/product/productNotFoundError.js';
-import { AddCartItem } from '../../../../../app/port/primary/shopping/addCartItem.js';
-import { assertNever } from '../../../../../app/util/assertNever.js';
-import type { AppVariables } from '../appVariables.js';
-import { ErrorSchema } from '../errorSchemas.js';
-import type { AddCartItemRoute } from './routes.js';
+import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
+import type { AddCartItemRoute } from '#/adapter/primary/shopping/web/cart/routes.js';
+import { ErrorSchema } from '#/adapter/primary/shopping/web/errorSchemas.js';
+import { CartRefinementsError } from '#/app/domain/cart/cartRefinementsError.js';
+import { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
+import { ProductNotFoundError } from '#/app/domain/product/productNotFoundError.js';
+import { AddCartItem } from '#/app/port/primary/shopping/addCartItem.js';
+import { assertNever } from '#/app/util/assertNever.js';
 
 const create =
   (

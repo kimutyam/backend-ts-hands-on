@@ -1,4 +1,4 @@
-import { Db } from '../../db.js';
+import { Db } from '#/adapter/secondary/persistence/rdb/db.js';
 
 const getDbInstanceFromEnv = (): Db => {
   const url = process.env['DATABASE_URL'];

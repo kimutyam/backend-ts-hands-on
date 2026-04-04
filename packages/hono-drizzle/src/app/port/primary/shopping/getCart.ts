@@ -1,5 +1,5 @@
-import type { Cart } from '../../../domain/cart/cart.js';
-import type { CustomerId } from '../../../domain/customer/customerId.js';
+import type { Cart } from '#/app/domain/cart/cart.js';
+import type { CustomerId } from '#/app/domain/customer/customerId.js';
 
 type GetCart = (customerId: CustomerId) => Promise<Cart>;
 

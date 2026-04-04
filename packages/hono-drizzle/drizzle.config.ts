@@ -2,7 +2,7 @@ import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
   dialect: 'postgresql',
-  schema: './dist-drizzle-kit/*.sql.js',
+  schema: './src/adapter/secondary/persistence/rdb/schema/*.sql.ts',
   out: './drizzle',
   casing: 'snake_case',
   dbCredentials: {

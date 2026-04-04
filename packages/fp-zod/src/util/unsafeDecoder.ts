@@ -10,7 +10,7 @@ const unsafeDecoderFromPrism = <S, A>(prism: {
 }): UnsafeDecoder<S, A> => ({
   unsafeDecode: (s: S): A => {
     const opt = prism.getOption(s);
-    assert(O.isSome(opt), `${s} is an invariant violation.`);
+    assert(O.isSome(opt), `${String(s)} is an invariant violation.`);
     return opt.value;
   },
 });

@@ -1,13 +1,13 @@
 import { ResultAsync } from 'neverthrow';
 import * as R from 'remeda';
 
-import type { Product } from '../../../../app/domain/product/product.js';
-import { ProductNameDuplicatedError } from '../../../../app/domain/product/productNameDuplicatedError.js';
-import type { StoreProductEvent } from '../../../../app/port/secondary/persistence/productEventStore.js';
-import { Db } from './db.js';
-import { domainEventTable } from './schema/domainEvent.sql.js';
-import { productTable } from './schema/product.sql.js';
-import { isConstraintError } from './toConstraintError.js';
+import { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import { domainEventTable } from '#/adapter/secondary/persistence/rdb/schema/domainEvent.sql.js';
+import { productTable } from '#/adapter/secondary/persistence/rdb/schema/product.sql.js';
+import { isConstraintError } from '#/adapter/secondary/persistence/rdb/toConstraintError.js';
+import type { Product } from '#/app/domain/product/product.js';
+import { ProductNameDuplicatedError } from '#/app/domain/product/productNameDuplicatedError.js';
+import type { StoreProductEvent } from '#/app/port/secondary/persistence/productEventStore.js';
 
 type ProductInsert = typeof productTable.$inferInsert;
 

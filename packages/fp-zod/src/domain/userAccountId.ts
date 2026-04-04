@@ -2,8 +2,8 @@ import { randomUUID } from 'crypto';
 import type { Newtype } from 'newtype-ts';
 import { prism } from 'newtype-ts';
 import { validate as uuidValidate } from 'uuid';
-import { encoderFromPrism } from '../util/encoder';
-import { generator } from '../util/generator';
+import { encoderFromPrism } from '#/util/encoder.js';
+import { generator } from '#/util/generator.js';
 
 type RawType = string;
 

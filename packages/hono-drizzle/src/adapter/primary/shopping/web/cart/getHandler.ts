@@ -1,8 +1,8 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
-import { GetCart } from '../../../../../app/port/primary/shopping/getCart.js';
-import type { AppVariables } from '../appVariables.js';
-import type { GetCartRoute } from './routes.js';
+import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
+import type { GetCartRoute } from '#/adapter/primary/shopping/web/cart/routes.js';
+import { GetCart } from '#/app/port/primary/shopping/getCart.js';
 
 const create =
   (getCart: GetCart): RouteHandler<typeof GetCartRoute, AppVariables> =>

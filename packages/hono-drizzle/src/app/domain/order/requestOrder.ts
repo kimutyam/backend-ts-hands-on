@@ -2,15 +2,15 @@ import assert from 'node:assert';
 
 import * as R from 'remeda';
 
-import { Cart } from '../cart/cart.js';
-import type { CartCleared } from '../cart/cartEvent.js';
-import type { CartItem } from '../cart/cartItem.js';
-import { DomainEvent } from '../domainEvent.js';
-import type { Product } from '../product/product.js';
-import { ProductId } from '../product/productId.js';
-import { Order } from './order.js';
-import { OrderRequested } from './orderEvent.js';
-import { OrderId } from './orderId.js';
+import { Cart } from '#/app/domain/cart/cart.js';
+import type { CartCleared } from '#/app/domain/cart/cartEvent.js';
+import type { CartItem } from '#/app/domain/cart/cartItem.js';
+import { DomainEvent } from '#/app/domain/domainEvent.js';
+import { Order } from '#/app/domain/order/order.js';
+import { OrderRequested } from '#/app/domain/order/orderEvent.js';
+import { OrderId } from '#/app/domain/order/orderId.js';
+import type { Product } from '#/app/domain/product/product.js';
+import { ProductId } from '#/app/domain/product/productId.js';
 
 const assertExistsProduct = (
   cart: Cart,

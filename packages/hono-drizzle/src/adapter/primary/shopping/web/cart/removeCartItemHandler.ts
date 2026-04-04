@@ -1,9 +1,9 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
-import { RemoveCartItem } from '../../../../../app/port/primary/shopping/removeCartItem.js';
-import type { AppVariables } from '../appVariables.js';
-import { ErrorSchema } from '../errorSchemas.js';
-import type { RemoveCartItemRoute } from './routes.js';
+import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
+import type { RemoveCartItemRoute } from '#/adapter/primary/shopping/web/cart/routes.js';
+import { ErrorSchema } from '#/adapter/primary/shopping/web/errorSchemas.js';
+import { RemoveCartItem } from '#/app/port/primary/shopping/removeCartItem.js';
 
 const create =
   (

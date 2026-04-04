@@ -4,7 +4,7 @@ import type { ServerType } from '@hono/node-server';
 import { serve } from '@hono/node-server';
 import type { Injector } from 'typed-inject';
 
-import type { App } from './app.js';
+import type { App } from '#/entryPoint/primary/shopping/web/app.js';
 
 type ClosableServer = Pick<ServerType, 'close'>;
 type DisposableInjector = Pick<Injector, 'dispose'>;

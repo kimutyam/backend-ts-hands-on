@@ -1,28 +1,28 @@
 import type { OpenAPIHonoOptions } from '@hono/zod-openapi';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Scalar } from '@scalar/hono-api-reference';
-import type { AppVariables } from 'adapter/primary/shopping/web/appVariables.js';
 import { createMiddleware } from 'hono/factory';
 import { requestId } from 'hono/request-id';
 import { z } from 'zod';
 
-import { AddCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/addCartItemHandler.js';
-import { ClearCartHandler } from '../../../../adapter/primary/shopping/web/cart/clearHandler.js';
-import { GetCartHandler } from '../../../../adapter/primary/shopping/web/cart/getHandler.js';
-import { RemoveCartItemHandler } from '../../../../adapter/primary/shopping/web/cart/removeCartItemHandler.js';
+import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
+import { AddCartItemHandler } from '#/adapter/primary/shopping/web/cart/addCartItemHandler.js';
+import { ClearCartHandler } from '#/adapter/primary/shopping/web/cart/clearHandler.js';
+import { GetCartHandler } from '#/adapter/primary/shopping/web/cart/getHandler.js';
+import { RemoveCartItemHandler } from '#/adapter/primary/shopping/web/cart/removeCartItemHandler.js';
 import {
   AddCartItemRoute,
   ClearCartRoute,
   GetCartRoute,
   RemoveCartItemRoute,
-} from '../../../../adapter/primary/shopping/web/cart/routes.js';
+} from '#/adapter/primary/shopping/web/cart/routes.js';
 import {
   ErrorSchema,
   ValidationErrorSchema,
-} from '../../../../adapter/primary/shopping/web/errorSchemas.js';
-import { OptimisticLockError } from '../../../../app/domain/optimisticLockError.js';
-import { runWithRequestContext } from '../../../../app/util/requestContext.js';
-import type { ShoppingPortInjector } from '../injector.js';
+} from '#/adapter/primary/shopping/web/errorSchemas.js';
+import { OptimisticLockError } from '#/app/domain/optimisticLockError.js';
+import { runWithRequestContext } from '#/app/util/requestContext.js';
+import type { ShoppingPortInjector } from '#/entryPoint/primary/shopping/injector.js';
 
 type App = OpenAPIHono<AppVariables>;
 

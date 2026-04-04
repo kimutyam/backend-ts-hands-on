@@ -1,8 +1,8 @@
 import * as E from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 import type * as NA from 'fp-ts/NonEmptyArray';
-import type { UserAccountDecodeError } from './domain/userAccount';
-import { UserAccount } from './domain/userAccount';
+import type { UserAccountDecodeError } from '#/domain/userAccount.js';
+import { UserAccount } from '#/domain/userAccount.js';
 
 type Args = Readonly<{
   name: string;

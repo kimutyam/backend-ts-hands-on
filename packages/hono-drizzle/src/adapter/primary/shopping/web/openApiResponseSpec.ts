@@ -1,6 +1,9 @@
 import type { z } from 'zod';
 
-import { ErrorSchema, ValidationErrorSchema } from './errorSchemas.js';
+import {
+  ErrorSchema,
+  ValidationErrorSchema,
+} from '#/adapter/primary/shopping/web/errorSchemas.js';
 
 const createSpec200 = <Z extends z.ZodType>(schema: Z) => ({
   200: {

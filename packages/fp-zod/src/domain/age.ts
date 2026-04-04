@@ -1,7 +1,7 @@
 import type { Newtype } from 'newtype-ts';
 import { z } from 'zod';
-import type { ZodCodec } from '../util/zodCodec';
-import { zodCodecFromNewType } from '../util/zodCodec';
+import type { ZodCodec } from '#/util/zodCodec.js';
+import { zodCodecFromNewType } from '#/util/zodCodec.js';
 
 type RawType = number;
 

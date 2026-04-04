@@ -1,7 +1,7 @@
 import type { Newtype } from 'newtype-ts';
 import { z } from 'zod';
-import type { ZodCodec } from '../util/zodCodec';
-import { zodCodecFromNewType } from '../util/zodCodec';
+import type { ZodCodec } from '#/util/zodCodec.js';
+import { zodCodecFromNewType } from '#/util/zodCodec.js';
 
 type RawType = string;
 
@@ -10,7 +10,7 @@ type UserAccountName = Newtype<{ readonly USER_ACCOUNT_NAME: unique symbol }, Ra
 const MinLength = 4;
 const MaxLength = 12;
 
-const lengthErrorMessage = `ユーザーアカウント名は${MinLength}文字以上${MaxLength}文字以内で指定してください`;
+const lengthErrorMessage = `ユーザーアカウント名は${MinLength.toString()}文字以上${MaxLength.toString()}文字以内で指定してください`;
 
 const zodType = z
   .string()

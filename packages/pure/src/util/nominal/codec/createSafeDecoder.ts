@@ -1,8 +1,8 @@
-import type { SafeDecoder } from '../../codec/safeDecoder';
-import type { Result } from '../../result';
-import { Failure, Success } from '../../result';
-import type { Nominal } from '../nominal';
-import { decodeNominal } from './createDecoder';
+import type { SafeDecoder } from '#/util/codec/safeDecoder.js';
+import { decodeNominal } from '#/util/nominal/codec/createDecoder.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
+import type { Result } from '#/util/result.js';
+import { Failure, Success } from '#/util/result.js';
 
 export const safeDecodeNominal =
   <Name extends string, S, E>(
