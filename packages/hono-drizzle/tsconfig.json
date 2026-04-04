@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "./dist",
+    "paths": {
+      "#/*": [
+        "./src/*"
+      ]
+    },
+    "rootDir": "./src",
     "types": [
       "node",
       "vitest/globals"
@@ -11,7 +16,6 @@
   },
   "extends": "../../tsconfig.json",
   "include": [
-    "src/**/*",
-    "test/**/*"
+    "src/**/*"
   ]
 }

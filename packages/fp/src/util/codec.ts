@@ -1,10 +1,10 @@
 import type { Prism } from 'monocle-ts';
-import type { Decoder } from './decoder';
-import { decoderFromPrism } from './decoder';
-import type { Encoder } from './encoder';
-import { encoderFromPrism } from './encoder';
-import type { UnsafeDecoder } from './unsafeDecoder';
-import { unsafeDecoderFromPrism } from './unsafeDecoder';
+import type { Decoder } from '#/util/decoder.js';
+import { decoderFromPrism } from '#/util/decoder.js';
+import type { Encoder } from '#/util/encoder.js';
+import { encoderFromPrism } from '#/util/encoder.js';
+import type { UnsafeDecoder } from '#/util/unsafeDecoder.js';
+import { unsafeDecoderFromPrism } from '#/util/unsafeDecoder.js';
 
 interface Codec<S, A, L> extends Encoder<S, A>, Decoder<S, A, L>, UnsafeDecoder<S, A> {}
 

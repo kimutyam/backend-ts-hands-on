@@ -1,9 +1,9 @@
 import type { RouteHandler } from '@hono/zod-openapi';
 
-import { ClearCart } from '../../../../../app/port/primary/shopping/clearCart.js';
-import type { AppVariables } from '../appVariables.js';
-import { ErrorSchema } from '../errorSchemas.js';
-import type { ClearCartRoute } from './routes.js';
+import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
+import type { ClearCartRoute } from '#/adapter/primary/shopping/web/cart/routes.js';
+import { ErrorSchema } from '#/adapter/primary/shopping/web/errorSchemas.js';
+import { ClearCart } from '#/app/port/primary/shopping/clearCart.js';
 
 const create =
   (clearCart: ClearCart): RouteHandler<typeof ClearCartRoute, AppVariables> =>

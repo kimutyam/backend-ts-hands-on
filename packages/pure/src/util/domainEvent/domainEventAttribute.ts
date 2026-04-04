@@ -1,4 +1,4 @@
-import { DomainEventId } from './domainEventId';
+import { DomainEventId } from '#/util/domainEvent/domainEventId.js';
 
 export type DomainEventAttribute = Readonly<{
   eventId: DomainEventId;

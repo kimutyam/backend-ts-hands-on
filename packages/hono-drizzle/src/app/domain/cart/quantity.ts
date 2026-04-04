@@ -2,8 +2,8 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import type { ApplicationError } from '../../util/applicationError.js';
-import { createFromZod } from '../../util/result.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
+import { createFromZod } from '#/app/util/result.js';
 
 const name = 'Quantity';
 

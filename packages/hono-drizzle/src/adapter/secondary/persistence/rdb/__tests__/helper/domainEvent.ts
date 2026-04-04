@@ -2,9 +2,9 @@ import { sql } from 'drizzle-orm';
 import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
 import type { QueryResult } from 'pg';
 
-import type { DomainEvent } from '../../../../../../app/domain/domainEvent.js';
-import type { DomainEventId } from '../../../../../../app/domain/domainEventId.js';
-import type { Db } from '../../db.js';
+import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import type { DomainEvent } from '#/app/domain/domainEvent.js';
+import type { DomainEventId } from '#/app/domain/domainEventId.js';
 
 const createSelectDomainEventFn =
   (db: Db) =>

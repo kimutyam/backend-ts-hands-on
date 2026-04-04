@@ -1,5 +1,5 @@
-import type { ApplicationError } from '../../util/applicationError.js';
-import type { ProductZodError } from './product.js';
+import type { ProductZodError } from '#/app/domain/product/product.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
 
 const kind = 'ProductRefinementsError';
 

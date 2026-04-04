@@ -1,12 +1,12 @@
 import * as AP from 'fp-ts/Apply';
 import * as E from 'fp-ts/Either';
 import * as NA from 'fp-ts/NonEmptyArray';
-import { liftLeft } from '../util/liftLeft';
-import type { AgeDecodeError } from './age';
-import { Age } from './age';
-import { UserAccountId } from './userAccountId';
-import type { UserAccountNameDecodeError } from './userAccountName';
-import { UserAccountName } from './userAccountName';
+import type { AgeDecodeError } from '#/domain/age.js';
+import { Age } from '#/domain/age.js';
+import { UserAccountId } from '#/domain/userAccountId.js';
+import type { UserAccountNameDecodeError } from '#/domain/userAccountName.js';
+import { UserAccountName } from '#/domain/userAccountName.js';
+import { liftLeft } from '#/util/liftLeft.js';
 
 type UserAccountDecodeError = UserAccountNameDecodeError | AgeDecodeError;
 

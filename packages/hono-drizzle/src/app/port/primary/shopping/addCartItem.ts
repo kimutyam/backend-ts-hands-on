@@ -3,15 +3,15 @@ import type { ResultAsync } from 'neverthrow';
 import type {
   CartItemAdded,
   CartItemUpdated,
-} from '../../../domain/cart/cartEvent.js';
-import type { CartRefinementsError } from '../../../domain/cart/cartRefinementsError.js';
+} from '#/app/domain/cart/cartEvent.js';
+import type { CartRefinementsError } from '#/app/domain/cart/cartRefinementsError.js';
 import type {
   Quantity,
   QuantityRefinementsError,
-} from '../../../domain/cart/quantity.js';
-import type { CustomerId } from '../../../domain/customer/customerId.js';
-import type { ProductId } from '../../../domain/product/productId.js';
-import type { ProductNotFoundError } from '../../../domain/product/productNotFoundError.js';
+} from '#/app/domain/cart/quantity.js';
+import type { CustomerId } from '#/app/domain/customer/customerId.js';
+import type { ProductId } from '#/app/domain/product/productId.js';
+import type { ProductNotFoundError } from '#/app/domain/product/productNotFoundError.js';
 
 type AddCartItem = (
   customerId: CustomerId,

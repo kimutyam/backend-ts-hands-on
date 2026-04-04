@@ -1,6 +1,6 @@
-import type { Age } from './age';
-import { UserAccountId } from './userAccountId';
-import type { UserAccountName } from './userAccountName';
+import type { Age } from '#/domain/age.js';
+import { UserAccountId } from '#/domain/userAccountId.js';
+import type { UserAccountName } from '#/domain/userAccountName.js';
 
 type UserAccount = Readonly<{
   id: UserAccountId;

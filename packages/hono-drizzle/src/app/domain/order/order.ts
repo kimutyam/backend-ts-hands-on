@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { Aggregate } from '../aggregate.js';
-import { CartItem } from '../cart/cartItem.js';
-import { CustomerId } from '../customer/customerId.js';
-import { OrderId } from './orderId.js';
+import { Aggregate } from '#/app/domain/aggregate.js';
+import { CartItem } from '#/app/domain/cart/cartItem.js';
+import { CustomerId } from '#/app/domain/customer/customerId.js';
+import { OrderId } from '#/app/domain/order/orderId.js';
 
 const aggregateName = 'Order';
 

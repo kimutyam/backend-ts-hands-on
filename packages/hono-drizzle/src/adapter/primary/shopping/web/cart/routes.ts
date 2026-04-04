@@ -1,6 +1,5 @@
 import { createRoute } from '@hono/zod-openapi';
 
-import { OpenApiResponseSpec } from '../openApiResponseSpec.js';
 import {
   AddCartItemRequestSchema,
   AddCartItemResponseSchema,
@@ -8,7 +7,8 @@ import {
   GetCartParamSchema,
   GetCartResponseSchema,
   RemoveCartItemParamsSchema,
-} from './schemas.js';
+} from '#/adapter/primary/shopping/web/cart/schemas.js';
+import { OpenApiResponseSpec } from '#/adapter/primary/shopping/web/openApiResponseSpec.js';
 
 const GetCartRoute = createRoute({
   method: 'get',

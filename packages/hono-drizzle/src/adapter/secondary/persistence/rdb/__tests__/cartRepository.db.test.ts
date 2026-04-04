@@ -1,15 +1,15 @@
 import assert from 'node:assert';
 
-import { Aggregate } from '../../../../../app/domain/aggregate.js';
-import { Quantity } from '../../../../../app/domain/cart/quantity.js';
-import { CustomerId } from '../../../../../app/domain/customer/customerId.js';
-import { Price } from '../../../../../app/domain/product/price.js';
-import { ProductId } from '../../../../../app/domain/product/productId.js';
-import { CartRepository } from '../cartRepository.js';
-import type { Db } from '../db.js';
-import { cartTable } from '../schema/cart.sql.js';
-import { cartItemTable } from '../schema/cartItem.sql.js';
-import { getDbInstanceFromEnv } from './helper/db.js';
+import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
+import { CartRepository } from '#/adapter/secondary/persistence/rdb/cartRepository.js';
+import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import { cartTable } from '#/adapter/secondary/persistence/rdb/schema/cart.sql.js';
+import { cartItemTable } from '#/adapter/secondary/persistence/rdb/schema/cartItem.sql.js';
+import { Aggregate } from '#/app/domain/aggregate.js';
+import { Quantity } from '#/app/domain/cart/quantity.js';
+import { CustomerId } from '#/app/domain/customer/customerId.js';
+import { Price } from '#/app/domain/product/price.js';
+import { ProductId } from '#/app/domain/product/productId.js';
 
 const createSetupWithCartItemFn =
   (db: Db) => async (customerId: CustomerId, productId: ProductId) => {

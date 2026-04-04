@@ -1,7 +1,7 @@
-import { Product } from '../domain/product/product.js';
-import { ProductId } from '../domain/product/productId.js';
-import type { RegisterProduct } from '../port/primary/management/registerProduct.js';
-import { StoreProductEvent } from '../port/secondary/persistence/productEventStore.js';
+import { Product } from '#/app/domain/product/product.js';
+import { ProductId } from '#/app/domain/product/productId.js';
+import type { RegisterProduct } from '#/app/port/primary/management/registerProduct.js';
+import { StoreProductEvent } from '#/app/port/secondary/persistence/productEventStore.js';
 
 const create =
   (storeProductEvent: StoreProductEvent): RegisterProduct =>

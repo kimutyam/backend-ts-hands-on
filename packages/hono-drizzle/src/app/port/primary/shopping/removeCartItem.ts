@@ -1,10 +1,10 @@
 import type { ResultAsync } from 'neverthrow';
 
-import type { CartItemRemoved } from '../../../domain/cart/cartEvent.js';
-import type { CartItemNotFoundError } from '../../../domain/cart/cartItemNotFoundError.js';
-import type { CartNotFoundError } from '../../../domain/cart/cartNotFoundError.js';
-import type { CustomerId } from '../../../domain/customer/customerId.js';
-import type { ProductId } from '../../../domain/product/productId.js';
+import type { CartItemRemoved } from '#/app/domain/cart/cartEvent.js';
+import type { CartItemNotFoundError } from '#/app/domain/cart/cartItemNotFoundError.js';
+import type { CartNotFoundError } from '#/app/domain/cart/cartNotFoundError.js';
+import type { CustomerId } from '#/app/domain/customer/customerId.js';
+import type { ProductId } from '#/app/domain/product/productId.js';
 
 type RemoveCartItem = (
   customerId: CustomerId,

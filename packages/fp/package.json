@@ -6,14 +6,17 @@
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
+  "imports": {
+    "#/*": "./dist/*"
+  },
   "scripts": {
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist tsconfig.tsbuildinfo",
     "build": "tsc --build tsconfig.json",
     "format": "prettier --check \"{src,test}/**/*.ts\"",
     "format:fix": "prettier --write \"{src,test}/**/*.ts\"",
     "lint": "eslint --cache \"{src,test}/**/*.ts\"",
     "lint:fix": "eslint --cache \"{src,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch"
   },
@@ -47,6 +50,9 @@
       "^.+\\.ts$": [
         "ts-jest"
       ]
+    },
+    "moduleNameMapper": {
+      "^#/(.*)\\.js$": "<rootDir>/$1.ts"
     },
     "collectCoverageFrom": [
       "**/*.ts"

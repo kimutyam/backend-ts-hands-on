@@ -1,5 +1,5 @@
-import type { ApplicationError } from '../../../../app/util/applicationError.js';
-import type { RegisterProductArgsZodError } from './registerProductHandler.js';
+import type { RegisterProductArgsZodError } from '#/adapter/primary/management/cli/registerProductHandler.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
 
 const kind = 'RegisterProductValidateError';
 

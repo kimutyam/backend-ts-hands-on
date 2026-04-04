@@ -1,6 +1,6 @@
 import { integer, pgTable, varchar } from 'drizzle-orm/pg-core';
 
-import { timestamps } from './columns.helpers.js';
+import { timestamps } from '#/adapter/secondary/persistence/rdb/schema/columns.helpers.js';
 
 const orderTable = pgTable('order', {
   orderId: varchar({ length: 26 }).primaryKey(),

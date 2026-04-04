@@ -1,9 +1,12 @@
 import * as R from 'remeda';
 
-import { ValidatedEnv } from '../../validatedEnv.js';
-import { ShoppingPortInjector } from '../injector.js';
-import { App } from './app.js';
-import { createShutdownStarter, serveApp } from './server.js';
+import { ShoppingPortInjector } from '#/entryPoint/primary/shopping/injector.js';
+import { App } from '#/entryPoint/primary/shopping/web/app.js';
+import {
+  createShutdownStarter,
+  serveApp,
+} from '#/entryPoint/primary/shopping/web/server.js';
+import { ValidatedEnv } from '#/entryPoint/primary/validatedEnv.js';
 
 const env = ValidatedEnv.parse(process.env);
 const [rootInjector, shoppingPortInjector] = ShoppingPortInjector.create(env);

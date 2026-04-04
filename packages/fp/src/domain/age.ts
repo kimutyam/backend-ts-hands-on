@@ -1,7 +1,7 @@
 import type { Newtype } from 'newtype-ts';
 import { prism } from 'newtype-ts';
-import type { ApplicationError } from '../util/applicationError';
-import { codecFromPrism } from '../util/codec';
+import type { ApplicationError } from '#/util/applicationError.js';
+import { codecFromPrism } from '#/util/codec.js';
 
 type RawType = number;
 

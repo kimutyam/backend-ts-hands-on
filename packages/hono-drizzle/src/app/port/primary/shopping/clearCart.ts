@@ -1,8 +1,8 @@
 import type { ResultAsync } from 'neverthrow';
 
-import type { CartCleared } from '../../../domain/cart/cartEvent.js';
-import type { CartNotFoundError } from '../../../domain/cart/cartNotFoundError.js';
-import type { CustomerId } from '../../../domain/customer/customerId.js';
+import type { CartCleared } from '#/app/domain/cart/cartEvent.js';
+import type { CartNotFoundError } from '#/app/domain/cart/cartNotFoundError.js';
+import type { CustomerId } from '#/app/domain/customer/customerId.js';
 
 type ClearCart = (
   customerId: CustomerId,

@@ -1,10 +1,10 @@
 import type { Result } from 'neverthrow';
 import * as z from 'zod';
 
-import { Price } from '../product/price.js';
-import { ProductId } from '../product/productId.js';
-import type { QuantityRefinementsError } from './quantity.js';
-import { Quantity } from './quantity.js';
+import type { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
+import { Quantity } from '#/app/domain/cart/quantity.js';
+import { Price } from '#/app/domain/product/price.js';
+import { ProductId } from '#/app/domain/product/productId.js';
 
 const schema = z
   .object({

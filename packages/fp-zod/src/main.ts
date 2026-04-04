@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { Age } from './domain/age';
-import { UserAccount } from './domain/userAccount';
-import { UserAccountName } from './domain/userAccountName';
+import { Age } from '#/domain/age.js';
+import { UserAccount } from '#/domain/userAccount.js';
+import { UserAccountName } from '#/domain/userAccountName.js';
 
 function main(args: unknown): void {
   const zodType = z.object({

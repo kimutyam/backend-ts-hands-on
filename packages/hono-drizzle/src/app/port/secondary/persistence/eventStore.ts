@@ -1,8 +1,8 @@
 import type { ResultAsync } from 'neverthrow';
 
-import type { Aggregate } from '../../../domain/aggregate.js';
-import type { DomainEvent } from '../../../domain/domainEvent.js';
-import type { ApplicationError } from '../../../util/applicationError.js';
+import type { Aggregate } from '#/app/domain/aggregate.js';
+import type { DomainEvent } from '#/app/domain/domainEvent.js';
+import type { ApplicationError } from '#/app/util/applicationError.js';
 
 interface StoreEvent<
   in A extends Aggregate<unknown>,

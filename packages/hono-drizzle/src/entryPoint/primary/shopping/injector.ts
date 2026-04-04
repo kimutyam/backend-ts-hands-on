@@ -1,18 +1,18 @@
 import type { Injector } from 'typed-inject';
 import { createInjector } from 'typed-inject';
 
-import { AddCartItem } from '../../../app/port/primary/shopping/addCartItem.js';
-import { ClearCart } from '../../../app/port/primary/shopping/clearCart.js';
-import { GetCart } from '../../../app/port/primary/shopping/getCart.js';
-import { RemoveCartItem } from '../../../app/port/primary/shopping/removeCartItem.js';
-import { AddCartItemUseCase } from '../../../app/useCase/addCartItem.js';
-import { ClearCartUseCase } from '../../../app/useCase/clearCart.js';
-import { GetCartUseCase } from '../../../app/useCase/getCart.js';
-import { RemoveCartItemUseCase } from '../../../app/useCase/removeCartItem.js';
-import type { PersistencePortInjector } from '../../secondary/persistence/injector.js';
-import { MemoryAdapterInjector } from '../../secondary/persistence/memory/injector.js';
-import { RdbAdapterInjector } from '../../secondary/persistence/rdb/injector.js';
-import type { ValidatedEnv } from '../validatedEnv.js';
+import { AddCartItem } from '#/app/port/primary/shopping/addCartItem.js';
+import { ClearCart } from '#/app/port/primary/shopping/clearCart.js';
+import { GetCart } from '#/app/port/primary/shopping/getCart.js';
+import { RemoveCartItem } from '#/app/port/primary/shopping/removeCartItem.js';
+import { AddCartItemUseCase } from '#/app/useCase/addCartItem.js';
+import { ClearCartUseCase } from '#/app/useCase/clearCart.js';
+import { GetCartUseCase } from '#/app/useCase/getCart.js';
+import { RemoveCartItemUseCase } from '#/app/useCase/removeCartItem.js';
+import type { ValidatedEnv } from '#/entryPoint/primary/validatedEnv.js';
+import type { PersistencePortInjector } from '#/entryPoint/secondary/persistence/injector.js';
+import { MemoryAdapterInjector } from '#/entryPoint/secondary/persistence/memory/injector.js';
+import { RdbAdapterInjector } from '#/entryPoint/secondary/persistence/rdb/injector.js';
 
 const createSelf = (injector: PersistencePortInjector) =>
   injector

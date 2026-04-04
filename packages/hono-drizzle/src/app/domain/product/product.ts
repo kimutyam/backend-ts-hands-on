@@ -2,14 +2,14 @@ import type { Result } from 'neverthrow';
 import * as R from 'remeda';
 import { z } from 'zod';
 
-import { createFromZod } from '../../util/result.js';
-import { Aggregate } from '../aggregate.js';
-import { DomainEvent } from '../domainEvent.js';
-import { Price } from './price.js';
-import { ProductRegistered } from './productEvent.js';
-import { ProductId } from './productId.js';
-import { ProductName } from './productName.js';
-import { ProductRefinementsError } from './productRefinementsError.js';
+import { Aggregate } from '#/app/domain/aggregate.js';
+import { DomainEvent } from '#/app/domain/domainEvent.js';
+import { Price } from '#/app/domain/product/price.js';
+import { ProductRegistered } from '#/app/domain/product/productEvent.js';
+import { ProductId } from '#/app/domain/product/productId.js';
+import { ProductName } from '#/app/domain/product/productName.js';
+import { ProductRefinementsError } from '#/app/domain/product/productRefinementsError.js';
+import { createFromZod } from '#/app/util/result.js';
 
 const aggregateName = 'Product';
 

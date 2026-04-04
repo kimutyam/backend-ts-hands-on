@@ -3,13 +3,13 @@ import assert from 'node:assert';
 import * as R from 'remeda';
 import { describe } from 'vitest';
 
-import { Aggregate } from '../../../../../app/domain/aggregate.js';
-import { Price } from '../../../../../app/domain/product/price.js';
-import { Product } from '../../../../../app/domain/product/product.js';
-import type { ProductRegistered } from '../../../../../app/domain/product/productEvent.js';
-import { ProductId } from '../../../../../app/domain/product/productId.js';
-import { ProductName } from '../../../../../app/domain/product/productName.js';
-import { ProductRepositoryOnMemory } from '../productRepository.js';
+import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepository.js';
+import { Aggregate } from '#/app/domain/aggregate.js';
+import { Price } from '#/app/domain/product/price.js';
+import { Product } from '#/app/domain/product/product.js';
+import type { ProductRegistered } from '#/app/domain/product/productEvent.js';
+import { ProductId } from '#/app/domain/product/productId.js';
+import { ProductName } from '#/app/domain/product/productName.js';
 
 const registerProduct = (
   aggregateId: ProductId,

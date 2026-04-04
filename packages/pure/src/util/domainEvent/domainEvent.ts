@@ -1,4 +1,4 @@
-import type { DomainEventAttribute } from './domainEventAttribute';
+import type { DomainEventAttribute } from '#/util/domainEvent/domainEventAttribute.js';
 
 export interface DomainEvent<T extends object> {
   eventAttribute: DomainEventAttribute;

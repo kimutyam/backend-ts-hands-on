@@ -1,6 +1,6 @@
 /* global vi */
 
-import { createShutdownHandler } from '../server.js';
+import { createShutdownHandler } from '#/entryPoint/primary/shopping/web/server.js';
 
 const createPendingPromise = (): Promise<never> => Promise.race([]);
 type ShutdownHandler = ReturnType<typeof createShutdownHandler>;

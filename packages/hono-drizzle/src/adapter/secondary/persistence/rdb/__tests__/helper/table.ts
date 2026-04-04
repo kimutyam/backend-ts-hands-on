@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 
-import type { Db } from '../../db.js';
+import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
 
 const getAllTableNames = async (db: Db): Promise<ReadonlyArray<string>> => {
   const queryResult = await db.execute<{

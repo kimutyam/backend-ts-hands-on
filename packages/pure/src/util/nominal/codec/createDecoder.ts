@@ -1,5 +1,5 @@
-import type { Decoder } from '../../codec/decoder';
-import type { Nominal } from '../nominal';
+import type { Decoder } from '#/util/codec/decoder.js';
+import type { Nominal } from '#/util/nominal/nominal.js';
 
 export const decodeNominal =
   <Name extends string>(name: Name) =>

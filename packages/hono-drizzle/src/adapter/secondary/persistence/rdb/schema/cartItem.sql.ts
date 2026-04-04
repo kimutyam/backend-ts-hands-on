@@ -1,7 +1,7 @@
 import { integer, pgTable, primaryKey, varchar } from 'drizzle-orm/pg-core';
 
-import { cartTable } from './cart.sql.js';
-import { timestamps } from './columns.helpers.js';
+import { cartTable } from '#/adapter/secondary/persistence/rdb/schema/cart.sql.js';
+import { timestamps } from '#/adapter/secondary/persistence/rdb/schema/columns.helpers.js';
 
 const cartItemTable = pgTable(
   'cart_item',

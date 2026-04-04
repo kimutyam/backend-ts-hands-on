@@ -2,12 +2,12 @@ import assert from 'node:assert';
 
 import * as R from 'remeda';
 
-import { Aggregate } from '../../aggregate.js';
-import { CustomerId } from '../../customer/customerId.js';
-import { Price } from '../../product/price.js';
-import { ProductId } from '../../product/productId.js';
-import { Cart } from '../cart.js';
-import { Quantity } from '../quantity.js';
+import { Aggregate } from '#/app/domain/aggregate.js';
+import { Cart } from '#/app/domain/cart/cart.js';
+import { Quantity } from '#/app/domain/cart/quantity.js';
+import { CustomerId } from '#/app/domain/customer/customerId.js';
+import { Price } from '#/app/domain/product/price.js';
+import { ProductId } from '#/app/domain/product/productId.js';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {
