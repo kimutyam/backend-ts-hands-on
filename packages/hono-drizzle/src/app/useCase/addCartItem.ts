@@ -23,7 +23,7 @@ const toCartItem =
       price: product.price,
     });
 
-const resolveCart =
+const addCartItem =
   (customerId: CustomerId, findCartById: FindCartById) => (item: CartItem) =>
     findCartById(customerId)
       .orElse(() => okAsync(Cart.init(customerId)))
@@ -38,7 +38,7 @@ const create =
   (customerId, productId, quantity) =>
     findProductById(productId)
       .map(toCartItem(quantity))
-      .andThen(resolveCart(customerId, findCartById))
+      .andThen(addCartItem(customerId, findCartById))
       .andTee(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 
