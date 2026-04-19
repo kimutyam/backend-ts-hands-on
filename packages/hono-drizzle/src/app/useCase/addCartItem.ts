@@ -1,3 +1,4 @@
+import type { ResultAsync } from 'neverthrow';
 import { okAsync } from 'neverthrow';
 
 import { Cart } from '#/app/domain/cart/cart.js';
@@ -23,11 +24,11 @@ const toCartItem =
       price: product.price,
     });
 
-const addCartItem =
-  (customerId: CustomerId, findCartById: FindCartById) => (item: CartItem) =>
-    findCartById(customerId)
-      .orElse(() => okAsync(Cart.init(customerId)))
-      .andThen((cart) => Cart.addCartItem(item)(cart));
+const getCart = (
+  customerId: CustomerId,
+  findCartById: FindCartById,
+): ResultAsync<Cart, never> =>
+  findCartById(customerId).orElse(() => okAsync(Cart.init(customerId)));
 
 const create =
   (
@@ -38,7 +39,9 @@ const create =
   (customerId, productId, quantity) =>
     findProductById(productId)
       .map(toCartItem(quantity))
-      .andThen(addCartItem(customerId, findCartById))
+      .andThen((cartItem) =>
+        getCart(customerId, findCartById).andThen(Cart.addCartItem(cartItem)),
+      )
       .andTee(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 
