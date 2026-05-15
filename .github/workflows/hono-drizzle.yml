@@ -38,7 +38,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
-      - uses: pnpm/action-setup@v5
+      - uses: pnpm/action-setup@v6
         with:
           version: 10
       - name: pnpm install
