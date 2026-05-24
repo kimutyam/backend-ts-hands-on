@@ -1,7 +1,14 @@
 ---
 packages:
-  - packages/book
   - packages/fp
-  - packages/fp-zod
   - packages/pure
   - packages/hono-drizzle
+strictDepBuilds: true
+onlyBuiltDependencies:
+  - esbuild
+minimumReleaseAge: 1440
+# 推移的依存のgit/tarball URLを禁止
+blockExoticSubdeps: true
+
+# 信頼レベルの低下を検知
+trustPolicy: no-downgrade
