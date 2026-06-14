@@ -3,10 +3,11 @@
 import { createShutdownHandler } from '#/entryPoint/primary/shopping/web/server.js';
 
 const createPendingPromise = (): Promise<never> => Promise.race([]);
+type ShutdownHandlerDeps = Parameters<typeof createShutdownHandler>[0];
+type ShutdownTargetServer = ShutdownHandlerDeps['server'];
+type ShutdownInjector = ShutdownHandlerDeps['injector'];
 type ShutdownHandler = ReturnType<typeof createShutdownHandler>;
-type ShutdownTargetServer = Parameters<ShutdownHandler>[0];
-type ShutdownInjector = Parameters<ShutdownHandler>[1];
-type ShutdownContext = Parameters<ShutdownHandler>[2];
+type ShutdownContext = Parameters<ShutdownHandler>[0];
 
 const createServerStub = (): ShutdownTargetServer => ({
   close: vi.fn(),
@@ -22,6 +23,7 @@ const createShutdownContext = (
   overrides: Partial<ShutdownContext> = {},
 ): ShutdownContext => ({
   reason: 'SIGTERM',
+  code: 0,
   ...overrides,
 });
 
@@ -35,25 +37,22 @@ describe('createShutdownHandler', () => {
     vi.useFakeTimers();
 
     const exitProcess = vi.fn();
-    const shutdownHandler = createShutdownHandler({
-      closeServer: () => createPendingPromise(),
-      exitProcess,
-      shutdownTimeoutMs: 10,
-    });
     const dispose: ShutdownInjector['dispose'] = vi.fn(() =>
       createPendingPromise(),
     );
     const injector = createInjectorStub(dispose);
     const server = createServerStub();
-
-    const shutdownPromise = shutdownHandler(
+    const shutdownHandler = createShutdownHandler({
       server,
       injector,
-      createShutdownContext(),
-    );
+      closeServer: () => createPendingPromise(),
+      exitProcess,
+      shutdownTimeoutMs: 10,
+    });
+
+    shutdownHandler(createShutdownContext());
     await vi.advanceTimersByTimeAsync(10);
 
-    expect(shutdownPromise).toBeInstanceOf(Promise);
     expect(dispose).not.toHaveBeenCalled();
     expect(exitProcess).toHaveBeenCalledWith(1);
   });
@@ -69,22 +68,22 @@ describe('createShutdownHandler', () => {
         }),
     );
     const exitProcess = vi.fn();
+    const injector = createInjectorStub();
+    const server = createServerStub();
     const shutdownHandler = createShutdownHandler({
+      server,
+      injector,
       closeServer,
       exitProcess,
       shutdownTimeoutMs: 10,
     });
-    const injector = createInjectorStub();
-    const server = createServerStub();
 
-    const shutdownPromise = shutdownHandler(
-      server,
-      injector,
-      createShutdownContext(),
-    );
+    shutdownHandler(createShutdownContext());
     await vi.advanceTimersByTimeAsync(10);
     resolveCloseServer?.();
-    await shutdownPromise;
+    await vi.waitFor(() => {
+      expect(injector.dispose).toHaveBeenCalledTimes(1);
+    });
 
     expect(exitProcess).toHaveBeenCalledTimes(1);
     expect(exitProcess).toHaveBeenCalledWith(1);
@@ -98,11 +97,6 @@ describe('createShutdownHandler', () => {
         callOrder.push('closeServer');
       }),
     );
-    const shutdownHandler = createShutdownHandler({
-      closeServer,
-      exitProcess,
-      shutdownTimeoutMs: 10,
-    });
     const dispose: ShutdownInjector['dispose'] = vi.fn(() =>
       Promise.resolve().then(() => {
         callOrder.push('dispose');
@@ -110,12 +104,45 @@ describe('createShutdownHandler', () => {
     );
     const injector = createInjectorStub(dispose);
     const server = createServerStub();
+    const shutdownHandler = createShutdownHandler({
+      server,
+      injector,
+      closeServer,
+      exitProcess,
+      shutdownTimeoutMs: 10,
+    });
 
-    await shutdownHandler(server, injector, createShutdownContext());
+    shutdownHandler(createShutdownContext());
+    await vi.waitFor(() => {
+      expect(exitProcess).toHaveBeenCalledWith(0);
+    });
 
     expect(closeServer).toHaveBeenCalledTimes(1);
     expect(dispose).toHaveBeenCalledTimes(1);
     expect(callOrder).toStrictEqual(['closeServer', 'dispose']);
     expect(exitProcess).toHaveBeenCalledWith(0);
+  });
+
+  it('shutdown が複数回要求されても終了処理は一度だけ実行する', async () => {
+    const closeServer = vi.fn(() => Promise.resolve());
+    const exitProcess = vi.fn();
+    const injector = createInjectorStub();
+    const server = createServerStub();
+    const shutdownHandler = createShutdownHandler({
+      server,
+      injector,
+      closeServer,
+      exitProcess,
+    });
+
+    shutdownHandler(createShutdownContext());
+    shutdownHandler(createShutdownContext({ reason: 'SIGINT' }));
+    await vi.waitFor(() => {
+      expect(exitProcess).toHaveBeenCalledTimes(1);
+    });
+
+    expect(closeServer).toHaveBeenCalledTimes(1);
+    expect(injector.dispose).toHaveBeenCalledTimes(1);
+    expect(exitProcess).toHaveBeenCalledTimes(1);
   });
 });
