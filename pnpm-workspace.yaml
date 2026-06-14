@@ -13,3 +13,6 @@ trustPolicy: no-downgrade
 allowBuilds:
   esbuild: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  # Renovate security update: vitest@3.2.6
+  - vitest@3.2.6
