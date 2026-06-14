@@ -41,7 +41,7 @@ const createShutdownHandler = ({
   server,
   injector,
   closeServer: closeServerFn = closeServer,
-  exitProcess = process.exit.bind(process),
+  exitProcess = (code) => process.exit(code),
   shutdownTimeoutMs = 10_000,
 }: ShutdownHandlerDeps) => {
   let shutdownPromise: Promise<void> | undefined;
