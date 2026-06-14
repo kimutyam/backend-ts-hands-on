@@ -5,15 +5,14 @@
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
-    "@eslint/compat": "2.1.0",
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
     "@typescript-eslint/eslint-plugin": "8.59.4",
     "@typescript-eslint/parser": "8.59.4",
     "eslint": "10.4.0",
-    "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-import": "2.32.0",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import-x": "4.16.2",
     "globals": "17.6.0",
     "prettier": "3.8.3",
     "typescript": "6.0.3"

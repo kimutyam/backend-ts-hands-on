@@ -16,6 +16,7 @@ const create = (
 });
 
 const RegisterProductValidateError = {
+  kind,
   create,
 } as const;
 
