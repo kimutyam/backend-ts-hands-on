@@ -29,8 +29,8 @@ export default [
     },
     rules: {
       'no-console': 'off',
-      'import/order': 'off',
-      'import/extensions': [
+      'import-x/order': 'off',
+      'import-x/extensions': [
         'error',
         'ignorePackages',
         {

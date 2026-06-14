@@ -22,16 +22,16 @@ const serveApp = (app: App): ServerType =>
 
 const SHUTDOWN_TIMEOUT_MS = 10_000;
 
-type ShutdownHandlerDeps = {
+interface ShutdownHandlerDeps {
   closeServer?: (server: ClosableServer) => Promise<void>;
   exitProcess?: (code: number) => void;
   shutdownTimeoutMs?: number;
-};
+}
 
-type ShutdownContext = {
+interface ShutdownContext {
   reason: string;
   code?: number;
-};
+}
 
 const closeServer = async (server: ClosableServer): Promise<void> => {
   await promisify(server.close.bind(server))();

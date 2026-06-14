@@ -8,6 +8,6 @@ export type DomainEventAttribute = Readonly<{
 export const DomainEventAttribute = {
   generate: (eventAt?: Date): DomainEventAttribute => ({
     eventId: DomainEventId.generate(),
-    eventAt: eventAt || new Date(),
+    eventAt: eventAt ?? new Date(),
   }),
 } as const;

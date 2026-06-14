@@ -2,11 +2,9 @@ import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import { FlatCompat } from '@eslint/eslintrc';
-import { fixupConfigRules } from '@eslint/compat';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import { importX } from 'eslint-plugin-import-x';
 import globals from 'globals';
-
-const compat = new FlatCompat();
 
 export default [
   {
@@ -14,7 +12,6 @@ export default [
   },
   js.configs.recommended,
   eslintConfigPrettier,
-  ...fixupConfigRules(compat.extends('airbnb-base')),
   {
     name: 'prettier',
     rules: {
@@ -25,6 +22,7 @@ export default [
     files: ['**/*.ts'],
     plugins: {
       '@typescript-eslint': tsPlugin,
+      'import-x': importX,
     },
     languageOptions: {
       globals: {
@@ -37,9 +35,18 @@ export default [
         sourceType: 'module',
       },
     },
+    settings: {
+      'import-x/resolver-next': [createTypeScriptImportResolver()],
+    },
     rules: {
       ...tsPlugin.configs['strict-type-checked'].rules,
+      ...tsPlugin.configs['stylistic-type-checked'].rules,
+      ...importX.flatConfigs.recommended.rules,
+      ...importX.flatConfigs.typescript.rules,
       'no-const-assign': 'off',
+      'no-console': 'error',
+      'no-redeclare': 'off', // コンパニオンオブジェクト用
+      '@typescript-eslint/no-redeclare': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-inferrable-types': 'error',
@@ -57,6 +64,7 @@ export default [
         },
       ],
       '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': [
         'error',
@@ -67,11 +75,10 @@ export default [
       '@typescript-eslint/no-misused-promises': 'error',
       '@typescript-eslint/no-namespace': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      'import/prefer-default-export': 'off',
+      'import-x/prefer-default-export': 'off',
+      '@typescript-eslint/prefer-function-type': 'off',
       'import/no-unresolved': 'off',
-      'import/export': 'off',
-      'import/extensions': 'off',
-      'import/order': [
+      'import-x/order': [
         'error',
         {
           groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
@@ -88,7 +95,7 @@ export default [
           },
         },
       ],
-      'import/no-extraneous-dependencies': [
+      'import-x/no-extraneous-dependencies': [
         'error',
         {
           devDependencies: ['**/test/**', '**/__tests__/**'],
@@ -102,7 +109,6 @@ export default [
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': ['error'],
       'arrow-body-style': ['error', 'as-needed'],
-      // SEE: https://github.com/iamturns/eslint-config-airbnb-typescript/blob/91fd090f6fdd8d598a6ac6e9bb2c2ba33014e425/lib/shared.js#L84-L87
       'dot-notation': 'off',
       '@typescript-eslint/no-unnecessary-type-parameters': 'off',
     },
