@@ -111,6 +111,10 @@ export default [
       'arrow-body-style': ['error', 'as-needed'],
       'dot-notation': 'off',
       '@typescript-eslint/no-unnecessary-type-parameters': 'off',
+      'prefer-const': 'error',
+      'no-param-reassign': ['error', { props: true }],
+      'max-classes-per-file': 'error',
+      'no-plusplus': 'error',
     },
   },
   {
