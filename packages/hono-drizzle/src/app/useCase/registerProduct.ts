@@ -5,15 +5,13 @@ import { StoreProductEvent } from '#/app/port/secondary/persistence/productEvent
 
 const create =
   (storeProductEvent: StoreProductEvent): RegisterProduct =>
-  (name, price) => {
-    const aggregateId = ProductId.generate();
-    return Product.init(aggregateId, name, price)
+  (name, price) =>
+    Product.generate(name, price, () => ProductId.generate())
       .map(Product.register)
       .asyncAndThrough(([aggregate, event]) =>
         storeProductEvent(event, aggregate),
       )
       .map(([, event]) => event);
-  };
 
 create.inject = [StoreProductEvent.token] as const;
 

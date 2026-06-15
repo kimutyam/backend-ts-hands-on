@@ -5,9 +5,8 @@ import * as R from 'remeda';
 import { Cart } from '#/app/domain/cart/cart.js';
 import type { CartCleared } from '#/app/domain/cart/cartEvent.js';
 import type { CartItem } from '#/app/domain/cart/cartItem.js';
-import { DomainEvent } from '#/app/domain/domainEvent.js';
 import { Order } from '#/app/domain/order/order.js';
-import { OrderRequested } from '#/app/domain/order/orderEvent.js';
+import type { OrderRequested } from '#/app/domain/order/orderEvent.js';
 import { OrderId } from '#/app/domain/order/orderId.js';
 import type { Product } from '#/app/domain/product/product.js';
 import { ProductId } from '#/app/domain/product/productId.js';
@@ -25,10 +24,11 @@ const assertExistsProduct = (
 };
 
 const applyPrice = (
-  { cartItems }: Cart,
+  cart: Cart,
   products: ReadonlyArray<Product>,
-): ReadonlyArray<CartItem> =>
-  cartItems.reduce<Array<CartItem>>((acc, item) => {
+): ReadonlyArray<CartItem> => {
+  const { cartItems } = cart;
+  return cartItems.reduce<Array<CartItem>>((acc, item) => {
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
@@ -41,6 +41,7 @@ const applyPrice = (
     }
     return acc;
   }, []);
+};
 
 const requestOrder = (
   cart: Cart,
@@ -49,13 +50,9 @@ const requestOrder = (
 ): [Order, OrderRequested, Cart, CartCleared] => {
   assertExistsProduct(cart, products);
   const items = applyPrice(cart, products);
-  const order = Order.generate(cart.aggregateId, items, generateOrderId);
-  const orderRequested = R.pipe(
-    order,
-    DomainEvent.generate(Order.aggregateName, OrderRequested.eventName, {
-      customerId: cart.aggregateId,
-      items: order.items,
-    }),
+  const [order, orderRequested] = R.pipe(
+    Order.generate(cart.aggregateId, items, generateOrderId),
+    Order.request,
   );
   const [newCart, cartClearedOnOrder] = R.pipe(cart, Cart.clear('OnOrder'));
   return [order, orderRequested, newCart, cartClearedOnOrder];

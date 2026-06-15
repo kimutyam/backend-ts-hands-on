@@ -5,7 +5,7 @@ interface Aggregate<AggregateId> {
   readonly sequenceNumber: number;
 }
 
-const InitialSequenceNumber = 1;
+const InitialSequenceNumber = 0;
 
 const incrementSequenceNumber = (sequenceNumber: number): number =>
   sequenceNumber + 1;
