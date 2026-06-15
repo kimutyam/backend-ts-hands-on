@@ -80,7 +80,7 @@ importers:
         version: 2.0.3(hono@4.12.21)
       '@hono/zod-openapi':
         specifier: 1.4.0
-        version: 1.4.0(hono@4.12.21)(zod@4.3.6)
+        version: 1.4.0(hono@4.12.21)(zod@4.4.3)
       '@scalar/hono-api-reference':
         specifier: 0.10.16
         version: 0.10.16(hono@4.12.21)
@@ -115,8 +115,8 @@ importers:
         specifier: 18.0.0
         version: 18.0.0
       zod:
-        specifier: 4.3.6
-        version: 4.3.6
+        specifier: 4.4.3
+        version: 4.4.3
     devDependencies:
       '@types/node':
         specifier: 24.12.4
@@ -2358,6 +2358,7 @@ packages:
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
+    deprecated: unmaintained
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -2559,6 +2560,9 @@ packages:
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -2566,10 +2570,10 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@asteasolutions/zod-to-openapi@8.5.0(zod@4.3.6)':
+  '@asteasolutions/zod-to-openapi@8.5.0(zod@4.4.3)':
     dependencies:
       openapi3-ts: 4.6.0
-      zod: 4.3.6
+      zod: 4.4.3
 
   '@babel/helper-string-parser@7.29.7': {}
 
@@ -2970,18 +2974,18 @@ snapshots:
     dependencies:
       hono: 4.12.21
 
-  '@hono/zod-openapi@1.4.0(hono@4.12.21)(zod@4.3.6)':
+  '@hono/zod-openapi@1.4.0(hono@4.12.21)(zod@4.4.3)':
     dependencies:
-      '@asteasolutions/zod-to-openapi': 8.5.0(zod@4.3.6)
-      '@hono/zod-validator': 0.8.0(hono@4.12.21)(zod@4.3.6)
+      '@asteasolutions/zod-to-openapi': 8.5.0(zod@4.4.3)
+      '@hono/zod-validator': 0.8.0(hono@4.12.21)(zod@4.4.3)
       hono: 4.12.21
       openapi3-ts: 4.6.0
-      zod: 4.3.6
+      zod: 4.4.3
 
-  '@hono/zod-validator@0.8.0(hono@4.12.21)(zod@4.3.6)':
+  '@hono/zod-validator@0.8.0(hono@4.12.21)(zod@4.4.3)':
     dependencies:
       hono: 4.12.21
-      zod: 4.3.6
+      zod: 4.4.3
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -4555,3 +4559,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@4.3.6: {}
+
+  zod@4.4.3: {}
