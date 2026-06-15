@@ -37,7 +37,12 @@ const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
 
 const register = (aggregate: Product): [Product, ProductRegistered] => {
   const event = R.pipe(
-    aggregate,
+    parse({
+      ...aggregate,
+      sequenceNumber: Aggregate.incrementSequenceNumber(
+        aggregate.sequenceNumber,
+      ),
+    }),
     DomainEvent.generate(aggregateName, ProductRegistered.eventName, {
       product: aggregate,
     }),
@@ -45,13 +50,18 @@ const register = (aggregate: Product): [Product, ProductRegistered] => {
   return [aggregate, event];
 };
 
-const init = (
-  aggregateId: ProductId,
+const generate = (
   name: ProductName,
   price: Price,
+  generateProductId: () => ProductId,
 ): Result<Product, ProductRefinementsError> => {
   const sequenceNumber = Aggregate.InitialSequenceNumber;
-  return safeParse({ aggregateId, sequenceNumber, name, price });
+  return safeParse({
+    aggregateId: generateProductId(),
+    sequenceNumber,
+    name,
+    price,
+  });
 };
 
 const Product = {
@@ -59,7 +69,7 @@ const Product = {
   schema,
   parse,
   safeParse,
-  init,
+  generate,
   register,
 } as const;
 

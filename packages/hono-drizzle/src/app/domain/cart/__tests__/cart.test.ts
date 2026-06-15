@@ -2,7 +2,6 @@ import assert from 'node:assert';
 
 import * as R from 'remeda';
 
-import { Aggregate } from '#/app/domain/aggregate.js';
 import { Cart } from '#/app/domain/cart/cart.js';
 import { Quantity } from '#/app/domain/cart/quantity.js';
 import { CustomerId } from '#/app/domain/customer/customerId.js';
@@ -22,6 +21,7 @@ describe('addCartItem', () => {
     const result = R.pipe(Cart.init(customId), Cart.addCartItem(cartItem));
     assert(result.isOk());
     const [addedCart, event] = result.value;
+    expect(addedCart.sequenceNumber).toBe(1);
     expect(addedCart.cartItems).toStrictEqual([cartItem]);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(cartItem);
@@ -43,19 +43,19 @@ describe('addCartItem', () => {
     const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
-        sequenceNumber: Aggregate.InitialSequenceNumber,
+        sequenceNumber: 1,
         cartItems: [cartItem],
       }),
       Cart.addCartItem(targetCartItem),
     );
     assert(result.isOk());
-    const [addedCartItem, event] = result.value;
+    const [addedCart, event] = result.value;
     const expectation = Cart.parse({
       aggregateId: customId,
       sequenceNumber: 2,
       cartItems: [cartItem, targetCartItem],
     });
-    expect(addedCartItem).toStrictEqual(expectation);
+    expect(addedCart).toStrictEqual(expectation);
     assert(event.eventName === 'CartItemAdded');
     expect(event.payload.cartItem).toStrictEqual(targetCartItem);
   });
@@ -82,7 +82,7 @@ describe('addCartItem', () => {
     const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
-        sequenceNumber: Aggregate.InitialSequenceNumber,
+        sequenceNumber: 1,
         cartItems,
       }),
       Cart.addCartItem(targetCartItem),
@@ -125,7 +125,7 @@ describe('removeCartItem', () => {
     const result = R.pipe(
       Cart.parse({
         aggregateId: customId,
-        sequenceNumber: Aggregate.InitialSequenceNumber,
+        sequenceNumber: 1,
         cartItems,
       }),
       Cart.removeCartItem(cartItems[0]!.productId),
@@ -136,8 +136,8 @@ describe('removeCartItem', () => {
       cartItems: [cartItems[1]!],
     });
     assert(result.isOk());
-    const [removedCartItem, event] = result.value;
-    expect(removedCartItem).toEqual(expectation);
+    const [removedCart, event] = result.value;
+    expect(removedCart).toEqual(expectation);
     expect(event.eventName).toBe('CartItemRemoved');
     expect(event.payload.productId).toStrictEqual(cartItems[0]!.productId);
   });

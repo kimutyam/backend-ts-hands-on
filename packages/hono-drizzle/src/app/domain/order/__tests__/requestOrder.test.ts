@@ -1,6 +1,5 @@
 import { describe, expect } from 'vitest';
 
-import { Aggregate } from '#/app/domain/aggregate.js';
 import { Cart } from '#/app/domain/cart/cart.js';
 import { Quantity } from '#/app/domain/cart/quantity.js';
 import { CustomerId } from '#/app/domain/customer/customerId.js';
@@ -15,13 +14,13 @@ describe('requestOrder', () => {
     const products: Array<Product> = [
       Product.parse({
         aggregateId: ProductId.generate(),
-        sequenceNumber: Aggregate.InitialSequenceNumber,
+        sequenceNumber: 1,
         name: 'product1',
         price: Price.parse(1_001),
       }),
       Product.parse({
         aggregateId: ProductId.generate(),
-        sequenceNumber: Aggregate.InitialSequenceNumber,
+        sequenceNumber: 2,
         name: 'product2',
         price: Price.parse(2_001),
       }),
@@ -29,7 +28,7 @@ describe('requestOrder', () => {
 
     const cart = Cart.parse({
       aggregateId: CustomerId.generate(),
-      sequenceNumber: Aggregate.InitialSequenceNumber,
+      sequenceNumber: 1,
       cartItems: [
         {
           productId: products[0]!.aggregateId,
