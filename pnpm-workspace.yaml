@@ -16,3 +16,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   # Renovate security update: vitest@3.2.6
   - vitest@3.2.6
+  # Renovate security update: hono@4.12.25
+  - hono@4.12.25
