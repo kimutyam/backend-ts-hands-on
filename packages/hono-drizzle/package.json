@@ -36,7 +36,7 @@
     "hono": "4.12.25",
     "neverthrow": "8.2.0",
     "pg": "8.21.0",
-    "remeda": "2.34.1",
+    "remeda": "2.39.0",
     "typed-inject": "5.0.0",
     "ulidx": "2.4.1",
     "yargs": "18.0.0",
