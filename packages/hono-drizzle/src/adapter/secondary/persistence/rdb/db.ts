@@ -48,7 +48,7 @@ const getInstance = (url: DatabaseUrl): Db => {
 getInstance.inject = [DatabaseUrl.token] as const;
 
 const Db = {
-  token: 'Db' as const,
+  token: 'Db',
   getInstance,
 } as const;
 
