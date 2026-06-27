@@ -42,7 +42,7 @@ const create =
       .andThen((cartItem) =>
         getCart(customerId, findCartById).andThen(Cart.addCartItem(cartItem)),
       )
-      .andTee(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
+      .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 
 create.inject = [
