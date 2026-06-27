@@ -77,13 +77,13 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: 2.0.6
-        version: 2.0.6(hono@4.12.26)
+        version: 2.0.6(hono@4.12.27)
       '@hono/zod-openapi':
         specifier: 1.4.0
-        version: 1.4.0(hono@4.12.26)(zod@4.4.3)
+        version: 1.4.0(hono@4.12.27)(zod@4.4.3)
       '@scalar/hono-api-reference':
         specifier: 0.11.5
-        version: 0.11.5(hono@4.12.26)
+        version: 0.11.5(hono@4.12.27)
       date-fns:
         specifier: 4.4.0
         version: 4.4.0
@@ -94,8 +94,8 @@ importers:
         specifier: 0.45.2
         version: 0.45.2(@types/pg@8.20.0)(pg@8.21.0)
       hono:
-        specifier: 4.12.26
-        version: 4.12.26
+        specifier: 4.12.27
+        version: 4.12.27
       neverthrow:
         specifier: 8.2.0
         version: 8.2.0
@@ -1893,8 +1893,8 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
-  hono@4.12.26:
-    resolution: {integrity: sha512-uyZtpnYxM9CmQ7QsQknM4zN8EftNqhON1qYeIKM0Se67CCEe2c44xyGURwB0axX2fBDu1dqHrHAc1hmNT8ITkw==}
+  hono@4.12.27:
+    resolution: {integrity: sha512-1yrb/+w6HWQJrUCLkJ2IF5jNIPvvFkblV5RNOYl6bV+OA6p9GLcMpHFFGTosSvHvcAUibuUukRqhlYI4z32C7Q==}
     engines: {node: '>=16.9.0'}
 
   html-escaper@2.0.2:
@@ -2962,21 +2962,21 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@hono/node-server@2.0.6(hono@4.12.26)':
+  '@hono/node-server@2.0.6(hono@4.12.27)':
     dependencies:
-      hono: 4.12.26
+      hono: 4.12.27
 
-  '@hono/zod-openapi@1.4.0(hono@4.12.26)(zod@4.4.3)':
+  '@hono/zod-openapi@1.4.0(hono@4.12.27)(zod@4.4.3)':
     dependencies:
       '@asteasolutions/zod-to-openapi': 8.5.0(zod@4.4.3)
-      '@hono/zod-validator': 0.8.0(hono@4.12.26)(zod@4.4.3)
-      hono: 4.12.26
+      '@hono/zod-validator': 0.8.0(hono@4.12.27)(zod@4.4.3)
+      hono: 4.12.27
       openapi3-ts: 4.6.0
       zod: 4.4.3
 
-  '@hono/zod-validator@0.8.0(hono@4.12.26)(zod@4.4.3)':
+  '@hono/zod-validator@0.8.0(hono@4.12.27)(zod@4.4.3)':
     dependencies:
-      hono: 4.12.26
+      hono: 4.12.27
       zod: 4.4.3
 
   '@humanfs/core@0.19.2':
@@ -3122,10 +3122,10 @@ snapshots:
 
   '@scalar/helpers@0.8.2': {}
 
-  '@scalar/hono-api-reference@0.11.5(hono@4.12.26)':
+  '@scalar/hono-api-reference@0.11.5(hono@4.12.27)':
     dependencies:
       '@scalar/client-side-rendering': 0.2.5
-      hono: 4.12.26
+      hono: 4.12.27
 
   '@scalar/schemas@0.6.0':
     dependencies:
@@ -3907,7 +3907,7 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  hono@4.12.26: {}
+  hono@4.12.27: {}
 
   html-escaper@2.0.2: {}
 
