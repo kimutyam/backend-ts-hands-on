@@ -42,7 +42,7 @@ const createSelectProductFn =
     );
 
 const createTruncateTableFn = (db: Db) => async () => {
-  await db.execute('TRUNCATE TABLE public.product');
+  await db.execute('TRUNCATE TABLE product');
 };
 
 describe.sequential('ProductEventStore', () => {
