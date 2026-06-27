@@ -42,7 +42,7 @@ const createTruncateTableFn = (db: Db) => async () => {
   await db.execute('TRUNCATE TABLE cart, cart_item');
 };
 
-describe.sequential('FindCartById', () => {
+describe('FindCartById', () => {
   const db = getDbInstanceFromEnv();
   const findCartById = CartRepository.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
