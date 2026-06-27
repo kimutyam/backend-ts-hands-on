@@ -54,9 +54,7 @@ const createSelectCartItemFn =
     );
 
 const createTruncateTableFn = (db: Db) => async () => {
-  await db.execute(
-    'TRUNCATE TABLE public.domain_event, public.cart, public.cart_item',
-  );
+  await db.execute('TRUNCATE TABLE domain_event, cart, cart_item');
 };
 
 describe.sequential('CartEventStore', () => {

@@ -22,7 +22,7 @@ const createSetupFn = (db: Db) => async (productId: ProductId) => {
 };
 
 const createTruncateTableFn = (db: Db) => async () => {
-  await db.execute('TRUNCATE TABLE public.product');
+  await db.execute('TRUNCATE TABLE product');
 };
 
 describe.sequential('FindProductById', () => {

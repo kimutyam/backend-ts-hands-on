@@ -39,7 +39,7 @@ const setupWithoutCartItemFn = (db: Db) => async (customerId: CustomerId) => {
 };
 
 const createTruncateTableFn = (db: Db) => async () => {
-  await db.execute('TRUNCATE TABLE public.cart, public.cart_item');
+  await db.execute('TRUNCATE TABLE cart, cart_item');
 };
 
 describe.sequential('FindCartById', () => {
