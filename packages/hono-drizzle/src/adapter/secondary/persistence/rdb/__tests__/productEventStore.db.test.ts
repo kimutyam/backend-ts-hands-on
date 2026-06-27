@@ -45,7 +45,7 @@ const createTruncateTableFn = (db: Db) => async () => {
   await db.execute('TRUNCATE TABLE product');
 };
 
-describe.sequential('ProductEventStore', () => {
+describe('ProductEventStore', () => {
   const db = getDbInstanceFromEnv();
   const storeProductEvent = ProductEventStore.createStoreFn(db);
   const truncateTable = createTruncateTableFn(db);

@@ -25,7 +25,7 @@ const createTruncateTableFn = (db: Db) => async () => {
   await db.execute('TRUNCATE TABLE product');
 };
 
-describe.sequential('FindProductById', () => {
+describe('FindProductById', () => {
   const db = getDbInstanceFromEnv();
   const findProductById = ProductRepository.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
