@@ -24,12 +24,12 @@ const validate =
   (
     selects: ReadonlyArray<Select>,
   ): Result<ReadonlyArray<Select>, CartNotFoundError> => {
-    const selectCount = selects.length;
-    if (selectCount === 0) {
+    if (selects.length === 0) {
       return err(CartNotFoundError.create(aggregateId));
     }
 
-    if (selectCount > 1) {
+    const customerIds = new Set(selects.map(({ cart }) => cart.customerId));
+    if (customerIds.size > 1) {
       throw new Error(
         `顧客IDでの索引で複数のカートが見つかりました: ${aggregateId}`,
       );
