@@ -19,20 +19,22 @@ interface Select {
   cart_item: CartItemSelect | null;
 }
 
-const validate =
+const validateExists =
   (aggregateId: CustomerId) =>
-  (selects: ReadonlyArray<Select>): Result<void, CartNotFoundError> => {
-    if (selects.length === 0) {
-      return err(CartNotFoundError.create(aggregateId));
-    }
+  (selects: ReadonlyArray<Select>): Result<void, CartNotFoundError> =>
+    selects.length === 0
+      ? err(CartNotFoundError.create(aggregateId))
+      : ok(undefined);
 
+const validateUnique =
+  (aggregateId: CustomerId) =>
+  (selects: ReadonlyArray<Select>): void => {
     const customerIds = new Set(selects.map(({ cart }) => cart.customerId));
     if (customerIds.size > 1) {
       throw new Error(
         `顧客IDでの索引で複数のカートが見つかりました: ${aggregateId}`,
       );
     }
-    return ok(undefined);
   };
 
 const toCartItem = (select: CartItemSelect): CartItem => {
@@ -70,7 +72,8 @@ const createFindByIdFn =
         )
         .where(eq(cartTable.customerId, aggregateId)),
     )
-      .andThrough(validate(aggregateId))
+      .andThrough(validateExists(aggregateId))
+      .andTee(validateUnique(aggregateId))
       .map(toCart);
 
 createFindByIdFn.inject = [Db.token] as const;

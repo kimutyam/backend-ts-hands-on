@@ -10,37 +10,31 @@ import type { FindProductById } from '#/app/port/secondary/persistence/productRe
 
 type ProductSelect = typeof productTable.$inferSelect;
 
-const validate =
+const validateExists =
   (aggregateId: ProductId) =>
-  (
-    selects: ReadonlyArray<ProductSelect>,
-  ): Result<ReadonlyArray<ProductSelect>, ProductNotFoundError> => {
-    const selectCount = selects.length;
-    if (selectCount === 0) {
-      return err(ProductNotFoundError.create(aggregateId));
-    }
+  (selects: ReadonlyArray<ProductSelect>): Result<void, ProductNotFoundError> =>
+    selects.length === 0
+      ? err(ProductNotFoundError.create(aggregateId))
+      : ok(undefined);
 
-    if (selectCount > 1) {
+const validateUnique =
+  (aggregateId: ProductId) =>
+  (selects: ReadonlyArray<ProductSelect>): void => {
+    if (selects.length > 1) {
       throw new Error(
         `商品IDでの索引で複数の商品が見つかりました: ${aggregateId}`,
       );
     }
-    return ok(selects);
   };
 
-const toProduct = (
-  selects: ReadonlyArray<ProductSelect>,
-): Result<Product, ProductNotFoundError> => {
+const toProduct = (selects: ReadonlyArray<ProductSelect>): Product => {
   const { productId, name, price, sequenceNumber } = selects[0]!;
-
-  return ok(
-    Product.parse({
-      aggregateId: productId,
-      name,
-      price,
-      sequenceNumber,
-    }),
-  );
+  return Product.parse({
+    aggregateId: productId,
+    name,
+    price,
+    sequenceNumber,
+  });
 };
 
 const createFindByIdFn =
@@ -52,8 +46,9 @@ const createFindByIdFn =
         .from(productTable)
         .where(eq(productTable.productId, aggregateId)),
     )
-      .andThrough(validate(aggregateId))
-      .andThen(toProduct);
+      .andThrough(validateExists(aggregateId))
+      .andTee(validateUnique(aggregateId))
+      .map(toProduct);
 
 createFindByIdFn.inject = [Db.token] as const;
 
