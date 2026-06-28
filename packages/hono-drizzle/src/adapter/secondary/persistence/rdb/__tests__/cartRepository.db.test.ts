@@ -55,7 +55,6 @@ describe('FindCartById', () => {
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();
   const customerId3 = CustomerId.generate();
-  const customerId4 = CustomerId.generate();
   const productId1 = ProductId.generate();
   const productId2 = ProductId.generate();
 
