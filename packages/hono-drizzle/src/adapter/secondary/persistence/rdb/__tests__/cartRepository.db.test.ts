@@ -11,8 +11,9 @@ import { CustomerId } from '#/app/domain/customer/customerId.js';
 import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
 
-const createSetupWithCartItemFn =
-  (db: Db) => async (customerId: CustomerId, productId: ProductId) => {
+const createSetupWithCartItemsFn =
+  (db: Db) =>
+  async (customerId: CustomerId, productIds: ReadonlyArray<ProductId>) => {
     await db.transaction(async (tx) => {
       await tx.insert(cartTable).values([
         {
@@ -20,12 +21,14 @@ const createSetupWithCartItemFn =
           sequenceNumber: Aggregate.InitialSequenceNumber,
         },
       ]);
-      await tx.insert(cartItemTable).values({
-        customerId,
-        productId,
-        price: Price.parse(1_000),
-        quantity: Quantity.parse(2),
-      });
+      await tx.insert(cartItemTable).values(
+        productIds.map((productId) => ({
+          customerId,
+          productId,
+          price: Price.parse(1_000),
+          quantity: Quantity.parse(2),
+        })),
+      );
     });
   };
 
@@ -46,17 +49,18 @@ describe('FindCartById', () => {
   const db = getDbInstanceFromEnv();
   const findCartById = CartRepository.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
-  const setupWithCartItem = createSetupWithCartItemFn(db);
+  const setupWithCartItems = createSetupWithCartItemsFn(db);
   const setupWithoutCartItem = setupWithoutCartItemFn(db);
 
   const customerId1 = CustomerId.generate();
   const customerId2 = CustomerId.generate();
   const customerId3 = CustomerId.generate();
   const productId1 = ProductId.generate();
+  const productId2 = ProductId.generate();
 
   beforeEach(async () => {
     await truncateTable();
-    await setupWithCartItem(customerId1, productId1);
+    await setupWithCartItems(customerId1, [productId1, productId2]);
     await setupWithoutCartItem(customerId2);
   });
 
@@ -74,6 +78,11 @@ describe('FindCartById', () => {
       cartItems: [
         {
           productId: productId1,
+          price: Price.parse(1_000),
+          quantity: Quantity.parse(2),
+        },
+        {
+          productId: productId2,
           price: Price.parse(1_000),
           quantity: Quantity.parse(2),
         },
