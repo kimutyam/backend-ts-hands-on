@@ -40,9 +40,7 @@ const toCartItem = (select: CartItemSelect): CartItem => {
   return CartItem.parse({ productId, price, quantity });
 };
 
-const toCart = (
-  selects: ReadonlyArray<Select>,
-): Result<Cart, CartNotFoundError> => {
+const toCart = (selects: ReadonlyArray<Select>): Cart => {
   const { customerId, sequenceNumber } = selects[0]!.cart;
 
   const cartItems = selects.reduce<Array<CartItem>>((acc, { cart_item }) => {
@@ -52,13 +50,11 @@ const toCart = (
     return [...acc, toCartItem(cart_item)];
   }, []);
 
-  return ok(
-    Cart.parse({
-      aggregateId: customerId,
-      sequenceNumber,
-      cartItems,
-    }),
-  );
+  return Cart.parse({
+    aggregateId: customerId,
+    sequenceNumber,
+    cartItems,
+  });
 };
 
 const createFindByIdFn =
@@ -75,7 +71,7 @@ const createFindByIdFn =
         .where(eq(cartTable.customerId, aggregateId)),
     )
       .andThrough(validate(aggregateId))
-      .andThen(toCart);
+      .map(toCart);
 
 createFindByIdFn.inject = [Db.token] as const;
 
