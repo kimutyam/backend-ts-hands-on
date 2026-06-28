@@ -21,9 +21,7 @@ interface Select {
 
 const validate =
   (aggregateId: CustomerId) =>
-  (
-    selects: ReadonlyArray<Select>,
-  ): Result<ReadonlyArray<Select>, CartNotFoundError> => {
+  (selects: ReadonlyArray<Select>): Result<void, CartNotFoundError> => {
     if (selects.length === 0) {
       return err(CartNotFoundError.create(aggregateId));
     }
@@ -34,7 +32,7 @@ const validate =
         `顧客IDでの索引で複数のカートが見つかりました: ${aggregateId}`,
       );
     }
-    return ok(selects);
+    return ok(undefined);
   };
 
 const toCartItem = (select: CartItemSelect): CartItem => {
