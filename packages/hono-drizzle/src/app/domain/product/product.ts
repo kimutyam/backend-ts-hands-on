@@ -54,15 +54,13 @@ const generate = (
   name: ProductName,
   price: Price,
   generateProductId: () => ProductId,
-): Result<Product, ProductRefinementsError> => {
-  const sequenceNumber = Aggregate.InitialSequenceNumber;
-  return safeParse({
+): Result<Product, ProductRefinementsError> =>
+  safeParse({
     aggregateId: generateProductId(),
-    sequenceNumber,
+    sequenceNumber: Aggregate.InitialSequenceNumber,
     name,
     price,
   });
-};
 
 const Product = {
   aggregateName,
