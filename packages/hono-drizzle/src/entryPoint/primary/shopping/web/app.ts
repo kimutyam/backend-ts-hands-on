@@ -48,21 +48,22 @@ const defaultHook: OpenAPIHonoOptions<AppVariables>['defaultHook'] = (
   return undefined;
 };
 
-const createRequestContext = createMiddleware(async (c, next) => {
-  await RequestContext.runWith(
-    {
-      requestId: c.get('requestId'),
-      primaryPort: 'shopping',
-    },
-    async () => {
-      await next();
-    },
-  );
-});
+const createRequestContext = () =>
+  createMiddleware(async (c, next) => {
+    await RequestContext.runWith(
+      {
+        requestId: c.get('requestId'),
+        primaryPort: 'shopping',
+      },
+      async () => {
+        await next();
+      },
+    );
+  });
 
 const setMiddleware = (app: App) => {
-  app.use('*', requestId());
-  app.use('*', createRequestContext);
+  app.use(requestId());
+  app.use(createRequestContext());
 };
 
 const setNotFoundHandler = (app: App) => {
