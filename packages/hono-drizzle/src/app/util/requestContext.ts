@@ -7,11 +7,14 @@ interface RequestContext {
 
 const storage = new AsyncLocalStorage<RequestContext>();
 
-const runWithRequestContext = <T>(
-  ctx: RequestContext,
-  fn: () => Promise<T>,
-): Promise<T> => storage.run(ctx, fn);
+const runWith = <T>(ctx: RequestContext, fn: () => Promise<T>): Promise<T> =>
+  storage.run(ctx, fn);
 
-const getRequestContext = (): RequestContext | undefined => storage.getStore();
+const get = (): RequestContext | undefined => storage.getStore();
 
-export { runWithRequestContext, getRequestContext };
+const RequestContext = {
+  runWith,
+  get,
+} as const;
+
+export { RequestContext };

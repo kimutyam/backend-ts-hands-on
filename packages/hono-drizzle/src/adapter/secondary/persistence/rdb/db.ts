@@ -4,11 +4,11 @@ import { Pool } from 'pg';
 import type { Disposable } from 'typed-inject';
 
 import { DatabaseUrl } from '#/adapter/secondary/persistence/rdb/databaseUrl.js';
-import { getRequestContext } from '#/app/util/requestContext.js';
+import { RequestContext } from '#/app/util/requestContext.js';
 
 const queryLogger: Logger = {
   logQuery: (query: string, params?: Array<unknown>) => {
-    const context = getRequestContext();
+    const context = RequestContext.get();
     if (context === undefined) {
       console.info(query, params);
     } else {

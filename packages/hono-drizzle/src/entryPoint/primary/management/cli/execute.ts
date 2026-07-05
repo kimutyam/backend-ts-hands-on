@@ -1,13 +1,13 @@
 import type { Injector } from 'typed-inject';
 
 import type { CommandHandler } from '#/adapter/primary/management/cli/commandHandler.js';
-import { runWithRequestContext } from '#/app/util/requestContext.js';
+import { RequestContext } from '#/app/util/requestContext.js';
 
 const execute =
   <Args>(handler: CommandHandler<Args>, injector: Injector) =>
   async (args: Args): Promise<void> => {
     try {
-      await runWithRequestContext(
+      await RequestContext.runWith(
         {
           requestId: crypto.randomUUID(),
           primaryPort: 'management',
