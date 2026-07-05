@@ -21,7 +21,7 @@ import {
   ValidationErrorSchema,
 } from '#/adapter/primary/shopping/web/errorSchemas.js';
 import { OptimisticLockError } from '#/app/domain/optimisticLockError.js';
-import { runWithRequestContext } from '#/app/util/requestContext.js';
+import { RequestContext } from '#/app/util/requestContext.js';
 import type { ShoppingPortInjector } from '#/entryPoint/primary/shopping/injector.js';
 
 type App = OpenAPIHono<AppVariables>;
@@ -49,7 +49,7 @@ const defaultHook: OpenAPIHonoOptions<AppVariables>['defaultHook'] = (
 };
 
 const createRequestContext = createMiddleware(async (c, next) => {
-  await runWithRequestContext(
+  await RequestContext.runWith(
     {
       requestId: c.get('requestId'),
       primaryPort: 'shopping',
