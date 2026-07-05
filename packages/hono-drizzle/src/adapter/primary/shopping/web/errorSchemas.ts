@@ -21,7 +21,7 @@ const ValidationErrorSchema = z
         input: z.string().optional().meta({
           example: 'Invalid',
         }),
-        path: z.array(z.union([z.string(), z.number(), z.string()])).meta({
+        path: z.array(z.union([z.string(), z.number(), z.symbol()])).meta({
           example: ['path'],
         }),
         message: z.string().meta({
