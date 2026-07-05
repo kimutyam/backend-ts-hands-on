@@ -1,6 +1,11 @@
-import type { OpenAPIHonoOptions } from '@hono/zod-openapi';
+import type {
+  Hook,
+  OpenAPIHonoOptions,
+  // RouteConfigToTypedResponse,
+} from '@hono/zod-openapi';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Scalar } from '@scalar/hono-api-reference';
+// import type { TypedResponse } from 'hono';
 import { createMiddleware } from 'hono/factory';
 import { requestId } from 'hono/request-id';
 import { z } from 'zod';
@@ -25,6 +30,7 @@ import { RequestContext } from '#/app/util/requestContext.js';
 import type { ShoppingPortInjector } from '#/entryPoint/primary/shopping/injector.js';
 
 type App = OpenAPIHono<AppVariables>;
+type BadRequestHook = Hook<unknown, AppVariables, string, any>;
 
 const defaultHook: OpenAPIHonoOptions<AppVariables>['defaultHook'] = (
   result,
@@ -43,6 +49,24 @@ const defaultHook: OpenAPIHonoOptions<AppVariables>['defaultHook'] = (
         issues: result.error.issues,
       }),
       422,
+    );
+  }
+  return undefined;
+};
+
+const badRequestHook: BadRequestHook = (result, c) => {
+  if (!result.success) {
+    console.log(
+      'Bad Request Error',
+      c.get('requestId'),
+      z.formatError(result.error),
+    );
+    return c.json(
+      ValidationErrorSchema.parse({
+        title: 'Bad Request Error',
+        issues: result.error.issues,
+      }),
+      400,
     );
   }
   return undefined;
@@ -105,6 +129,7 @@ const setRouteOfCart = (
     .openapi(
       GetCartRoute,
       shoppingPortInjector.injectFunction(GetCartHandler.create),
+      badRequestHook,
     )
     .openapi(
       AddCartItemRoute,
@@ -113,10 +138,12 @@ const setRouteOfCart = (
     .openapi(
       RemoveCartItemRoute,
       shoppingPortInjector.injectFunction(RemoveCartItemHandler.create),
+      badRequestHook,
     )
     .openapi(
       ClearCartRoute,
       shoppingPortInjector.injectFunction(ClearCartHandler.create),
+      badRequestHook,
     );
 };
 
