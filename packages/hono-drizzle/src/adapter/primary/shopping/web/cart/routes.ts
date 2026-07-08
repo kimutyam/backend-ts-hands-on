@@ -20,7 +20,7 @@ const GetCartRoute = createRoute({
   },
   responses: {
     ...OpenApiResponseSpec.create200(GetCartResponseSchema),
-    ...OpenApiResponseSpec['422'],
+    ...OpenApiResponseSpec['400'],
     ...OpenApiResponseSpec['500'],
   },
 });
@@ -61,9 +61,9 @@ const RemoveCartItemRoute = createRoute({
   },
   responses: {
     ...OpenApiResponseSpec['204'],
+    ...OpenApiResponseSpec['400'],
     ...OpenApiResponseSpec['404'],
     ...OpenApiResponseSpec['409'],
-    ...OpenApiResponseSpec['422'],
     ...OpenApiResponseSpec['500'],
   },
 });
@@ -78,9 +78,9 @@ const ClearCartRoute = createRoute({
   },
   responses: {
     ...OpenApiResponseSpec['204'],
+    ...OpenApiResponseSpec['400'],
     ...OpenApiResponseSpec['404'],
     ...OpenApiResponseSpec['409'],
-    ...OpenApiResponseSpec['422'],
     ...OpenApiResponseSpec['500'],
   },
 });
