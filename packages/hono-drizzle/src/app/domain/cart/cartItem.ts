@@ -1,5 +1,5 @@
 import type { Result } from 'neverthrow';
-import * as z from 'zod';
+import { z } from 'zod';
 
 import type { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
 import { Quantity } from '#/app/domain/cart/quantity.js';
