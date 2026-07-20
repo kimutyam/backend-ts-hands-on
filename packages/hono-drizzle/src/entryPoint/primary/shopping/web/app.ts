@@ -7,8 +7,8 @@ import { z } from 'zod';
 
 import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
 import { AddCartItemHandler } from '#/adapter/primary/shopping/web/cart/addCartItemHandler.js';
-import { ClearCartHandler } from '#/adapter/primary/shopping/web/cart/clearHandler.js';
-import { GetCartHandler } from '#/adapter/primary/shopping/web/cart/getHandler.js';
+import { ClearCartHandler } from '#/adapter/primary/shopping/web/cart/clearCartHandler.js';
+import { GetCartHandler } from '#/adapter/primary/shopping/web/cart/getCartHandler.js';
 import { RemoveCartItemHandler } from '#/adapter/primary/shopping/web/cart/removeCartItemHandler.js';
 import {
   AddCartItemRoute,

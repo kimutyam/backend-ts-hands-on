@@ -1,7 +1,7 @@
 import { RegisterProductHandler } from '#/adapter/primary/management/cli/registerProductHandler.js';
 import { AddCartItemHandler } from '#/adapter/primary/shopping/web/cart/addCartItemHandler.js';
-import { ClearCartHandler } from '#/adapter/primary/shopping/web/cart/clearHandler.js';
-import { GetCartHandler } from '#/adapter/primary/shopping/web/cart/getHandler.js';
+import { ClearCartHandler } from '#/adapter/primary/shopping/web/cart/clearCartHandler.js';
+import { GetCartHandler } from '#/adapter/primary/shopping/web/cart/getCartHandler.js';
 import { RemoveCartItemHandler } from '#/adapter/primary/shopping/web/cart/removeCartItemHandler.js';
 import { CartRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/cartRepository.js';
 import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepository.js';
