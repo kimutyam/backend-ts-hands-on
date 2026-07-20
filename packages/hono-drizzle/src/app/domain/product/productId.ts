@@ -1,5 +1,5 @@
 import { ulid } from 'ulidx';
-import * as z from 'zod';
+import { z } from 'zod';
 
 const name = 'ProductId';
 

@@ -1,5 +1,5 @@
 import { decodeTime, ulid } from 'ulidx';
-import * as z from 'zod';
+import { z } from 'zod';
 
 const schema = z.ulid().brand('DomainEventId').meta({
   example: '01KAN6MY2AJFPVGQATAS6CK9XX',

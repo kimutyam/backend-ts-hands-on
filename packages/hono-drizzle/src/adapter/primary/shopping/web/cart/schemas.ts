@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import { z } from 'zod';
 
 import { CartItemAdded, CartItemUpdated } from '#/app/domain/cart/cartEvent.js';
 import { CartItem } from '#/app/domain/cart/cartItem.js';
