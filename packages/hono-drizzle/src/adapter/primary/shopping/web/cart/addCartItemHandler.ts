@@ -2,7 +2,10 @@ import type { RouteHandler } from '@hono/zod-openapi';
 
 import type { AppVariables } from '#/adapter/primary/shopping/web/appVariables.js';
 import type { AddCartItemRoute } from '#/adapter/primary/shopping/web/cart/routes.js';
-import { ErrorSchema } from '#/adapter/primary/shopping/web/errorSchemas.js';
+import {
+  ErrorSchema,
+  ValidationErrorSchema,
+} from '#/adapter/primary/shopping/web/errorSchemas.js';
 import { CartRefinementsError } from '#/app/domain/cart/cartRefinementsError.js';
 import { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
 import { ProductNotFoundError } from '#/app/domain/product/productNotFoundError.js';
@@ -36,8 +39,9 @@ const create =
           case CartRefinementsError.kind:
           case QuantityRefinementsError.kind:
             return c.json(
-              ErrorSchema.parse({
+              ValidationErrorSchema.parse({
                 title: error.message,
+                issues: [],
               }),
               400,
             );

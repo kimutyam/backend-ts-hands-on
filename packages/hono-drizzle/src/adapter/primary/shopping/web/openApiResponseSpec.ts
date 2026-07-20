@@ -38,7 +38,7 @@ const Spec400 = {
     description: 'Bad Request',
     content: {
       'application/json': {
-        schema: ErrorSchema,
+        schema: ValidationErrorSchema,
       },
     },
   },
@@ -66,17 +66,6 @@ const Spec409 = {
   },
 };
 
-const Spec422 = {
-  422: {
-    description: 'Unprocessable Content',
-    content: {
-      'application/json': {
-        schema: ValidationErrorSchema,
-      },
-    },
-  },
-};
-
 const Spec500 = {
   500: {
     description: 'Internal Server Error',
@@ -95,7 +84,6 @@ const OpenApiResponseSpec = {
   400: Spec400,
   404: Spec404,
   409: Spec409,
-  422: Spec422,
   500: Spec500,
 } as const;
 
