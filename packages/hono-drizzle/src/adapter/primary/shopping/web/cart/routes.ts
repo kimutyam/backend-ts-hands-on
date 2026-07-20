@@ -77,9 +77,9 @@ const ClearCartRoute = createRoute({
   },
   responses: {
     ...OpenApiResponseSpec['204'],
+    ...OpenApiResponseSpec['400'],
     ...OpenApiResponseSpec['404'],
     ...OpenApiResponseSpec['409'],
-    ...OpenApiResponseSpec['400'],
     ...OpenApiResponseSpec['500'],
   },
 });
