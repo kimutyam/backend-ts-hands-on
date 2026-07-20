@@ -42,7 +42,7 @@ const defaultHook: OpenAPIHonoOptions<AppVariables>['defaultHook'] = (
         title: 'Validation Error',
         issues: result.error.issues,
       }),
-      422,
+      400,
     );
   }
   return undefined;
