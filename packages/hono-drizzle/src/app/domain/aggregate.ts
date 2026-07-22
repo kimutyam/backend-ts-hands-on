@@ -21,7 +21,7 @@ const makeSchema = <
   z
     .object({
       aggregateId: aggregateIdSchema,
-      sequenceNumber: z.number().int().min(InitialSequenceNumber),
+      sequenceNumber: z.int().min(InitialSequenceNumber),
     })
     .extend(propsSchema.shape)
     .readonly()

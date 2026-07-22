@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const name = 'Price';
 
-const schema = z.number().int().min(100).max(10_000).brand(name).meta({
+const schema = z.int().min(100).max(10_000).brand(name).meta({
   example: 1000,
   description: '価格',
 });

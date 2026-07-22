@@ -7,7 +7,7 @@ import { createFromZod } from '#/app/util/result.js';
 
 const name = 'Quantity';
 
-const schema = z.number().int().min(1).max(10).brand('Quantity').meta({
+const schema = z.int().min(1).max(10).brand('Quantity').meta({
   example: 2,
   description: '数量',
 });
