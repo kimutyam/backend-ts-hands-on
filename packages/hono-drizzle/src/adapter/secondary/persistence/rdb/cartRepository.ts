@@ -32,7 +32,7 @@ const validateUnique =
     const customerIds = new Set(selects.map(({ cart }) => cart.customerId));
     if (customerIds.size > 1) {
       throw new Error(
-        `顧客IDでの索引で複数のカートが見つかりました: ${aggregateId}`,
+        `カスタマーIDでの索引で複数のカートが見つかりました: ${aggregateId}`,
       );
     }
   };
