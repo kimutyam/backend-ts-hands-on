@@ -21,7 +21,7 @@ jobs:
           node-version-file: ${{ inputs.node-version-file }}
       - uses: pnpm/action-setup@v6
         with:
-          version: 10
+          version: 11
       - name: pnpm install
         run: pnpm install --frozen-lockfile
       - name: pnpm lint
