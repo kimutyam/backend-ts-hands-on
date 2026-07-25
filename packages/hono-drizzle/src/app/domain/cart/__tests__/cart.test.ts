@@ -10,7 +10,7 @@ import { ProductId } from '#/app/domain/product/productId.js';
 
 describe('addCartItem', () => {
   it('空のカートに追加', () => {
-    const customId = CustomerId.generate();
+    const customerId = CustomerId.generate();
     const productId = ProductId.generate();
     const cartItem = {
       productId,
@@ -18,7 +18,7 @@ describe('addCartItem', () => {
       price: Price.parse(1_000),
     };
 
-    const result = R.pipe(Cart.init(customId), Cart.addCartItem(cartItem));
+    const result = R.pipe(Cart.init(customerId), Cart.addCartItem(cartItem));
     assert(result.isOk());
     const [addedCart, event] = result.value;
     expect(addedCart.sequenceNumber).toBe(1);
@@ -28,7 +28,7 @@ describe('addCartItem', () => {
   });
 
   it('カート項目に存在しないカート項目を追加', () => {
-    const customId = CustomerId.generate();
+    const customerId = CustomerId.generate();
     const cartItem = {
       productId: ProductId.generate(),
       quantity: Quantity.parse(6),
@@ -42,7 +42,7 @@ describe('addCartItem', () => {
     };
     const result = R.pipe(
       Cart.parse({
-        aggregateId: customId,
+        aggregateId: customerId,
         sequenceNumber: 1,
         cartItems: [cartItem],
       }),
@@ -51,7 +51,7 @@ describe('addCartItem', () => {
     assert(result.isOk());
     const [addedCart, event] = result.value;
     const expectation = Cart.parse({
-      aggregateId: customId,
+      aggregateId: customerId,
       sequenceNumber: 2,
       cartItems: [cartItem, targetCartItem],
     });
@@ -61,7 +61,7 @@ describe('addCartItem', () => {
   });
 
   it('カート項目に存在するカート項目を追加', () => {
-    const customId = CustomerId.generate();
+    const customerId = CustomerId.generate();
     const cartItems = [
       {
         productId: ProductId.generate(),
@@ -81,7 +81,7 @@ describe('addCartItem', () => {
     };
     const result = R.pipe(
       Cart.parse({
-        aggregateId: customId,
+        aggregateId: customerId,
         sequenceNumber: 1,
         cartItems,
       }),
@@ -90,7 +90,7 @@ describe('addCartItem', () => {
     assert(result.isOk());
     const [addedCart, event] = result.value;
     const expectation = Cart.parse({
-      aggregateId: customId,
+      aggregateId: customerId,
       sequenceNumber: 2,
       cartItems: [
         cartItems[0]!,
@@ -109,7 +109,7 @@ describe('addCartItem', () => {
 
 describe('removeCartItem', () => {
   it('カート項目を削除', () => {
-    const customId = CustomerId.generate();
+    const customerId = CustomerId.generate();
     const cartItems = [
       {
         productId: ProductId.generate(),
@@ -124,14 +124,14 @@ describe('removeCartItem', () => {
     ];
     const result = R.pipe(
       Cart.parse({
-        aggregateId: customId,
+        aggregateId: customerId,
         sequenceNumber: 1,
         cartItems,
       }),
       Cart.removeCartItem(cartItems[0]!.productId),
     );
     const expectation = Cart.parse({
-      aggregateId: customId,
+      aggregateId: customerId,
       sequenceNumber: 2,
       cartItems: [cartItems[1]!],
     });
