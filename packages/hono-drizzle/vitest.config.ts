@@ -25,7 +25,7 @@ const getConfig = (testKind: string | undefined) => {
     case 'db':
       return dbTestConfig;
     default:
-      throw new Error(`TEST_KIND is unexpected value. Should have been never.`);
+      throw new Error('TEST_KIND is unexpected value. Should have been never.');
   }
 };
 
