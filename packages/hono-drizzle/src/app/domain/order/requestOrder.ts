@@ -19,7 +19,7 @@ const assertExistsProduct = (
     const maybeProduct = products.find((product) =>
       ProductId.equals(product.aggregateId, item.productId),
     );
-    assert(maybeProduct !== undefined, `価格を適用する商品が見つかりません`);
+    assert(maybeProduct !== undefined, '価格を適用する商品が見つかりません');
   });
 };
 

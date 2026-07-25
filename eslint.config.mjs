@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import stylistic from '@stylistic/eslint-plugin';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import { importX } from 'eslint-plugin-import-x';
 import globals from 'globals';
@@ -23,6 +24,7 @@ export default [
     plugins: {
       '@typescript-eslint': tsPlugin,
       'import-x': importX,
+      '@stylistic': stylistic,
     },
     languageOptions: {
       globals: {
@@ -43,6 +45,11 @@ export default [
       ...tsPlugin.configs['stylistic-type-checked'].rules,
       ...importX.flatConfigs.recommended.rules,
       ...importX.flatConfigs.typescript.rules,
+      '@stylistic/quotes': [
+        'error',
+        'single',
+        { avoidEscape: true, allowTemplateLiterals: 'never' },
+      ],
       'no-const-assign': 'off',
       'no-console': 'error',
       'no-redeclare': 'off', // コンパニオンオブジェクト用
