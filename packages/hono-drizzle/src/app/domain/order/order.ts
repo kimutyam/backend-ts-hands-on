@@ -38,19 +38,19 @@ const generate = (
   });
 
 const request = (aggregate: Order): [Order, OrderRequested] => {
+  const order = parse({
+    ...aggregate,
+    sequenceNumber: Aggregate.incrementSequenceNumber(aggregate.sequenceNumber),
+  });
+
   const orderRequested = R.pipe(
-    parse({
-      ...aggregate,
-      sequenceNumber: Aggregate.incrementSequenceNumber(
-        aggregate.sequenceNumber,
-      ),
-    }),
+    order,
     DomainEvent.generate(Order.aggregateName, OrderRequested.eventName, {
-      customerId: aggregate.customerId,
-      items: aggregate.items,
+      customerId: order.customerId,
+      items: order.items,
     }),
   );
-  return [aggregate, orderRequested];
+  return [order, orderRequested];
 };
 
 const Order = {
