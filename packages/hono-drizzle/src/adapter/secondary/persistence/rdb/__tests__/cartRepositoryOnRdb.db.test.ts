@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
 import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
-import { CartRepository } from '#/adapter/secondary/persistence/rdb/cartRepository.js';
+import { CartRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/cartRepositoryOnRdb.js';
 import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
 import { cartTable } from '#/adapter/secondary/persistence/rdb/schema/cart.sql.js';
 import { cartItemTable } from '#/adapter/secondary/persistence/rdb/schema/cartItem.sql.js';
@@ -47,7 +47,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 
 describe('FindCartById', () => {
   const db = getDbInstanceFromEnv();
-  const findCartById = CartRepository.createFindByIdFn(db);
+  const findCartById = CartRepositoryOnRdb.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
   const setupWithCartItems = createSetupWithCartItemsFn(db);
   const setupWithoutCartItem = setupWithoutCartItemFn(db);

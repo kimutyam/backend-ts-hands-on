@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import * as R from 'remeda';
 import { describe } from 'vitest';
 
-import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepository.js';
+import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepositoryOnMemory.js';
 import { Aggregate } from '#/app/domain/aggregate.js';
 import { Price } from '#/app/domain/product/price.js';
 import { Product } from '#/app/domain/product/product.js';

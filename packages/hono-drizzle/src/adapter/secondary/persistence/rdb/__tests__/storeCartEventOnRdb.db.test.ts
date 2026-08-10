@@ -5,8 +5,8 @@ import * as R from 'remeda';
 
 import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
 import { createSelectDomainEventFn } from '#/adapter/secondary/persistence/rdb/__tests__/helper/domainEvent.js';
-import { CartEventStore } from '#/adapter/secondary/persistence/rdb/cartEventStore.js';
 import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
+import { StoreCartEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeCartEventOnRdb.js';
 import { Cart } from '#/app/domain/cart/cart.js';
 import {
   CartCleared,
@@ -59,7 +59,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 
 describe('CartEventStore', () => {
   const db = getDbInstanceFromEnv();
-  const cartEventStore = CartEventStore.createStoreFn(db);
+  const storeCartEvent = StoreCartEventOnRdb.createStoreFn(db);
   const truncateTable = createTruncateTableFn(db);
   const selectCart = createSelectCartFn(db);
   const selectCartItem = createSelectCartItemFn(db);
@@ -95,7 +95,7 @@ describe('CartEventStore', () => {
       }),
     );
 
-    await cartEventStore(event, aggregate);
+    await storeCartEvent(event, aggregate);
     const cartResult = await selectCart(customerId);
     const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
@@ -140,7 +140,7 @@ describe('CartEventStore', () => {
       }),
     );
 
-    await cartEventStore(event, aggregate);
+    await storeCartEvent(event, aggregate);
     const cartResult = await selectCart(customerId);
     const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
@@ -183,7 +183,7 @@ describe('CartEventStore', () => {
       }),
     );
 
-    await cartEventStore(event, aggregate);
+    await storeCartEvent(event, aggregate);
     const cartResult = await selectCart(customerId);
     const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
@@ -219,7 +219,7 @@ describe('CartEventStore', () => {
       }),
     );
 
-    await cartEventStore(event, aggregate);
+    await storeCartEvent(event, aggregate);
     const cartResult = await selectCart(customerId);
     const cartItemResult = await selectCartItem(customerId);
     const eventResult = await selectDomainEvent(event.eventId);
@@ -263,7 +263,7 @@ describe('CartEventStore', () => {
       }),
     );
 
-    await cartEventStore(event1, aggregate1);
+    await storeCartEvent(event1, aggregate1);
 
     const updatedCartItem = CartItem.parse({
       productId,
@@ -283,7 +283,7 @@ describe('CartEventStore', () => {
       }),
     );
 
-    await expect(cartEventStore(staleEvent, staleAggregate)).rejects.toThrow(
+    await expect(storeCartEvent(staleEvent, staleAggregate)).rejects.toThrow(
       OptimisticLockError,
     );
 
