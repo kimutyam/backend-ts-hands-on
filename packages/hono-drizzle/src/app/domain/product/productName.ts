@@ -7,8 +7,8 @@ const schema = z.string().min(1).max(100).brand(name).meta({
   description: '商品名',
 });
 
-type ProductName = z.infer<typeof schema>;
 type ProductNameInput = z.input<typeof schema>;
+type ProductName = z.output<typeof schema>;
 
 const parse = (value: ProductNameInput): ProductName => schema.parse(value);
 

@@ -21,7 +21,7 @@ const schema = Aggregate.makeBrandedSchema(
 );
 
 type Input = z.input<typeof schema>;
-type Order = z.infer<typeof schema>;
+type Order = z.output<typeof schema>;
 
 const parse = (value: Input): Order => schema.parse(value);
 

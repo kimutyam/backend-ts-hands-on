@@ -6,7 +6,7 @@ const schema = z.ulid().brand('CustomerId').meta({
   description: 'カスタマーID (ULID)',
 });
 type Input = z.input<typeof schema>;
-type CustomerId = z.infer<typeof schema>;
+type CustomerId = z.output<typeof schema>;
 
 const equals = (a: CustomerId, b: CustomerId): boolean => a === b;
 

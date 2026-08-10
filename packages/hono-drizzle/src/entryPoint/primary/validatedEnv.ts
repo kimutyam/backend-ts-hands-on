@@ -12,7 +12,7 @@ const schema = z
     description: '環境変数',
   });
 
-type ValidatedEnv = z.infer<typeof schema>;
+type ValidatedEnv = z.output<typeof schema>;
 
 // 1
 /* global NodeJS */
