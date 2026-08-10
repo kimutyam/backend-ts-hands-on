@@ -7,8 +7,8 @@ const schema = z.int().min(100).max(10_000).brand(name).meta({
   description: '価格',
 });
 
-type Price = z.infer<typeof schema>;
 type PriceInput = z.input<typeof schema>;
+type Price = z.output<typeof schema>;
 
 const parse = (value: PriceInput): Price => schema.parse(value);
 

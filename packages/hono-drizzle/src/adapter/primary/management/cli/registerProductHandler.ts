@@ -21,7 +21,7 @@ const schema = z
   });
 
 type Args = z.input<typeof schema>;
-type ValidatedArgs = z.infer<typeof schema>;
+type ValidatedArgs = z.output<typeof schema>;
 type RegisterProductArgsZodError = z.ZodError<ValidatedArgs>;
 
 type RegisterProductHandler = CommandHandler<Args>;

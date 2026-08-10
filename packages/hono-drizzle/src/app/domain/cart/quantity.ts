@@ -12,8 +12,8 @@ const schema = z.int().min(1).max(10).brand('Quantity').meta({
   description: '数量',
 });
 
-type Quantity = z.infer<typeof schema>;
 type QuantityInput = z.input<typeof schema>;
+type Quantity = z.output<typeof schema>;
 type QuantityZodError = z.ZodError<Quantity>;
 
 const errorKind = 'QuantityRefinementsError';

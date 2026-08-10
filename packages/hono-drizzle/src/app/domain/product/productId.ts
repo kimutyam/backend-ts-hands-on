@@ -8,8 +8,8 @@ const schema = z.ulid().brand(name).meta({
   description: '商品ID (ULID)',
 });
 
-type ProductId = z.infer<typeof schema>;
 type ProductIdInput = z.input<typeof schema>;
+type ProductId = z.output<typeof schema>;
 
 const equals = (a: ProductId, b: ProductId): boolean => a === b;
 

@@ -6,7 +6,7 @@ const schema = z.ulid().brand('DomainEventId').meta({
   description: 'ドメインイベントID (ULID)',
 });
 type Input = z.input<typeof schema>;
-type DomainEventId = z.infer<typeof schema>;
+type DomainEventId = z.output<typeof schema>;
 
 const equals = (a: DomainEventId, b: DomainEventId): boolean => a === b;
 

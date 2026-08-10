@@ -18,8 +18,8 @@ const schema = z
     description: 'カート項目',
   });
 
-type CartItem = z.infer<typeof schema>;
 type CartItemInput = z.input<typeof schema>;
+type CartItem = z.output<typeof schema>;
 
 const parse = (input: CartItemInput): CartItem => schema.parse(input);
 
