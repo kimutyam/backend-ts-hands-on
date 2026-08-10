@@ -1,7 +1,7 @@
 import type { Injector } from 'typed-inject';
 
-import { CartRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/cartRepository.js';
-import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepository.js';
+import { CartRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/cartRepositoryOnMemory.js';
+import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepositoryOnMemory.js';
 import { StoreCartEvent } from '#/app/port/secondary/persistence/cartEventStore.js';
 import { FindCartById } from '#/app/port/secondary/persistence/cartRepository.js';
 import { StoreProductEvent } from '#/app/port/secondary/persistence/productEventStore.js';

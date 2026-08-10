@@ -78,8 +78,8 @@ const createFindByIdFn =
 
 createFindByIdFn.inject = [Db.token] as const;
 
-const CartRepository = {
+const CartRepositoryOnRdb = {
   createFindByIdFn,
 } as const;
 
-export { CartRepository };
+export { CartRepositoryOnRdb };

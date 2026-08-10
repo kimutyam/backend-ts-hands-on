@@ -2,7 +2,7 @@ import assert from 'node:assert';
 
 import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
 import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
-import { ProductRepository } from '#/adapter/secondary/persistence/rdb/productRepository.js';
+import { ProductRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/productRepositoryOnRdb.js';
 import { productTable } from '#/adapter/secondary/persistence/rdb/schema/product.sql.js';
 import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
@@ -27,7 +27,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 
 describe('FindProductById', () => {
   const db = getDbInstanceFromEnv();
-  const findProductById = ProductRepository.createFindByIdFn(db);
+  const findProductById = ProductRepositoryOnRdb.createFindByIdFn(db);
   const truncateTable = createTruncateTableFn(db);
   const setup = createSetupFn(db);
   const existsProductId = ProductId.generate();

@@ -3,13 +3,13 @@ import { AddCartItemHandler } from '#/adapter/primary/shopping/web/cart/addCartI
 import { ClearCartHandler } from '#/adapter/primary/shopping/web/cart/clearCartHandler.js';
 import { GetCartHandler } from '#/adapter/primary/shopping/web/cart/getCartHandler.js';
 import { RemoveCartItemHandler } from '#/adapter/primary/shopping/web/cart/removeCartItemHandler.js';
-import { CartRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/cartRepository.js';
-import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepository.js';
-import { CartEventStore } from '#/adapter/secondary/persistence/rdb/cartEventStore.js';
-import { CartRepository } from '#/adapter/secondary/persistence/rdb/cartRepository.js';
+import { CartRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/cartRepositoryOnMemory.js';
+import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepositoryOnMemory.js';
+import { CartRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/cartRepositoryOnRdb.js';
 import { Db } from '#/adapter/secondary/persistence/rdb/db.js';
-import { ProductEventStore } from '#/adapter/secondary/persistence/rdb/productEventStore.js';
-import { ProductRepository } from '#/adapter/secondary/persistence/rdb/productRepository.js';
+import { ProductRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/productRepositoryOnRdb.js';
+import { StoreCartEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeCartEventOnRdb.js';
+import { StoreProductEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeProductEventOnRdb.js';
 import type { StoreCartEvent } from '#/app/port/secondary/persistence/cartEventStore.js';
 import type { FindCartById } from '#/app/port/secondary/persistence/cartRepository.js';
 import type { StoreProductEvent } from '#/app/port/secondary/persistence/productEventStore.js';
@@ -39,10 +39,10 @@ if (databaseUrl === undefined) {
 } else {
   // secondary adapters (rdb)
   const db = Db.getInstance(databaseUrl);
-  findCartById = CartRepository.createFindByIdFn(db);
-  storeCartEvent = CartEventStore.createStoreFn(db);
-  findProductById = ProductRepository.createFindByIdFn(db);
-  storeProductEvent = ProductEventStore.createStoreFn(db);
+  findCartById = CartRepositoryOnRdb.createFindByIdFn(db);
+  storeCartEvent = StoreCartEventOnRdb.createStoreFn(db);
+  findProductById = ProductRepositoryOnRdb.createFindByIdFn(db);
+  storeProductEvent = StoreProductEventOnRdb.createStoreFn(db);
 }
 
 // use cases (management)

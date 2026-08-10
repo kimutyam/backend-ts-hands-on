@@ -50,8 +50,8 @@ const createStoreFn =
 
 createStoreFn.inject = [Db.token] as const;
 
-const ProductEventStore = {
+const StoreProductEventOnRdb = {
   createStoreFn,
 } as const;
 
-export { ProductEventStore };
+export { StoreProductEventOnRdb };

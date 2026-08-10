@@ -8,7 +8,7 @@ import * as R from 'remeda';
 import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
 import { createSelectDomainEventFn } from '#/adapter/secondary/persistence/rdb/__tests__/helper/domainEvent.js';
 import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
-import { ProductEventStore } from '#/adapter/secondary/persistence/rdb/productEventStore.js';
+import { StoreProductEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeProductEventOnRdb.js';
 import { DomainEvent } from '#/app/domain/domainEvent.js';
 import { Price } from '#/app/domain/product/price.js';
 import { Product } from '#/app/domain/product/product.js';
@@ -47,7 +47,7 @@ const createTruncateTableFn = (db: Db) => async () => {
 
 describe('ProductEventStore', () => {
   const db = getDbInstanceFromEnv();
-  const storeProductEvent = ProductEventStore.createStoreFn(db);
+  const storeProductEvent = StoreProductEventOnRdb.createStoreFn(db);
   const truncateTable = createTruncateTableFn(db);
   const selectProduct = createSelectProductFn(db);
   const selectDomainEvent = createSelectDomainEventFn(db);

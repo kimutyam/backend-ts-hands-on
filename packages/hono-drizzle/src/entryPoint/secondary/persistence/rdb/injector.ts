@@ -1,11 +1,11 @@
 import type { Injector } from 'typed-inject';
 
-import { CartEventStore } from '#/adapter/secondary/persistence/rdb/cartEventStore.js';
-import { CartRepository } from '#/adapter/secondary/persistence/rdb/cartRepository.js';
+import { CartRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/cartRepositoryOnRdb.js';
 import { DatabaseUrl } from '#/adapter/secondary/persistence/rdb/databaseUrl.js';
 import { Db } from '#/adapter/secondary/persistence/rdb/db.js';
-import { ProductEventStore } from '#/adapter/secondary/persistence/rdb/productEventStore.js';
-import { ProductRepository } from '#/adapter/secondary/persistence/rdb/productRepository.js';
+import { ProductRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/productRepositoryOnRdb.js';
+import { StoreCartEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeCartEventOnRdb.js';
+import { StoreProductEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeProductEventOnRdb.js';
 import { StoreCartEvent } from '#/app/port/secondary/persistence/cartEventStore.js';
 import { FindCartById } from '#/app/port/secondary/persistence/cartRepository.js';
 import { StoreProductEvent } from '#/app/port/secondary/persistence/productEventStore.js';
@@ -19,10 +19,16 @@ const create = (
   rootInjector
     .provideValue(DatabaseUrl.token, databaseUrl)
     .provideFactory(Db.token, Db.getInstance)
-    .provideFactory(FindProductById.token, ProductRepository.createFindByIdFn)
-    .provideFactory(StoreProductEvent.token, ProductEventStore.createStoreFn)
-    .provideFactory(FindCartById.token, CartRepository.createFindByIdFn)
-    .provideFactory(StoreCartEvent.token, CartEventStore.createStoreFn);
+    .provideFactory(
+      FindProductById.token,
+      ProductRepositoryOnRdb.createFindByIdFn,
+    )
+    .provideFactory(
+      StoreProductEvent.token,
+      StoreProductEventOnRdb.createStoreFn,
+    )
+    .provideFactory(FindCartById.token, CartRepositoryOnRdb.createFindByIdFn)
+    .provideFactory(StoreCartEvent.token, StoreCartEventOnRdb.createStoreFn);
 
 const RdbAdapterInjector = {
   create,
