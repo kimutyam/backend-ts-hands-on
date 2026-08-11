@@ -6,6 +6,7 @@ import { RemoveCartItemHandler } from '#/adapter/primary/shopping/web/cart/remov
 import { CartRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/cartRepositoryOnMemory.js';
 import { ProductRepositoryOnMemory } from '#/adapter/secondary/persistence/memory/productRepositoryOnMemory.js';
 import { CartRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/cartRepositoryOnRdb.js';
+import { DatabaseUrl } from '#/adapter/secondary/persistence/rdb/databaseUrl.js';
 import { Db } from '#/adapter/secondary/persistence/rdb/db.js';
 import { ProductRepositoryOnRdb } from '#/adapter/secondary/persistence/rdb/productRepositoryOnRdb.js';
 import { StoreCartEventOnRdb } from '#/adapter/secondary/persistence/rdb/storeCartEventOnRdb.js';
@@ -20,14 +21,15 @@ import { GetCartUseCase } from '#/app/useCase/getCart.js';
 import { RegisterProductUseCase } from '#/app/useCase/registerProduct.js';
 import { RemoveCartItemUseCase } from '#/app/useCase/removeCartItem.js';
 
-const databaseUrl = process.env['DATABASE_URL'];
+const rawDatabaseUrl = process.env['DATABASE_URL'];
+const databaseUrl =
+  rawDatabaseUrl === undefined ? undefined : DatabaseUrl.parse(rawDatabaseUrl);
 
 let findCartById: FindCartById;
 let storeCartEvent: StoreCartEvent;
 let findProductById: FindProductById;
 let storeProductEvent: StoreProductEvent;
 
-// 1
 if (databaseUrl === undefined) {
   // secondary adapters (memory)
   const cartRepository = CartRepositoryOnMemory.create();
