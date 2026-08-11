@@ -14,7 +14,7 @@ import type { PersistencePortInjector } from '#/entryPoint/secondary/persistence
 
 const create = (
   rootInjector: Injector,
-  databaseUrl: string,
+  databaseUrl: DatabaseUrl,
 ): PersistencePortInjector =>
   rootInjector
     .provideValue(DatabaseUrl.token, databaseUrl)

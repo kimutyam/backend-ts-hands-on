@@ -1,11 +1,10 @@
 import { z } from 'zod';
 
+import { DatabaseUrl } from '#/adapter/secondary/persistence/rdb/databaseUrl.js';
+
 const schema = z
   .object({
-    DATABASE_URL: z.url().optional().meta({
-      example: 'postgresql://user:password@localhost:5432/mydb',
-      description: 'データベース接続URL',
-    }),
+    DATABASE_URL: DatabaseUrl.schema.optional(),
   })
   .readonly()
   .meta({
@@ -14,7 +13,7 @@ const schema = z
 
 type ValidatedEnv = z.output<typeof schema>;
 
-// 1
+// Node.js の process.env を受け取って Zod スキーマでバリデーションしている
 /* global NodeJS */
 const parse = (value: NodeJS.ProcessEnv): ValidatedEnv => schema.parse(value);
 
