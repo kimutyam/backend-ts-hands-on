@@ -1,9 +1,15 @@
 import { z } from 'zod';
 
-const schema = z.url().brand('DatabaseUrl').meta({
-  example: 'postgresql://user:password@localhost:5432/mydb',
-  description: 'データベース接続URL',
-});
+const schema = z
+  .url({
+    protocol: /^postgres(?:ql)?$/,
+    error: 'PostgreSQL接続URLを指定してください',
+  })
+  .brand('DatabaseUrl')
+  .meta({
+    example: 'postgresql://user:password@localhost:5432/mydb',
+    description: 'PostgreSQL接続URL',
+  });
 
 type DatabaseUrl = z.output<typeof schema>;
 
