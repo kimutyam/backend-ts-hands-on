@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
+import type { PgAsyncRaw } from 'drizzle-orm/pg-core/async/raw';
 import type { QueryResult } from 'pg';
 
 import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
@@ -10,7 +10,7 @@ const createSelectDomainEventFn =
   (db: Db) =>
   <T extends DomainEvent<any, any, any, any>>(
     eventId: DomainEventId,
-  ): PgRaw<QueryResult<Pick<T, 'sequenceNumber' | 'payload'>>> =>
+  ): PgAsyncRaw<QueryResult<Pick<T, 'sequenceNumber' | 'payload'>>> =>
     db.execute<Pick<T, 'sequenceNumber' | 'payload'>>(
       sql`
         SELECT

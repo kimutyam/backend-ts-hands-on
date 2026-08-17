@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
 import { sql } from 'drizzle-orm';
-import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
+import type { PgAsyncRaw } from 'drizzle-orm/pg-core/async/raw';
 import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 
@@ -21,7 +21,7 @@ const createSelectProductFn =
   (db: Db) =>
   (
     aggregateId: ProductId,
-  ): PgRaw<
+  ): PgAsyncRaw<
     QueryResult<
       Pick<Product, 'aggregateId' | 'sequenceNumber' | 'name' | 'price'>
     >

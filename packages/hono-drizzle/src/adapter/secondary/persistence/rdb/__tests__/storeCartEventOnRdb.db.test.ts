@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
+import type { PgAsyncRaw } from 'drizzle-orm/pg-core/async/raw';
 import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 
@@ -26,7 +26,7 @@ const createSelectCartFn =
   (db: Db) =>
   (
     aggregateId: CustomerId,
-  ): PgRaw<QueryResult<Pick<Cart, 'aggregateId' | 'sequenceNumber'>>> =>
+  ): PgAsyncRaw<QueryResult<Pick<Cart, 'aggregateId' | 'sequenceNumber'>>> =>
     db.execute<Pick<Cart, 'aggregateId' | 'sequenceNumber'>>(
       sql`
         SELECT
@@ -40,7 +40,7 @@ const createSelectCartFn =
 
 const createSelectCartItemFn =
   (db: Db) =>
-  (customerId: CustomerId): PgRaw<QueryResult<CartItem>> =>
+  (customerId: CustomerId): PgAsyncRaw<QueryResult<CartItem>> =>
     db.execute<CartItem>(
       sql`
         SELECT
