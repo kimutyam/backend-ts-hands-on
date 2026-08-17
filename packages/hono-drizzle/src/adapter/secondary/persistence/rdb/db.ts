@@ -29,7 +29,6 @@ const createNodePgDatabase = (url: DatabaseUrl) => {
 
   return drizzle({
     client: pool,
-    casing: 'snake_case',
     logger: queryLogger,
   });
 };

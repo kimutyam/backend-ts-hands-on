@@ -1,9 +1,9 @@
-import { integer, pgTable, primaryKey, varchar } from 'drizzle-orm/pg-core';
+import { integer, primaryKey, snakeCase, varchar } from 'drizzle-orm/pg-core';
 
 import { cartTable } from '#/adapter/secondary/persistence/rdb/schema/cart.sql.js';
 import { timestamps } from '#/adapter/secondary/persistence/rdb/schema/columns.helpers.js';
 
-const cartItemTable = pgTable(
+const cartItemTable = snakeCase.table(
   'cart_item',
   {
     customerId: varchar({ length: 26 })

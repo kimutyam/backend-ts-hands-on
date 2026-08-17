@@ -1,9 +1,9 @@
-import { integer, pgTable, primaryKey, varchar } from 'drizzle-orm/pg-core';
+import { integer, primaryKey, snakeCase, varchar } from 'drizzle-orm/pg-core';
 
 import { timestamps } from '#/adapter/secondary/persistence/rdb/schema/columns.helpers.js';
 import { orderTable } from '#/adapter/secondary/persistence/rdb/schema/order.sql.js';
 
-const orderItemTable = pgTable(
+const orderItemTable = snakeCase.table(
   'order_item',
   {
     orderId: varchar({ length: 26 })
