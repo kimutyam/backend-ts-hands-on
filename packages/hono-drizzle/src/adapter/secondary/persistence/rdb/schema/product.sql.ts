@@ -5,7 +5,7 @@ import { timestamps } from '#/adapter/secondary/persistence/rdb/schema/columns.h
 const productTable = snakeCase.table('product', {
   productId: varchar({ length: 26 }).primaryKey(),
   sequenceNumber: integer().notNull(),
-  name: varchar({ length: 100 }).notNull().unique(),
+  name: varchar({ length: 100 }).notNull().unique('product_name_unique'),
   price: integer().notNull(),
   ...timestamps,
 });
