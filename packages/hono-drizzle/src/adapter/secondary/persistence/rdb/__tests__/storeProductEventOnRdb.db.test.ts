@@ -1,8 +1,6 @@
 import assert from 'node:assert';
 
 import { sql } from 'drizzle-orm';
-import type { PgAsyncRaw } from 'drizzle-orm/pg-core/async/raw';
-import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 
 import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
@@ -17,18 +15,12 @@ import { ProductId } from '#/app/domain/product/productId.js';
 import { ProductName } from '#/app/domain/product/productName.js';
 import { ProductNameDuplicatedError } from '#/app/domain/product/productNameDuplicatedError.js';
 
+type Row = Pick<Product, 'aggregateId' | 'sequenceNumber' | 'name' | 'price'>;
+
 const createSelectProductFn =
   (db: Db) =>
-  (
-    aggregateId: ProductId,
-  ): PgAsyncRaw<
-    QueryResult<
-      Pick<Product, 'aggregateId' | 'sequenceNumber' | 'name' | 'price'>
-    >
-  > =>
-    db.execute<
-      Pick<Product, 'aggregateId' | 'sequenceNumber' | 'name' | 'price'>
-    >(
+  (aggregateId: ProductId): ReturnType<typeof db.execute<Row>> =>
+    db.execute(
       sql`
         SELECT
           product_id "aggregateId",
@@ -41,7 +33,7 @@ const createSelectProductFn =
           product_id = ${aggregateId}`,
     );
 
-const createTruncateTableFn = (db: Db) => async () => {
+const createTruncateTableFn = (db: Db) => async (): Promise<void> => {
   await db.execute('TRUNCATE TABLE product');
 };
 

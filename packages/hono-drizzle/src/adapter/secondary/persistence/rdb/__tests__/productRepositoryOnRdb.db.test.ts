@@ -8,20 +8,22 @@ import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
 import { ProductName } from '#/app/domain/product/productName.js';
 
-const createSetupFn = (db: Db) => async (productId: ProductId) => {
-  await db.transaction(async (tx) => {
-    await tx.insert(productTable).values([
-      {
-        productId,
-        name: 'Test Product',
-        price: 1000,
-        sequenceNumber: 1,
-      },
-    ]);
-  });
-};
+const createSetupFn =
+  (db: Db) =>
+  async (productId: ProductId): Promise<void> => {
+    await db.transaction(async (tx) => {
+      await tx.insert(productTable).values([
+        {
+          productId,
+          name: 'Test Product',
+          price: 1000,
+          sequenceNumber: 1,
+        },
+      ]);
+    });
+  };
 
-const createTruncateTableFn = (db: Db) => async () => {
+const createTruncateTableFn = (db: Db) => async (): Promise<void> => {
   await db.execute('TRUNCATE TABLE product');
 };
 
