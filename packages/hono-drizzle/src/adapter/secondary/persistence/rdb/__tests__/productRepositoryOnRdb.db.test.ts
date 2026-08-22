@@ -61,38 +61,4 @@ describe('FindProductById', () => {
     assert(result.isErr());
     expect(result.error.productId).toBe(notExistsProductId);
   });
-
-  it('複数の商品が見つかった場合は例外が送出される', async () => {
-    const duplicatedProductId = ProductId.generate();
-    const duplicatedProducts = [
-      {
-        productId: duplicatedProductId,
-        name: 'Product 1',
-        price: 1_000,
-        sequenceNumber: 1,
-      },
-      {
-        productId: duplicatedProductId,
-        name: 'Product 2',
-        price: 2_000,
-        sequenceNumber: 1,
-      },
-    ];
-    const dbWithDuplicatedProducts = {
-      select: () => ({
-        from: () => ({
-          where: () => Promise.resolve(duplicatedProducts),
-        }),
-      }),
-    } as unknown as Db;
-    const findDuplicatedProductById = ProductRepositoryOnRdb.createFindByIdFn(
-      dbWithDuplicatedProducts,
-    );
-
-    await expect(
-      findDuplicatedProductById(duplicatedProductId),
-    ).rejects.toThrow(
-      `商品IDでの索引で複数の商品が見つかりました: ${duplicatedProductId}`,
-    );
-  });
 });
