@@ -32,7 +32,7 @@
     "@scalar/hono-api-reference": "0.11.14",
     "date-fns": "4.4.0",
     "dotenv": "17.4.2",
-    "drizzle-orm": "1.0.0-rc.4",
+    "drizzle-orm": "1.0.0-rc.5-ab785fc",
     "hono": "4.12.34",
     "neverthrow": "8.2.0",
     "pg": "8.22.0",
