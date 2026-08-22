@@ -110,4 +110,39 @@ describe('FindCartById', () => {
     assert(result.isErr());
     expect(result.error.customerId).toBe(customerId3);
   });
+
+  it('複数のカートが見つかった場合は例外が送出される', async () => {
+    const duplicatedCarts = [
+      {
+        cart: {
+          customerId: customerId1,
+          sequenceNumber: 1,
+        },
+        cart_item: null,
+      },
+      {
+        cart: {
+          customerId: customerId2,
+          sequenceNumber: 1,
+        },
+        cart_item: null,
+      },
+    ];
+    const dbWithDuplicatedCarts = {
+      select: () => ({
+        from: () => ({
+          leftJoin: () => ({
+            where: () => Promise.resolve(duplicatedCarts),
+          }),
+        }),
+      }),
+    } as unknown as Db;
+    const findDuplicatedCartById = CartRepositoryOnRdb.createFindByIdFn(
+      dbWithDuplicatedCarts,
+    );
+
+    await expect(findDuplicatedCartById(customerId1)).rejects.toThrow(
+      `カスタマーIDでの索引で複数のカートが見つかりました: ${customerId1}`,
+    );
+  });
 });
