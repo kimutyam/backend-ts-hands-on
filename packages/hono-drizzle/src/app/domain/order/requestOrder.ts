@@ -4,7 +4,7 @@ import * as R from 'remeda';
 
 import { Cart } from '#/app/domain/cart/cart.js';
 import type { CartCleared } from '#/app/domain/cart/cartEvent.js';
-import type { CartItem } from '#/app/domain/cart/cartItem.js';
+import { CartItem } from '#/app/domain/cart/cartItem.js';
 import { Order } from '#/app/domain/order/order.js';
 import type { OrderRequested } from '#/app/domain/order/orderEvent.js';
 import { OrderId } from '#/app/domain/order/orderId.js';
@@ -33,11 +33,13 @@ const applyPrice = (
       ProductId.equals(product.aggregateId, item.productId),
     );
     if (maybeProduct) {
-      acc.push({
-        productId: item.productId,
-        quantity: item.quantity,
-        price: maybeProduct.price,
-      });
+      acc.push(
+        CartItem.parse({
+          productId: item.productId,
+          quantity: item.quantity,
+          price: maybeProduct.price,
+        }),
+      );
     }
     return acc;
   }, []);

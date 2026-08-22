@@ -3,6 +3,7 @@ import assert from 'node:assert';
 import * as R from 'remeda';
 
 import { Cart } from '#/app/domain/cart/cart.js';
+import { CartItem } from '#/app/domain/cart/cartItem.js';
 import { Quantity } from '#/app/domain/cart/quantity.js';
 import { CustomerId } from '#/app/domain/customer/customerId.js';
 import { Price } from '#/app/domain/product/price.js';
@@ -12,11 +13,11 @@ describe('addCartItem', () => {
   it('空のカートに追加', () => {
     const customerId = CustomerId.generate();
     const productId = ProductId.generate();
-    const cartItem = {
+    const cartItem = CartItem.parse({
       productId,
-      quantity: Quantity.parse(1),
-      price: Price.parse(1_000),
-    };
+      quantity: 1,
+      price: 1_000,
+    });
 
     const result = R.pipe(Cart.init(customerId), Cart.addCartItem(cartItem));
     assert(result.isOk());
@@ -35,11 +36,11 @@ describe('addCartItem', () => {
       price: Price.parse(1_000),
     };
 
-    const targetCartItem = {
+    const targetCartItem = CartItem.parse({
       productId: ProductId.generate(),
-      quantity: Quantity.parse(3),
-      price: Price.parse(2_222),
-    };
+      quantity: 3,
+      price: 2_222,
+    });
     const result = R.pipe(
       Cart.parse({
         aggregateId: customerId,
@@ -74,11 +75,11 @@ describe('addCartItem', () => {
         price: Price.parse(2_000),
       },
     ];
-    const targetCartItem = {
+    const targetCartItem = CartItem.parse({
       productId: cartItems[1]!.productId,
-      quantity: Quantity.parse(3),
-      price: Price.parse(2_222),
-    };
+      quantity: 3,
+      price: 2_222,
+    });
     const result = R.pipe(
       Cart.parse({
         aggregateId: customerId,

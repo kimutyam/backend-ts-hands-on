@@ -13,11 +13,9 @@ import {
   CartItemUpdated,
 } from '#/app/domain/cart/cartEvent.js';
 import { CartItem } from '#/app/domain/cart/cartItem.js';
-import { Quantity } from '#/app/domain/cart/quantity.js';
 import { CustomerId } from '#/app/domain/customer/customerId.js';
 import { DomainEvent } from '#/app/domain/domainEvent.js';
 import { OptimisticLockError } from '#/app/domain/optimisticLockError.js';
-import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
 
 type Row = Pick<Cart, 'aggregateId' | 'sequenceNumber'>;
@@ -75,11 +73,11 @@ describe('CartEventStore', () => {
   it('カート項目を追加できる (新規追加)', async () => {
     const customerId = CustomerId.generate();
     const productId = ProductId.generate();
-    const cartItem = {
+    const cartItem = CartItem.parse({
       productId,
-      price: Price.parse(1_000),
-      quantity: Quantity.parse(5),
-    };
+      price: 1_000,
+      quantity: 5,
+    });
 
     const aggregate = Cart.parse({
       aggregateId: customerId,
@@ -121,11 +119,11 @@ describe('CartEventStore', () => {
   it('カート項目を追加できる (更新)', async () => {
     const customerId = CustomerId.generate();
     const productId = ProductId.generate();
-    const cartItem = {
+    const cartItem = CartItem.parse({
       productId,
-      price: Price.parse(1_010),
-      quantity: Quantity.parse(3),
-    };
+      price: 1_010,
+      quantity: 3,
+    });
     const aggregate = Cart.parse({
       aggregateId: customerId,
       sequenceNumber: 2,
@@ -245,8 +243,8 @@ describe('CartEventStore', () => {
 
     const cartItem = CartItem.parse({
       productId,
-      price: Price.parse(1_000),
-      quantity: Quantity.parse(1),
+      price: 1_000,
+      quantity: 1,
     });
 
     const aggregate1 = Cart.parse({
@@ -265,8 +263,8 @@ describe('CartEventStore', () => {
 
     const updatedCartItem = CartItem.parse({
       productId,
-      price: Price.parse(2_000),
-      quantity: Quantity.parse(2),
+      price: 2_000,
+      quantity: 2,
     });
 
     const staleAggregate = Cart.parse({

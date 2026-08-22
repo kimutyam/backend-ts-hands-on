@@ -6,6 +6,8 @@ import { Quantity } from '#/app/domain/cart/quantity.js';
 import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
 
+const name = 'CartItem';
+
 const schema = z
   .object({
     productId: ProductId.schema,
@@ -13,8 +15,9 @@ const schema = z
     quantity: Quantity.schema,
   })
   .readonly()
+  .brand(name)
   .meta({
-    id: 'CartItem',
+    id: name,
     description: 'カート項目',
   });
 
@@ -26,7 +29,7 @@ const parse = (input: CartItemInput): CartItem => schema.parse(input);
 const createSingleQuantity = (productId: ProductId, price: Price): CartItem =>
   parse({
     productId,
-    quantity: Quantity.parse(1),
+    quantity: 1,
     price,
   });
 
