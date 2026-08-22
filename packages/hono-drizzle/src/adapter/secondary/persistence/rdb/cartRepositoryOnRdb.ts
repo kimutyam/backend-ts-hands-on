@@ -28,13 +28,14 @@ const validateExists =
 
 const validateUnique =
   (aggregateId: CustomerId) =>
-  (selects: ReadonlyArray<Select>): void => {
+  (selects: ReadonlyArray<Select>): Result<void, never> => {
     const customerIds = new Set(selects.map(({ cart }) => cart.customerId));
     if (customerIds.size > 1) {
       throw new Error(
         `カスタマーIDでの索引で複数のカートが見つかりました: ${aggregateId}`,
       );
     }
+    return ok(undefined);
   };
 
 const toCartItem = (select: CartItemSelect): CartItem => {
@@ -73,7 +74,7 @@ const createFindByIdFn =
         .where(eq(cartTable.customerId, aggregateId)),
     )
       .andThrough(validateExists(aggregateId))
-      .andTee(validateUnique(aggregateId))
+      .andThrough(validateUnique(aggregateId))
       .map(toCart);
 
 createFindByIdFn.inject = [Db.token] as const;

@@ -19,12 +19,13 @@ const validateExists =
 
 const validateUnique =
   (aggregateId: ProductId) =>
-  (selects: ReadonlyArray<ProductSelect>): void => {
+  (selects: ReadonlyArray<ProductSelect>): Result<void, never> => {
     if (selects.length > 1) {
       throw new Error(
         `商品IDでの索引で複数の商品が見つかりました: ${aggregateId}`,
       );
     }
+    return ok(undefined);
   };
 
 const toProduct = (selects: ReadonlyArray<ProductSelect>): Product => {
@@ -47,7 +48,7 @@ const createFindByIdFn =
         .where(eq(productTable.productId, aggregateId)),
     )
       .andThrough(validateExists(aggregateId))
-      .andTee(validateUnique(aggregateId))
+      .andThrough(validateUnique(aggregateId))
       .map(toProduct);
 
 createFindByIdFn.inject = [Db.token] as const;
