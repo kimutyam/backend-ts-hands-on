@@ -1,6 +1,4 @@
 import { sql } from 'drizzle-orm';
-import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
-import type { QueryResult } from 'pg';
 import * as R from 'remeda';
 
 import { getDbInstanceFromEnv } from '#/adapter/secondary/persistence/rdb/__tests__/helper/db.js';
@@ -22,12 +20,12 @@ import { OptimisticLockError } from '#/app/domain/optimisticLockError.js';
 import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
 
+type Row = Pick<Cart, 'aggregateId' | 'sequenceNumber'>;
+
 const createSelectCartFn =
   (db: Db) =>
-  (
-    aggregateId: CustomerId,
-  ): PgRaw<QueryResult<Pick<Cart, 'aggregateId' | 'sequenceNumber'>>> =>
-    db.execute<Pick<Cart, 'aggregateId' | 'sequenceNumber'>>(
+  (aggregateId: CustomerId): ReturnType<typeof db.execute<Row>> =>
+    db.execute(
       sql`
         SELECT
           customer_id "aggregateId",
@@ -40,8 +38,8 @@ const createSelectCartFn =
 
 const createSelectCartItemFn =
   (db: Db) =>
-  (customerId: CustomerId): PgRaw<QueryResult<CartItem>> =>
-    db.execute<CartItem>(
+  (customerId: CustomerId): ReturnType<typeof db.execute<CartItem>> =>
+    db.execute(
       sql`
         SELECT
           product_id "productId",
@@ -53,7 +51,7 @@ const createSelectCartItemFn =
           customer_id = ${customerId}`,
     );
 
-const createTruncateTableFn = (db: Db) => async () => {
+const createTruncateTableFn = (db: Db) => async (): Promise<void> => {
   await db.execute('TRUNCATE TABLE domain_event, cart, cart_item');
 };
 

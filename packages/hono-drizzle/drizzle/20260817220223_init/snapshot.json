@@ -1,0 +1,596 @@
+{
+  "ddl": [
+    {
+      "entityType": "tables",
+      "isRlsEnabled": false,
+      "name": "cart",
+      "schema": "public"
+    },
+    {
+      "entityType": "tables",
+      "isRlsEnabled": false,
+      "name": "cart_item",
+      "schema": "public"
+    },
+    {
+      "entityType": "tables",
+      "isRlsEnabled": false,
+      "name": "domain_event",
+      "schema": "public"
+    },
+    {
+      "entityType": "tables",
+      "isRlsEnabled": false,
+      "name": "order",
+      "schema": "public"
+    },
+    {
+      "entityType": "tables",
+      "isRlsEnabled": false,
+      "name": "order_item",
+      "schema": "public"
+    },
+    {
+      "entityType": "tables",
+      "isRlsEnabled": false,
+      "name": "product",
+      "schema": "public"
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "customer_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "sequence_number",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "updated_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "customer_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart_item",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "product_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart_item",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "price",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart_item",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "quantity",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart_item",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart_item",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "updated_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "cart_item",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "event_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "occurred_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "sequence_number",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "event_name",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "varchar(50)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "aggregate_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "aggregate_name",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "varchar(50)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "payload",
+      "notNull": true,
+      "schema": "public",
+      "table": "domain_event",
+      "type": "jsonb",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "order_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "order",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "customer_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "order",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "sequence_number",
+      "notNull": false,
+      "schema": "public",
+      "table": "order",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "order",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "updated_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "order",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "order_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "order_item",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "product_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "order_item",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "price",
+      "notNull": true,
+      "schema": "public",
+      "table": "order_item",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "quantity",
+      "notNull": true,
+      "schema": "public",
+      "table": "order_item",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "order_item",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "updated_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "order_item",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "product_id",
+      "notNull": true,
+      "schema": "public",
+      "table": "product",
+      "type": "varchar(26)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "sequence_number",
+      "notNull": true,
+      "schema": "public",
+      "table": "product",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "notNull": true,
+      "schema": "public",
+      "table": "product",
+      "type": "varchar(100)",
+      "typeSchema": null
+    },
+    {
+      "default": null,
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "price",
+      "notNull": true,
+      "schema": "public",
+      "table": "product",
+      "type": "integer",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "product",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "default": "now()",
+      "dimensions": 0,
+      "entityType": "columns",
+      "generated": null,
+      "identity": null,
+      "name": "updated_at",
+      "notNull": true,
+      "schema": "public",
+      "table": "product",
+      "type": "timestamp with time zone",
+      "typeSchema": null
+    },
+    {
+      "columns": [
+        "customer_id"
+      ],
+      "columnsTo": [
+        "customer_id"
+      ],
+      "entityType": "fks",
+      "name": "cart_item_customer_id_cart_customer_id_fkey",
+      "nameExplicit": false,
+      "onDelete": "RESTRICT",
+      "onUpdate": "RESTRICT",
+      "schema": "public",
+      "schemaTo": "public",
+      "table": "cart_item",
+      "tableTo": "cart"
+    },
+    {
+      "columns": [
+        "order_id"
+      ],
+      "columnsTo": [
+        "order_id"
+      ],
+      "entityType": "fks",
+      "name": "order_item_order_id_order_order_id_fkey",
+      "nameExplicit": false,
+      "onDelete": "CASCADE",
+      "onUpdate": "CASCADE",
+      "schema": "public",
+      "schemaTo": "public",
+      "table": "order_item",
+      "tableTo": "order"
+    },
+    {
+      "columns": [
+        "customer_id",
+        "product_id"
+      ],
+      "entityType": "pks",
+      "name": "cart_item_pkey",
+      "nameExplicit": false,
+      "schema": "public",
+      "table": "cart_item"
+    },
+    {
+      "columns": [
+        "order_id",
+        "product_id"
+      ],
+      "entityType": "pks",
+      "name": "order_item_pkey",
+      "nameExplicit": false,
+      "schema": "public",
+      "table": "order_item"
+    },
+    {
+      "columns": [
+        "customer_id"
+      ],
+      "entityType": "pks",
+      "name": "cart_pkey",
+      "nameExplicit": false,
+      "schema": "public",
+      "table": "cart"
+    },
+    {
+      "columns": [
+        "event_id"
+      ],
+      "entityType": "pks",
+      "name": "domain_event_pkey",
+      "nameExplicit": false,
+      "schema": "public",
+      "table": "domain_event"
+    },
+    {
+      "columns": [
+        "order_id"
+      ],
+      "entityType": "pks",
+      "name": "order_pkey",
+      "nameExplicit": false,
+      "schema": "public",
+      "table": "order"
+    },
+    {
+      "columns": [
+        "product_id"
+      ],
+      "entityType": "pks",
+      "name": "product_pkey",
+      "nameExplicit": false,
+      "schema": "public",
+      "table": "product"
+    },
+    {
+      "columns": [
+        "name"
+      ],
+      "entityType": "uniques",
+      "name": "product_name_unique",
+      "nameExplicit": true,
+      "nullsNotDistinct": false,
+      "schema": "public",
+      "table": "product"
+    }
+  ],
+  "dialect": "postgres",
+  "id": "a71430cd-3cac-471c-b2c7-b2c398317971",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "renames": [],
+  "version": "8"
+}

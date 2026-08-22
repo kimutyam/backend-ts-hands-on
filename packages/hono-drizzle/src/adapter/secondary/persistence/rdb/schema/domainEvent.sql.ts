@@ -1,12 +1,12 @@
 import {
   integer,
   jsonb,
-  pgTable,
+  snakeCase,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
 
-const domainEventTable = pgTable('domain_event', {
+const domainEventTable = snakeCase.table('domain_event', {
   eventId: varchar({ length: 26 }).primaryKey(),
   occurredAt: timestamp({ withTimezone: true }).notNull(),
   sequenceNumber: integer().notNull(),

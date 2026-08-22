@@ -1,17 +1,20 @@
 import { sql } from 'drizzle-orm';
-import type { PgRaw } from 'drizzle-orm/pg-core/query-builders/raw';
-import type { QueryResult } from 'pg';
 
 import type { Db } from '#/adapter/secondary/persistence/rdb/db.js';
 import type { DomainEvent } from '#/app/domain/domainEvent.js';
 import type { DomainEventId } from '#/app/domain/domainEventId.js';
 
+type Row<T extends DomainEvent<any, any, any, any>> = Pick<
+  T,
+  'sequenceNumber' | 'payload'
+>;
+
 const createSelectDomainEventFn =
   (db: Db) =>
   <T extends DomainEvent<any, any, any, any>>(
     eventId: DomainEventId,
-  ): PgRaw<QueryResult<Pick<T, 'sequenceNumber' | 'payload'>>> =>
-    db.execute<Pick<T, 'sequenceNumber' | 'payload'>>(
+  ): ReturnType<typeof db.execute<Row<T>>> =>
+    db.execute<Row<T>>(
       sql`
         SELECT
           sequence_number "sequenceNumber",

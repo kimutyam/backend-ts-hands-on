@@ -13,7 +13,10 @@ import { ProductId } from '#/app/domain/product/productId.js';
 
 const createSetupWithCartItemsFn =
   (db: Db) =>
-  async (customerId: CustomerId, productIds: ReadonlyArray<ProductId>) => {
+  async (
+    customerId: CustomerId,
+    productIds: ReadonlyArray<ProductId>,
+  ): Promise<void> => {
     await db.transaction(async (tx) => {
       await tx.insert(cartTable).values([
         {
@@ -32,16 +35,18 @@ const createSetupWithCartItemsFn =
     });
   };
 
-const setupWithoutCartItemFn = (db: Db) => async (customerId: CustomerId) => {
-  await db.insert(cartTable).values([
-    {
-      customerId,
-      sequenceNumber: 5,
-    },
-  ]);
-};
+const setupWithoutCartItemFn =
+  (db: Db) =>
+  async (customerId: CustomerId): Promise<void> => {
+    await db.insert(cartTable).values([
+      {
+        customerId,
+        sequenceNumber: 5,
+      },
+    ]);
+  };
 
-const createTruncateTableFn = (db: Db) => async () => {
+const createTruncateTableFn = (db: Db) => async (): Promise<void> => {
   await db.execute('TRUNCATE TABLE cart, cart_item');
 };
 
