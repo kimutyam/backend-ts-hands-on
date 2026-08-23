@@ -10,10 +10,10 @@ import {
   CartItemRemoved,
   CartItemUpdated,
 } from '#/app/domain/cart/cartEvent.js';
+import { CartInvariantViolationError } from '#/app/domain/cart/cartInvariantViolationError.js';
 import { CartItem } from '#/app/domain/cart/cartItem.js';
 import { CartItemNotFoundError } from '#/app/domain/cart/cartItemNotFoundError.js';
-import { CartRefinementsError } from '#/app/domain/cart/cartRefinementsError.js';
-import type { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
+import type { QuantityInvariantViolationError } from '#/app/domain/cart/quantity.js';
 import { CustomerId } from '#/app/domain/customer/customerId.js';
 import { DomainEvent } from '#/app/domain/domainEvent.js';
 import { ProductId } from '#/app/domain/product/productId.js';
@@ -71,10 +71,12 @@ const schemaWithRefinements = schema
 
 const parse = (value: CartInput): Cart => schemaWithRefinements.parse(value);
 
-const safeParse = (value: CartInput): Result<Cart, CartRefinementsError> =>
+const safeParse = (
+  value: CartInput,
+): Result<Cart, CartInvariantViolationError> =>
   R.pipe(
     schemaWithRefinements.safeParse(value),
-    createFromZod(CartRefinementsError.create),
+    createFromZod(CartInvariantViolationError.create),
   );
 
 const init = (
@@ -93,7 +95,7 @@ const addCartItem =
     cart: Cart,
   ): Result<
     [Cart, CartItemAdded | CartItemUpdated],
-    QuantityRefinementsError | CartRefinementsError
+    QuantityInvariantViolationError | CartInvariantViolationError
   > => {
     const { aggregateId, sequenceNumber, cartItems } = cart;
     const updateTargetIndex = R.findIndex(cartItems, (cartItem) =>

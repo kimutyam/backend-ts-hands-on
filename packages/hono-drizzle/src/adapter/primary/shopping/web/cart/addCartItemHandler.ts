@@ -6,8 +6,8 @@ import {
   ErrorSchema,
   ValidationErrorSchema,
 } from '#/adapter/primary/shopping/web/errorSchemas.js';
-import { CartRefinementsError } from '#/app/domain/cart/cartRefinementsError.js';
-import { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
+import { CartInvariantViolationError } from '#/app/domain/cart/cartInvariantViolationError.js';
+import { QuantityInvariantViolationError } from '#/app/domain/cart/quantity.js';
 import { ProductNotFoundError } from '#/app/domain/product/productNotFoundError.js';
 import { AddCartItem } from '#/app/port/primary/shopping/addCartItem.js';
 import { assertNever } from '#/app/util/assertNever.js';
@@ -36,8 +36,8 @@ const create =
               }),
               404,
             );
-          case CartRefinementsError.kind:
-          case QuantityRefinementsError.kind:
+          case CartInvariantViolationError.kind:
+          case QuantityInvariantViolationError.kind:
             return c.json(
               ValidationErrorSchema.parse({
                 title: error.message,

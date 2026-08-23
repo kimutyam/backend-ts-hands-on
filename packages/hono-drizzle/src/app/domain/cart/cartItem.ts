@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow';
 import { z } from 'zod';
 
-import type { QuantityRefinementsError } from '#/app/domain/cart/quantity.js';
+import type { QuantityInvariantViolationError } from '#/app/domain/cart/quantity.js';
 import { Quantity } from '#/app/domain/cart/quantity.js';
 import { Price } from '#/app/domain/product/price.js';
 import { ProductId } from '#/app/domain/product/productId.js';
@@ -35,7 +35,7 @@ const createSingleQuantity = (productId: ProductId, price: Price): CartItem =>
 
 const add =
   (quantity: Quantity, price: Price) =>
-  (item: CartItem): Result<CartItem, QuantityRefinementsError> =>
+  (item: CartItem): Result<CartItem, QuantityInvariantViolationError> =>
     Quantity.safeParse(item.quantity + quantity).map((newQuantity) =>
       parse({
         ...item,
