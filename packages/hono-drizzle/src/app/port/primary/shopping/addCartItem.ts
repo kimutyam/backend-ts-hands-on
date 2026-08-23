@@ -4,10 +4,10 @@ import type {
   CartItemAdded,
   CartItemUpdated,
 } from '#/app/domain/cart/cartEvent.js';
-import type { CartRefinementsError } from '#/app/domain/cart/cartRefinementsError.js';
+import type { CartInvariantViolationError } from '#/app/domain/cart/cartInvariantViolationError.js';
 import type {
   Quantity,
-  QuantityRefinementsError,
+  QuantityInvariantViolationError,
 } from '#/app/domain/cart/quantity.js';
 import type { CustomerId } from '#/app/domain/customer/customerId.js';
 import type { ProductId } from '#/app/domain/product/productId.js';
@@ -19,7 +19,9 @@ type AddCartItem = (
   quantity: Quantity,
 ) => ResultAsync<
   CartItemAdded | CartItemUpdated,
-  ProductNotFoundError | QuantityRefinementsError | CartRefinementsError
+  | ProductNotFoundError
+  | QuantityInvariantViolationError
+  | CartInvariantViolationError
 >;
 
 const AddCartItem = {

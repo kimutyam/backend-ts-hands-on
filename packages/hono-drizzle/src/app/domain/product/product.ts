@@ -7,8 +7,8 @@ import { DomainEvent } from '#/app/domain/domainEvent.js';
 import { Price } from '#/app/domain/product/price.js';
 import { ProductRegistered } from '#/app/domain/product/productEvent.js';
 import { ProductId } from '#/app/domain/product/productId.js';
+import { ProductInvariantViolationError } from '#/app/domain/product/productInvariantViolationError.js';
 import { ProductName } from '#/app/domain/product/productName.js';
-import { ProductRefinementsError } from '#/app/domain/product/productRefinementsError.js';
 import { createFromZod } from '#/app/util/result.js';
 
 const aggregateName = 'Product';
@@ -29,10 +29,12 @@ type ProductZodError = z.ZodError<Product>;
 
 const parse = (value: Input): Product => schema.parse(value);
 
-const safeParse = (value: Input): Result<Product, ProductRefinementsError> =>
+const safeParse = (
+  value: Input,
+): Result<Product, ProductInvariantViolationError> =>
   R.pipe(
     schema.safeParse(value),
-    createFromZod(ProductRefinementsError.create),
+    createFromZod(ProductInvariantViolationError.create),
   );
 
 const register = (aggregate: Product): [Product, ProductRegistered] => {
@@ -54,7 +56,7 @@ const generate = (
   name: ProductName,
   price: Price,
   generateProductId: () => ProductId,
-): Result<Product, ProductRefinementsError> =>
+): Result<Product, ProductInvariantViolationError> =>
   safeParse({
     aggregateId: generateProductId(),
     sequenceNumber: Aggregate.InitialSequenceNumber,

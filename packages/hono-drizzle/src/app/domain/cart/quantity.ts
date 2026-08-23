@@ -16,19 +16,23 @@ type QuantityInput = z.input<typeof schema>;
 type Quantity = z.output<typeof schema>;
 type QuantityZodError = z.ZodError<Quantity>;
 
-const errorKind = 'QuantityRefinementsError';
+const errorKind = 'QuantityInvariantViolationError';
 
-interface QuantityRefinementsError extends ApplicationError<typeof errorKind> {
+interface QuantityInvariantViolationError extends ApplicationError<
+  typeof errorKind
+> {
   error: QuantityZodError;
 }
 
-const createError = (error: QuantityZodError): QuantityRefinementsError => ({
+const createError = (
+  error: QuantityZodError,
+): QuantityInvariantViolationError => ({
   kind: errorKind,
   message: error.message,
   error,
 });
 
-const QuantityRefinementsError = {
+const QuantityInvariantViolationError = {
   kind: errorKind,
   create: createError,
 } as const;
@@ -36,7 +40,7 @@ const QuantityRefinementsError = {
 const parse = (value: QuantityInput): Quantity => schema.parse(value);
 const safeParse = (
   value: QuantityInput,
-): Result<Quantity, QuantityRefinementsError> =>
+): Result<Quantity, QuantityInvariantViolationError> =>
   R.pipe(schema.safeParse(value), createFromZod(createError));
 
 const Quantity = {
@@ -46,4 +50,4 @@ const Quantity = {
   safeParse,
 } as const;
 
-export { Quantity, QuantityRefinementsError };
+export { Quantity, QuantityInvariantViolationError };
