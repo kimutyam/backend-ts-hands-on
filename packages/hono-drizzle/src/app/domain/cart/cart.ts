@@ -186,7 +186,6 @@ const clear =
     const event = R.pipe(
       aggregate,
       DomainEvent.generate(aggregateName, CartCleared.eventName, {
-        aggregateId,
         reason,
       }),
     );

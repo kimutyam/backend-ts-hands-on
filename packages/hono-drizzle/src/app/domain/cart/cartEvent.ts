@@ -46,7 +46,7 @@ type CartCleared = DomainEvent<
   CustomerId,
   typeof Cart.aggregateName,
   typeof CartCleared.eventName,
-  { aggregateId: CustomerId; reason: CartClearReason }
+  { reason: CartClearReason }
 >;
 
 type CartEvent =
