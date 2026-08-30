@@ -11,7 +11,7 @@ const create =
   ): ClearCart =>
   (customerId) =>
     findCartById(customerId)
-      .map(Cart.clear('OnManual'))
+      .map(Cart.clear('CustomerOperation'))
       .andThrough(([cart, cartEvent]) => storeCartEvent(cartEvent, cart))
       .map(([, cartEvent]) => cartEvent);
 

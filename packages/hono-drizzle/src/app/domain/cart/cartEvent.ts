@@ -1,5 +1,5 @@
 import type { Cart } from '#/app/domain/cart/cart.js';
-import type { CartClearReason } from '#/app/domain/cart/cartClearReason.js';
+import type { CartClearTrigger } from '#/app/domain/cart/cartClearTrigger.js';
 import type { CartItem } from '#/app/domain/cart/cartItem.js';
 import type { CustomerId } from '#/app/domain/customer/customerId.js';
 import type { DomainEvent } from '#/app/domain/domainEvent.js';
@@ -46,7 +46,7 @@ type CartCleared = DomainEvent<
   CustomerId,
   typeof Cart.aggregateName,
   typeof CartCleared.eventName,
-  { reason: CartClearReason }
+  { trigger: CartClearTrigger }
 >;
 
 type CartEvent =

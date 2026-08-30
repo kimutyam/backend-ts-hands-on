@@ -211,7 +211,7 @@ describe('CartEventStore', () => {
       aggregate,
       DomainEvent.generate(Cart.aggregateName, CartCleared.eventName, {
         aggregateId: customerId,
-        reason: 'OnManual',
+        trigger: 'CustomerOperation',
       }),
     );
 
@@ -232,7 +232,7 @@ describe('CartEventStore', () => {
       sequenceNumber: 2,
       payload: {
         aggregateId: customerId,
-        reason: 'OnManual',
+        trigger: 'CustomerOperation',
       },
     });
   });

@@ -3,7 +3,7 @@ import * as R from 'remeda';
 import { z } from 'zod';
 
 import { Aggregate } from '#/app/domain/aggregate.js';
-import type { CartClearReason } from '#/app/domain/cart/cartClearReason.js';
+import type { CartClearTrigger } from '#/app/domain/cart/cartClearTrigger.js';
 import {
   CartCleared,
   CartItemAdded,
@@ -176,7 +176,7 @@ const removeCartItem =
   };
 
 const clear =
-  (reason: CartClearReason) =>
+  (trigger: CartClearTrigger) =>
   ({ aggregateId, sequenceNumber }: Cart): [Cart, CartCleared] => {
     const aggregate = parse({
       aggregateId,
@@ -186,7 +186,7 @@ const clear =
     const event = R.pipe(
       aggregate,
       DomainEvent.generate(aggregateName, CartCleared.eventName, {
-        reason,
+        trigger,
       }),
     );
     return [aggregate, event];

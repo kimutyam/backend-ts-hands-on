@@ -56,8 +56,8 @@ const requestOrder = (
     Order.generate(cart.aggregateId, items, generateOrderId),
     Order.request,
   );
-  const [newCart, cartClearedOnOrder] = R.pipe(cart, Cart.clear('OnOrder'));
-  return [order, orderRequested, newCart, cartClearedOnOrder];
+  const [newCart, cartCleared] = R.pipe(cart, Cart.clear('OrderProcess'));
+  return [order, orderRequested, newCart, cartCleared];
 };
 
 export { requestOrder };

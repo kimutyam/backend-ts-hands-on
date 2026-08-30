@@ -78,7 +78,7 @@ describe('requestOrder', () => {
       ],
     });
     expect(cartAfterOrder.cartItems).toHaveLength(0);
-    expect(cartCleared.payload.reason).toEqual('OnOrder');
+    expect(cartCleared.payload.trigger).toEqual('OrderProcess');
     expect(cartCleared.sequenceNumber).toEqual(2);
   });
 });
