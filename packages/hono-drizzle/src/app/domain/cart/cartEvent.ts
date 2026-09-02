@@ -50,10 +50,7 @@ type CartCleared = DomainEvent<
 >;
 
 type CartEvent =
-  | CartItemAdded
-  | CartItemUpdated
-  | CartItemRemoved
-  | CartCleared;
+  CartItemAdded | CartItemUpdated | CartItemRemoved | CartCleared;
 
 export {
   CartCleared,
