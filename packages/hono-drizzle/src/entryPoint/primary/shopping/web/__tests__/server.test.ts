@@ -8,6 +8,7 @@ type ShutdownTargetServer = ShutdownHandlerDeps['server'];
 type ShutdownInjector = ShutdownHandlerDeps['injector'];
 type ShutdownHandler = ReturnType<typeof createShutdownHandler>;
 type ShutdownContext = Parameters<ShutdownHandler>[0];
+type ExitProcess = NonNullable<ShutdownHandlerDeps['exitProcess']>;
 
 const createServerStub = (): ShutdownTargetServer => ({
   close: vi.fn(),
@@ -36,7 +37,7 @@ describe('createShutdownHandler', () => {
   it('shutdown が timeout した場合は exit code 1 で強制終了する', async () => {
     vi.useFakeTimers();
 
-    const exitProcess = vi.fn();
+    const exitProcess = vi.fn<ExitProcess>();
     const dispose: ShutdownInjector['dispose'] = vi.fn(() =>
       createPendingPromise(),
     );
@@ -67,7 +68,7 @@ describe('createShutdownHandler', () => {
           resolveCloseServer = resolve;
         }),
     );
-    const exitProcess = vi.fn();
+    const exitProcess = vi.fn<ExitProcess>();
     const injector = createInjectorStub();
     const server = createServerStub();
     const shutdownHandler = createShutdownHandler({
@@ -91,7 +92,7 @@ describe('createShutdownHandler', () => {
 
   it('shutdown が完了した場合は指定された終了コードで終了する', async () => {
     const callOrder: Array<string> = [];
-    const exitProcess = vi.fn();
+    const exitProcess = vi.fn<ExitProcess>();
     const closeServer = vi.fn(() =>
       Promise.resolve().then(() => {
         callOrder.push('closeServer');
@@ -125,7 +126,7 @@ describe('createShutdownHandler', () => {
 
   it('shutdown が複数回要求されても終了処理は一度だけ実行する', async () => {
     const closeServer = vi.fn(() => Promise.resolve());
-    const exitProcess = vi.fn();
+    const exitProcess = vi.fn<ExitProcess>();
     const injector = createInjectorStub();
     const server = createServerStub();
     const shutdownHandler = createShutdownHandler({

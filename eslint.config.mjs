@@ -84,6 +84,7 @@ export default [
       '@typescript-eslint/no-non-null-assertion': 'off',
       'import-x/prefer-default-export': 'off',
       '@typescript-eslint/prefer-function-type': 'off',
+      '@typescript-eslint/strict-void-return': 'error',
       'import-x/no-unresolved': 'off',
       'import-x/order': [
         'error',
