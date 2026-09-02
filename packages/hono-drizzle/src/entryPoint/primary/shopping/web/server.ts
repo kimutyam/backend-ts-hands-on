@@ -1,5 +1,3 @@
-import { promisify } from 'node:util';
-
 import type { ServerType } from '@hono/node-server';
 import { serve } from '@hono/node-server';
 import type { Injector } from 'typed-inject';
@@ -33,7 +31,16 @@ const serveApp = (app: App): ServerType =>
   );
 
 const closeServer = async (server: ClosableServer): Promise<void> => {
-  await promisify(server.close.bind(server))();
+  await new Promise<void>((resolve, reject) => {
+    server.close((error) => {
+      if (error !== undefined) {
+        reject(error);
+        return;
+      }
+
+      resolve();
+    });
+  });
   console.log('HTTP server closed.');
 };
 
