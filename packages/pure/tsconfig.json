@@ -8,7 +8,10 @@
         "./src/*"
       ]
     },
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "types": [
+      "node"
+    ]
   },
   "extends": "../../tsconfig.json",
   "include": [
