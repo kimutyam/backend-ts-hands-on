@@ -18,7 +18,7 @@
     "lint:fix": "eslint --cache \"{src,test}/**/*.ts\" --fix"
   },
   "dependencies": {
-    "@types/node": "24.13.3"
+    "@types/node": "24.13.4"
   },
   "devDependencies": {
     "rimraf": "6.1.3",
