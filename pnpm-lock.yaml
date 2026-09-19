@@ -109,8 +109,8 @@ importers:
         specifier: 8.23.0
         version: 8.23.0
       remeda:
-        specifier: 2.48.0
-        version: 2.48.0
+        specifier: 2.50.0
+        version: 2.50.0
       typed-inject:
         specifier: 5.0.0
         version: 5.0.0
@@ -2224,8 +2224,8 @@ packages:
     resolution: {integrity: sha512-+Owyggi9IxT1ePKGafcI87ubSmxol6smwJ+RAHDQlx9+9cPwFWDiKFFCPuWhr9ignlGpZ9vDQLw67N4dcTVFEA==}
     engines: {node: '>=20'}
 
-  remeda@2.48.0:
-    resolution: {integrity: sha512-+tf74WyTpQT1lHI/zJeXOkMBqb6R9gNcd3T4DpXzjs26PdwEARCPKOjLAwJaQYrvSXS+nxsXMhEZD4NS40QuSg==}
+  remeda@2.50.0:
+    resolution: {integrity: sha512-pzljnP7Gnl/lLz5WcOSkxEGCjcK4dteQihQjRrtKCGqn8J6jD0BHwfU6pRrXjvQV2EWe+HdgtfZW7rDdmKn8uQ==}
     engines: {node: '>=18.0.0'}
 
   resolve-from@4.0.0:
@@ -4186,7 +4186,7 @@ snapshots:
     dependencies:
       hookified: 2.2.0
 
-  remeda@2.48.0: {}
+  remeda@2.50.0: {}
 
   resolve-from@4.0.0: {}
 
