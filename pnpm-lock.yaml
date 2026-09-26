@@ -88,8 +88,8 @@ importers:
         specifier: 1.6.3
         version: 1.6.3(hono@4.13.8)(zod@4.4.3)
       '@scalar/hono-api-reference':
-        specifier: 0.12.2
-        version: 0.12.2(hono@4.13.8)
+        specifier: 0.12.4
+        version: 0.12.4(hono@4.13.8)
       date-fns:
         specifier: 4.4.0
         version: 4.4.0
@@ -962,30 +962,30 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@scalar/client-side-rendering@0.4.1':
-    resolution: {integrity: sha512-4Ha2ihIPFwmhheSU6U9DlpjgRQ2YOqq2JSmc4ubT2ERApaA/HzuZ1IMyLXDvRICI+KbDducfGw5th9O+TQf+6A==}
+  '@scalar/client-side-rendering@0.4.3':
+    resolution: {integrity: sha512-a7Hs+YpaT3CEtJcx6pJS/1XMhV/cCGmheYrwuCd51LvrnJLluVqq7ID6F9xWqPnc7Y0E3vs6XZcz+h3exjUFdg==}
     engines: {node: '>=22'}
 
-  '@scalar/helpers@0.12.0':
-    resolution: {integrity: sha512-rcX0rFLiWWc0VBr/E+HkatubL0I0ZzxASQkd3032NWEMAEfNd2TiJ9kH46HwbSAOOl696ghxymWegjpjjvxwzA==}
+  '@scalar/helpers@0.13.0':
+    resolution: {integrity: sha512-1vB6AZXCQZPb+MApSrso6ss+rbLuiI/vGe+PmiXm8Cnt6B+10JeacDPoPr51EgSwltSfH2hZhJ7hHjW2pSg+bQ==}
     engines: {node: '>=22'}
 
-  '@scalar/hono-api-reference@0.12.2':
-    resolution: {integrity: sha512-VrdMxw/HmejceR9rH0eu4uYKWBILnts5Qj2tgzplufoQbPc+FiFsRKGQ9ZNtZ4CZuvrhEj1y/HrmBX5Zz2sqpg==}
+  '@scalar/hono-api-reference@0.12.4':
+    resolution: {integrity: sha512-/Srs98YbTAXKIyw2IdATKMyB/rz5oUrzP9uBkNIQo4bk5f9D7qywavtZFClCMZ0a7zvTzFsJeggaOPC+1qqOVg==}
     engines: {node: '>=22'}
     peerDependencies:
       hono: ^4.12.5
 
-  '@scalar/schemas@0.10.0':
-    resolution: {integrity: sha512-jFqfd+oqqlTfs87V+QkIrR9DiRv+/h1x3GzSGbGe1qrM6togeXwvVG4aurn+LZ+Ej9of54/6FmoI8DPuLOKx7A==}
+  '@scalar/schemas@0.11.0':
+    resolution: {integrity: sha512-rtvZSsL7IFcHLB1j0VJIgW2MJ702NPOvlhRoRWU4gDK4rGDRmy58BzXtF7gbKOm8vA8aX24NIMr7itwc1Pp6AQ==}
     engines: {node: '>=22'}
 
-  '@scalar/types@0.20.0':
-    resolution: {integrity: sha512-+05slk/Q6MRMqEQt6eM77Jt9DnDPAvfcc/6r7mbrXhIqJSp3oAPrixpAnp1knBSlFaxgixcK/GMKw9QDfD+Zgg==}
+  '@scalar/types@0.21.0':
+    resolution: {integrity: sha512-kl/GSKZ2DynaaP1LxnyXxopgoIYrtUI95cOeG3KYkdGJ6pEn3MJ6PDmWfRQNj3gH/ZRx2UuNIf3jVvtMNrlrKA==}
     engines: {node: '>=22'}
 
-  '@scalar/validation@0.6.3':
-    resolution: {integrity: sha512-j3s9XPv8Wo1EG5/naBi4XGF0uXYQ2A3QZNI0NKWgCMxRHVrDJGlZEYymcHDHY7fquRm73P8U3c8xqJqB5yad6w==}
+  '@scalar/validation@0.6.4':
+    resolution: {integrity: sha512-s93HFX0+N6bLwGjZPKFGVHq/gWiZy1YQkR2+dSflbUdYp+4j2Pg+WDA0gwbFrsOlgtkEjwQbjXtbmBiFTtPYUg==}
     engines: {node: '>=20'}
 
   '@standard-schema/spec@1.1.0':
@@ -1086,12 +1086,6 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4 <6.1.0'
 
-  '@typescript-eslint/tsconfig-utils@8.70.0':
-    resolution: {integrity: sha512-adnkeeNq9Sq1sUf4+FRVc0KdgYghzsgFpZSQVZVvY0LCuUuN0FnQgyGzCJeC4fW1cdXseBAjU2EOqUIjbNcZUw==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    peerDependencies:
-      typescript: '>=4.8.4 <6.1.0'
-
   '@typescript-eslint/tsconfig-utils@8.70.1':
     resolution: {integrity: sha512-jumze1fPI+sDOaM2TWGQdn39PDxTr7TZGeuyLkAbNyx2vtMT3uRnVKChN0hfht5V2TugphJzF6bYXvBcE09qqg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1115,10 +1109,6 @@ packages:
 
   '@typescript-eslint/types@8.69.0':
     resolution: {integrity: sha512-K3VrubUPhlo9VDBS6QdI8YB5j7ClpqLRdefcz6PFrhnwicehBweqQ9Evhl4l+FYz0HdDmMqIiSX0aldGRYtDCA==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@typescript-eslint/types@8.70.0':
-    resolution: {integrity: sha512-asTOIYhDg4zdzOScCyaytrsV3cR6B4ecPQlXw/dJIm7J/MZTtCtfVII9JD8Geh4jTCrK/Xe6cg5UevoleMcoJQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/types@8.70.1':
@@ -3051,32 +3041,32 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.61.1':
     optional: true
 
-  '@scalar/client-side-rendering@0.4.1':
+  '@scalar/client-side-rendering@0.4.3':
     dependencies:
-      '@scalar/schemas': 0.10.0
-      '@scalar/types': 0.20.0
-      '@scalar/validation': 0.6.3
+      '@scalar/schemas': 0.11.0
+      '@scalar/types': 0.21.0
+      '@scalar/validation': 0.6.4
 
-  '@scalar/helpers@0.12.0': {}
+  '@scalar/helpers@0.13.0': {}
 
-  '@scalar/hono-api-reference@0.12.2(hono@4.13.8)':
+  '@scalar/hono-api-reference@0.12.4(hono@4.13.8)':
     dependencies:
-      '@scalar/client-side-rendering': 0.4.1
+      '@scalar/client-side-rendering': 0.4.3
       hono: 4.13.8
 
-  '@scalar/schemas@0.10.0':
+  '@scalar/schemas@0.11.0':
     dependencies:
-      '@scalar/helpers': 0.12.0
-      '@scalar/validation': 0.6.3
+      '@scalar/helpers': 0.13.0
+      '@scalar/validation': 0.6.4
 
-  '@scalar/types@0.20.0':
+  '@scalar/types@0.21.0':
     dependencies:
-      '@scalar/helpers': 0.12.0
+      '@scalar/helpers': 0.13.0
       nanoid: 5.1.11
       type-fest: 5.8.0
       zod: 4.4.3
 
-  '@scalar/validation@0.6.3': {}
+  '@scalar/validation@0.6.4': {}
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -3184,8 +3174,8 @@ snapshots:
 
   '@typescript-eslint/project-service@8.69.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.70.0(@typescript/typescript6@6.0.2)
-      '@typescript-eslint/types': 8.70.0
+      '@typescript-eslint/tsconfig-utils': 8.70.1(@typescript/typescript6@6.0.2)
+      '@typescript-eslint/types': 8.70.1
       debug: 4.4.3(supports-color@7.2.0)
       typescript: '@typescript/typescript6@6.0.2'
     transitivePeerDependencies:
@@ -3226,11 +3216,6 @@ snapshots:
       typescript: '@typescript/typescript6@6.0.2'
     optional: true
 
-  '@typescript-eslint/tsconfig-utils@8.70.0(@typescript/typescript6@6.0.2)':
-    dependencies:
-      typescript: '@typescript/typescript6@6.0.2'
-    optional: true
-
   '@typescript-eslint/tsconfig-utils@8.70.1(@typescript/typescript6@6.0.2)':
     dependencies:
       typescript: '@typescript/typescript6@6.0.2'
@@ -3256,9 +3241,6 @@ snapshots:
   '@typescript-eslint/types@8.64.0': {}
 
   '@typescript-eslint/types@8.69.0':
-    optional: true
-
-  '@typescript-eslint/types@8.70.0':
     optional: true
 
   '@typescript-eslint/types@8.70.1': {}
