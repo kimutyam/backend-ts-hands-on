@@ -31,7 +31,7 @@
     "@hono/zod-openapi": "1.6.3",
     "@scalar/hono-api-reference": "0.12.5",
     "date-fns": "4.4.0",
-    "dotenv": "18.0.3",
+    "dotenv": "18.0.4",
     "drizzle-orm": "1.0.0-rc.4",
     "hono": "4.13.9",
     "neverthrow": "8.2.0",
