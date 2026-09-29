@@ -1,0 +1,66 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "addLabels": [
+    "dependencies"
+  ],
+  "automergeSchedule": [
+    "every weekend",
+    "before 5am on Monday"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "npm",
+      "managerFilePatterns": [
+        "/(^|/).pre-commit-config.yaml$/"
+      ],
+      "matchStrings": [
+        "- '(?<depName>.+)@(?<currentValue>.+)'"
+      ]
+    }
+  ],
+  "extends": [
+    "config:recommended",
+    ":timezone(Asia/Tokyo)",
+    ":enablePreCommit",
+    ":prHourlyLimitNone"
+  ],
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "groupName": "eslint packages",
+      "matchPackageNames": [
+        "/^eslint/",
+        "/@eslint/",
+        "/^@typescript-eslint/"
+      ]
+    },
+    {
+      "automerge": true,
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "automerge": false,
+      "matchPackageNames": [
+        "typescript",
+        "node",
+        "@types/node",
+        "hono",
+        "@hono/node-server",
+        "drizzle-orm",
+        "neverthrow",
+        "zod"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ]
+    }
+  ],
+  "prConcurrentLimit": 10,
+  "schedule": [
+    "every weekend"
+  ]
+}
