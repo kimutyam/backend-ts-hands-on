@@ -1,7 +1,5 @@
 ---
 packages:
-  - packages/fp
-  - packages/pure
   - packages/hono-drizzle
 strictDepBuilds: true
 minimumReleaseAge: 1440
