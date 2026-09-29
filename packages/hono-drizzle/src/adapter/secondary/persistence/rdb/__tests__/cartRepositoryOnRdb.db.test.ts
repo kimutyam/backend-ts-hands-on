@@ -74,7 +74,7 @@ describe('FindCartById', () => {
     await db.$client.end();
   });
 
-  it('登録済みのカートで索引できる', async () => {
+  it('登録済みのカートを取得できる', async () => {
     const result = await findCartById(customerId1);
     assert(result.isOk());
     expect(result.value).toStrictEqual({
@@ -95,7 +95,7 @@ describe('FindCartById', () => {
     });
   });
 
-  it('カートアイテムが空の場合でも索引できる', async () => {
+  it('カートアイテムが空の場合でも取得できる', async () => {
     const result = await findCartById(customerId2);
     assert(result.isOk());
     expect(result.value).toStrictEqual({

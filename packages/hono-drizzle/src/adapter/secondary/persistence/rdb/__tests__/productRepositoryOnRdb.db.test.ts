@@ -45,7 +45,7 @@ describe('FindProductById', () => {
     await db.$client.end();
   });
 
-  it('登録済みの商品を索引できる', async () => {
+  it('登録済みの商品を取得できる', async () => {
     const result = await findProductById(existsProductId);
     assert(result.isOk());
     expect(result.value).toStrictEqual({
