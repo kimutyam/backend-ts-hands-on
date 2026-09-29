@@ -100,7 +100,7 @@ importers:
         specifier: 8.23.1
         version: 8.23.1
       '@types/yargs':
-        specifier: ^17.0.35
+        specifier: 17.0.35
         version: 17.0.35
       '@vitest/coverage-v8':
         specifier: 4.1.11
@@ -109,7 +109,7 @@ importers:
         specifier: 4.1.11
         version: 4.1.11(vitest@4.1.11)
       dotenv-cli:
-        specifier: ^11.0.0
+        specifier: 11.0.0
         version: 11.0.0
       drizzle-kit:
         specifier: 1.0.0-rc.5-ab785fc
