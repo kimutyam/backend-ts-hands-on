@@ -27,7 +27,7 @@
     "test:db:push": "dotenv run -f .env.test.db -- drizzle-kit push"
   },
   "dependencies": {
-    "@hono/node-server": "2.1.1",
+    "@hono/node-server": "2.1.4",
     "@hono/zod-openapi": "1.6.3",
     "@scalar/hono-api-reference": "0.12.5",
     "date-fns": "4.4.0",
