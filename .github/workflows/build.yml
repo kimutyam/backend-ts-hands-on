@@ -17,8 +17,8 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
       - name: pnpm lint
-        run: pnpm --filter ${{ inputs.workspace-name }} lint
+        run: mise run //${{ inputs.workspace-name }}:lint
       - name: pnpm build
-        run: pnpm --filter ${{ inputs.workspace-name }} build
+        run: mise run //${{ inputs.workspace-name }}:build
       - name: pnpm test
-        run: pnpm --filter ${{ inputs.workspace-name }} test
+        run: mise run //${{ inputs.workspace-name }}:test

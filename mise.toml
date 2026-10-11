@@ -1,3 +1,11 @@
+monorepo_root = true
+
 [tools]
 node = "24.21.0"
 pnpm = "12.4.2"
+
+[monorepo]
+config_roots = ["packages/hono-drizzle"]
+
+[monorepo.path_aliases]
+hono-drizzle = "packages/hono-drizzle"

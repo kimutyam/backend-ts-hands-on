@@ -10,13 +10,17 @@ mise install
 mise exec -- pnpm install --frozen-lockfile
 ```
 
-開発用コマンドもmise経由で実行します。
+パッケージごとの開発用コマンドはモノレポタスクとして定義しています。`//hono-drizzle`は`packages/hono-drizzle`のパスエイリアスで、リポジトリ内のどこからでも対象を指定して実行できます。
 
 ```bash
-mise exec -- pnpm --filter hono-drizzle lint
-mise exec -- pnpm --filter hono-drizzle build
-mise exec -- pnpm --filter hono-drizzle test --run
+mise run //hono-drizzle:lint
+mise run //hono-drizzle:build
+mise run //hono-drizzle:test
+mise run //hono-drizzle:test:watch
+mise run //hono-drizzle:test:db
 ```
+
+`packages/hono-drizzle`内では`mise run :lint`のように実行できます。タスク一覧は`mise tasks --all`で確認できます。ツールのバージョンはルートの`mise.toml`、タスクは`packages/hono-drizzle/mise.toml`で管理し、処理本体は既存の`package.json`のスクリプトを呼び出します。
 
 [シェル連携](https://mise.jdx.dev/cli/activate.html)を設定すると、`pnpm`を直接実行しても指定したバージョンを使用できます。例えばzshの場合は、`~/.zshrc`に次の行を追加し、シェルを再起動してください。
 
@@ -26,7 +30,7 @@ eval "$(mise activate zsh)"
 
 ## 環境変数の管理
 
-miseはNode.jsとpnpmのバージョン管理に使います。環境変数は、各コマンドがdotenvまたはNode.jsの`--env-file`で読み込みます。
+miseはNode.jsとpnpmのバージョン管理とタスクの実行に使います。環境変数は、各コマンドがdotenvまたはNode.jsの`--env-file`で読み込みます。
 
 `packages/hono-drizzle`では、用途に応じて次のファイルを使い分けます。
 

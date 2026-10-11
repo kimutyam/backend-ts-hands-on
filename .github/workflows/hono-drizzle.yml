@@ -44,17 +44,15 @@ jobs:
       - name: pnpm install
         run: pnpm install --frozen-lockfile
       - name: pnpm lint
-        run: pnpm --filter ${{ env.WORKSPACE_NAME }} lint
+        run: mise run //${{ env.WORKSPACE_NAME }}:lint
       - name: pnpm build
-        run: pnpm --filter ${{ env.WORKSPACE_NAME }} build
+        run: mise run //${{ env.WORKSPACE_NAME }}:build
       - name: Start Docker Compose
         run: docker compose up -d
         working-directory: ./packages/${{ env.WORKSPACE_NAME }}
       - name: unit test
-        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test
+        run: mise run //${{ env.WORKSPACE_NAME }}:test
       - name: Migrate database
-        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db:push
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+        run: mise run //${{ env.WORKSPACE_NAME }}:test:db:push
       - name: db test
-        run: pnpm --filter ${{ env.WORKSPACE_NAME }} test:db
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+        run: mise run //${{ env.WORKSPACE_NAME }}:test:db

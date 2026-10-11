@@ -1,0 +1,9 @@
+[tasks]
+lint = "pnpm lint"
+format = "pnpm format"
+build = "pnpm build"
+test = "pnpm test --run"
+"test:watch" = "pnpm test"
+"test:cov" = "pnpm test:cov --run"
+"test:db" = "pnpm test:db --run"
+"test:db:push" = "pnpm test:db:push"
