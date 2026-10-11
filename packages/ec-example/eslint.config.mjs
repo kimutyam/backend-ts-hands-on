@@ -1,4 +1,3 @@
-import { FlatCompat } from '@eslint/eslintrc';
 import baseConfig from '../../eslint.config.mjs';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
@@ -7,7 +6,6 @@ import neverthrow from 'eslint-plugin-neverthrow';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const compat = new FlatCompat();
 const tsconfigRootDir = dirname(fileURLToPath(import.meta.url));
 
 export default [
