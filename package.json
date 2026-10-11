@@ -2,7 +2,7 @@
   "name": "backend-ts-hands-on",
   "version": "1.0.0",
   "description": "バックエンドTypeScriptのハンズオン",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "@eslint/js": "10.0.1",
