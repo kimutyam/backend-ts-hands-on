@@ -1,6 +1,6 @@
 ---
 packages:
-  - packages/hono-drizzle
+  - packages/ec-example
 strictDepBuilds: true
 minimumReleaseAge: 1440
 # 推移的依存のgit/tarball URLを禁止

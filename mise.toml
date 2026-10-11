@@ -5,7 +5,7 @@ node = "24.21.0"
 pnpm = "12.4.2"
 
 [monorepo]
-config_roots = ["packages/hono-drizzle"]
+config_roots = ["packages/ec-example"]
 
 [monorepo.path_aliases]
-hono-drizzle = "packages/hono-drizzle"
+ec-example = "packages/ec-example"
