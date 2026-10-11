@@ -8,13 +8,14 @@ This repo uses pnpm workspaces. The workspace is `packages/ec-example`, as confi
 
 Use mise to manage Node.js and pnpm. Their exact versions are defined only in the root `mise.toml`; do not add `.node-version` files or a `packageManager` field as another version source. GitHub Actions also installs these tools through mise.
 
-Run package commands through mise monorepo tasks so they use the configured versions without requiring shell activation. The root `mise.toml` declares the monorepo and the `ec-example` path alias; tasks are defined in `packages/ec-example/mise.toml` and call the existing package scripts. On first setup, run `mise trust` and `mise install` at the repo root.
+Run package commands through mise monorepo tasks so they use the configured versions without requiring shell activation. The root `mise.toml` declares the monorepo and the `ec-example` path alias; tasks are defined in `packages/ec-example/mise.toml` and call package scripts or Docker Compose. On first setup, run `mise trust` and `mise install` at the repo root.
 
-- `mise exec -- pnpm install --frozen-lockfile` installs workspace dependencies.
+- `mise run deps:install` installs workspace dependencies with `pnpm install --frozen-lockfile` from the repo root.
 - `mise run //ec-example:build` builds the package.
 - `mise run //ec-example:lint` and `mise run //ec-example:format` check linting and formatting.
 - `mise run //ec-example:test` runs unit tests once; `mise run //ec-example:test:watch` starts watch mode.
 - `mise run //ec-example:test:db` runs DB tests (requires `.env.test.db` and a running test database).
+- `mise run //ec-example:db:up` starts the local app and test databases with Docker Compose (requires Docker).
 
 Absolute task names such as `//ec-example:lint` work anywhere in the repository. Inside `packages/ec-example`, `mise run :lint` targets the same package. Use `mise tasks --all` to list all tasks. The root `package.json` does not define build, lint, format, or test scripts; use the tasks above.
 

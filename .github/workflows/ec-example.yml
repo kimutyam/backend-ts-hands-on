@@ -51,8 +51,7 @@ jobs:
       - name: pnpm build
         run: mise run //${{ env.WORKSPACE_NAME }}:build
       - name: Start Docker Compose
-        run: docker compose up -d
-        working-directory: ./packages/${{ env.WORKSPACE_NAME }}
+        run: mise run //${{ env.WORKSPACE_NAME }}:db:up
       - name: unit test
         run: mise run //${{ env.WORKSPACE_NAME }}:test
       - name: Migrate database

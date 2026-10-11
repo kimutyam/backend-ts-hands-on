@@ -7,7 +7,7 @@
 ```bash
 mise trust
 mise install
-mise exec -- pnpm install --frozen-lockfile
+mise run deps:install
 ```
 
 パッケージごとの開発用コマンドはモノレポタスクとして定義しています。`//ec-example`は`packages/ec-example`のパスエイリアスで、リポジトリ内のどこからでも対象を指定して実行できます。
@@ -17,10 +17,11 @@ mise run //ec-example:lint
 mise run //ec-example:build
 mise run //ec-example:test
 mise run //ec-example:test:watch
-mise run //ec-example:test:db
 ```
 
-`packages/ec-example`内では`mise run :lint`のように実行できます。タスク一覧は`mise tasks --all`で確認できます。ツールのバージョンはルートの`mise.toml`、タスクは`packages/ec-example/mise.toml`で管理し、処理本体は既存の`package.json`のスクリプトを呼び出します。
+`packages/ec-example`内では`mise run :lint`のように実行できます。
+タスク一覧は`mise tasks --all`で確認できます。
+ツールのバージョンと共通タスクはルートの`mise.toml`、パッケージごとのタスクは`packages/ec-example/mise.toml`で管理し、pnpmやDocker Composeを呼び出します。
 
 [シェル連携](https://mise.jdx.dev/cli/activate.html)を設定すると、`pnpm`を直接実行しても指定したバージョンを使用できます。例えばzshの場合は、`~/.zshrc`に次の行を追加し、シェルを再起動してください。
 
@@ -30,12 +31,27 @@ eval "$(mise activate zsh)"
 
 ## ローカルDBの起動
 
-リポジトリのルートで次のコマンドを実行します。アプリ用DBはポート5432、テスト用DBはポート5433で起動します。
+Dockerを起動してから、次のコマンドを実行します。リポジトリ内のどこからでも実行できます。
 
 ```bash
-docker compose -f packages/ec-example/compose.yml up -d
+mise run //ec-example:db:up
 mise run //ec-example:test:db:push
+mise run //ec-example:test:db
 ```
+
+- `db:up`: `packages/ec-example`で`docker compose up -d`を実行
+- `test:db:push`: テスト用DBへスキーマを反映
+- `test:db`: テスト用DBでテストを実行
+
+停止・削除もmiseタスクで実行できます。
+
+```bash
+mise run //ec-example:db:down
+mise run //ec-example:db:clean
+```
+
+- `db:down`: コンテナとネットワークを削除し、DBのボリュームを保持
+- `db:clean`: コンテナ・ネットワーク・イメージ・ボリューム・孤立したコンテナを削除（DBデータも削除）
 
 ## 環境変数の管理
 
