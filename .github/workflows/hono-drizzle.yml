@@ -41,6 +41,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v4
+        with:
+          minimum_release_age: 7d
+          cache: true
       - name: pnpm install
         run: pnpm install --frozen-lockfile
       - name: pnpm lint
