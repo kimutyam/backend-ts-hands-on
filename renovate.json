@@ -1,3 +1,126 @@
 {
-  "automerge": false
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "addLabels": [
+    "dependencies"
+  ],
+  "automergeSchedule": [
+    "every weekend",
+    "before 5am on Monday"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "npm",
+      "managerFilePatterns": [
+        "/(^|/).pre-commit-config.yaml$/"
+      ],
+      "matchStrings": [
+        "- '(?<depName>.+)@(?<currentValue>.+)'"
+      ]
+    }
+  ],
+  "extends": [
+    "config:recommended",
+    ":timezone(Asia/Tokyo)",
+    ":enablePreCommit",
+    ":prHourlyLimitNone"
+  ],
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "groupName": "eslint packages",
+      "matchPackageNames": [
+        "/^eslint/",
+        "/@eslint/",
+        "/^@typescript-eslint/"
+      ]
+    },
+    {
+      "automerge": true,
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "automerge": false,
+      "description": "Require manual merging for all TypeScript and Drizzle updates",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "typescript",
+        "@typescript/native",
+        "@typescript/typescript6",
+        "drizzle-orm",
+        "drizzle-kit"
+      ]
+    },
+    {
+      "automerge": false,
+      "description": "Require manual merging for minor and major library updates",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "@types/node",
+        "hono",
+        "@hono/*",
+        "neverthrow",
+        "zod",
+        "remeda",
+        "date-fns",
+        "ulidx",
+        "yargs",
+        "typed-inject",
+        "vitest",
+        "@vitest/*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "major"
+      ]
+    },
+    {
+      "automerge": false,
+      "description": "Require manual merging for all Node.js updates managed by mise",
+      "matchDepNames": [
+        "node"
+      ],
+      "matchManagers": [
+        "mise"
+      ]
+    },
+    {
+      "automerge": false,
+      "description": "Require manual merging for minor and major pnpm updates managed by mise",
+      "matchDepNames": [
+        "pnpm"
+      ],
+      "matchManagers": [
+        "mise"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "major"
+      ]
+    },
+    {
+      "automerge": false,
+      "description": "Require manual merging for all PostgreSQL image updates",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchManagers": [
+        "docker-compose"
+      ],
+      "matchPackageNames": [
+        "postgres"
+      ]
+    }
+  ],
+  "prConcurrentLimit": 10,
+  "schedule": [
+    "every weekend"
+  ]
 }
