@@ -48,7 +48,7 @@ importers:
         specifier: npm:@typescript/typescript6@6.0.2
         version: '@typescript/typescript6@6.0.2'
 
-  packages/hono-drizzle:
+  packages/ec-example:
     dependencies:
       '@hono/node-server':
         specifier: 2.1.1

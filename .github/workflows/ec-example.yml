@@ -1,5 +1,5 @@
 ---
-name: hono-drizzle
+name: ec-example
 on:
   # SEE: https://github.com/actions/checkout/issues/15
   push:
@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - '.github/workflows/build.yml'
-      - '.github/workflows/hono-drizzle.yml'
+      - '.github/workflows/ec-example.yml'
       - '.github/actions/**'
       - '.*'
       - 'Makefile'
@@ -16,11 +16,11 @@ on:
       - 'pnpm-workspace.yaml'
       - 'pnpm-lock.yaml'
       - 'tsconfig.json'
-      - 'packages/hono-drizzle/**'
+      - 'packages/ec-example/**'
   pull_request:
     paths:
       - '.github/workflows/build.yml'
-      - '.github/workflows/hono-drizzle.yml'
+      - '.github/workflows/ec-example.yml'
       - '.github/actions/**'
       - '.*'
       - 'Makefile'
@@ -29,7 +29,7 @@ on:
       - 'pnpm-workspace.yaml'
       - 'pnpm-lock.yaml'
       - 'tsconfig.json'
-      - 'packages/hono-drizzle/**'
+      - 'packages/ec-example/**'
       - 'packages/libs/**'
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      WORKSPACE_NAME: 'hono-drizzle'
+      WORKSPACE_NAME: 'ec-example'
     steps:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v4
