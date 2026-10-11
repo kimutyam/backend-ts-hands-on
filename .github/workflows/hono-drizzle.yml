@@ -12,6 +12,9 @@ on:
       - '.*'
       - 'Makefile'
       - 'package.json'
+      - 'mise.toml'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
       - 'tsconfig.json'
       - 'packages/hono-drizzle/**'
   pull_request:
@@ -22,6 +25,9 @@ on:
       - '.*'
       - 'Makefile'
       - 'package.json'
+      - 'mise.toml'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
       - 'tsconfig.json'
       - 'packages/hono-drizzle/**'
       - 'packages/libs/**'
@@ -32,15 +38,9 @@ jobs:
     timeout-minutes: 10
     env:
       WORKSPACE_NAME: 'hono-drizzle'
-      NODE_VERSION_FILE: '.node-version'
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: ${{ env.NODE_VERSION_FILE }}
-      - uses: pnpm/action-setup@v6
-        with:
-          version: 12
+      - uses: jdx/mise-action@v4
       - name: pnpm install
         run: pnpm install --frozen-lockfile
       - name: pnpm lint
