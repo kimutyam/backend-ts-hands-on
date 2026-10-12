@@ -6,6 +6,10 @@
 ライブラリの更新やコードの改善により、最新のコードは書籍の内容と異なる場合があります。
 書籍掲載時点のコードは、[book-v1.0.0](https://github.com/kimutyam/backend-ts-hands-on/tree/book-v1.0.0)を参照してください。
 
+初版に掲載したサンプルコードの不具合と修正情報は、[書籍版のIssue一覧](https://github.com/kimutyam/backend-ts-hands-on/issues?q=is%3Aissue%20label%3Abook-v1.0)で案内します。
+`book-v1.0`ラベルで、書籍掲載版とそのパッチ修正版（`book-v1.0.x`）に関するIssueをまとめます。一覧には修正済みのIssueも含まれます。
+書籍掲載版のタグは固定します。不具合の詳細と修正状況は各Issueを参照してください。
+
 ## 開発環境のセットアップ
 
 Node.jsとpnpmのバージョン管理、および開発用タスクの実行にはmiseを使用します。
