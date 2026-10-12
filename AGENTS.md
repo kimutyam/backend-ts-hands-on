@@ -15,7 +15,8 @@ Run package commands through mise monorepo tasks so they use the configured vers
 - `mise run //ec-example:lint` and `mise run //ec-example:format` check linting and formatting.
 - `mise run //ec-example:test` runs unit tests once; `mise run //ec-example:test:watch` starts watch mode.
 - `mise run //ec-example:test:db` runs DB tests (requires `.env.test.db` and a running test database).
-- `mise run //ec-example:db:up` starts the local app and test databases with Docker Compose (requires Docker).
+- `mise run //ec-example:db:up` starts only the app database with Docker Compose; `mise run //ec-example:db:push` applies its schema using `.env.local`.
+- `mise run //ec-example:test:db:up` starts only the test database with Docker Compose; `mise run //ec-example:test:db:push` applies its schema using `.env.test.db`. Both startup tasks require Docker.
 
 Absolute task names such as `//ec-example:lint` work anywhere in the repository. Inside `packages/ec-example`, `mise run :lint` targets the same package. Use `mise tasks --all` to list all tasks. The root `package.json` does not define build, lint, format, or test scripts; use the tasks above.
 
@@ -33,4 +34,4 @@ Recent history uses short, conventional prefixes (for example `fix: ...`) and Gi
 
 ## Configuration Tips
 
-Use mise for tool versions; keep environment-variable loading in the existing package commands via dotenv or Node.js `--env-file`. In `packages/ec-example`, `.env.local` is for local runs and DB operations, `.env.test` is for unit tests, and `.env.test.db` is for DB tests and test DB operations. Do not load these files into mise's shared `[env]`, as development values could leak into tests and take precedence over test-file values. Keep secrets out of Git and document any required keys in your PR description. See `README.md` for setup and environment-variable usage.
+Use mise for tool versions; load environment variables in package commands via the CLI bundled with dotenv (`dotenv run -f <file> -- <command>`). Do not add the separate `dotenv-cli` package, which provides a conflicting executable name. In `packages/ec-example`, `.env.local` is for local runs and DB operations, `.env.test` is for unit tests, and `.env.test.db` is for DB tests and test DB operations. Do not load these files into mise's shared `[env]`, as development values could leak into tests and take precedence over test-file values. Keep secrets out of Git and document any required keys in your PR description. See `README.md` for setup and environment-variable usage.
