@@ -50,11 +50,11 @@ jobs:
         run: mise run //${{ env.WORKSPACE_NAME }}:lint
       - name: pnpm build
         run: mise run //${{ env.WORKSPACE_NAME }}:build
-      - name: Start Docker Compose
-        run: mise run //${{ env.WORKSPACE_NAME }}:db:up
+      - name: Start test database
+        run: mise run //${{ env.WORKSPACE_NAME }}:test:db:up
       - name: unit test
         run: mise run //${{ env.WORKSPACE_NAME }}:test
-      - name: Migrate database
+      - name: Push test database schema
         run: mise run //${{ env.WORKSPACE_NAME }}:test:db:push
       - name: db test
         run: mise run //${{ env.WORKSPACE_NAME }}:test:db
