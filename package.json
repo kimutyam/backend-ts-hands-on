@@ -2,6 +2,15 @@
   "name": "backend-ts-hands-on",
   "version": "1.0.0",
   "description": "バックエンドTypeScriptのハンズオン",
+  "author": "木村 彰宏",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimutyam/backend-ts-hands-on.git"
+  },
+  "homepage": "https://github.com/kimutyam/backend-ts-hands-on#readme",
+  "bugs": {
+    "url": "https://github.com/kimutyam/backend-ts-hands-on/issues"
+  },
   "license": "MIT",
   "private": true,
   "devDependencies": {

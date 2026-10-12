@@ -1,8 +1,17 @@
 {
   "name": "ec-example",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.0.0",
+  "description": "ECサイトのバックエンド例",
+  "author": "木村 彰宏",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimutyam/backend-ts-hands-on.git",
+    "directory": "packages/ec-example"
+  },
+  "homepage": "https://github.com/kimutyam/backend-ts-hands-on#readme",
+  "bugs": {
+    "url": "https://github.com/kimutyam/backend-ts-hands-on/issues"
+  },
   "private": true,
   "license": "MIT",
   "type": "module",
