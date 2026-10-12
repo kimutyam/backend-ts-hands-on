@@ -116,6 +116,90 @@ miseの共通`[env]`では、これらのファイルを読み込ませません
 dotenvは既存の環境変数を既定では上書きしないため、開発用の値がテスト用ファイルの値より優先される可能性があります。
 環境変数をコマンド単位で読み込み、開発環境とテスト環境の混在を避けます。
 
+## サンプルコードの動作確認
+
+管理用CLIで商品を登録し、ショッピング用WebサーバーのHTTP APIでカートを操作します。
+事前に開発環境をセットアップし、「DBの起動とスキーマ反映」の手順でアプリ用DBを準備してください。テスト用DBは使用しません。
+
+CLIとWebサーバーは、`.env.local`の`DATABASE_URL`で同じアプリ用DBに接続します。
+`DATABASE_URL`が未設定の場合はプロセスごとのメモリ上に保存されるため、CLIで登録した商品をWebサーバーから参照できません。
+
+### 1. CLIで商品を登録する
+
+リポジトリのルートでビルドします。
+
+```bash
+mise run //ec-example:build
+```
+
+商品名と価格を指定して、商品登録タスクを実行します。
+
+```bash
+mise run //ec-example:register-product -- \
+  --name "サンプル商品" --price 1000
+```
+
+成功すると`ProductRegistered`イベントが表示されます。
+出力の`aggregateId`が商品IDです。次のAPI操作で使用するので手元に控えてください。
+同じ商品名は重複登録できないため、再実行する場合は別の商品名を指定してください。
+
+### 2. Webサーバーを起動する
+
+続けて、ショッピング用Webサーバーを起動します。
+
+```bash
+mise run //ec-example:start
+```
+
+サーバーを起動したまま、別のターミナルで以降のコマンドを実行してください。
+`EC_EXAMPLE_PRODUCT_ID`はCLIで表示された商品IDに置き換えます。カートIDにはULIDを指定し、この例では次の値を使用します。
+
+```bash
+EC_EXAMPLE_PRODUCT_ID='CLIで表示された商品ID'
+EC_EXAMPLE_CART_ID='01KAN6MY2AJFPVGQATAS6CK9XX'
+```
+
+### 3. カートにカート項目を追加する
+
+```bash
+curl -i -X POST 'http://localhost:3000/carts/items' \
+  -H 'Content-Type: application/json' \
+  --data "{
+    \"cartId\": \"${EC_EXAMPLE_CART_ID}\",
+    \"productId\": \"${EC_EXAMPLE_PRODUCT_ID}\",
+    \"quantity\": 1
+  }"
+```
+
+初回の追加ではHTTPステータス`201`と`CartItemAdded`イベントが返ります。レスポンスの`item`で商品ID・価格・数量を確認できます。
+
+### 4. カートを閲覧する
+
+```bash
+curl -i "http://localhost:3000/carts/${EC_EXAMPLE_CART_ID}"
+```
+
+HTTPステータス`200`とカート項目の配列が返ります。登録した商品が含まれていることを確認してください。
+
+### 5. カート項目を取り除く
+
+```bash
+curl -i -X DELETE "http://localhost:3000/carts/${EC_EXAMPLE_CART_ID}/items/${EC_EXAMPLE_PRODUCT_ID}"
+```
+
+成功するとHTTPステータス`204`が返り、レスポンス本文はありません。もう一度カートを閲覧し、対象の商品が取り除かれていることを確認してください。
+この例の商品のみを追加した場合、カート項目の配列は`[]`になります。
+
+APIドキュメント（ `http://localhost:3000/scalar` ）からも同じ操作を確認できます。
+
+### 6. 動作確認で使用した変数を解除する
+
+動作確認が終わったら、変数を設定したターミナルで次のコマンドを実行してください。
+
+```bash
+unset EC_EXAMPLE_PRODUCT_ID EC_EXAMPLE_CART_ID
+```
+
 ## ライセンス
 
 このリポジトリのサンプルコードと付随するドキュメントは[MITライセンス](LICENSE)で提供します。
