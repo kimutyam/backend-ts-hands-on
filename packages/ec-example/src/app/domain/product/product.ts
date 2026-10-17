@@ -38,18 +38,17 @@ const safeParse = (
   );
 
 const register = (aggregate: Product): [Product, ProductRegistered] => {
+  const product = parse({
+    ...aggregate,
+    sequenceNumber: Aggregate.incrementSequenceNumber(aggregate.sequenceNumber),
+  });
   const event = R.pipe(
-    parse({
-      ...aggregate,
-      sequenceNumber: Aggregate.incrementSequenceNumber(
-        aggregate.sequenceNumber,
-      ),
-    }),
+    product,
     DomainEvent.generate(aggregateName, ProductRegistered.eventName, {
-      product: aggregate,
+      product,
     }),
   );
-  return [aggregate, event];
+  return [product, event];
 };
 
 const generate = (
