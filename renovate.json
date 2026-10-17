@@ -44,7 +44,7 @@
     },
     {
       "automerge": false,
-      "description": "Require manual merging for all TypeScript and Drizzle updates",
+      "description": "Require manual merging for minor and major library updates",
       "matchManagers": [
         "npm"
       ],
@@ -53,16 +53,7 @@
         "@typescript/native",
         "@typescript/typescript6",
         "drizzle-orm",
-        "drizzle-kit"
-      ]
-    },
-    {
-      "automerge": false,
-      "description": "Require manual merging for minor and major library updates",
-      "matchManagers": [
-        "npm"
-      ],
-      "matchPackageNames": [
+        "drizzle-kit",
         "@types/node",
         "hono",
         "@hono/*",
@@ -70,8 +61,6 @@
         "zod",
         "remeda",
         "date-fns",
-        "ulidx",
-        "yargs",
         "typed-inject",
         "vitest",
         "@vitest/*"
