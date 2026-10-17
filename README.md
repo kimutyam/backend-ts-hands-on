@@ -1,5 +1,8 @@
 # 🫒 backend-ts-hands-on 🫒
 
+[![pre-commit](https://github.com/kimutyam/backend-ts-hands-on/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/kimutyam/backend-ts-hands-on/actions/workflows/pre-commit.yml)
+[![ec-example](https://github.com/kimutyam/backend-ts-hands-on/actions/workflows/ec-example.yml/badge.svg)](https://github.com/kimutyam/backend-ts-hands-on/actions/workflows/ec-example.yml)
+
 『[実践TypeScriptバックエンド開発：データと関数によるドメインモデリングで堅牢性を高める](https://gihyo.jp/book/2026/978-4-297-15725-8)』（木村 彰宏 著、技術評論社）のサンプルコードです。  
 モノレポ構成で、サンプルコードは`packages/ec-example`に格納しています。
 
