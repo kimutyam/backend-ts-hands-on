@@ -57,7 +57,7 @@
     "@types/yargs": "17.0.35",
     "@vitest/coverage-v8": "4.1.11",
     "@vitest/ui": "4.1.11",
-    "dotenv": "18.0.7",
+    "dotenv": "18.0.8",
     "drizzle-kit": "1.0.0-rc.4",
     "eslint-plugin-neverthrow": "1.1.4",
     "eslint-plugin-no-relative-import-paths": "1.7.3",
