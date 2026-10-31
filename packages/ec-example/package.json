@@ -58,7 +58,7 @@
     "@vitest/coverage-v8": "4.1.12",
     "@vitest/ui": "4.1.12",
     "dotenv": "18.0.9",
-    "drizzle-kit": "1.0.0-rc.4",
+    "drizzle-kit": "1.0.0-rc.5-ab785fc",
     "eslint-plugin-neverthrow": "1.1.4",
     "eslint-plugin-no-relative-import-paths": "1.7.3",
     "eslint-plugin-simple-import-sort": "14.0.0",
