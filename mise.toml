@@ -2,7 +2,7 @@ monorepo_root = true
 
 [tools]
 node = "24.22.1"
-pnpm = "12.4.2"
+pnpm = "12.16.1"
 
 [tasks]
 "deps:install" = "pnpm install --frozen-lockfile"
