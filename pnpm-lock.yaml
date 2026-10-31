@@ -51,8 +51,8 @@ importers:
         specifier: 1.6.3
         version: 1.6.3(hono@4.13.14)(zod@4.4.3)
       '@scalar/hono-api-reference':
-        specifier: 0.12.14
-        version: 0.12.14(hono@4.13.14)
+        specifier: 0.12.16
+        version: 0.12.16(hono@4.13.14)
       date-fns:
         specifier: 4.4.0
         version: 4.4.0
@@ -892,16 +892,16 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@scalar/client-side-rendering@0.4.13':
-    resolution: {integrity: sha512-XkFct3IMx+WS2+WsRVDESEwYDy8e3lpbbMPYKo/75WsFgYVaPSjNB9wU5fu7NDgCEn5B+UnmCQ+2rQcD7LBrzw==}
+  '@scalar/client-side-rendering@0.4.15':
+    resolution: {integrity: sha512-9jc8mcnwlQpadi8F7WjC2r7Oav5DJDh/wVktXqNW1HMw7ShxvBdtzBAgBEq9qCfauysYcfSPc8DtyRN0OCsmkQ==}
     engines: {node: '>=22'}
 
   '@scalar/helpers@0.16.4':
     resolution: {integrity: sha512-9eILWzUcAkHEuYMMvijpSIy69t+Vkq+NudLB/7lgARFTWqXfQpIxW1L3VH7ogKyRie5+E4CNZ3PSvlw6IIfLGw==}
     engines: {node: '>=22'}
 
-  '@scalar/hono-api-reference@0.12.14':
-    resolution: {integrity: sha512-Dw2F1mK1ND1legoHdNHPBwjVRdH1Y3KUUZmEVrs8quwF+JDAxVHIW2IXXt/Q3gDHfpiTf9bLSZi33Gn1V9A8Dw==}
+  '@scalar/hono-api-reference@0.12.16':
+    resolution: {integrity: sha512-MyFpUuahtYeqoVOr4mZQ50l0E39u+Yg2G3I7g+0Kzz5UwLhtim2oNJknBtMajKg4wwuQnhwVsQUS0H58nSsZWQ==}
     engines: {node: '>=22'}
     peerDependencies:
       hono: ^4.12.5
@@ -910,8 +910,8 @@ packages:
     resolution: {integrity: sha512-YxvmWVymAC536CFC84SGyt8PD57UqB5GOvr73y7Oj1Bjf8HMUUowzEt3AM3w9s21sR8ZKkncbt1R3r8sYsASnA==}
     engines: {node: '>=22'}
 
-  '@scalar/types@0.25.0':
-    resolution: {integrity: sha512-EdwOVV5ajKks4MX5BorHIdMLG0L8EAxfz+NisAPV8l7Rsic50+YoWnqkY1eqB6K96iyreIKUdl7B/PIFGLqylg==}
+  '@scalar/types@0.25.2':
+    resolution: {integrity: sha512-3QGFX9DOvk8jAEPOcwCEbkLpagFvvjoeuUCTUyYUlsu1Mf5itUaw+RL4mfD3Udbqk9xfVTSlkm2Xa357vwWlxw==}
     engines: {node: '>=22'}
 
   '@scalar/validation@0.6.7':
@@ -2776,18 +2776,18 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.61.1':
     optional: true
 
-  '@scalar/client-side-rendering@0.4.13':
+  '@scalar/client-side-rendering@0.4.15':
     dependencies:
       '@scalar/helpers': 0.16.4
       '@scalar/schemas': 0.15.0
-      '@scalar/types': 0.25.0
+      '@scalar/types': 0.25.2
       '@scalar/validation': 0.6.7
 
   '@scalar/helpers@0.16.4': {}
 
-  '@scalar/hono-api-reference@0.12.14(hono@4.13.14)':
+  '@scalar/hono-api-reference@0.12.16(hono@4.13.14)':
     dependencies:
-      '@scalar/client-side-rendering': 0.4.13
+      '@scalar/client-side-rendering': 0.4.15
       hono: 4.13.14
 
   '@scalar/schemas@0.15.0':
@@ -2795,7 +2795,7 @@ snapshots:
       '@scalar/helpers': 0.16.4
       '@scalar/validation': 0.6.7
 
-  '@scalar/types@0.25.0':
+  '@scalar/types@0.25.2':
     dependencies:
       '@scalar/helpers': 0.16.4
       nanoid: 5.1.16
