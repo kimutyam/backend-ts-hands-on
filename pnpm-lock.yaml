@@ -51,8 +51,8 @@ importers:
         specifier: 1.6.3
         version: 1.6.3(hono@4.13.19)(zod@4.4.3)
       '@scalar/hono-api-reference':
-        specifier: 0.12.22
-        version: 0.12.22(hono@4.13.19)
+        specifier: 0.12.24
+        version: 0.12.24(hono@4.13.19)
       date-fns:
         specifier: 4.4.0
         version: 4.4.0
@@ -895,26 +895,26 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@scalar/client-side-rendering@0.4.21':
-    resolution: {integrity: sha512-zjRtLjOysw6C8tFOxvwR5d5tnjJh8Ga46SAf3fhioHicDUB3c9dx6YbxKWE03b3VvDdhDFfkryHbXUfrMGeCQg==}
+  '@scalar/client-side-rendering@0.4.23':
+    resolution: {integrity: sha512-cSEQ20QEVtVeQ4qM3Iihv+vO1xgBDDop5hjT6O28xF3hAUz6bvwcj9aiemgLtS+5xe5hVYJp45obWWONyGuulA==}
     engines: {node: '>=22'}
 
-  '@scalar/helpers@0.18.1':
-    resolution: {integrity: sha512-5/FsnE/4bCbr+h0OOgT1Zlnl4G7MKgPsZlzDN4KiBjpVCCZNHn7Px9gLOqtQSfsSqM/JFwUW+voZNVTODiL2BA==}
+  '@scalar/helpers@0.19.0':
+    resolution: {integrity: sha512-h2yJ2QD5Y41gKszVymILKVMCWfK2vpdsro3+rp8doqWWBN09kkWHmMXTJl9EyP/jgswxJhrnjECCAHqeAeSdvg==}
     engines: {node: '>=22'}
 
-  '@scalar/hono-api-reference@0.12.22':
-    resolution: {integrity: sha512-b6BnkoaRRzWhQ3y9ZNJdGcU6HRH1Cg3bIEzTsO+EOFuwwogX28SeB0jqD9+RL2xotBcmloYh87GDZKuHjtRiFQ==}
+  '@scalar/hono-api-reference@0.12.24':
+    resolution: {integrity: sha512-Syrnxcgj4kwE4PUEL9QTC4j8rtA7JzdDk75ZA1eLq8I1qJLLy+PjlLMefq9TgPlMix2i8TevcCPt++RUt5clDw==}
     engines: {node: '>=22'}
     peerDependencies:
       hono: ^4.12.5
 
-  '@scalar/schemas@0.18.1':
-    resolution: {integrity: sha512-w6F/6o2NIOxYMJfhG/KRUFgEHVcQ8zO3PzXWYkWMjJpTOhgbUIfWwDm3lgM9+ru58bE9P5eIVaGY8hiNS/idpg==}
+  '@scalar/schemas@0.20.0':
+    resolution: {integrity: sha512-jINdvWCi6RGFXmBpGIu9ddfGfpTX9MxxzJirHtb3UxX4wEn+nTOJMTjHnTLIsqAC+J3VOHa3BZ9uCETEMF6uiA==}
     engines: {node: '>=22'}
 
-  '@scalar/types@0.30.0':
-    resolution: {integrity: sha512-RK0fGYk+vR0ck424RmLMDdwVh8NzPkUHeKIUX6GroxlhG2kygRDdC9pC3zx6AhYSAVhmS3uTsbnspUV1rYTbyw==}
+  '@scalar/types@0.32.0':
+    resolution: {integrity: sha512-tLJjh8lR4CtZDBzm/9S8W1rwdqOLSAgodrOjF8USwEhMxkM/VeX2YZJHJhvkTPk+yKFqBJySPw5hYjFtuR237g==}
     engines: {node: '>=22'}
 
   '@scalar/validation@0.6.9':
@@ -1943,9 +1943,9 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanoid@5.1.16:
-    resolution: {integrity: sha512-kVrnsrJqMR8+oLJnGEmSWw9BivK5mt7H3FZatVRjrc5wGqFYuBxX1yG7+A7Gi5AefkX6t/oCkizcQgpu0cY1dQ==}
-    engines: {node: ^18 || >=20}
+  nanoid@6.0.2:
+    resolution: {integrity: sha512-hIvVOb9Qr1p/9CNNLOe0OlWvgx/ziTsVwKN/GDSsuArN2K0wDiafP3s0SWmsm7o2BdnyS8Z9Z64NFBUbn6ziBg==}
+    engines: {node: ^22 || ^24 || >=26}
     hasBin: true
 
   napi-postinstall@0.3.4:
@@ -2836,30 +2836,30 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.61.1':
     optional: true
 
-  '@scalar/client-side-rendering@0.4.21':
+  '@scalar/client-side-rendering@0.4.23':
     dependencies:
-      '@scalar/helpers': 0.18.1
-      '@scalar/schemas': 0.18.1
-      '@scalar/types': 0.30.0
+      '@scalar/helpers': 0.19.0
+      '@scalar/schemas': 0.20.0
+      '@scalar/types': 0.32.0
       '@scalar/validation': 0.6.9
 
-  '@scalar/helpers@0.18.1': {}
+  '@scalar/helpers@0.19.0': {}
 
-  '@scalar/hono-api-reference@0.12.22(hono@4.13.19)':
+  '@scalar/hono-api-reference@0.12.24(hono@4.13.19)':
     dependencies:
-      '@scalar/client-side-rendering': 0.4.21
+      '@scalar/client-side-rendering': 0.4.23
       hono: 4.13.19
 
-  '@scalar/schemas@0.18.1':
+  '@scalar/schemas@0.20.0':
     dependencies:
-      '@scalar/helpers': 0.18.1
-      '@scalar/types': 0.30.0
+      '@scalar/helpers': 0.19.0
+      '@scalar/types': 0.32.0
       '@scalar/validation': 0.6.9
 
-  '@scalar/types@0.30.0':
+  '@scalar/types@0.32.0':
     dependencies:
-      '@scalar/helpers': 0.18.1
-      nanoid: 5.1.16
+      '@scalar/helpers': 0.19.0
+      nanoid: 6.0.2
       type-fest: 5.10.0
       zod: 4.6.7
 
@@ -3812,7 +3812,7 @@ snapshots:
 
   nanoid@3.3.12: {}
 
-  nanoid@5.1.16: {}
+  nanoid@6.0.2: {}
 
   napi-postinstall@0.3.4: {}
 
